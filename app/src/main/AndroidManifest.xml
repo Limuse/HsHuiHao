@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.hshuihao" >
+    package="com.huihao" >
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+        android:launchMode="singleTop"
+        android:screenOrientation="portrait"
+        android:theme="@style/NormalTheme"
+        android:windowSoftInputMode="adjustResize" >
+        <activity android:name=".activity.WelcomeLoading" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.GuideLoading" />
+        <activity android:name=".activity.HomeMain" >
+
         </activity>
     </application>
 

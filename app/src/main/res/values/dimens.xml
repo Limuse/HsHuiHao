@@ -1,5 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="app_toolbar">56dp</dimen>
+    <dimen name="app_bottom">48dp</dimen>
+    <dimen name="app_bottom_btn">40dp</dimen>
+    <dimen name="app_msdwm">24dp</dimen>
+    <dimen name="app_viewcard">0.5dp</dimen>
+    <dimen name="app_lycard">20dp</dimen>
+    <dimen name="app_myself">152dp</dimen>
+    <dimen name="app_myself_cen">80dp</dimen>
+    <dimen name="app_myself_tex">16sp</dimen>
+    <dimen name="app_myself_name">16sp</dimen>
+    <dimen name="app_myself_cencard">56dp</dimen>
+    <dimen name="app_myself_bom">72dp</dimen>
+    <dimen name="app_myself_image">64dp</dimen>
+    <dimen name="app_myself_authentication">16dp</dimen>
+    <dimen name="app_next">16sp</dimen>
+    <dimen name="app_btn_radius">2dp</dimen>
+    <dimen name="app_list_itemh">72dp</dimen>
+    <dimen name="app_list_image">64dp</dimen>
+    <dimen name="app_list_m">8dp</dimen>
+    <dimen name="app_progress_wheel">32dp</dimen>
+    <dimen name="carbon_backpadding">32dp</dimen>
+    <dimen name="carbon_padding">16dp</dimen>
+    <dimen name="carbon_paddingHalf">8dp</dimen>
+    <dimen name="carbon_toolbarHeight">56dp</dimen>
+    <dimen name="carbon_toolbarTextSize">20sp</dimen>
+    <dimen name="carbon_statusBarHeight">25dp</dimen>
+    <dimen name="carbon_dialogPadding">24dp</dimen>
+    <dimen name="carbon_timelineTextSize">14sp</dimen>
+    <dimen name="carbon_avatarSize">40dp</dimen>
+    <dimen name="carbon_elevationFlat">0dp</dimen>
+    <dimen name="carbon_elevationLow">2dp</dimen>
+    <dimen name="carbon_elevationMedium">4dp</dimen>
+    <dimen name="carbon_elevationHigh">6dp</dimen>
+    <dimen name="carbon_elevationMax">8dp</dimen>
+    <dimen name="carbon_fabSize">56dp</dimen>
+    <dimen name="carbon_translation">2dp</dimen>
+    <dimen name="dip">1dp</dimen>
+
+    <integer name="carbon_snackbarDuration">2000</integer>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="header_height">439dp</dimen>
+    <dimen name="min_header_height">391dp</dimen>
+    
+    <dimen name="minpositionheight">118dp</dimen>
+    <dimen name="mintalentheight">125dp</dimen>
+    <dimen name="centerheight">390dp</dimen>
+    <dimen name="maxheight">530dp</dimen>
+
+    <!-- 环信 -->
+    <dimen name="height_top_bar">46dp</dimen>
+    <dimen name="padding_search_bar">5dp</dimen>
+    <dimen name="height_row_weixin">59dp</dimen>
+    <dimen name="size_avatar">50dp</dimen>
+    <dimen name="margin_chat_activity">5dp</dimen>
+    <dimen name="field_textsize">14sp</dimen>
+    <dimen name="field_margin_right">5dp</dimen>
+    <dimen name="call_button_padding_vertical">10dp</dimen>
+    <dimen name="call_button_padding_left">25dp</dimen>
+    <dimen name="call_button_padding_right">25dp</dimen>
+    <dimen name="sidebar_text_size">10dp</dimen>
+    <dimen name="image_thumbnail_size">100dp</dimen>
+    <dimen name="image_thumbnail_spacing">1dp</dimen>
+
 </resources>
