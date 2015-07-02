@@ -16,23 +16,23 @@ public class FragmentHandler extends MHandler {
 
 
     protected void onNetWorkExc() {
-        T.ss("????????????");
+        T.ss("网络请求发现异常");
     }
 
     protected void onParseExc() {
-        T.ss("?????????????");
+        T.ss("数据解析发现异常");
     }
 
     protected void onLoginError() {
-        T.ss("????????????");
+        T.ss("自动登录错误异常");
     }
 
     protected void onLoginNone() {
-        T.ss("?????未???械???????");
+        T.ss("用户并未存有登录帐号异常");
     }
 
     protected void onOtherExc() {
-        T.ss("??????");
+        T.ss("其它异常");
     }
 
 

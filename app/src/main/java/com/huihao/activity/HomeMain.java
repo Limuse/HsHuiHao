@@ -1,5 +1,7 @@
 package com.huihao.activity;
 
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import com.huihao.R;
@@ -18,7 +21,10 @@ import com.huihao.fragment.Fragment_main2;
 import com.huihao.fragment.Fragment_main3;
 import com.huihao.fragment.Fragment_main4;
 import com.huihao.fragment.Fragment_main5;
+import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.T;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -164,4 +170,14 @@ public class HomeMain extends LActivity {
         tintManager.setStatusBarTintResource(R.color.app_toolbar);
         // tintManager.setStatusBarTintResource(R.drawable.ic_launcher);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
 }
