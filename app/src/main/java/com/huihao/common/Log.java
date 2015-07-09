@@ -1,10 +1,6 @@
 package com.huihao.common;
 
-import android.content.res.Resources;
-
 import com.huihao.MyApplication;
-import com.huihao.handle.ActivityHandler;
-import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
 
 /**

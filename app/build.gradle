@@ -24,6 +24,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/lbase.jar')
     compile 'com.jakewharton:butterknife:5.1.1'
-    compile files('D:/androidWork/HsHuiHao/libs/lbase.jar')
-    compile files('D:/androidWork/HsHuiHao/libs/alipaySDK-20150610.jar')
+    compile files('E:/AndroidStudioWork/HsHuiHao/libs/com.umeng.message.lib_v2.3.0.jar')
+    compile files('E:/AndroidStudioWork/HsHuiHao/libs/alipaySDK-20150610.jar')
 }

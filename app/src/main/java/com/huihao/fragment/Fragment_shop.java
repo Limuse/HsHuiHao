@@ -12,7 +12,7 @@ import com.leo.base.activity.fragment.LFragment;
  * Created by admin on 2015/6/26.
  */
 
-public class Fragment_main2 extends LFragment {
+public class Fragment_shop extends LFragment {
     private View parentView;
 
     public void onCreate(Bundle savedInstanceState) {
