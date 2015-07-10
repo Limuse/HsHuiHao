@@ -13,20 +13,21 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:launchMode="singleTop"
         android:screenOrientation="portrait"
         android:theme="@style/NormalTheme"
         android:windowSoftInputMode="adjustResize" >
-        <activity android:name=".activity.WelcomeLoading" >
+        <activity
+            android:name="com.huihao.activity.GuideLoading"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.GuideLoading" />
         <activity android:name=".activity.HomeMain" >
 
         </activity>
@@ -123,4 +124,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />;
 </manifest>

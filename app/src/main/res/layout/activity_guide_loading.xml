@@ -3,26 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ImageView
+        android:id="@+id/load"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:background="@mipmap/welcome_loading"
+        android:scaleType="centerCrop" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </android.support.v4.view.ViewPager>
 
-    <Button
-        android:id="@+id/start_future"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/guide_btn"
-        android:focusable="true"
-        android:text="开启精彩"
-        android:textColor="#ff6200"
-        android:textSize="22sp" 
-        android:onClick="start"
-        />
+        <Button
+            android:id="@+id/start_future"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_into"
+            android:paddingBottom="5dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="5dp"
+            android:text="立即体验"
+            android:onClick="start"
+           android:layout_alignParentBottom="true"
+           android:layout_marginBottom="32dp"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
 
 </RelativeLayout>
