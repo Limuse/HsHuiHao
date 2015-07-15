@@ -46,18 +46,23 @@ public class Fragment_main extends LFragment {
                 Log.e(device_token + "!!!!");
             }
         });
+        initBar();
+    }
 
-
+    private void initBar() {
         Toolbar toolbar=(Toolbar)getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("汇好");
-        toolbar.setNavigationIcon(R.mipmap.logo);
+        toolbar.setTitle("汇好");//设置标题
+        toolbar.setTitleTextColor(Color.WHITE);//设置标题颜色
+        toolbar.setNavigationIcon(R.mipmap.logo);//设置左边图标
+        //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getActivity().finish();
             }
         });
-        toolbar.setTitleTextColor(Color.WHITE);
+        //加载右边图标样式
         toolbar.inflateMenu(R.menu.fragment_main_menu);
+        //右边图片点击事件
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId()==R.id.menu_message){
