@@ -1,4 +1,4 @@
-package com.huihao.custom;
+package com.huihao.common;
 
 /**
  * Created by huisou on 2015/7/7.

@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huihao" >
-
-    <meta-data
-        android:name="UMENG_APPKEY"
-        android:value="5599d01d67e58e432e0070f5" >
-    </meta-data>
-    <meta-data
-        android:name="UMENG_MESSAGE_SECRET"
-        android:value="817d2b191038b1f5ddc7d4e262edff31" >
-    </meta-data>
+    package="com.huihao">
 
     <application
         android:allowBackup="true"
@@ -17,104 +8,103 @@
         android:label="@string/app_name"
         android:launchMode="singleTop"
         android:screenOrientation="portrait"
-        android:theme="@style/NormalTheme"
-        android:windowSoftInputMode="adjustResize" >
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize">
+
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="559f847a67e58e2bd70050be"></meta-data>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="d3617d8bb9c0b911f010cfaf9f5ce8df"/>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="HUISOU"></meta-data>
+
+
         <activity
             android:name="com.huihao.activity.GuideLoading"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeMain" >
+        <activity android:name=".activity.HomeMain"></activity>
 
-        </activity>
+
+        <!-- 推送配置开始 -->
+        <receiver
+            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+            android:exported="false" >
+        </receiver>
+        <receiver android:name="com.umeng.message.RegistrationReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+
+        </receiver>
+        <receiver android:name="com.umeng.message.UmengBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.huihao.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RE_ELECTION_V2" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.umeng.message.BootBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.umeng.message.UmengService"
+            android:label="PushService"
+            android:exported="true"
+            android:process=":pushService_v1" >
+
+
+
+            <intent-filter>
+                <action android:name="com.huihao.intent.action.START" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.huihao.intent.action.COCKROACH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.PING" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="org.android.agoo.service.ElectionService"
+            android:exported="true"
+            android:process=":pushService_v1" >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.ELECTION_V2" />
+            </intent-filter>
+        </service>
+        <service android:name="com.umeng.message.UmengIntentService" />
+        <!-- V1.3.0添加的service，负责下载通知的资源 -->
+        <service android:name="com.umeng.message.UmengDownloadResourceService" />
+        <!-- 推送配置结束 -->
     </application>
 
 
-    <!-- 推送配置开始 -->
-    <receiver
-        android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-        android:process=":push"
-        android:exported="false" >
-    </receiver>
-    <receiver
-         android:name="com.umeng.message.SystemReceiver"
-         android:process=":push" >
-         <intent-filter>
-             <action android:name="android.intent.action.BOOT_COMPLETED" />
-         </intent-filter>
-         <intent-filter>
-             <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-         </intent-filter>
-         <intent-filter>
-             <action android:name="android.intent.action.PACKAGE_REMOVED" />
-             <data android:scheme="package" />
-         </intent-filter>
-    </receiver>
-    <receiver
-         android:name="com.umeng.message.MessageReceiver"
-         android:process=":push" >
-         <intent-filter>
-             <action android:name="org.agoo.android.intent.action.RECEIVE" />
-         </intent-filter>
-    </receiver>
-    <receiver
-         android:name="com.umeng.message.ElectionReceiver"
-         android:process=":push" >
-         <intent-filter>
-             <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
-             <category android:name="umeng" />
-         </intent-filter>
-    </receiver>
-    <receiver
-         android:name="com.umeng.message.RegistrationReceiver"
-         android:exported="false" >
-         <intent-filter>
-             <action android:name="com.huihao.intent.action.COMMAND" />
-         </intent-filter>
-    </receiver>
-    <receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
-         <intent-filter>
-             <action android:name="android.intent.action.BOOT_COMPLETED" />
-         </intent-filter>
-    </receiver>
-    <service
-        android:name="com.umeng.message.UmengService"
-        android:label="PushService"
-        android:exported="true"
-        android:process=":push" >
-        <intent-filter>
-            <action android:name="com.huihao.intent.action.START" />
-        </intent-filter>
-        <intent-filter>
-            <action android:name="com.huihao.intent.action.COCKROACH" />
-        </intent-filter>
-        <intent-filter>
-            <action android:name="org.agoo.android.intent.action.PING_V4" />
-            <category android:name="umeng" />
-        </intent-filter>
-    </service>
-    <service android:name="com.umeng.message.UmengIntentService"
-        android:process=":push" />
-    <service
-         android:name="com.umeng.message.UmengMessageIntentReceiverService"
-         android:process=":push"
-         android:exported="true" >
-         <intent-filter>
-             <action android:name="org.android.agoo.client.MessageReceiverService" />
-         </intent-filter>
-         <intent-filter>
-             <action android:name="org.android.agoo.client.ElectionReceiverService" />
-         </intent-filter>
-    </service>
-    <service android:name="com.umeng.message.UmengDownloadResourceService" />
-    <!-- 推送配置结束 -->
-
-
-    <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -123,10 +113,5 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />;
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>

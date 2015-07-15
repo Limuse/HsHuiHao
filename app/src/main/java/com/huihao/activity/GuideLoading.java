@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.huihao.R;
 import com.huihao.common.DepthPageTransformer;
+import com.huihao.common.Log;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,6 +39,7 @@ public class GuideLoading extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_guide_loading);
+
 		InitView();
 		initLoad();
 	}

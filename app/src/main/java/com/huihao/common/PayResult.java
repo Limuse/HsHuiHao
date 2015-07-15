@@ -1,4 +1,4 @@
-package com.huihao.custom;
+package com.huihao.common;
 
 import android.text.TextUtils;
 

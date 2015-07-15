@@ -19,6 +19,7 @@ import com.huihao.fragment.Fragment_message;
 import com.huihao.fragment.Fragment_huihao;
 import com.leo.base.activity.LActivity;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -40,8 +41,6 @@ public class HomeMain extends LActivity {
     Button releaseto;
     @InjectView(R.id.my)
     Button my;
-    @InjectView(R.id.other)
-    Button other;
 
     private Fragment_main fragment_main;
     private Fragment_shop fragment_shop;
@@ -63,13 +62,20 @@ public class HomeMain extends LActivity {
     protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home);
         ButterKnife.inject(this);
+        PushAgent.getInstance(this).onAppStart();
         initBar();
-        initPush();
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initPush();
+    }
+
     private void initPush() {
-        PushAgent mPushAgent = PushAgent.getInstance(HomeMain.this);
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        PushAgent.setAppLaunchByMessage();
         mPushAgent.enable();
         Log.e(mPushAgent.isEnabled() + "");
     }
@@ -114,15 +120,6 @@ public class HomeMain extends LActivity {
         switchFragment(fragment_message, HUIHAO);
     }
 
-    @OnClick(R.id.other)
-    void other() {
-        if (hideTag.equals(MESSAGE))
-            return;
-        if (fragment_huihao == null) {
-            fragment_huihao = new Fragment_huihao();
-        }
-        switchFragment(fragment_huihao, MESSAGE);
-    }
 
     private void initView() {
         fragment_main = new Fragment_main();

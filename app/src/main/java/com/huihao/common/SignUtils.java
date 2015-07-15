@@ -1,4 +1,4 @@
-package com.huihao.custom;
+package com.huihao.common;
 
 import java.security.KeyFactory;
 import java.security.PrivateKey;
