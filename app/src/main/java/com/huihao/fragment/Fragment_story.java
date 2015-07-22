@@ -12,7 +12,7 @@ import com.leo.base.activity.fragment.LFragment;
  * Created by admin on 2015/6/26.
  */
 
-public class Fragment_message extends LFragment {
+public class Fragment_story extends LFragment {
     private View parentView;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class Fragment_message extends LFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_main4,
+        parentView = inflater.inflate(R.layout.fragment_story,
                 container, false);
         return parentView;
     }

@@ -5,9 +5,9 @@
         <item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>
     </style>
     <!-- Base application theme. -->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="android:windowBackground">@color/dim_foreground_material_dark</item>
+        <item name="android:windowBackground">@color/app_white</item>
         <item name="colorPrimaryDark">@color/app_toolbar</item>
         <item name="android:windowNoTitle">true</item>
     </style>

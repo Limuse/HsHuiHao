@@ -21,7 +21,7 @@ public class Fragment_shop extends LFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        parentView = inflater.inflate(R.layout.fragment_main2,
+        parentView = inflater.inflate(R.layout.fragment_shop,
                 container, false);
         return parentView;
     }

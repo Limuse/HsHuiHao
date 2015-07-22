@@ -34,7 +34,6 @@ public class GuideLoading extends Activity {
 	private Editor editor;
 	private boolean isFirstIn = true;
 	private ImageView load;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

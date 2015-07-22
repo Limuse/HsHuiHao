@@ -15,11 +15,9 @@ import com.huihao.common.SystemBarTintManager;
 import com.huihao.fragment.Fragment_main;
 import com.huihao.fragment.Fragment_shop;
 import com.huihao.fragment.Fragment_my;
-import com.huihao.fragment.Fragment_message;
-import com.huihao.fragment.Fragment_huihao;
+import com.huihao.fragment.Fragment_story;
 import com.leo.base.activity.LActivity;
 import com.umeng.message.PushAgent;
-import com.umeng.message.UmengRegistrar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -33,26 +31,25 @@ import butterknife.OnClick;
  * Tag
  */
 public class HomeMain extends LActivity {
-    @InjectView(R.id.find)
-    Button find;
-    @InjectView(R.id.friendmsg)
-    Button friendmsg;
-    @InjectView(R.id.releaseto)
-    Button releaseto;
+    @InjectView(R.id.main)
+    Button main;
+    @InjectView(R.id.story)
+    Button story;
+    @InjectView(R.id.shop)
+    Button shop;
     @InjectView(R.id.my)
     Button my;
+
 
     private Fragment_main fragment_main;
     private Fragment_shop fragment_shop;
     private Fragment_my fragment_my;
-    private Fragment_huihao fragment_huihao;
-    private Fragment_message fragment_message;
+    private Fragment_story fragment_story;
 
     public static final String MAIN = "main";
+    public static final String STORY = "story";
     public static final String SHOP = "shop";
     public static final String MY = "my";
-    public static final String HUIHAO = "huihao";
-    public static final String MESSAGE = "message";
 
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
@@ -80,8 +77,8 @@ public class HomeMain extends LActivity {
         Log.e(mPushAgent.isEnabled() + "");
     }
 
-    @OnClick(R.id.find)
-    void find() {
+    @OnClick(R.id.main)
+    void main() {
         if (hideTag.equals(MAIN))
             return;
         if (fragment_main == null) {
@@ -90,8 +87,18 @@ public class HomeMain extends LActivity {
         switchFragment(fragment_main, MAIN);
     }
 
-    @OnClick(R.id.friendmsg)
-    void friendmsg() {
+    @OnClick(R.id.story)
+    void story() {
+        if (hideTag.equals(STORY))
+            return;
+        if (fragment_story == null) {
+            fragment_story = new Fragment_story();
+        }
+        switchFragment(fragment_story, STORY);
+    }
+
+    @OnClick(R.id.shop)
+    void shop() {
         if (hideTag.equals(SHOP))
             return;
         if (fragment_shop == null) {
@@ -100,24 +107,14 @@ public class HomeMain extends LActivity {
         switchFragment(fragment_shop, SHOP);
     }
 
-    @OnClick(R.id.releaseto)
-    void releaseto() {
+    @OnClick(R.id.my)
+    void my() {
         if (hideTag.equals(MY))
             return;
         if (fragment_my == null) {
             fragment_my = new Fragment_my();
         }
         switchFragment(fragment_my, MY);
-    }
-
-    @OnClick(R.id.my)
-    void my() {
-        if (hideTag.equals(HUIHAO))
-            return;
-        if (fragment_message == null) {
-            fragment_message = new Fragment_message();
-        }
-        switchFragment(fragment_message, HUIHAO);
     }
 
 

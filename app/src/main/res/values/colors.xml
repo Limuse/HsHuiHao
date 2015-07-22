@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="app_toolbar">#ff5722</color>
+    <color name="app_toolbar">#00796b</color>
     <color name="app_toolbar_ben">#55cccccc</color>
     <color name="app_bottom">#f7f7f7</color>
     <color name="app_viewcard">#dcdcdc</color>

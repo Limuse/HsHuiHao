@@ -27,7 +27,7 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/find"
+                    android:id="@+id/main"
                     android:layout_width="@dimen/app_bottom_btn"
                     android:layout_height="@dimen/app_bottom_btn"
                     android:layout_centerInParent="true"
@@ -41,7 +41,7 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/friendmsg"
+                    android:id="@+id/story"
                     android:layout_width="@dimen/app_bottom_btn"
                     android:layout_height="@dimen/app_bottom_btn"
                     android:layout_centerInParent="true"
@@ -68,7 +68,7 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/releaseto"
+                    android:id="@+id/shop"
                     android:layout_width="@dimen/app_bottom_btn"
                     android:layout_height="@dimen/app_bottom_btn"
                     android:layout_centerInParent="true"
