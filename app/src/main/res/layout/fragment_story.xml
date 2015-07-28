@@ -17,7 +17,7 @@
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/tv"
             android:background="@color/app_line" />
-
+.
         <View
             android:layout_width="100dp"
             android:layout_height="1dp"
