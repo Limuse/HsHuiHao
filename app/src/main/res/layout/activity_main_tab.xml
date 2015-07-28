@@ -2,18 +2,19 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="49dp"
     android:orientation="vertical">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/app_viewcard" />
+        android:background="@color/app_line" />
 
     <RelativeLayout
         android:id="@+id/community_title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bottom"
-        android:background="@color/app_bottom"
+        android:background="@color/app_white"
         android:paddingBottom="1dp"
         android:paddingTop="1dp">
 
@@ -22,31 +23,37 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
+                android:id="@+id/relmain"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <Button
                     android:id="@+id/main"
-                    android:layout_width="@dimen/app_bottom_btn"
-                    android:layout_height="@dimen/app_bottom_btn"
+                    android:layout_width="21dp"
+                    android:layout_height="36dp"
                     android:layout_centerInParent="true"
-                    android:background="#ffffff"
-                    android:text="1" />
+                    android:background="@mipmap/mainn"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relstory"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <Button
                     android:id="@+id/story"
-                    android:layout_width="@dimen/app_bottom_btn"
-                    android:layout_height="@dimen/app_bottom_btn"
+                    android:layout_width="21dp"
+                    android:layout_height="36dp"
                     android:layout_centerInParent="true"
-                    android:background="#ffffff"
-                    android:text="2" />
+                    android:background="@mipmap/storyn"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false" />
 
                 <TextView
                     android:id="@+id/unread_msg_number"
@@ -63,31 +70,37 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relshop"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <Button
                     android:id="@+id/shop"
-                    android:layout_width="@dimen/app_bottom_btn"
-                    android:layout_height="@dimen/app_bottom_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="36dp"
                     android:layout_centerInParent="true"
-                    android:background="#ffffff"
-                    android:text="3" />
+                    android:background="@mipmap/shopn"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relmy"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <Button
                     android:id="@+id/my"
-                    android:layout_width="@dimen/app_bottom_btn"
-                    android:layout_height="@dimen/app_bottom_btn"
+                    android:layout_width="21dp"
+                    android:layout_height="36dp"
                     android:layout_centerInParent="true"
-                    android:background="#ffffff"
-                    android:text="4" />
+                    android:background="@mipmap/myn"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -97,5 +110,12 @@
             android:layout_height="0dp"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
+
+    <CheckedTextView
+        android:id="@+id/checkedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="New CheckedTextView" />
 
 </LinearLayout>

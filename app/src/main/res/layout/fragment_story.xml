@@ -8,6 +8,6 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:text="4"
+    android:text="专题"
     android:textSize="50sp"/>
 </LinearLayout>

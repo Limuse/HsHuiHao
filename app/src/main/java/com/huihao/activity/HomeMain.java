@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.huihao.R;
 import com.huihao.common.Log;
@@ -40,6 +41,15 @@ public class HomeMain extends LActivity {
     @InjectView(R.id.my)
     Button my;
 
+    @InjectView(R.id.relmain)
+    RelativeLayout relmain;
+    @InjectView(R.id.relstory)
+    RelativeLayout relstory;
+    @InjectView(R.id.relshop)
+    RelativeLayout relshop;
+    @InjectView(R.id.relmy)
+    RelativeLayout relmy;
+
 
     private Fragment_main fragment_main;
     private Fragment_shop fragment_shop;
@@ -67,60 +77,66 @@ public class HomeMain extends LActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initPush();
     }
 
-    private void initPush() {
-        PushAgent mPushAgent = PushAgent.getInstance(this);
-        PushAgent.setAppLaunchByMessage();
-        mPushAgent.enable();
-        Log.e(mPushAgent.isEnabled() + "");
-    }
-
-    @OnClick(R.id.main)
+    @OnClick(R.id.relmain)
     void main() {
         if (hideTag.equals(MAIN))
             return;
         if (fragment_main == null) {
             fragment_main = new Fragment_main();
         }
+        setBg();
+        main.setBackgroundResource(R.mipmap.mainp);
         switchFragment(fragment_main, MAIN);
     }
 
-    @OnClick(R.id.story)
+    @OnClick(R.id.relstory)
     void story() {
         if (hideTag.equals(STORY))
             return;
         if (fragment_story == null) {
             fragment_story = new Fragment_story();
         }
+        setBg();
+        story.setBackgroundResource(R.mipmap.storyp);
         switchFragment(fragment_story, STORY);
     }
 
-    @OnClick(R.id.shop)
+    @OnClick(R.id.relshop)
     void shop() {
         if (hideTag.equals(SHOP))
             return;
         if (fragment_shop == null) {
             fragment_shop = new Fragment_shop();
         }
+        setBg();
+        shop.setBackgroundResource(R.mipmap.shopp);
         switchFragment(fragment_shop, SHOP);
     }
 
-    @OnClick(R.id.my)
+    @OnClick(R.id.relmy)
     void my() {
         if (hideTag.equals(MY))
             return;
         if (fragment_my == null) {
             fragment_my = new Fragment_my();
         }
+        setBg();
+        my.setBackgroundResource(R.mipmap.myp);
         switchFragment(fragment_my, MY);
     }
 
+    public void setBg() {
+        main.setBackgroundResource(R.mipmap.mainn);
+        story.setBackgroundResource(R.mipmap.storyn);
+        shop.setBackgroundResource(R.mipmap.shopn);
+        my.setBackgroundResource(R.mipmap.myn);
+    }
 
     private void initView() {
         fragment_main = new Fragment_main();
-//        find.setBackgroundResource(R.drawable.tab_findn);
+        main.setBackgroundResource(R.mipmap.mainp);
         switchFragment(fragment_main, MAIN);
     }
 
@@ -156,7 +172,7 @@ public class HomeMain extends LActivity {
         }
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.app_toolbar);
+        tintManager.setStatusBarTintResource(R.color.app_white);
         // tintManager.setStatusBarTintResource(R.drawable.ic_launcher);
     }
 

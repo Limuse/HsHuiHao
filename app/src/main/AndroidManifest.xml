@@ -3,6 +3,7 @@
     package="com.huihao">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -17,7 +18,7 @@
             android:value="559f847a67e58e2bd70050be"></meta-data>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="d3617d8bb9c0b911f010cfaf9f5ce8df"/>
+            android:value="d3617d8bb9c0b911f010cfaf9f5ce8df" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="HUISOU"></meta-data>
@@ -25,6 +26,8 @@
 
         <activity
             android:name="com.huihao.activity.GuideLoading"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,15 +35,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeMain"></activity>
+        <activity
+            android:name=".activity.HomeMain"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
 
 
         <!-- 推送配置开始 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-            android:exported="false" >
-        </receiver>
-        <receiver android:name="com.umeng.message.RegistrationReceiver" >
+            android:exported="false"></receiver>
+        <receiver android:name="com.umeng.message.RegistrationReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
@@ -56,7 +61,7 @@
             </intent-filter>
 
         </receiver>
-        <receiver android:name="com.umeng.message.UmengBroadcastReceiver" >
+        <receiver android:name="com.umeng.message.UmengBroadcastReceiver">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
@@ -67,17 +72,17 @@
                 <action android:name="org.agoo.android.intent.action.RE_ELECTION_V2" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.umeng.message.BootBroadcastReceiver" >
+        <receiver android:name="com.umeng.message.BootBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.umeng.message.UmengService"
-            android:label="PushService"
             android:exported="true"
-            android:process=":pushService_v1" >
-
+            android:label="PushService"
+            android:process=":pushService_v1">
 
 
             <intent-filter>
@@ -93,7 +98,7 @@
         <service
             android:name="org.android.agoo.service.ElectionService"
             android:exported="true"
-            android:process=":pushService_v1" >
+            android:process=":pushService_v1">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.ELECTION_V2" />
             </intent-filter>
