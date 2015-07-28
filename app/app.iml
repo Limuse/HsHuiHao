@@ -91,8 +91,11 @@
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="com.umeng.message.lib" level="project" />
+    <orderEntry type="library" exported="" name="1_com.umeng.message.lib" level="project" />
     <orderEntry type="library" exported="" name="lbase" level="project" />
+    <orderEntry type="library" exported="" name="1_lbase" level="project" />
     <orderEntry type="library" exported="" name="alipaySDK-20150610" level="project" />
+    <orderEntry type="library" exported="" name="1_alipaySDK-20150610" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="butterknife-5.1.1" level="project" />
