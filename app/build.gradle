@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.android.hshuihao"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -28,5 +28,4 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/com.umeng.message.lib.jar')
     compile 'com.jakewharton:butterknife:5.1.1'
-    compile files('E:/AndroidStudioWork/HsHuiHao/libs/universal-image-loader-1.9.2.jar')
 }
