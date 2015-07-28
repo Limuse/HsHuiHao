@@ -1,14 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="app_green">#08bdb7</color>
-    <color name="app_orange">#ff5722</color>
-    <color name="app_orange_press">#90ff5722</color>
-    <color name="app_white">#ffffff</color>
-    <color name="app_white_press">#90ffffff</color>
+    <color name="app_toolbar">#00796b</color>
+    <color name="app_toolbar_ben">#55cccccc</color>
+    <color name="app_bottom">#f7f7f7</color>
+    <color name="app_viewcard">#dcdcdc</color>
+    <color name="app_background">#f2f2f2</color>
     <color name="app_gra">#00000000</color>
     <color name="app_line">#dcdcdc</color>
-    <color name="app_text_dark">#333333</color>
-    <color name="app_text_light">#8a8a8a</color>
+    <color name="app_text">#59596c</color>
+    <color name="app_text_press">#8c8c8c</color>
+    <color name="app_white">#ffffffff</color>
+    <color name="app_btn_p">#ff5722</color>
+    <color name="app_btn_n">#1a000000</color>
+    <color name="offline">#F5F5F5</color>
 
+    <!-- dark theme -->
+    <color name="carbon_white">#ffffffff</color>
+    <color name="carbon_divider_dark">#1fffffff</color>
+    <color name="carbon_ripple_dark">#40cccccc</color>
+    <color name="carbon_icon_light">#deffffff</color>
+    <color name="carbon_background_dark">#ff333333</color>
+
+    <!-- light theme -->
+    <color name="carbon_black">#ff000000</color>
+    <color name="carbon_divider_light">#1f000000</color>
+    <color name="carbon_ripple_light">#66999999</color>
+    <color name="carbon_background_light">#ffeeeeee</color>
+    <color name="carbon_debug">#ffff0000</color>
+    <color name="carbon_white_30">#4dffffff</color>
+    <color name="carbon_white_70">#b3ffffff</color>
+    <color name="carbon_black_26">#42000000</color>
+    <color name="carbon_black_54">#8a000000</color>
+    <color name="carbon_icon_dark">#de000000</color>
+    <color name="carbon_tab_text_selected">#ff000000</color>
+    <color name="carbon_tab_text_unselected">#8a000000</color>
+
+    <!-- msd dialog -->
+    <color name="card_background">#ffffff</color>
+    <color name="card_shadow">#10000000</color>
+    <color name="lite_blue">#ff359ff2</color>
+    <color name="window_background">#00000000</color>
+
+    <!-- 滑动viewpager -->
+
+    <color name="background_tab_pressed">#66ffffff</color>
+    <color name="settingsn">#dddddd</color>
+    <color name="settingsp">#ffffff</color>
+    <color name="stroke">#d3d3d3</color>
+    <color name="stroke2">#dddddd</color>
+    <color name="twostage_pressed">#ededed</color>
+
+    <!-- 环信 -->
+    <color name="common_top_bar_blue">#4ebcd3</color>
+    <color name="btn_login_normal">#007086</color>
+    <color name="btn_login_pressed">#303744</color>
+    <color name="btn_logout_normal">#d33f3f</color>
+    <color name="btn_logout_pressed">#DA5A4D</color>
+    <color name="btn_register_normal">#2dafa3</color>
+    <color name="btn_register_pressed">#4ebcd3</color>
+    <color name="common_bottom_bar_normal_bg">#2d2f31</color>
+    <color name="common_bottom_bar_selected_bg">#161718</color>
+    <color name="common_botton_bar_blue">#2ea7e0</color>
+    <color name="common_bg">#fcfcfc</color>
+    <color name="btn_pressed_green_solid">#B6DA53</color>
+    <color name="divider_list">#cccccc</color>
+    <color name="top_bar_normal_bg">#4ebcd3</color>
+    <color name="error_item_color">#F6EBE6</color>
+    <color name="bottom_bar_normal_bg">#2D2F31</color>
+    <color name="bottom_text_color_normal">#ffffff</color>
+    <color name="btn_white_normal">#f7f8f8</color>
+    <color name="btn_white_pressed">#b5b5b6</color>
+    <color name="btn_green_noraml">#68C270</color>
+    <color name="btn_green_pressed">#6FCD78</color>
+    <color name="btn_gray_normal">#c0c0c0</color>
+    <color name="btn_gray_pressed_status">#b5b5b6</color>
+    <color name="btn_gray_pressed">#666667</color>
+    <color name="btn_blue_normal">#1e90ff</color>
+    <color name="btn_blue_pressed">#0066FF</color>
+    <color name="orange">#FFA500</color>
+    <color name="gray_pressed">#b5b5b6</color>
+    <color name="gray_normal">#666667</color>
+    <color name="grid_state_pressed">#1Affffff</color>
+    <color name="grid_state_focused">#80000000</color>
+    <color name="voip_interface_text_color">#bababa</color>
+    <color name="black_deep">#FF000000</color>
+
+	<color name="women">#ffacca</color>
+	<color name="men">#72cce8</color>
 </resources>
