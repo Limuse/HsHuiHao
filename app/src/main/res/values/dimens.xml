@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="app_toolbar">56dp</dimen>
-    <dimen name="app_bottom">48dp</dimen>
+    <dimen name="app_bottom">49dp</dimen>
     <dimen name="app_bottom_btn">40dp</dimen>
     <dimen name="app_msdwm">24dp</dimen>
     <dimen name="app_viewcard">0.5dp</dimen>
@@ -13,10 +13,7 @@
     <dimen name="app_myself_cencard">56dp</dimen>
     <dimen name="app_myself_bom">72dp</dimen>
     <dimen name="app_myself_image">64dp</dimen>
-    <dimen name="app_myself_authentication">16dp</dimen>
-    <dimen name="app_next">16sp</dimen>
-    <dimen name="app_btn_radius">2dp</dimen>
-    <dimen name="app_list_itemh">72dp</dimen>
+
     <dimen name="app_list_image">64dp</dimen>
     <dimen name="app_list_m">8dp</dimen>
     <dimen name="app_progress_wheel">32dp</dimen>
@@ -44,7 +41,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="header_height">439dp</dimen>
     <dimen name="min_header_height">391dp</dimen>
-    
+
     <dimen name="minpositionheight">118dp</dimen>
     <dimen name="mintalentheight">125dp</dimen>
     <dimen name="centerheight">390dp</dimen>
@@ -65,4 +62,7 @@
     <dimen name="image_thumbnail_size">100dp</dimen>
     <dimen name="image_thumbnail_spacing">1dp</dimen>
 
+    <dimen name="app_text_small">12sp</dimen>
+    <dimen name="app_text_normal">14sp</dimen>
+    <dimen name="app_text_big">16sp</dimen>
 </resources>
