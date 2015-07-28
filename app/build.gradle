@@ -29,4 +29,7 @@ dependencies {
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/com.umeng.message.lib.jar')
     compile 'com.jakewharton:butterknife:5.1.1'
     compile files('D:/androidWork/HsHuiHao/libs/lbase.jar')
+    compile files('D:/androidWork/HsHuiHao/libs/universal-image-loader-1.9.2.jar')
+    compile files('D:/androidWork/HsHuiHao/libs/com.umeng.message.lib.jar')
+    compile files('D:/androidWork/HsHuiHao/libs/alipaySDK-20150610.jar')
 }
