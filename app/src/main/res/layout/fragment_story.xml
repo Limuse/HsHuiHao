@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     android:background="@color/app_white"
     android:orientation="vertical">
 
@@ -35,14 +36,16 @@
             android:textSize="24sp" />
     </RelativeLayout>
 
-    <com.huihao.custom.AnimaViewPager
+    <android.support.v4.view.ViewPager
         android:id="@+id/viewpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginRight="56dp"
         android:clipChildren="false"
-        android:overScrollMode="never"></com.huihao.custom.AnimaViewPager>
+        android:overScrollMode="never" ></android.support.v4.view.ViewPager>
 
 </LinearLayout>

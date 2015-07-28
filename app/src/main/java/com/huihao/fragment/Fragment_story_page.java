@@ -18,11 +18,10 @@ import java.util.ArrayList;
  */
 
 public class Fragment_story_page extends LFragment {
-    private View parentView;
     private ViewPager viewPager;
     private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
     private String info;
-    private View total;
+    private View parentView;
     private ImageView image;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -33,12 +32,7 @@ public class Fragment_story_page extends LFragment {
                              Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_story_page,
                 container, false);
-        container = (ViewGroup) inflater.inflate(
-                R.layout.fragment_story_page_view, null);
-        total = inflater.inflate(R.layout.fragment_story_page, null);
-        container.addView(total);
-        parentView=container;
-        return container;
+        return parentView;
     }
 
     @Override

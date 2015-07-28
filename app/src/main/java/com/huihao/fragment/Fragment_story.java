@@ -1,20 +1,16 @@
 package com.huihao.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.huihao.R;
-import com.huihao.common.Log;
-import com.huihao.custom.AnimaViewPager;
 import com.leo.base.activity.fragment.LFragment;
 
 import java.util.ArrayList;
@@ -25,7 +21,7 @@ import java.util.ArrayList;
 
 public class Fragment_story extends LFragment {
     private View parentView;
-    private AnimaViewPager viewPager;
+    private ViewPager viewPager;
     private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
 
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +45,7 @@ public class Fragment_story extends LFragment {
 
 
     private void initView() {
-        viewPager = (AnimaViewPager) parentView.findViewById(R.id.viewpage);
+        viewPager = (ViewPager) parentView.findViewById(R.id.viewpage);
     }
 
     private void initData() {
@@ -61,11 +57,12 @@ public class Fragment_story extends LFragment {
     }
 
 
-
     private void initPage() {
+        WindowManager wm = getActivity().getWindowManager();
+        int width = wm.getDefaultDisplay().getWidth();
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setPageMargin(width/10);
         viewPager.setAdapter(new MyAdapter(getActivity().getSupportFragmentManager()));
-        AnimaViewPager.TransitionEffect effect = AnimaViewPager.TransitionEffect.ZoomIn;
-        viewPager.setTransitionEffect(effect);
         viewPager.setCurrentItem(1);
     }
 
@@ -89,4 +86,8 @@ public class Fragment_story extends LFragment {
             return fragmentList.size();
         }
     }
+
+
+
+
 }

@@ -28,5 +28,4 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/com.umeng.message.lib.jar')
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/universal-image-loader-1.9.2.jar')
-    compile files('E:/AndroidStudioWork/HsHuiHao/libs/nineoldandroids-2.4.0.jar')
 }
