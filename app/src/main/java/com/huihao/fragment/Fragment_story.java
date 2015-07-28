@@ -2,6 +2,10 @@ package com.huihao.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -10,7 +14,10 @@ import android.view.ViewGroup;
 
 import com.huihao.R;
 import com.huihao.common.Log;
+import com.huihao.custom.AnimaViewPager;
 import com.leo.base.activity.fragment.LFragment;
+
+import java.util.ArrayList;
 
 /**
  * Created by admin on 2015/6/26.
@@ -18,6 +25,8 @@ import com.leo.base.activity.fragment.LFragment;
 
 public class Fragment_story extends LFragment {
     private View parentView;
+    private AnimaViewPager viewPager;
+    private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,29 +42,49 @@ public class Fragment_story extends LFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initBar();
+        initView();
+        initData();
+        initPage();
     }
-    private void initBar() {
-        Toolbar toolbar=(Toolbar)parentView.findViewById(R.id.toolbar);
-        toolbar.setTitle("专题");//设置标题
-        toolbar.setTitleTextColor(Color.WHITE);//设置标题颜色
-        toolbar.setNavigationIcon(R.mipmap.logo);//设置左边图标
-        //左边图标点击事件
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-        //加载右边图标样式
-        toolbar.inflateMenu(R.menu.fragment_main_menu);
-        //右边图片点击事件
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId()==R.id.menu_message){
-                    getActivity().finish();
-                }
-                return false;
-            }
-        });
+
+
+    private void initView() {
+        viewPager = (AnimaViewPager) parentView.findViewById(R.id.viewpage);
+    }
+
+    private void initData() {
+        for (int i = 0; i < 3; i++) {
+            Fragment_story_page fragmentStoryPage = new Fragment_story_page();
+            fragmentStoryPage.getData(i + "");
+            fragmentList.add(fragmentStoryPage);
+        }
+    }
+
+    private void initPage() {
+        viewPager.setAdapter(new MyAdapter(getActivity().getSupportFragmentManager()));
+        AnimaViewPager.TransitionEffect effect = AnimaViewPager.TransitionEffect.ZoomIn;
+        viewPager.setTransitionEffect(effect);
+        viewPager.setCurrentItem(1);
+    }
+
+    private class MyAdapter extends FragmentStatePagerAdapter {
+        public MyAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
     }
 }

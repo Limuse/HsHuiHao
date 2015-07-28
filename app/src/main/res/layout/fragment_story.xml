@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#ffffff"
-    android:layout_height="match_parent">
-
-    <include layout="@layout/toolbar" />
-<TextView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:text="专题"
-    android:textSize="50sp"/>
+    android:background="@color/app_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp">
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/tv"
+            android:background="@color/app_line" />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@+id/tv"
+            android:background="@color/app_line" />
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="专题"
+            android:textColor="@color/app_text_dark"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
+    <com.huihao.custom.AnimaViewPager
+        android:id="@+id/viewpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:clipChildren="false"
+        android:overScrollMode="never"></com.huihao.custom.AnimaViewPager>
+
 </LinearLayout>

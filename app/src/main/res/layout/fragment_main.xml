@@ -71,7 +71,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
+                        android:layout_margin="6dp"
                         android:layout_toRightOf="@+id/tv_title1"
                         android:background="@mipmap/ic_launcher" />
 
@@ -125,7 +125,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
+                        android:layout_margin="6dp"
                         android:layout_toRightOf="@+id/tv_title2"
                         android:background="@mipmap/ic_launcher" />
 
@@ -260,7 +260,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="8dp"
+                            android:layout_margin="6dp"
                             android:layout_toRightOf="@+id/tv_title5"
                             android:background="@mipmap/ic_launcher" />
                     </RelativeLayout>
@@ -295,7 +295,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="8dp"
+                            android:layout_margin="6dp"
                             android:layout_toRightOf="@+id/tv_title4"
                             android:background="@mipmap/ic_launcher" />
                     </RelativeLayout>

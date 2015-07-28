@@ -16,23 +16,23 @@ public class ActivityHandler extends MHandler {
 
 
 	protected void onNetWorkExc() {
-		T.ss("网络请求发现异常");
+		T.ss("缃戠粶璇锋眰鍙戠幇寮傚父");
 	}
 
 	protected void onParseExc() {
-		T.ss("数据解析发现异常");
+		T.ss("鏁版嵁瑙ｆ瀽鍙戠幇寮傚父");
 	}
 
 	protected void onLoginError() {
-		T.ss("自动登录错误异常");
+		T.ss("鑷姩鐧诲綍閿欒寮傚父");
 	}
 
 	protected void onLoginNone() {
-		T.ss("用户并未存有登录帐号异常");
+		T.ss("鐢ㄦ埛骞舵湭瀛樻湁鐧诲綍甯愬彿寮傚父");
 	}
 
 	protected void onOtherExc() {
-		T.ss("其它异常");
+		T.ss("鍏跺畠寮傚父");
 	}
 
 
