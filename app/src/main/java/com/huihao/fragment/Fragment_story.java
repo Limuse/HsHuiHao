@@ -60,6 +60,8 @@ public class Fragment_story extends LFragment {
         }
     }
 
+
+
     private void initPage() {
         viewPager.setAdapter(new MyAdapter(getActivity().getSupportFragmentManager()));
         AnimaViewPager.TransitionEffect effect = AnimaViewPager.TransitionEffect.ZoomIn;
