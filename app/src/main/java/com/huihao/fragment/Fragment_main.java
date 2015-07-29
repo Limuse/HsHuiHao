@@ -1,21 +1,36 @@
 package com.huihao.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.adapter.MyGridAda;
 import com.huihao.common.Log;
+import com.huihao.custom.ImageCycleView;
+import com.huihao.custom.MyGridView;
 import com.leo.base.activity.fragment.LFragment;
-import com.umeng.message.UmengRegistrar;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
-import butterknife.InjectView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 2015/6/26.
@@ -24,7 +39,12 @@ import butterknife.InjectView;
 
 public class Fragment_main extends LFragment {
     private View parentView;
-    private Button button;
+    private ImageCycleView mAdView;
+    private ArrayList<String> mImageUrl = null;
+    private ArrayList<String> mImageName = null;
+    private MyGridView gridView;
+    private List<Map<String, String>> gridList = new ArrayList<Map<String, String>>();
+    private MyGridAda myGridAda;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -39,37 +59,52 @@ public class Fragment_main extends LFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        button=(Button)getActivity().findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String device_token = UmengRegistrar.getRegistrationId(getActivity());
-                Log.e(device_token + "!!!!");
-            }
-        });
-        initBar();
+        initData();
+        initView();
+        initAda();
     }
 
-    private void initBar() {
-        Toolbar toolbar=(Toolbar)getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("汇好");//设置标题
-        toolbar.setTitleTextColor(Color.WHITE);//设置标题颜色
-        toolbar.setNavigationIcon(R.mipmap.logo);//设置左边图标
-        //左边图标点击事件
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-        //加载右边图标样式
-        toolbar.inflateMenu(R.menu.fragment_main_menu);
-        //右边图片点击事件
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId()==R.id.menu_message){
-                    getActivity().finish();
-                }
-                return false;
-            }
-        });
+    private void initView() {
+        mAdView = (ImageCycleView) parentView.findViewById(R.id.ImageCycleView);
+        mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener, parentView);
+        gridView = (MyGridView) parentView.findViewById(R.id.gridView);
+
+        //grid.setAdapter(new ArrayAdapter (this,android.R.layout.simple_list_item_1,items));
+        //步骤2：设置元素被选择以及被点击的回调触发处理
     }
+
+    private void initData() {
+        mImageUrl = new ArrayList<String>();
+        mImageUrl.add("http://imgsrc.baidu.com/forum/w%3D580/sign=d2391eb40846f21fc9345e5bc6256b31/8381b4c379310a55b6ea8ebbb54543a9802610ed.jpg");
+        mImageUrl.add("http://s5.tuanimg.com/deal/deal_image/3029/2612/medium/webp-23642600-7f0d-4478-8345-ddecfa91a2ce.jpg");
+        mImageUrl.add("http://img2.duitang.com/uploads/item/201302/19/20130219115924_ZLNnS.thumb.600_0.jpeg");
+        mImageName = new ArrayList<String>();
+        mImageName.add("1");
+        mImageName.add("2");
+        mImageName.add("3");
+
+
+        for (int i = 0; i < 10; i++) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("name", "把根留住");
+            map.put("price", "￥"+i);
+            map.put("image", "http://img1.3lian.com/img2011/w1/106/1/46.jpg");
+            gridList.add(map);
+        }
+    }
+
+    private void initAda() {
+        myGridAda = new MyGridAda(getActivity(),gridList);
+        gridView.setAdapter(myGridAda);
+    }
+
+    private ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
+        @Override
+        public void onImageClick(int position, View imageView) {
+            Toast.makeText(getActivity(), "!!!!!!", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+
 }
