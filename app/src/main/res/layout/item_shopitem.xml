@@ -65,7 +65,7 @@
                             android:singleLine="true"
                             android:text="把根留住火麻茶麸洗发露"
                             android:textColor="@android:color/black"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/app_text_big" />
 
                         <LinearLayout
                             android:id="@+id/ly_sizes"
@@ -79,20 +79,20 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="颜色:"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:id="@+id/tv_color"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="黑色"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=";"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
 
                             <TextView
@@ -101,20 +101,20 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:text="尺码:"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:id="@+id/tv_sizes"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="M"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=";"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:id="@+id/tv_re"
@@ -122,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:text="材质:"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:id="@+id/tv_res"
@@ -130,14 +130,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:text="水晶"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:text=";"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/app_text_normal" />
 
                         </LinearLayout>
 
@@ -154,7 +154,7 @@
                                 android:layout_gravity="center"
                                 android:text="￥"
                                 android:textColor="@color/app_orange"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/app_text_big" />
 
                             <TextView
                                 android:id="@+id/tv_money"
@@ -163,7 +163,7 @@
                                 android:layout_gravity="center"
                                 android:text="998.00"
                                 android:textColor="@color/app_orange"
-                                android:textSize="16sp" />
+                                android:textSize="@dimen/app_text_big" />
 
                             <LinearLayout
                                 android:id="@+id/ly_nu"
@@ -177,12 +177,12 @@
 
                                 <Button
                                     android:id="@+id/btn_jian"
-                                    android:layout_width="54dp"
+                                    android:layout_width="48dp"
                                     android:layout_height="32dp"
                                     android:layout_gravity="center"
                                     android:gravity="center_horizontal|center_vertical"
                                     android:text="-"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/app_text_small" />
 
                                 <EditText
                                     android:id="@+id/et_num"
@@ -193,18 +193,19 @@
                                     android:layout_marginRight="4dp"
                                     android:background="@drawable/bg_edittext"
                                     android:digits="0123456789"
-                                    android:gravity="center_horizontal"
+                                    android:textSize="@dimen/app_text_normal"
+                                    android:gravity="center_horizontal|center_vertical"
                                     android:maxLength="3"
                                     android:text="999" />
 
                                 <Button
                                     android:id="@+id/btn_jia"
-                                    android:layout_width="54dp"
+                                    android:layout_width="48dp"
                                     android:layout_height="32dp"
                                     android:layout_gravity="center"
                                     android:gravity="center_horizontal|center_vertical"
                                     android:text="+"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/app_text_small" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -236,7 +237,7 @@
                     android:paddingRight="20dp"
                     android:text="删除"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/app_text_big" />
             </LinearLayout>
 
         </LinearLayout>
