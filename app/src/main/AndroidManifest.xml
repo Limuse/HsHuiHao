@@ -39,6 +39,14 @@
             android:name=".activity.HomeMain"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.Story_details"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.Product_details"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!--个人设置-->
         <activity
             android:name=".activity.PersonSet"
