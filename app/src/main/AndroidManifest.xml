@@ -39,15 +39,38 @@
             android:name=".activity.HomeMain"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--个人设置-->
         <activity
-            android:name=".activity.Story_details"
+            android:name=".activity.PersonSet"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.Product_details"
+            android:name=".activity.Update_Phone"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.Update_Num"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.Update_Name"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.Update_Pwd"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--提现账户-->
+        <activity
+            android:name=".activity.ExtractActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
 
+        <!--我的优惠卷-->
+        <activity
+            android:name=".activity.My_Coupons"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!-- 推送配置开始 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
