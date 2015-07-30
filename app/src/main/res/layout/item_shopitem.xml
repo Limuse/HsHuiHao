@@ -64,7 +64,7 @@
                             android:onClick="true"
                             android:singleLine="true"
                             android:text="把根留住火麻茶麸洗发露"
-                            android:textColor="@android:color/black"
+                            android:textColor="@drawable/shop_item_text_color"
                             android:textSize="@dimen/app_text_big" />
 
                         <LinearLayout
@@ -193,10 +193,10 @@
                                     android:layout_marginRight="4dp"
                                     android:background="@drawable/bg_edittext"
                                     android:digits="0123456789"
-                                    android:textSize="@dimen/app_text_normal"
                                     android:gravity="center_horizontal|center_vertical"
                                     android:maxLength="3"
-                                    android:text="999" />
+                                    android:text="999"
+                                    android:textSize="@dimen/app_text_normal" />
 
                                 <Button
                                     android:id="@+id/btn_jia"

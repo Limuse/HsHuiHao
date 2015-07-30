@@ -9,8 +9,8 @@
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@color/app_line</item>
+        <item name="android:textColor">@color/app_green</item>
         <item name="colorPrimaryDark">@color/app_green</item>
-        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="ActivityInOutAnimation" parent="@android:style/Animation.Activity">
@@ -22,5 +22,14 @@
     <!--选框checkbox-->
     <style name="Checkbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/cbx_checkbox</item>
+    </style>
+
+    <style name="AppTheme.Base." parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
+    </style>
+
+    <style name="MenuTextStyle">
+        <item name="android:textColor">@color/app_green</item>
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

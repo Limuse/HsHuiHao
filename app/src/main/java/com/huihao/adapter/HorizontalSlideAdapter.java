@@ -317,7 +317,7 @@ public class HorizontalSlideAdapter extends ArrayAdapter<ShopItemEntity> {
                 case MotionEvent.ACTION_UP:
                     HorizontalScrollView view = (HorizontalScrollView) v;
                     // 如果滑动了>50个像素,就显示出删除按钮
-                    if (startX > event.getX() + 50) {
+                    if (startX > event.getX() + 10) {
                         //startX = 0;// 因为公用一个事件处理对象,防止错乱,还原startX值
                         scrollView(view, HorizontalScrollView.FOCUS_RIGHT);
                         mScrollView = view;

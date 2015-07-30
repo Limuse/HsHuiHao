@@ -17,7 +17,7 @@
     <dimen name="app_myself_right_image">17dp</dimen>
     <dimen name="app_myself_right_image_margr">8dp</dimen>
     <dimen name="app_myself_left_mar">15dp</dimen>
-
+    <dimen name="app_setting_right">10dp</dimen>
 
     <dimen name="app_list_image">64dp</dimen>
     <dimen name="app_list_m">8dp</dimen>

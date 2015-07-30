@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/app_lycard"
+        android:background="@color/app_background" />
+
+    <RelativeLayout
+        android:id="@+id/zfb_account"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_toRightOf="@+id/person_order"
+            android:text="支付宝的账号"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+        <EditText
+            android:id="@+id/setting_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_setting_right"
+            android:layout_toLeftOf="@+id/img_right"
+            android:background="@android:color/transparent"
+            android:hint="请输入支付宝账号"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_normal" />
+
+        <ImageView
+            android:id="@+id/img_right"
+            android:layout_width="@dimen/app_myself_right_image"
+            android:layout_height="@dimen/app_myself_right_image"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:src="@mipmap/right_to" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/app_viewcard"
+        android:background="@color/app_background" />
+
+    <RelativeLayout
+        android:id="@+id/rl_acn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_toRightOf="@+id/person_order"
+            android:text="账号姓名"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+        <EditText
+            android:id="@+id/account_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_setting_right"
+            android:layout_toLeftOf="@+id/img_rights"
+            android:background="@android:color/transparent"
+            android:hint="请输入账户姓名"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_normal" />
+
+        <ImageView
+            android:id="@+id/img_rights"
+            android:layout_width="@dimen/app_myself_right_image"
+            android:layout_height="@dimen/app_myself_right_image"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:src="@mipmap/right_to" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/app_viewcard"
+        android:background="@color/app_background" />
+
+    <RelativeLayout
+        android:id="@+id/rl_apnum"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_toRightOf="@+id/person_order"
+            android:text="联系方式"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+        <EditText
+            android:id="@+id/account_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_setting_right"
+            android:layout_toLeftOf="@+id/img_rightss"
+            android:background="@android:color/transparent"
+            android:hint="请输入联系方式"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_normal" />
+
+        <ImageView
+            android:id="@+id/img_rightss"
+            android:layout_width="@dimen/app_myself_right_image"
+            android:layout_height="@dimen/app_myself_right_image"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:src="@mipmap/right_to" />
+    </RelativeLayout>
+</LinearLayout>

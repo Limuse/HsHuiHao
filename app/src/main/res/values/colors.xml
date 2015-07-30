@@ -23,6 +23,7 @@
     <color name="app_text_dark">#333333</color>
     <color name="app_text_light">#8a8a8a</color>
 
+
         <!-- dark theme -->
     <color name="carbon_white">#ffffffff</color>
     <color name="carbon_divider_dark">#1fffffff</color>

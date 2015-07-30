@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/app_lycard"
+        android:background="@color/app_background" />
+
+    <RelativeLayout
+        android:id="@+id/rl_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_toRightOf="@+id/person_order"
+            android:text="绑定手机"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+        <TextView
+            android:id="@+id/setting_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_setting_right"
+            android:layout_toLeftOf="@+id/img_right"
+            android:text="12313424211"
+            android:textColor="@color/app_text_dark" />
+
+        <ImageView
+            android:id="@+id/img_right"
+            android:layout_width="@dimen/app_myself_right_image"
+            android:layout_height="@dimen/app_myself_right_image"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:src="@mipmap/right_to" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+
+    <RelativeLayout
+        android:id="@+id/rl_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_toRightOf="@+id/person_order"
+            android:text="昵称"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+        <TextView
+            android:id="@+id/setting_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_setting_right"
+            android:layout_toLeftOf="@+id/img_right2"
+            android:text="张富贵"
+            android:textColor="@color/app_text_dark" />
+
+        <ImageView
+            android:id="@+id/img_right2"
+            android:layout_width="@dimen/app_myself_right_image"
+            android:layout_height="@dimen/app_myself_right_image"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:src="@mipmap/right_to" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+
+    <RelativeLayout
+        android:id="@+id/rl_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_toRightOf="@+id/person_order"
+            android:text="邀请码"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+        <TextView
+            android:id="@+id/setting_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_setting_right"
+            android:layout_toLeftOf="@+id/img_right3"
+            android:text="2424242"
+            android:textColor="@color/app_text_dark" />
+
+        <ImageView
+            android:id="@+id/img_right3"
+            android:layout_width="@dimen/app_myself_right_image"
+            android:layout_height="@dimen/app_myself_right_image"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:src="@mipmap/right_to" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+
+    <RelativeLayout
+        android:id="@+id/rl_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_toRightOf="@+id/person_order"
+            android:text="修改密码"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+
+        <ImageView
+            android:id="@+id/img_right4"
+            android:layout_width="@dimen/app_myself_right_image"
+            android:layout_height="@dimen/app_myself_right_image"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:src="@mipmap/right_to" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+</LinearLayout>

@@ -5,7 +5,6 @@
     android:background="@color/app_background"
     android:orientation="vertical">
 
-    <!-- <include layout="@layout/toolbar" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,18 +24,17 @@
         <RelativeLayout
             android:id="@+id/myself_image_rl"
             android:layout_width="@dimen/app_myself_bom"
-            android:layout_height="@dimen/app_myself_bom"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/carbon_padding">
+            android:layout_marginTop="@dimen/carbon_padding"
+            android:onClick="true">
 
 
             <ImageView
                 android:id="@+id/myself_image"
                 android:layout_width="@dimen/app_myself_bom"
                 android:layout_height="@dimen/app_myself_bom"
-                android:layout_centerInParent="true"
-                android:background="@mipmap/title_img"
-                android:onClick="true" />
+                android:background="@mipmap/title_img" />
 
             <!--   <ImageView
                    android:id="@+id/myself_authentication"
@@ -47,22 +45,21 @@
                    android:layout_marginBottom="2dp"
                    android:layout_marginRight="2dp"
                    />-->
+            <TextView
+                android:id="@+id/myself_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/myself_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:clickable="true"
+                android:maxEms="6"
+                android:singleLine="true"
+                android:text="汇好账号"
+                android:textColor="@color/app_white"
+                android:textSize="@dimen/app_myself_name" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/myself_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/myself_image_rl"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="6dp"
-            android:clickable="true"
-            android:maxEms="6"
-            android:onClick="true"
-            android:singleLine="true"
-            android:text="汇好账号"
-            android:textColor="@color/app_white"
-            android:textSize="@dimen/app_myself_name" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,42 +68,62 @@
             android:background="@mipmap/smal_bg"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/person_no_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:onClick="true"
-                android:text="待付款"
-                android:textSize="@dimen/app_myself_tex"
-                android:textColor="@color/app_white" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <Button
-                android:id="@+id/person_rec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:onClick="true"
-                android:text="待收货"
-                android:textSize="@dimen/app_myself_tex"
-                android:textColor="@color/app_white" />
+                <TextView
+                    android:id="@+id/person_no_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:onClick="true"
+                    android:text="待付款"
+                    android:textColor="@drawable/person_top_text"
+                    android:textSize="@dimen/app_myself_tex" />
+            </RelativeLayout>
 
-            <Button
-                android:id="@+id/person_back_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:onClick="true"
-                android:text="退款中"
-                android:textSize="@dimen/app_myself_tex"
-                android:textColor="@color/app_white" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
+                <TextView
+                    android:id="@+id/person_rec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:onClick="true"
+                    android:text="待收货"
+                    android:textColor="@drawable/person_top_text"
+                    android:textSize="@dimen/app_myself_tex" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/person_back_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:onClick="true"
+                    android:text="退款中"
+                    android:textColor="@drawable/person_top_text"
+                    android:textSize="@dimen/app_myself_tex" />
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 
@@ -128,7 +145,7 @@
                 android:id="@+id/orders"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
-                android:background="@color/app_white"
+                android:background="@drawable/btn_press"
                 android:clickable="true">
 
                 <ImageView
@@ -163,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginTop="@dimen/app_viewcard"
-                android:background="@color/app_white"
+                android:background="@drawable/btn_press"
                 android:clickable="true">
 
                 <ImageView
@@ -194,11 +211,46 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/parper"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_toolbar"
+                android:layout_marginTop="@dimen/app_viewcard"
+                android:background="@drawable/btn_press"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/person_parper"
+                    android:layout_width="@dimen/app_myself_right_image"
+                    android:layout_height="@dimen/app_myself_right_image"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/address" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/person_parper"
+                    android:text="我的优惠卷"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_myself_tex" />
+
+                <ImageView
+                    android:layout_width="@dimen/app_myself_right_image"
+                    android:layout_height="@dimen/app_myself_right_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/app_myself_left_mar"
+                    android:src="@mipmap/right_to" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/account"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginTop="@dimen/app_lycard"
-                android:background="@color/app_white"
+                android:background="@drawable/btn_press"
                 android:clickable="true">
 
                 <ImageView
@@ -233,7 +285,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginTop="@dimen/app_viewcard"
-                android:background="@color/app_white"
+                android:background="@drawable/btn_press"
                 android:clickable="true">
 
                 <ImageView
@@ -268,7 +320,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginTop="@dimen/app_viewcard"
-                android:background="@color/app_white"
+                android:background="@drawable/btn_press"
                 android:clickable="true">
 
                 <ImageView
@@ -303,7 +355,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginTop="@dimen/app_lycard"
-                android:background="@color/app_white"
+                android:background="@drawable/btn_press"
                 android:clickable="true">
 
                 <ImageView

@@ -31,4 +31,5 @@ dependencies {
     compile files('D:/androidWork/HsHuiHao/libs/lbase.jar')
     compile files('D:/androidWork/HsHuiHao/libs/universal-image-loader-1.9.2.jar')
     compile files('D:/androidWork/HsHuiHao/libs/com.umeng.message.lib.jar')
+    compile files('D:/androidWork/HsHuiHao/libs/android-viewbadger.jar')
 }
