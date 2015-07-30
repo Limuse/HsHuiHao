@@ -1,5 +1,6 @@
 package com.huihao.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.huihao.R;
+import com.huihao.activity.Story_details;
 import com.leo.base.activity.fragment.LFragment;
 
 import java.util.ArrayList;
@@ -27,8 +30,7 @@ import java.util.Objects;
 public class Fragment_story extends LFragment {
     private View parentView;
     private ViewPager viewPager;
-    private List<Map<String, Objects>> pageList = new ArrayList<Map<String, Objects>>();
-    private int[] mImgIds;
+    private List<Fragment>fragmentList=new ArrayList<Fragment>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +57,11 @@ public class Fragment_story extends LFragment {
     }
 
     private void initData() {
-        mImgIds = new int[]{R.mipmap.story1, R.mipmap.story2, R.mipmap.story3,
-        };
+        for (int i = 0; i < 3; i++) {
+            Fragment_story_page fragmentStoryPage = new Fragment_story_page();
+            fragmentStoryPage.getData(i + "");
+            fragmentList.add(fragmentStoryPage);
+        }
     }
 
 
@@ -64,36 +69,26 @@ public class Fragment_story extends LFragment {
         WindowManager wm = getActivity().getWindowManager();
         int width = wm.getDefaultDisplay().getWidth();
         viewPager.setOffscreenPageLimit(3);
-        viewPager.setPageMargin(width / 10);
-        viewPager.setAdapter(new PagerAdapter() {
+        viewPager.setPageMargin(width/10);
+        viewPager.setAdapter(new MyAdapter(getActivity().getSupportFragmentManager()));
+        viewPager.setCurrentItem(1);
+    }
 
-            @Override
-            public boolean isViewFromObject(View arg0, Object arg1) {
-                return arg0 == arg1;
-            }
+    private class MyAdapter extends FragmentStatePagerAdapter {
+        public MyAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-            @Override
-            public void destroyItem(ViewGroup container, int position,
-                                    Object object) {
-                container.removeView((View) object);
-            }
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
 
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                ImageView imageView = new ImageView(getActivity());
-                imageView.setImageResource(mImgIds[position]);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                container.addView(imageView);
-                return imageView;
-            }
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
 
-            @Override
-            public int getCount() {
-                return mImgIds.length;
-            }
-        });
-        if(mImgIds.length>2){
-            viewPager.setCurrentItem(1);
+        public int getCount() {
+            return fragmentList.size();
         }
     }
 }

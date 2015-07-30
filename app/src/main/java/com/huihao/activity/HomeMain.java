@@ -67,10 +67,14 @@ public class HomeMain extends LActivity {
     private String hideTag;
 
     protected void onLCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         setContentView(R.layout.activity_home);
         ButterKnife.inject(this);
         PushAgent.getInstance(this).onAppStart();
-        initBar();
+//        initBar();
         initView();
     }
 
@@ -172,8 +176,6 @@ public class HomeMain extends LActivity {
         }
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.app_white);
-        // tintManager.setStatusBarTintResource(R.drawable.ic_launcher);
+        tintManager.setStatusBarTintResource(R.color.app_gra);
     }
-
 }

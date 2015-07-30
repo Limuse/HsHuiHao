@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Created by admin on 2015/6/26.
  */
 
-public class Fragment_story_page extends LFragment {
+public class Fragment_story_details extends LFragment {
     private ViewPager viewPager;
     private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
     private String info;
@@ -34,7 +34,7 @@ public class Fragment_story_page extends LFragment {
                              Bundle savedInstanceState) {
         container = (ViewGroup) inflater.inflate(
                 R.layout.fragment_story_page_view, null);
-        total = inflater.inflate(R.layout.fragment_story_page, null);
+        total = inflater.inflate(R.layout.activity_story_details_page, null);
         container.addView(total);
         return container;
     }
@@ -52,19 +52,10 @@ public class Fragment_story_page extends LFragment {
 
     private void initData() {
         if(info.equals("0")){
-            image.setImageResource(R.mipmap.story1);
+            image.setImageResource(R.mipmap.story_details1);
         }else if(info.equals("1")){
-            image.setImageResource(R.mipmap.story2);
+            image.setImageResource(R.mipmap.story_details2);
         }
-        else if(info.equals("2")){
-            image.setImageResource(R.mipmap.story3);
-        }
-        image.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),Story_details.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public  void getData(String info) {

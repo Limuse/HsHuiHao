@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
     android:background="@color/app_white"
+    android:clipChildren="false"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rel2"
         android:layout_width="match_parent"
         android:layout_height="72dp">
 
@@ -17,7 +18,8 @@
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/tv"
             android:background="@color/app_line" />
-.
+        .
+
         <View
             android:layout_width="100dp"
             android:layout_height="1dp"
@@ -36,20 +38,17 @@
             android:textSize="24sp" />
     </RelativeLayout>
 
-
-
-
     <android.support.v4.view.ViewPager
+        android:layout_below="@+id/rel2"
         android:id="@+id/viewpage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_marginBottom="7dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginRight="56dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
         android:clipChildren="false"
-        android:overScrollMode="never" ></android.support.v4.view.ViewPager>
+        android:overScrollMode="never"></android.support.v4.view.ViewPager>
 
-
-</LinearLayout>
+</RelativeLayout>

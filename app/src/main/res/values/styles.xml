@@ -3,7 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>
-
     </style>
 
     <!-- Base application theme. -->

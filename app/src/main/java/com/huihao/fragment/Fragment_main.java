@@ -68,9 +68,6 @@ public class Fragment_main extends LFragment {
         mAdView = (ImageCycleView) parentView.findViewById(R.id.ImageCycleView);
         mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener, parentView);
         gridView = (MyGridView) parentView.findViewById(R.id.gridView);
-
-        //grid.setAdapter(new ArrayAdapter (this,android.R.layout.simple_list_item_1,items));
-        //步骤2：设置元素被选择以及被点击的回调触发处理
     }
 
     private void initData() {
