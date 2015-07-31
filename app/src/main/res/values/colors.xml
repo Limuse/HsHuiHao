@@ -15,9 +15,12 @@
     <color name="app_btn_n">#1a000000</color>
     <color name="offline">#F5F5F5</color>
     <color name="app_green">#08bdb7</color>
-    <color name="app_orange">#ff5722</color>
-    <color name="app_orange_press">#90ff5722</color>
-    <color name="app_white_press">#90ffffff</color>
+    <color name="app_greenfull_press">#03b0aa</color>
+    <color name="app_greenline_press">#e4f8f7</color>
+    <color name="app_orange">#ff4400</color>
+    <color name="app_orangefull_press">#ee3f00</color>
+    <color name="app_orangeline_press">#fbe5ce</color>
+    <color name="app_grayline_press">#f8f8f8</color>
     <color name="app_gra">#00000000</color>
     <color name="app_line">#dcdcdc</color>
     <color name="app_text_dark">#333333</color>
