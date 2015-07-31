@@ -3,6 +3,7 @@ package com.huihao;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 
 import com.leo.base.application.LApplication;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;

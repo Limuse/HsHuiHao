@@ -7,7 +7,7 @@
     <dimen name="app_viewcard">0.5dp</dimen>
     <dimen name="app_lycard">20dp</dimen>
     <dimen name="app_myself">152dp</dimen>
-    <dimen name="app_person">180dp</dimen>
+    <dimen name="app_person">210dp</dimen>
     <dimen name="app_myself_cen">80dp</dimen>
     <dimen name="app_myself_tex">16sp</dimen>
     <dimen name="app_myself_name">16sp</dimen>

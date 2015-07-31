@@ -1,30 +1,20 @@
 package com.huihao.fragment;
 
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.huihao.MyApplication;
 import com.huihao.R;
-import com.huihao.adapter.MyGridAda;
-import com.huihao.common.Log;
+import com.huihao.adapter.MainGridAda;
+import com.huihao.common.Bar;
 import com.huihao.custom.ImageCycleView;
 import com.huihao.custom.MyGridView;
 import com.leo.base.activity.fragment.LFragment;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 
 import java.util.ArrayList;
@@ -44,7 +34,7 @@ public class Fragment_main extends LFragment {
     private ArrayList<String> mImageName = null;
     private MyGridView gridView;
     private List<Map<String, String>> gridList = new ArrayList<Map<String, String>>();
-    private MyGridAda myGridAda;
+    private MainGridAda myGridAda;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -59,14 +49,23 @@ public class Fragment_main extends LFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initBar();
         initData();
         initView();
         initAda();
     }
 
+    private void initBar() {
+        Toolbar toolbar = (Toolbar) parentView.findViewById(R.id.toolbar);
+        toolbar.setTitle("HUIHAO");
+        toolbar.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_green));
+        toolbar.setBackgroundColor(Color.WHITE);
+    }
+
     private void initView() {
         mAdView = (ImageCycleView) parentView.findViewById(R.id.ImageCycleView);
-        mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener, parentView);
+        mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
         gridView = (MyGridView) parentView.findViewById(R.id.gridView);
     }
 
@@ -91,17 +90,13 @@ public class Fragment_main extends LFragment {
     }
 
     private void initAda() {
-        myGridAda = new MyGridAda(getActivity(),gridList);
+        myGridAda = new MainGridAda(getActivity(),gridList);
         gridView.setAdapter(myGridAda);
     }
 
     private ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
-        @Override
         public void onImageClick(int position, View imageView) {
-            Toast.makeText(getActivity(), "!!!!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
         }
     };
-
-
-
 }

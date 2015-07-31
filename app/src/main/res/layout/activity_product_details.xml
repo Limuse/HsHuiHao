@@ -1,11 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_background"
     android:orientation="vertical">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="50sp"
-    android:text="产品详情"/>
-</LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="56dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.huihao.custom.ImageCycleView
+                android:id="@+id/ImageCycleView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:background="@color/app_white">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="把根拔了把根拔了把根拔了把根拔了把根拔了把根拔了把根拔了把根拔了把根拔了"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_money_now"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="￥798"
+                        android:textColor="@color/app_orange"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_money_old"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_money_now"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/tv_money_now"
+                        android:text="￥998"
+                        android:textColor="@color/app_text_light"
+                        android:textSize="@dimen/app_text_small" />
+
+                    <TextView
+                        android:id="@+id/tv_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:text="0"
+                        android:textColor="@color/app_text_light"
+                        android:textSize="@dimen/app_text_normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@+id/tv_num"
+                        android:text="销量"
+                        android:textColor="@color/app_text_light"
+                        android:textSize="@dimen/app_text_normal" />
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/app_viewcard"
+                android:background="@color/app_white">
+
+                <com.huihao.custom.MyGridView
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:numColumns="2"
+                    android:verticalSpacing="8dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/btn_press"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="选择  规格"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:background="@mipmap/arrow" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:id="@+id/toolly"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <com.huihao.custom.PagerSlidingTabStrip
+                    android:id="@+id/tab_strip"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/app_bottom"
+                    android:background="@color/app_white"
+                    android:textColor="#98ffffff"
+                    app:pstsDividerColor="#00000000"
+                    app:pstsIndicatorColor="#ffffff"
+                    app:pstsIndicatorHeight="2dp"
+                    app:pstsShouldExpand="true"
+                    app:pstsUnderlineHeight="0dp" >
+                </com.huihao.custom.PagerSlidingTabStrip>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/toolbar_margin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/app_white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="top"
+            android:layout_marginTop="-0.5dp"
+            android:background="@color/app_line"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btn_add"
+                    android:layout_width="138dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/btn_add"
+                    android:gravity="center"
+                    android:text="加入购入车"
+                    android:textColor="@color/app_orange"
+                    android:textSize="18dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btn_buy"
+                    android:layout_width="138dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/btn_buy"
+                    android:gravity="center"
+                    android:text="立即购买"
+                    android:textColor="@color/app_white"
+                    android:textSize="18dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

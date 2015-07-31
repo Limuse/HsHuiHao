@@ -14,7 +14,7 @@
         android:id="@+id/community_title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bottom"
-        android:background="@color/app_white"
+        android:background="@color/app_bottom"
         android:paddingBottom="1dp"
         android:paddingTop="1dp">
 

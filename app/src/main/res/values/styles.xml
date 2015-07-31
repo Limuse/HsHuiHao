@@ -9,8 +9,8 @@
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@color/app_line</item>
-        <item name="android:textColor">@color/app_green</item>
-        <item name="colorPrimaryDark">@color/app_green</item>
+        <item name="android:textColor">@color/app_text_dark</item>
+        <item name="colorPrimaryDark">@color/app_white</item>
     </style>
 
     <style name="ActivityInOutAnimation" parent="@android:style/Animation.Activity">

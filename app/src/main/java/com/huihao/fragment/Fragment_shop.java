@@ -139,11 +139,8 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                 adapter.configCheckMap(false);
                 adapter.notifyDataSetChanged();
                 tv_all_choose.setText("全选");
-
-
             }
         }
-
         /**
          * 点击结算
          */
@@ -153,7 +150,6 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
              */
 //            Intent intent=new Intent(getActivity(),);
 //            getActivity().startActivity(intent);
-
         }
     }
 

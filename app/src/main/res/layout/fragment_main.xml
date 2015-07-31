@@ -5,6 +5,8 @@
     android:background="@color/app_line"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar"></include>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -309,9 +311,9 @@
                 android:layout_below="@+id/rel2"
                 android:layout_marginTop="@dimen/app_viewcard"
                 android:background="@null"
+                android:cacheColorHint="@color/app_line"
                 android:horizontalSpacing="0.8dp"
                 android:numColumns="2"
-                android:cacheColorHint="@color/app_line"
                 android:verticalSpacing="0.8dp"></com.huihao.custom.MyGridView>
 
         </RelativeLayout>

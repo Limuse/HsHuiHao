@@ -1,5 +1,6 @@
 package com.huihao.activity;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,9 +9,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.huihao.R;
+import com.huihao.common.Bar;
 import com.huihao.common.Log;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.fragment.Fragment_main;
@@ -50,6 +53,9 @@ public class HomeMain extends LActivity {
     @InjectView(R.id.relmy)
     RelativeLayout relmy;
 
+    @InjectView(R.id.main_view)
+    LinearLayout linearLayout;
+
 
     private Fragment_main fragment_main;
     private Fragment_shop fragment_shop;
@@ -67,14 +73,10 @@ public class HomeMain extends LActivity {
     private String hideTag;
 
     protected void onLCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
         setContentView(R.layout.activity_home);
         ButterKnife.inject(this);
         PushAgent.getInstance(this).onAppStart();
-//        initBar();
+        Bar.setWhite(this);
         initView();
     }
 
@@ -91,8 +93,11 @@ public class HomeMain extends LActivity {
             fragment_main = new Fragment_main();
         }
         setBg();
+
+
         main.setBackgroundResource(R.mipmap.mainp);
         switchFragment(fragment_main, MAIN);
+
     }
 
     @OnClick(R.id.relstory)
@@ -105,6 +110,10 @@ public class HomeMain extends LActivity {
         setBg();
         story.setBackgroundResource(R.mipmap.storyp);
         switchFragment(fragment_story, STORY);
+
+        linearLayout.setFitsSystemWindows(true);
+        linearLayout.setClipToPadding(true);
+
     }
 
     @OnClick(R.id.relshop)
@@ -115,8 +124,10 @@ public class HomeMain extends LActivity {
             fragment_shop = new Fragment_shop();
         }
         setBg();
+
         shop.setBackgroundResource(R.mipmap.shopp);
         switchFragment(fragment_shop, SHOP);
+
     }
 
     @OnClick(R.id.relmy)
@@ -127,8 +138,10 @@ public class HomeMain extends LActivity {
             fragment_my = new Fragment_my();
         }
         setBg();
+
         my.setBackgroundResource(R.mipmap.myp);
         switchFragment(fragment_my, MY);
+
     }
 
     public void setBg() {
@@ -164,18 +177,5 @@ public class HomeMain extends LActivity {
 
         hideTag = tag;
         mFragmentTransaction.commit();
-    }
-
-    private void initBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window win = getWindow();
-            WindowManager.LayoutParams winParams = win.getAttributes();
-            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-            winParams.flags |= bits;
-            win.setAttributes(winParams);
-        }
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.app_gra);
     }
 }

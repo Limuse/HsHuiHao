@@ -133,7 +133,7 @@ public class ImageCycleView extends LinearLayout {
      * @param imageUrlList
      * @param imageCycleViewListener
      */
-    public void setImageResources(ArrayList<String> imageUrlList, ArrayList<String> imageNameList, ImageCycleViewListener imageCycleViewListener, View view) {
+    public void setImageResources(ArrayList<String> imageUrlList, ArrayList<String> imageNameList, ImageCycleViewListener imageCycleViewListener) {
         this.imageNameList = imageNameList;
         // 清除
         mGroup.removeAllViews();

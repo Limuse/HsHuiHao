@@ -1,11 +1,13 @@
 package com.huihao.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.huihao.R;
+import com.huihao.common.Bar;
 import com.huihao.common.Log;
 import com.huihao.custom.MyViewPager;
 import com.huihao.custom.TextViewVertical;
@@ -46,12 +49,22 @@ public class Story_details extends LActivity {
 
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_story_details);
+        Bar.setTrans(this);
         initView();
         initData();
         initPage();
     }
 
     private void initView() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(Color.parseColor("#00ffffff"));
+        toolbar.setNavigationIcon(R.mipmap.back_circle);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         viewPager = (MyViewPager) findViewById(R.id.viewpage);
         textgroup = (RelativeLayout) findViewById(R.id.textGroup);
         viewgroup = (LinearLayout) findViewById(R.id.viewGroup);
@@ -73,6 +86,10 @@ public class Story_details extends LActivity {
                 viewWidth = view.getMeasuredWidth();
             }
         });
+    }
+
+    public void back(View v){
+        finish();
     }
 
     private void initData() {

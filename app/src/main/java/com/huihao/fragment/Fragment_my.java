@@ -18,6 +18,7 @@ import com.huihao.R;
 import com.huihao.activity.ExtractActivity;
 import com.huihao.activity.My_Coupons;
 import com.huihao.activity.PersonSet;
+import com.huihao.common.Bar;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.util.T;
 import com.readystatesoftware.viewbadger.BadgeView;

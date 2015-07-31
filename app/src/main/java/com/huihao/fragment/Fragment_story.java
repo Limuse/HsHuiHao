@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import com.huihao.R;
 import com.huihao.activity.Story_details;
+import com.huihao.common.Bar;
 import com.leo.base.activity.fragment.LFragment;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class Fragment_story extends LFragment {
     private View parentView;
     private ViewPager viewPager;
     private List<Fragment>fragmentList=new ArrayList<Fragment>();
-
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -46,6 +47,7 @@ public class Fragment_story extends LFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Bar.setWhite(getActivity());
         initView();
         initData();
         initPage();
