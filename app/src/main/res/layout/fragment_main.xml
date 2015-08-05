@@ -5,7 +5,43 @@
     android:background="@color/app_line"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="top"
+        android:background="@color/app_white">
+
+        <RelativeLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_press"
+            android:clickable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/message" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="HUIHAO"
+            android:textColor="@color/app_green"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/app_line" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -304,7 +340,7 @@
                 </RelativeLayout>
             </RelativeLayout>
 
-            <com.huihao.custom.MyGridView
+            <com.huihao.custom.NoScrollGridView
                 android:id="@+id/gridView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -314,7 +350,7 @@
                 android:cacheColorHint="@color/app_line"
                 android:horizontalSpacing="0.8dp"
                 android:numColumns="2"
-                android:verticalSpacing="0.8dp"></com.huihao.custom.MyGridView>
+                android:verticalSpacing="0.8dp"></com.huihao.custom.NoScrollGridView>
 
         </RelativeLayout>
     </ScrollView>

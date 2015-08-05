@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/app_white"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -38,7 +39,6 @@
 
             <com.huihao.custom.TextViewVertical
                 android:id="@+id/text"
-                textSize="16sp"
                 android:layout_width="80dp"
                 android:layout_height="160dp"
                 android:layout_centerInParent="true" />

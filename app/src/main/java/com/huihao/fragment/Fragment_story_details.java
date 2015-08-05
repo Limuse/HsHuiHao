@@ -47,18 +47,20 @@ public class Fragment_story_details extends LFragment {
     }
 
     private void initView() {
-        image=(ImageView)total.findViewById(R.id.page_image);
+        image = (ImageView) total.findViewById(R.id.page_image);
     }
 
     private void initData() {
-        if(info.equals("0")){
+        if (info.equals("0")) {
             image.setImageResource(R.mipmap.story_details1);
-        }else if(info.equals("1")){
+        } else if (info.equals("1")) {
             image.setImageResource(R.mipmap.story_details2);
+        } else if (info.equals("2")) {
+            image.setImageResource(R.mipmap.story_details3);
         }
     }
 
-    public  void getData(String info) {
+    public void getData(String info) {
         this.info = info;
     }
 }

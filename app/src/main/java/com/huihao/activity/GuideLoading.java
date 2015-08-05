@@ -125,7 +125,7 @@ public class GuideLoading extends Activity {
 	}
 
 	private void initClick() {
-		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
+		viewPager.addOnPageChangeListener(new OnPageChangeListener() {
 
 			public void onPageSelected(int position) {
 				if (position == 2) {

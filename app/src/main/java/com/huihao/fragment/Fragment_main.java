@@ -1,19 +1,15 @@
 package com.huihao.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.huihao.R;
 import com.huihao.adapter.MainGridAda;
-import com.huihao.common.Bar;
 import com.huihao.custom.ImageCycleView;
-import com.huihao.custom.MyGridView;
+import com.huihao.custom.NoScrollGridView;
 import com.leo.base.activity.fragment.LFragment;
 
 
@@ -32,7 +28,7 @@ public class Fragment_main extends LFragment {
     private ImageCycleView mAdView;
     private ArrayList<String> mImageUrl = null;
     private ArrayList<String> mImageName = null;
-    private MyGridView gridView;
+    private NoScrollGridView gridView;
     private List<Map<String, String>> gridList = new ArrayList<Map<String, String>>();
     private MainGridAda myGridAda;
     public void onCreate(Bundle savedInstanceState) {
@@ -49,24 +45,16 @@ public class Fragment_main extends LFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initBar();
         initData();
         initView();
         initAda();
     }
 
-    private void initBar() {
-        Toolbar toolbar = (Toolbar) parentView.findViewById(R.id.toolbar);
-        toolbar.setTitle("HUIHAO");
-        toolbar.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.app_green));
-        toolbar.setBackgroundColor(Color.WHITE);
-    }
 
     private void initView() {
         mAdView = (ImageCycleView) parentView.findViewById(R.id.ImageCycleView);
         mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
-        gridView = (MyGridView) parentView.findViewById(R.id.gridView);
+        gridView = (NoScrollGridView) parentView.findViewById(R.id.gridView);
     }
 
     private void initData() {

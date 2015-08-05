@@ -152,9 +152,9 @@ public class ImageCycleView extends LinearLayout {
 
             mImageViews[i] = mImageView;
             if (i == 0) {
-                mImageViews[i].setBackgroundResource(R.mipmap.banner_dian_focus);
+                mImageViews[i].setBackgroundResource(R.mipmap.dot);
             } else {
-                mImageViews[i].setBackgroundResource(R.mipmap.banner_dian_blur);
+                mImageViews[i].setBackgroundResource(R.mipmap.dot2);
             }
             mGroup.addView(mImageViews[i]);
         }
@@ -236,11 +236,11 @@ public class ImageCycleView extends LinearLayout {
             // 设置当前显示的图片
             mImageIndex = index;
             // 设置图片滚动指示器背
-            mImageViews[index].setBackgroundResource(R.mipmap.banner_dian_focus);
+            mImageViews[index].setBackgroundResource(R.mipmap.dot);
             imageName.setText(imageNameList.get(index));
             for (int i = 0; i < mImageViews.length; i++) {
                 if (index != i) {
-                    mImageViews[i].setBackgroundResource(R.mipmap.banner_dian_blur);
+                    mImageViews[i].setBackgroundResource(R.mipmap.dot2);
                 }
             }
         }

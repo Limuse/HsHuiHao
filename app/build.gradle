@@ -11,14 +11,24 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    signingConfigs {
+        myConfig {
+            storeFile file("huihao.jks")
+            storePassword "zax6325139"
+            keyAlias "huihao"
+            keyPassword "zax6325139"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig  signingConfigs.myConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/lbase.jar')

@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.leo.base.application.LApplication;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -38,10 +40,10 @@ public class MyApplication extends LApplication {
         MyApplication.isLog = isLog;
     }
 
+    public static int Hight,width;
 
     public void onCreate() {
         super.onCreate();
-
         ImageLoaderConfiguration configuration = ImageLoaderConfiguration
                 .createDefault(this);
         setImageLoader(configuration);

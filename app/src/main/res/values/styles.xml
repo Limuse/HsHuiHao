@@ -32,4 +32,37 @@
         <item name="android:textColor">@color/app_green</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="Dialog_animstyle">
+        <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/photo_choose_bg</item>
+    </style>
+
+    <style name="TagGroup">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="isAppendMode">false</item>
+        <item name="brightColor">#ff9900</item>
+        <item name="dimColor">#AAAAAA</item>
+        <item name="borderStrokeWidth">0.5dp</item>
+        <item name="textSize">16sp</item>
+        <item name="horizontalSpacing">16dp</item>
+        <item name="verticalSpacing">16dp</item>
+        <item name="horizontalPadding">18dp</item>
+        <item name="verticalPadding">8dp</item>
+    </style>
+
 </resources>

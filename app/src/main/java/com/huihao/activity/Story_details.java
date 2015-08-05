@@ -71,8 +71,9 @@ public class Story_details extends LActivity {
         textViewVertical = (TextViewVertical) findViewById(R.id.text);
         view = (View) findViewById(R.id.view);
 
-        textViewVertical.setText("左划查看详情");
-        textViewVertical.setTextSize(30);
+        textViewVertical.setText("释放查看宝贝详情");
+        textViewVertical.setTextSize(getResources().getDimension(R.dimen.app_text_big));
+        textViewVertical.setTextColor(getResources().getColor(R.color.app_text_dark));
 
         WindowManager wm = this.getWindowManager();
         windosWidth = wm.getDefaultDisplay().getWidth();
@@ -93,7 +94,7 @@ public class Story_details extends LActivity {
     }
 
     private void initData() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             Fragment_story_details fragmentStoryPage = new Fragment_story_details();
             fragmentStoryPage.getData(i + "");
             fragmentList.add(fragmentStoryPage);
@@ -104,11 +105,9 @@ public class Story_details extends LActivity {
         viewPager.setOffscreenPageLimit(3);
         viewPager.setPageMargin(0);
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
-
             public void onPageSelected(int position) {
                 currentPage = position;
             }
@@ -129,11 +128,11 @@ public class Story_details extends LActivity {
                                                          if (dx > 0) {
                                                              viewPager.setScrollble(false);
                                                              LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                             lp.setMargins(-dx / 2, 0, dx/2, 0);
+                                                             lp.setMargins(-dx / 3, 0, dx/3, 0);
                                                              viewPager.setLayoutParams(lp);
 
                                                              lp = new LinearLayout.LayoutParams(viewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
-                                                             lp.setMargins(-dx/2 , 0, 0, 0);
+                                                             lp.setMargins(-dx/3 , 0, 0, 0);
                                                              textgroup.setLayoutParams(lp);
                                                          }
                                                          break;

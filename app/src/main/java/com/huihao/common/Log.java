@@ -49,7 +49,7 @@ public class Log {
 
     public static void e(int msg) {
         if (isLog) {
-            L.e(msg);
+            L.e(msg+"");
         }
     }
 
