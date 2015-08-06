@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:background="@color/app_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/app_lycard"
+        android:background="@color/app_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:background="@color/app_white"
+        android:orientation="vertical">
+
+        <TextView
+        android:id="@+id/tv_s"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/app_text_normal"
+        android:textColor="@color/app_text_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已完成"/>
+        <TextView
+            android:id="@+id/tv_mmm"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/app_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1025.84"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_myself_left_mar"
+        android:background="@color/app_background" />
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_rls1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:id="@+id/tv_na"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:text="收款方"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+
+
+
+
+        <TextView
+            android:id="@+id/tv_me1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="42dp"
+            android:text="张三"
+            android:textSize="@dimen/app_myself_tex"
+            android:textColor="@color/app_text_dark" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v1"
+        android:layout_below="@+id/rl_rls1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+    <RelativeLayout
+        android:id="@+id/rl_rls2"
+        android:layout_below="@+id/v1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_toolbar"
+        android:background="@drawable/btn_press"
+        android:clickable="true">
+
+
+        <TextView
+            android:id="@+id/tv_ac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:text="支付宝账号"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_myself_tex" />
+
+
+
+
+
+        <TextView
+            android:id="@+id/tv_me2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="42dp"
+            android:text="1234656455"
+            android:textSize="@dimen/app_myself_tex"
+            android:textColor="@color/app_text_dark" />
+
+
+    </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_s"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="48dp"
+            android:background="#fffbcd"
+            android:layout_height="60dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#eb7e24"
+               android:layout_centerVertical="true"
+                android:textSize="@dimen/app_text_small"
+                android:singleLine="false"
+                android:layout_marginLeft="@dimen/app_myself_left_mar"
+                android:text="申请提取的佣金已经打到一下2账号了哦，请查收并确认。若没有收到相应的金额，请点击拒绝按钮，并说明拒绝原因。"/>
+        </RelativeLayout>
+        
+        <LinearLayout
+            android:id="@+id/boo"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/app_white"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="拒绝"
+                android:background="@drawable/btn_ok"
+                android:textColor="@color/app_green"
+                android:textSize="@dimen/app_text_big"
+                android:layout_marginRight="@dimen/app_myself_left_mar"
+                android:layout_marginLeft="@dimen/app_myself_left_mar"
+                android:layout_weight="1"></Button>
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="确定"
+                android:textSize="@dimen/app_text_big"
+                android:background="@drawable/sure_ok"
+                android:textColor="@color/app_white"
+                android:layout_marginRight="@dimen/app_myself_left_mar"
+                android:layout_weight="1"></Button>
+        </LinearLayout>
+    </RelativeLayout>
+    
+</LinearLayout>

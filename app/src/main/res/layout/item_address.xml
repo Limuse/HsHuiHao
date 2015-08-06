@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:id="@+id/ly_mam"
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:layout_marginBottom="0.5dp"
+        android:background="@color/app_white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ordersss"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_marginBottom="0.5dp"
+            android:background="@drawable/btn_press"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/app_myself_left_mar"
+                android:layout_weight="0.2"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/rl_ddd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_amenn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/app_myself_left_mar"
+                        android:layout_weight="0.8"
+                        android:gravity="center_vertical"
+                        android:text="张三"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_big" />
+
+                    <TextView
+                        android:id="@+id/tv_amp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0"
+                        android:gravity="center"
+                        android:text="1426537872432"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_big" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ly_tttt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_addrsa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:singleLine="false"
+                        android:text="张三ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_small" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kk"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginLeft="@dimen/app_myself_left_mar"
+                android:layout_weight="0.8"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/app_myself_right_image"
+                    android:layout_height="@dimen/app_myself_right_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:layout_marginRight="@dimen/app_myself_left_mar"
+                    android:src="@mipmap/right_to" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/tv_item_addr_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_btn_red"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="删除"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/app_text_big" />
+        </LinearLayout>
+    </LinearLayout>
+
+</HorizontalScrollView>

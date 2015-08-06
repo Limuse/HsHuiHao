@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_conupons"
     android:layout_width="match_parent"
-    android:layout_height="71dp"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/app_myself_left_mar"
     android:layout_marginRight="@dimen/app_myself_left_mar"
-    android:layout_marginTop="@dimen/app_lycard"
     android:background="@mipmap/can_u"
     android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:id="@+id/cpimg"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/app_setting_right"
         android:src="@mipmap/parper" />
@@ -79,6 +79,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="3dp"
             android:visibility="gone"
-            android:src="@mipmap/used" />
+          />
     </RelativeLayout>
 </LinearLayout>

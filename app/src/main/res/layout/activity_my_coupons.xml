@@ -2,6 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:background="@color/app_background"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
@@ -11,10 +14,16 @@
         android:layout_height="0.5dp"
         android:background="@color/app_background" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_lycard"
+        android:background="@color/app_background" />
+
     <ListView
         android:id="@+id/lv_coupons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/app_background"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:divider="@null"
         android:scrollbars="none"></ListView>
 </LinearLayout>

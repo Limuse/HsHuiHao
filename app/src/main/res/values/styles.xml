@@ -12,6 +12,11 @@
         <item name="android:textColor">@color/app_text_dark</item>
         <item name="colorPrimaryDark">@color/app_white</item>
     </style>
+<!--
+    <style name="AppTheme.Menu" parent="android:Theme.Holo.Light">
+        <item name="android:actionMenuTextColor">@color/common_top_bar_blue</item>
+
+    </style>-->
 
     <style name="ActivityInOutAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>

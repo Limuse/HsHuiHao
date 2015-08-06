@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@mipmap/more_bg" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/app_lycard"
+        android:background="@color/app_background" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_web"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_toolbar"
+                android:layout_marginBottom="0.5dp"
+                android:background="@drawable/btn_press">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:text="官方网站"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+
+                <TextView
+                    android:id="@+id/tv_web"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40dp"
+                    android:text="www.huihao.com"
+                    android:textColor="@color/app_text_light"
+                    android:textSize="@dimen/app_text_big" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_kp"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_toolbar"
+                android:layout_marginBottom="@dimen/app_lycard"
+                android:background="@drawable/btn_press">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:text="客服电话"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+
+                <TextView
+                    android:id="@+id/tv_kp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40dp"
+                    android:text="400-123-123"
+                    android:textColor="@color/app_green"
+                    android:textSize="@dimen/app_text_big" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_bx"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_toolbar"
+                android:layout_marginBottom="@dimen/app_viewcard"
+                android:background="@drawable/btn_press">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:text="版权信息"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+
+                <ImageView
+                    android:layout_width="@dimen/app_myself_right_image"
+                    android:layout_height="@dimen/app_myself_right_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/app_myself_left_mar"
+                    android:src="@mipmap/right_to" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_advice"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_toolbar"
+                android:layout_marginBottom="@dimen/app_viewcard"
+                android:background="@drawable/btn_press">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:text="意见反馈"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+
+                <ImageView
+                    android:layout_width="@dimen/app_myself_right_image"
+                    android:layout_height="@dimen/app_myself_right_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/app_myself_left_mar"
+                    android:src="@mipmap/right_to" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_pingf"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_toolbar"
+                android:layout_marginBottom="@dimen/app_lycard"
+                android:background="@drawable/btn_press">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:text="给我们评分"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+
+                <ImageView
+                    android:layout_width="@dimen/app_myself_right_image"
+                    android:layout_height="@dimen/app_myself_right_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/app_myself_left_mar"
+                    android:src="@mipmap/right_to" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_clear"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_toolbar"
+                android:layout_marginBottom="@dimen/app_viewcard"
+                android:background="@drawable/btn_press">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:text="清除缓存"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+
+                <TextView
+                    android:id="@+id/tv_nc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/iv_cl"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:text="0M"
+                    android:textColor="@color/app_text_light"
+                    android:textSize="@dimen/app_text_big" />
+
+                <ImageView
+                    android:id="@+id/iv_cl"
+                    android:layout_width="@dimen/app_myself_right_image"
+                    android:layout_height="@dimen/app_myself_right_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/app_myself_left_mar"
+                    android:src="@mipmap/right_to" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_outline"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/app_myself_left_mar"
+                android:layout_marginRight="@dimen/app_setting_right"
+                android:layout_marginTop="27dp"
+                android:background="@drawable/btn_out"
+                android:text="退出登录"
+                android:textColor="@color/app_green"
+                android:layout_marginBottom="30dp"
+                android:textSize="@dimen/app_text_big" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

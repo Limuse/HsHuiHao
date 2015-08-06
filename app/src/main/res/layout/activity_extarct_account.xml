@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
     android:background="@color/app_background"
     android:orientation="vertical">
 
@@ -32,7 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
-            android:layout_toRightOf="@+id/person_order"
             android:text="支付宝的账号"
             android:textColor="@color/app_text_dark"
             android:textSize="@dimen/app_myself_tex" />
@@ -78,7 +79,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
-            android:layout_toRightOf="@+id/person_order"
             android:text="账号姓名"
             android:textColor="@color/app_text_dark"
             android:textSize="@dimen/app_myself_tex" />
@@ -124,7 +124,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
-            android:layout_toRightOf="@+id/person_order"
             android:text="联系方式"
             android:textColor="@color/app_text_dark"
             android:textSize="@dimen/app_myself_tex" />

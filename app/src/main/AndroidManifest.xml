@@ -68,6 +68,11 @@
             android:name=".activity.Update_Pwd"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--全部订单-->
+        <activity
+            android:name="com.huihao.activity.All_Orders"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!--提现账户-->
         <activity
             android:name=".activity.ExtractActivity"
@@ -77,6 +82,53 @@
         <!--我的优惠卷-->
         <activity
             android:name=".activity.My_Coupons"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--我的返利-->
+        <activity
+            android:name=".activity.My_Rebate"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        Extract_Rebate
+        <!--提取返利-->
+        <activity
+            android:name=".activity.Extract_Rebate"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--提取记录-->
+        <activity
+            android:name=".activity.Extra_Record"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--提取记录2-->
+        <activity
+            android:name=".activity.ExR_State"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--返利明细-->
+        <activity
+            android:name=".activity.Rebate_Detail"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+
+        <!--我的伙伴-->
+        <activity
+            android:name=".activity.My_Partner"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--收货地址-->
+        <activity
+            android:name=".activity.Address"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--新增收货地址-->
+        <activity
+            android:name=".activity.Add_Address"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--更多-->
+        <activity
+            android:name=".activity.More"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <!-- 推送配置开始 -->

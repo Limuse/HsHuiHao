@@ -23,6 +23,7 @@
     </declare-styleable>
 
 
+    <!-- 滑动pager -->
     <declare-styleable name="PagerSlidingTabStrip">
         <attr name="pstsIndicatorColor" format="color" />
         <attr name="pstsUnderlineColor" format="color" />

@@ -100,6 +100,7 @@
                     android:layout_below="@+id/tv_all_money"
                     android:layout_marginTop="2dp"
                     android:text="不含运费"
+                    android:textColor="@color/app_text_light"
                     android:textSize="@dimen/app_text_small" />
 
                 <Button

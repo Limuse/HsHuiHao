@@ -176,6 +176,7 @@ public class HorizontalSlideAdapter extends ArrayAdapter<ShopItemEntity> {
          * 图片需要处理
          */
         //holder.img_pic.setImageDrawable();
+        //item删除后恢复
         holder.scrollView.scrollTo(0, 0);
         //标题的点击事件
         holder.infoTextView.setOnClickListener(new OnClickListener() {

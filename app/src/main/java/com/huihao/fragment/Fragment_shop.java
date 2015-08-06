@@ -52,12 +52,12 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         Toolbar toolbar = (Toolbar) parentView.findViewById(R.id.toolbar);
         toolbar.setTitle("购物车");
-        toolbar.setBackgroundColor(Color.WHITE);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
         toolbar.setTitleTextColor(R.color.app_text_dark);
 
         initData();
@@ -87,12 +87,12 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         for (int i = 0; i < 50; i++) {
             ShopItemEntity be = new ShopItemEntity
                     ("把根留住火麻茶麸洗发露洗发露" + i,
-                    "",
-                    "绿色" + i,
-                    "M" + i,
-                    "水晶" + i,
-                   1,
-                    "223");
+                            "",
+                            "绿色" + i,
+                            "M" + i,
+                            "水晶" + i,
+                            1,
+                            "223");
             list.add(be);
         }
 
@@ -108,7 +108,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
             if (cb_all_cbx.isChecked() == false) {
                 cb_all_cbx.setChecked(true);
                 adapter.configCheckMap(true);
-                String MONEY=adapter.getMoney();
+                String MONEY = adapter.getMoney();
                 tv_all_money.setText(MONEY);
                 adapter.notifyDataSetChanged();
                 tv_all_choose.setText("全不选");
@@ -129,7 +129,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
             if (tv_all_choose.getText().toString().equals("全选")) {
                 cb_all_cbx.setChecked(true);
                 adapter.configCheckMap(true);
-                String MONEY=adapter.getMoney();
+                String MONEY = adapter.getMoney();
                 tv_all_money.setText(MONEY);
                 adapter.notifyDataSetChanged();
                 tv_all_choose.setText("全不选");
