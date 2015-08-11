@@ -145,6 +145,8 @@ public class HorizontalSlideAdapter extends ArrayAdapter<ShopItemEntity> {
             // 设置item内容为match_parent的
             holder.lym = (LinearLayout) convertView.findViewById(R.id.ly_match);
             holder.lym.setLayoutParams(mParams);
+            holder.llm=(LinearLayout)convertView.findViewById(R.id.ly_ma);
+            holder.llm.setLayoutParams(mParams);
             holder.et_num = (EditText) convertView.findViewById(R.id.et_num);
             holder.cb_checkb = (CheckBox) convertView.findViewById(R.id.cb_item_checkbox);
             holder.img_pic = (ImageView) convertView.findViewById(R.id.img_til);
@@ -270,6 +272,7 @@ public class HorizontalSlideAdapter extends ArrayAdapter<ShopItemEntity> {
         private ImageView img_pic;
         private Button deleteButton;
         private LinearLayout lym;
+        private LinearLayout llm;
         private int position;
     }
 
