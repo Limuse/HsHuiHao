@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huihao.R;
+import com.huihao.activity.Choose_Couppons;
+import com.huihao.activity.Submit_Orders;
 import com.huihao.adapter.HorizontalSlideAdapter;
 import com.huihao.common.Log;
 import com.huihao.custom.HorizontalSlideDeleteListView;
@@ -52,7 +54,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
     }
 
     @Override
-    public void onActivityCreated( Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         Toolbar toolbar = (Toolbar) parentView.findViewById(R.id.toolbar);
@@ -148,8 +150,8 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
             /**
              * 跳转到结算的下个页面
              */
-//            Intent intent=new Intent(getActivity(),);
-//            getActivity().startActivity(intent);
+            Intent intent = new Intent(getActivity(), Submit_Orders.class);
+            getActivity().startActivity(intent);
         }
     }
 

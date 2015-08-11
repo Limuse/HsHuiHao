@@ -69,6 +69,18 @@ public class Fragment_Orders extends LFragment {
         ee2.astate=2;
         ee2.allmoney="98";
         list.add(ee2);
+        AllOrderEntity ee3=new AllOrderEntity();
+        ee3.aid=3;
+        ee3.number="12965376343";
+        ee3.astate=3;
+        ee3.allmoney="98";
+        list.add(ee3);
+        AllOrderEntity ee4=new AllOrderEntity();
+        ee4.aid=4;
+        ee4.number="12965376343";
+        ee4.astate=4;
+        ee4.allmoney="98";
+        list.add(ee4);
         itemlist=new ArrayList<AllOrderItemEntity>();
         AllOrderItemEntity iee=new AllOrderItemEntity();
         iee.idss=1;

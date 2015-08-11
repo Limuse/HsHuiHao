@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_white"
+    android:paddingBottom="-5dp"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="32dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/app_myself_left_mar"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/viewy1"
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:layout_alignBottom="@+id/iv_img"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/app_viewcard" />
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/yus" />
+
+        <View
+            android:id="@+id/viewy2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/iv_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/app_viewcard" />
+
+        <View
+            android:id="@+id/viewy3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/iv_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/app_viewcard"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/app_myself_left_mar"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_tvmw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="上一站上一站上一站上一站上一站上一站上一站上一站上一站上一站"
+            android:singleLine="false"
+            android:textColor="@color/app_text_light"
+            android:textSize="@dimen/app_text_big" />
+
+        <TextView
+            android:id="@+id/tv_timemw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tvmw"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:text="2015-08-04 10:30:12"
+            android:textColor="@color/app_text_light"
+            android:textSize="@dimen/app_text_normal" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/app_viewcard"/>
+    </LinearLayout>
+
+</LinearLayout>

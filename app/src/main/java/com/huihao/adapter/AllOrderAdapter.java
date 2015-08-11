@@ -1,6 +1,7 @@
 package com.huihao.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huihao.R;
+import com.huihao.activity.MetailFlow_Detail;
 import com.huihao.custom.IlistView;
 import com.huihao.entity.AllOrderEntity;
 import com.huihao.entity.AllOrderItemEntity;
@@ -79,18 +81,41 @@ public class AllOrderAdapter extends BaseAdapter {
         } else if (entity.astate == 1) {
             viewHolder.tv_states.setText("待收货");
             viewHolder.btn_del.setText("确认收货");
-            viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_oks));
+            viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_add));
             viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_orange));
             viewHolder.btn_see.setVisibility(View.VISIBLE);
             viewHolder.btn_del.setVisibility(View.VISIBLE);
+            viewHolder.btn_see.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context, MetailFlow_Detail.class);
+                    context.startActivity(intent);
+                }
+            });
         } else if (entity.astate == 2) {
             viewHolder.tv_states.setText("交易失败");
             viewHolder.btn_del.setText("删除订单");
             viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_text_light));
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_out));
             viewHolder.btn_del.setVisibility(View.VISIBLE);
+        }else if(entity.astate==3){
+            viewHolder.tv_states.setText("代付款");
+            viewHolder.btn_del.setText("付款");
+            viewHolder.btn_see.setText("取消订单");
+            viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_add));
+            viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_orange));
+            viewHolder.btn_see.setVisibility(View.VISIBLE);
+            viewHolder.btn_del.setVisibility(View.VISIBLE);
         }
-
+        else if(entity.astate==4){
+            viewHolder.tv_states.setText("退款中");
+            viewHolder.btn_del.setText("完成退款");
+            viewHolder.btn_see.setText("取消退款");
+            viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_add));
+            viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_orange));
+            viewHolder.btn_see.setVisibility(View.VISIBLE);
+            viewHolder.btn_del.setVisibility(View.VISIBLE);
+        }
         ItemAdapter adapter = new ItemAdapter();
         viewHolder.listviews.setAdapter(adapter);
 

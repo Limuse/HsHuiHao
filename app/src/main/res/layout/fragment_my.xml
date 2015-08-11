@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
@@ -12,14 +13,23 @@
         android:background="@mipmap/person_bg"
         android:orientation="vertical">
 
-        <ImageView
+        <RelativeLayout
             android:id="@+id/person_emls"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="4dp"
-            android:background="@mipmap/emils"
-            android:onClick="true" />
+            android:background="@null"
+            android:clickable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/person_emlss"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/emils" />
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/myself_image_rl"
@@ -29,21 +39,16 @@
             android:onClick="true">
 
 
-            <ImageView
+            <com.huihao.custom.CircleImageView
                 android:id="@+id/myself_image"
                 android:layout_width="@dimen/app_myself_bom"
                 android:layout_height="@dimen/app_myself_bom"
-                android:background="@mipmap/title_img" />
+                android:layout_alignParentRight="true"
+                android:onClick="true"
+                android:src="@mipmap/title_img"
+                app:border_color="@android:color/transparent"
+                app:border_width="0.5dp" />
 
-            <!--   <ImageView
-                   android:id="@+id/myself_authentication"
-                   android:layout_width="@dimen/app_myself_image"
-                   android:layout_height="@dimen/app_myself_image"
-                   android:layout_alignParentBottom="true"
-                   android:layout_alignParentRight="true"
-                   android:layout_marginBottom="2dp"
-                   android:layout_marginRight="2dp"
-                   />-->
             <TextView
                 android:id="@+id/myself_name"
                 android:layout_width="wrap_content"
@@ -82,7 +87,6 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:background="@android:color/transparent"
                     android:gravity="center"
-                    android:onClick="true"
                     android:text="待付款"
                     android:textColor="@drawable/person_top_text"
                     android:textSize="@dimen/app_myself_tex" />
@@ -116,7 +120,6 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:background="@android:color/transparent"
                     android:gravity="center"
-                    android:onClick="true"
                     android:text="待收货"
                     android:textColor="@drawable/person_top_text"
                     android:textSize="@dimen/app_myself_tex" />
@@ -150,7 +153,6 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:background="@android:color/transparent"
                     android:gravity="center"
-                    android:onClick="true"
                     android:text="退款中"
                     android:textColor="@drawable/person_top_text"
                     android:textSize="@dimen/app_myself_tex" />
@@ -183,6 +185,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/app_white"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -219,11 +222,16 @@
                     android:src="@mipmap/right_to" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="35dp"
+                android:background="@color/app_background" />
+
             <RelativeLayout
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
-                android:layout_marginTop="@dimen/app_viewcard"
                 android:background="@drawable/btn_press"
                 android:clickable="true">
 
@@ -254,11 +262,16 @@
                     android:src="@mipmap/right_to" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="35dp"
+                android:background="@color/app_background" />
+
             <RelativeLayout
                 android:id="@+id/parper"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
-                android:layout_marginTop="@dimen/app_viewcard"
                 android:background="@drawable/btn_press"
                 android:clickable="true">
 
@@ -269,7 +282,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/app_myself_left_mar"
                     android:layout_marginRight="5dp"
-                    android:background="@mipmap/address" />
+                    android:background="@mipmap/juan" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -289,11 +302,15 @@
                     android:src="@mipmap/right_to" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/app_background" />
+
             <RelativeLayout
                 android:id="@+id/account"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
-                android:layout_marginTop="@dimen/app_lycard"
                 android:background="@drawable/btn_press"
                 android:clickable="true">
 
@@ -324,11 +341,16 @@
                     android:src="@mipmap/right_to" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="35dp"
+                android:background="@color/app_background" />
+
             <RelativeLayout
                 android:id="@+id/rebate"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
-                android:layout_marginTop="@dimen/app_viewcard"
                 android:background="@drawable/btn_press"
                 android:clickable="true">
 
@@ -359,11 +381,16 @@
                     android:src="@mipmap/rightto" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="35dp"
+                android:background="@color/app_background" />
+
             <RelativeLayout
                 android:id="@+id/partner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
-                android:layout_marginTop="@dimen/app_viewcard"
                 android:background="@drawable/btn_press"
                 android:clickable="true">
 
@@ -394,11 +421,15 @@
                     android:src="@mipmap/rightto" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/app_background" />
+
             <RelativeLayout
                 android:id="@+id/more"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
-                android:layout_marginTop="@dimen/app_lycard"
                 android:background="@drawable/btn_press"
                 android:clickable="true">
 
@@ -428,6 +459,12 @@
                     android:layout_marginRight="@dimen/app_myself_left_mar"
                     android:src="@mipmap/rightto" />
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/app_background" />
+
         </LinearLayout>
 
     </ScrollView>

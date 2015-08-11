@@ -1,11 +1,10 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
@@ -16,10 +15,10 @@ import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.custom.CustomDialog;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
 
-import org.w3c.dom.Text;
 
 /**
  * Created by huisou on 2015/8/5.
@@ -106,10 +105,15 @@ public class More extends LActivity implements View.OnClickListener {
         //版权信息
         if (mid == R.id.rl_bx) {
             T.ss("版权信息");
+            Intent intent=new Intent(this,CopyRight.class);
+            startActivity(intent);
         }
         //意见反馈
         if (mid == R.id.rl_advice) {
             T.ss("意见反馈");
+            Intent intent=new Intent(this,FeedBack.class);
+            startActivity(intent);
+
         }
         //给我们评分
         if (mid == R.id.rl_pingf) {
@@ -117,8 +121,8 @@ public class More extends LActivity implements View.OnClickListener {
         }
         //清除缓存
         if (mid == R.id.rl_clear) {
-           // T.ss("清除缓存");
-            final Dialog alertDialog = new AlertDialog.Builder(this).
+            // T.ss("清除缓存");
+            final CustomDialog alertDialog = new CustomDialog.Builder(this).
                     setMessage("清除缓存吗？").
                     setPositiveButton("确定", new DialogInterface.OnClickListener() {
 

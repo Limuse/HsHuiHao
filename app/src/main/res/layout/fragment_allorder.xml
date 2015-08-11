@@ -11,10 +11,6 @@
 
     <include layout="@layout/toolbar" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_lycard"
-        android:background="@color/app_background" />
 
     <com.huihao.custom.PagerSlidingTabStrip
         android:id="@+id/tab_strip"

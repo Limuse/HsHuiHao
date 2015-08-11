@@ -103,7 +103,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/btn_sed"
-            android:background="@drawable/btn_outline"
+            android:background="@drawable/btn_out"
             android:text="查看物流"
             android:textColor="@color/app_text_light"
             android:textSize="@dimen/app_text_big" />
@@ -115,7 +115,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/app_myself_left_mar"
-            android:background="@drawable/btn_oks"
+            android:background="@drawable/btn_add"
             android:text="确认收货"
             android:textColor="@color/app_orange"
             android:textSize="@dimen/app_text_big" />

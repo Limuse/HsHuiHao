@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_conupons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/app_myself_left_mar"
+    android:layout_marginRight="@dimen/app_myself_left_mar"
+    android:background="@mipmap/can_u"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/cb_cb"
+        style="@style/Checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/app_myself_left_mar"
+         />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/app_setting_right"
+        android:orientation="vertical"
+        android:textColor="@color/app_text_dark">
+
+        <TextView
+            android:id="@+id/conupons_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="汇好商城优惠卷"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_big" />
+
+        <TextView
+            android:id="@+id/conupons_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="使用期限：2015.11.10前"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_normal" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|right"
+        android:layout_marginRight="0dp">
+
+        <TextView
+            android:id="@+id/conupons_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:layout_marginTop="@dimen/app_myself_left_mar"
+            android:text="￥100"
+            android:textColor="@color/app_white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/conupons_jian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/conupons_money"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:layout_marginTop="6dp"
+            android:text="满800可用"
+            android:textColor="@color/app_white"
+            android:textSize="@dimen/app_text_normal" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

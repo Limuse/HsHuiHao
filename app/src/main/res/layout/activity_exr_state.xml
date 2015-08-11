@@ -39,8 +39,8 @@
         <TextView
             android:id="@+id/tv_mmm"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
+            android:layout_marginTop="8dp"
+            android:textSize="50sp"
             android:textColor="@color/app_orange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                 android:textSize="@dimen/app_text_small"
                 android:singleLine="false"
                 android:layout_marginLeft="@dimen/app_myself_left_mar"
-                android:text="申请提取的佣金已经打到一下2账号了哦，请查收并确认。若没有收到相应的金额，请点击拒绝按钮，并说明拒绝原因。"/>
+                android:text="申请提取的佣金已经打到一下账号了哦，请查收并确认。若没有收到相应的金额，请点击拒绝按钮，并说明拒绝原因。"/>
         </RelativeLayout>
         
         <LinearLayout

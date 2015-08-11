@@ -131,6 +131,51 @@
             android:name=".activity.More"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--选择-我的优惠卷-->
+        <activity
+            android:name=".activity.Choose_Couppons"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--提交订单-->
+        <activity
+            android:name=".activity.Submit_Orders"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--选择地址-->
+        <activity
+            android:name=".activity.Choose_Address"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--支付成功-->
+        <activity
+            android:name=".activity.Pay_Successed"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--物流详情-->
+        <activity
+            android:name=".activity.MetailFlow_Detail"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--订单详情-->
+        <activity
+            android:name=".activity.Orders_Details"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--反馈-->
+        <activity
+            android:name=".activity.FeedBack"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--版权信息-->
+        <activity
+            android:name=".activity.CopyRight"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--消息-->
+        <activity
+            android:name=".activity.News"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!-- 推送配置开始 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_background"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="0.5dp"
+        android:background="@color/app_white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/app_myself_left_mar"
+        android:text="拒绝原因"
+        android:textColor="@color/app_text_dark"
+        android:textSize="@dimen/app_text_big" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:background="@color/app_white">
+
+        <EditText
+            android:id="@+id/et_reson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_myself_left_mar"
+            android:background="@android:color/transparent"
+            android:hint="请输入拒绝原因"
+            android:paddingLeft="35dp"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_big" />
+
+        <Button
+            android:id="@+id/btn_submits"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/sure_ok"
+            android:text="确定"
+            android:textColor="@color/app_white"
+            android:textSize="@dimen/app_text_big" />
+    </RelativeLayout>
+</LinearLayout>

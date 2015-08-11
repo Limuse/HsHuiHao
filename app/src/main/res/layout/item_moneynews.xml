@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <TextView
+            android:id="@+id/tv_timess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="4dp"
+            android:text="2015年5月15日 09：30:01"
+            android:textColor="@color/app_text_light"
+            android:textSize="@dimen/app_text_small" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/app_myself_left_mar"
+        android:layout_marginRight="@dimen/app_myself_left_mar"
+        android:background="@drawable/edt_bk"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:id="@+id/ddd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="@dimen/app_myself_left_mar"
+                android:text="新财富通知"
+                android:textColor="@color/app_text_dark"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/tv_3"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_toEndOf="@+id/ddd"
+                android:background="@drawable/clicer"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@color/app_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_order_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="124665423"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/app_text_small"
+                android:textColor="@color/app_text_dark"
+                android:layout_marginLeft="@dimen/app_myself_left_mar"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/app_text_small"
+                android:textColor="@color/app_text_dark"
+                android:layout_gravity="center_vertical"
+                android:text="号订单已完成，您的收入又增加了"/>
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/app_text_small"
+                android:textColor="@color/app_text_dark"
+                android:text="45"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/app_text_small"
+                android:textColor="@color/app_text_dark"
+                android:text="元哦"/>
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/app_background"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"/>
+        <RelativeLayout
+            android:id="@+id/rl_xiangqs"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginRight="1.5dp"
+            android:layout_marginLeft="1.5dp"
+            android:layout_marginBottom="1.5dp"
+            android:background="@drawable/btn_press">
+
+            <TextView
+                android:id="@+id/tv_chak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看详情"
+                android:layout_centerVertical="true"
+                android:textColor="@color/app_text_light"
+                android:textSize="@dimen/app_text_small"
+                android:layout_toStartOf="@+id/iv"
+                android:layout_marginRight="@dimen/app_myself_left_mar"
+                />
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="@dimen/app_myself_right_image"
+                android:layout_height="@dimen/app_myself_right_image"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/app_myself_left_mar"
+                android:src="@mipmap/right_to" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

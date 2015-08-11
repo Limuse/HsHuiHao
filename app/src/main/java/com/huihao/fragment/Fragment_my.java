@@ -23,6 +23,7 @@ import com.huihao.activity.More;
 import com.huihao.activity.My_Coupons;
 import com.huihao.activity.My_Partner;
 import com.huihao.activity.My_Rebate;
+import com.huihao.activity.News;
 import com.huihao.activity.PersonSet;
 import com.huihao.common.Bar;
 import com.leo.base.activity.fragment.LFragment;
@@ -44,7 +45,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     private ImageView emails;
     private TextView tv_name;
     private TextView btn_1, btn_2, btn_3, tv_1, tv_2, tv_3;
-    private RelativeLayout rl_image, rl_order, rl_address, rl_account, rl_rebate, rl_partner, rl_more, rl_parper, rl_tv1, rl_tv2, rl_tv3;
+    private RelativeLayout rl_news,rl_image, rl_order, rl_address, rl_account, rl_rebate, rl_partner, rl_more, rl_parper, rl_tv1, rl_tv2, rl_tv3;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +66,8 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
 
     private void initView() {
         person_image = (ImageView) getActivity().findViewById(R.id.myself_image);
-        emails = (ImageView) getActivity().findViewById(R.id.person_emls);//消息
+        emails = (ImageView) getActivity().findViewById(R.id.person_emlss);//消息
+        rl_news=(RelativeLayout)getActivity().findViewById(R.id.person_emls);
         rl_image = (RelativeLayout) getActivity().findViewById(R.id.myself_image_rl);//头像部分
         tv_name = (TextView) getActivity().findViewById(R.id.myself_name);
         btn_1 = (TextView) getActivity().findViewById(R.id.person_no_pay);//待付款
@@ -85,7 +87,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         rl_tv2 = (RelativeLayout) getActivity().findViewById(R.id.rl_tv2);
         rl_tv3 = (RelativeLayout) getActivity().findViewById(R.id.rl_tv3);
         person_image.setOnClickListener(this);
-        emails.setOnClickListener(this);
+        rl_news.setOnClickListener(this);
         rl_tv1.setOnClickListener(this);
         rl_tv2.setOnClickListener(this);
         rl_tv3.setOnClickListener(this);
@@ -110,6 +112,8 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         //消息
         if (id == R.id.person_emls) {
             T.ss("跳到消息的页面");
+            Intent intent = new Intent(getActivity(), News.class);
+            getActivity().startActivity(intent);
         }
         //头像
         if (id == R.id.myself_image) {

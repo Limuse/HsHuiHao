@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_background" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@mipmap/pay_bg" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="0.5dp"
+        android:background="@drawable/btn_press"
+        android:gravity="center"
+        android:text="支付成功！"
+        android:textColor="@color/app_orange"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/app_myself_left_mar"
+        android:layout_marginRight="@dimen/app_myself_left_mar"
+        android:background="@color/app_background" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/app_white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/app_myself_left_mar"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/app_myself_left_mar"
+                        android:text="收 件 人: "
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_big" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="张三"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_big" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:text="18302546987"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_big" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/app_myself_left_mar"
+                        android:text="收货地址:   "
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_big" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_addr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/app_myself_left_mar"
+                        android:singleLine="false"
+                        android:text="江干江干江干江干江干江干江干江干江干江干"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_big" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/app_myself_left_mar"
+                android:layout_marginRight="@dimen/app_myself_left_mar"
+                android:background="@color/app_background" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/app_white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/app_myself_left_mar"
+                        android:text="实 付 款："
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="100.00"
+                        android:textColor="@color/app_orange"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:text="元"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+
+                        <Button
+                            android:id="@+id/btn_xq"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="@dimen/app_myself_left_mar"
+                            android:background="@drawable/btn_out"
+                            android:text="订单详情"
+                            android:textColor="@color/app_text_press"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/btn_bb"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/app_myself_left_mar"
+                            android:layout_toRightOf="@+id/btn_xq"
+                            android:background="@drawable/btn_out"
+                            android:text="返回首页"
+                            android:textColor="@color/app_text_press"
+                            android:textSize="20dp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/app_background" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/app_white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:layout_marginTop="@dimen/app_myself_left_mar"
+                    android:text="提示："
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/app_myself_left_mar"
+                        android:text="在该笔订单"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="确认收货"
+                        android:textColor="@color/app_orange"
+                        android:textSize="@dimen/app_text_normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="之后，汇好会发送"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="邀请码 "
+                        android:textColor="@color/app_orange"
+                        android:textSize="@dimen/app_text_normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="给您，"
+                        android:textColor="@color/app_text_dark"
+                        android:textSize="@dimen/app_text_normal" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/app_myself_left_mar"
+                    android:layout_marginTop="5dp"
+                    android:text="请您留意您的消息中心。"
+                    android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_normal" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
