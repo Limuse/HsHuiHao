@@ -60,7 +60,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         Toolbar toolbar = (Toolbar) parentView.findViewById(R.id.toolbar);
         toolbar.setTitle("购物车");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         initData();
         initView();

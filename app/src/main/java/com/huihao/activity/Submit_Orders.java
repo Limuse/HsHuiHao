@@ -67,7 +67,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         ly_alladdr = (LinearLayout) findViewById(R.id.ordersss);//有地址
         rl_ano = (RelativeLayout) findViewById(R.id.rl_a);//没有地址

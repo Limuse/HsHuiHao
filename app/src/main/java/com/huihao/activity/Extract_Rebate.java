@@ -51,7 +51,7 @@ public class Extract_Rebate extends LActivity implements View.OnClickListener {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         tv_acc=(TextView)findViewById(R.id.tv_acca);
         tv_na=(TextView)findViewById(R.id.tv_nn);

@@ -58,7 +58,7 @@ public class Update_Phone extends LActivity {
                 return false;
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         et_update_phone = (EditText) findViewById(R.id.et_update_phones);
         et_phone_num = (EditText) findViewById(R.id.et_phones_num);

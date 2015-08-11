@@ -51,7 +51,7 @@ public class My_Rebate extends LActivity implements View.OnClickListener {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         btn_rb = (Button) findViewById(R.id.login_cancel);
         rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);

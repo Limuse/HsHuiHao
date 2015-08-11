@@ -56,7 +56,7 @@ public class More extends LActivity implements View.OnClickListener {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 //        tv_web,tv_kp,tv_clear
 //        rl_web,rl_kp,rl_ban,rl_advice,rl_p,rl_clear;
         tv_web = (TextView) findViewById(R.id.tv_web);

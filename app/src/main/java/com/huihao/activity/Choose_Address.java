@@ -69,8 +69,7 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
                 return false;
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
-
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
         listView = (ListView) findViewById(R.id.lv_cadd);
         btn_addr = (Button) findViewById(R.id.btn_add_addrs);
         btn_addr.setOnClickListener(this);

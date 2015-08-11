@@ -58,7 +58,7 @@ public class ExtractActivity extends LActivity {
                 return false;
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         et_zaccount = (EditText) findViewById(R.id.setting_phone);
         et_zname = (EditText) findViewById(R.id.account_name);

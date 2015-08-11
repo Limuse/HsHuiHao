@@ -55,7 +55,7 @@ public class Extra_Record extends LActivity {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tab_strip);
         viewPager = (ViewPager) findViewById(R.id.view_pager);

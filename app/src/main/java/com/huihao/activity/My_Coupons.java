@@ -53,7 +53,7 @@ public class My_Coupons extends LActivity {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         listview = (ListView) findViewById(R.id.lv_coupons);
 

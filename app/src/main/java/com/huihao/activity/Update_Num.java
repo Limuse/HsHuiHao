@@ -57,7 +57,7 @@ public class Update_Num extends LActivity {
                 return false;
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         et_Upnum = (EditText) findViewById(R.id.et_please_num);
     }

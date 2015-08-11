@@ -54,7 +54,7 @@ public class Address extends LActivity implements View.OnClickListener {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         listView = (ListView) findViewById(R.id.lv_list_addr);
         btn_add_addr = (Button) findViewById(R.id.btn_add_addr);

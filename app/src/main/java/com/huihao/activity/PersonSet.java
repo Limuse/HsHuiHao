@@ -86,7 +86,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         tv_phone = (TextView) findViewById(R.id.setting_phone);
         tv_name = (TextView) findViewById(R.id.setting_name);

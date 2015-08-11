@@ -56,7 +56,7 @@ public class FeedBack extends LActivity {
                 return false;
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         et_desc = (EditText) findViewById(R.id.et_backa);
         et_p = (EditText) findViewById(R.id.ed_fid);

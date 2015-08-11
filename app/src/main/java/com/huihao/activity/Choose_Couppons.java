@@ -50,7 +50,7 @@ public class Choose_Couppons extends LActivity {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         listview = (ListView) findViewById(R.id.lv_couponss);
         initData();

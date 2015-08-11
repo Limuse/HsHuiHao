@@ -57,7 +57,7 @@ public class MetailFlow_Detail extends LActivity {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         tv_mn = (TextView) findViewById(R.id.tv_kd);
         tv_mnum = (TextView) findViewById(R.id.tv_ydnum);

@@ -59,7 +59,7 @@ public class Update_Name extends LActivity {
                 return false;
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         et_Upname = (EditText) findViewById(R.id.et_update_name);
     }

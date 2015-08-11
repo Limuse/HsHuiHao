@@ -59,7 +59,7 @@ public class Add_Address extends LActivity implements View.OnClickListener {
                 return false;
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         et_name = (EditText) findViewById(R.id.et_men);
         et_phone = (EditText) findViewById(R.id.et_menphone);

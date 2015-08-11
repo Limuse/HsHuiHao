@@ -50,7 +50,7 @@ public class Pay_Successed extends LActivity implements View.OnClickListener {
                 finish();
             }
         });
-        toolbar.setTitleTextColor(R.color.app_text_dark);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
         tv_pay_name = (TextView) findViewById(R.id.tv_pay_name);
         tv_pay_phone = (TextView) findViewById(R.id.tv_pay_phone);
         tv_pay_addr = (TextView) findViewById(R.id.tv_pay_addr);
