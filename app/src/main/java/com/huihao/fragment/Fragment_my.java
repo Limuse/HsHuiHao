@@ -26,6 +26,7 @@ import com.huihao.activity.My_Rebate;
 import com.huihao.activity.News;
 import com.huihao.activity.PersonSet;
 import com.huihao.common.Bar;
+import com.huihao.common.Log;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.util.T;
 import com.readystatesoftware.viewbadger.BadgeView;

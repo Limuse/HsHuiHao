@@ -94,7 +94,6 @@ public class CustomDialog extends Dialog {
         public CustomDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            // instantiate the dialog with the custom Theme
             final CustomDialog dialog = new CustomDialog(context,R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_choose, null);
 
@@ -102,9 +101,7 @@ public class CustomDialog extends Dialog {
 
             dialog.addContentView(layout, new WindowManager.LayoutParams(
                     WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT));
-            // set the dialog title
             ((TextView) layout.findViewById(R.id.dialog_title)).setText(title);
-            // set the confirm button
             if (positiveButtonText != null) {
                 ((Button) layout.findViewById(R.id.dialog_right))
                         .setText(positiveButtonText);
@@ -118,11 +115,9 @@ public class CustomDialog extends Dialog {
                             });
                 }
             } else {
-                // if no confirm button just set the visibility to GONE
                 layout.findViewById(R.id.dialog_right).setVisibility(
                         View.GONE);
             }
-            // set the cancel button
             if (negativeButtonText != null) {
                 ((Button) layout.findViewById(R.id.dialog_left))
                         .setText(negativeButtonText);
@@ -136,16 +131,12 @@ public class CustomDialog extends Dialog {
                             });
                 }
             } else {
-                // if no confirm button just set the visibility to GONE
                 layout.findViewById(R.id.dialog_left).setVisibility(
                         View.GONE);
             }
-            // set the content message
             if (message != null) {
                 ((TextView) layout.findViewById(R.id.dialog_title)).setText(message);
             } else if (contentView != null) {
-                // if no message set
-                // add the contentView to the dialog body
                 ((LinearLayout) layout.findViewById(R.id.dialog_content))
                         .removeAllViews();
                 ((LinearLayout) layout.findViewById(R.id.dialog_content))

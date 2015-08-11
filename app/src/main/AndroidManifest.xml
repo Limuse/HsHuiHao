@@ -35,18 +35,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--主页-->
         <activity
             android:name=".activity.HomeMain"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--专题详情-->
         <activity
             android:name=".activity.Story_details"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--商品详情-->
         <activity
             android:name=".activity.Product_details"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--登录-->
+        <activity
+            android:name=".activity.LoginMain"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+
+
+
+
+
+
+
         <!--个人设置-->
         <activity
             android:name=".activity.PersonSet"

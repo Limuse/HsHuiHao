@@ -8,7 +8,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-
     <com.huihao.custom.MyScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"

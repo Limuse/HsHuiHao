@@ -30,7 +30,7 @@ public class MyApplication extends LApplication {
 
     public static Context applicationContext;
 
-    private static boolean isLog = true;
+    private static boolean isLog = false;
 
     public static boolean isLog() {
         return isLog;
@@ -40,7 +40,7 @@ public class MyApplication extends LApplication {
         MyApplication.isLog = isLog;
     }
 
-    public static int Hight,width;
+    public static int Hight, width;
 
     public void onCreate() {
         super.onCreate();
