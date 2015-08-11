@@ -69,6 +69,7 @@
                 android:background="@null">
 
                 <RelativeLayout
+                    android:id="@+id/product2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@+id/view"
@@ -123,6 +124,7 @@
                     android:background="@null"></RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/product1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/view"
@@ -198,6 +200,7 @@
                 android:background="@null">
 
                 <RelativeLayout
+                    android:id="@+id/product3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/view2"
@@ -268,6 +271,7 @@
 
 
                     <RelativeLayout
+                        android:id="@+id/product5"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/view3"
@@ -304,6 +308,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/product4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/view3"

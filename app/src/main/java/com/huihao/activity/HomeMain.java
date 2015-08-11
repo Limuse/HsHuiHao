@@ -16,6 +16,7 @@ import com.huihao.R;
 import com.huihao.common.Bar;
 import com.huihao.common.Log;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.UntilList;
 import com.huihao.fragment.Fragment_main;
 import com.huihao.fragment.Fragment_shop;
 import com.huihao.fragment.Fragment_my;
@@ -76,7 +77,7 @@ public class HomeMain extends LActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.inject(this);
         PushAgent.getInstance(this).onAppStart();
-        Bar.setWhite(this);
+        Bar.setWhite(this);      Log.e(UntilList.getAppInfo(this));
         initView();
     }
 

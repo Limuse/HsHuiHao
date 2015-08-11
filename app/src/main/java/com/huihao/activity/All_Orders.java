@@ -13,6 +13,7 @@ import android.annotation.TargetApi;
 
 import com.huihao.R;
 import com.huihao.adapter.MyAllOrderMainPager;
+import com.huihao.common.Log;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.custom.PagerSlidingTabStrip;
 import com.leo.base.activity.LActivity;
@@ -63,6 +64,7 @@ public class All_Orders extends LActivity {
 
         pagerAdapter = new MyAllOrderMainPager(this, getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
+
         String t = getIntent().getStringExtra("gets");
         int p = Integer.parseInt(t);
         viewPager.setCurrentItem(p);

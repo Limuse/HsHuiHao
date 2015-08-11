@@ -4,13 +4,23 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,7 +30,9 @@ import com.huihao.R;
 import com.huihao.adapter.ProductGridAda;
 import com.huihao.adapter.ProductPageAdapter;
 import com.huihao.common.Bar;
+import com.huihao.common.Log;
 import com.huihao.custom.CustomDialog;
+import com.huihao.custom.DatePickerFragment;
 import com.huihao.custom.ImageCycleView;
 import com.huihao.custom.MyScrollView;
 import com.huihao.custom.NoScrollGridView;
@@ -32,6 +44,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * Created by admin on 2015/7/29.
@@ -70,8 +84,20 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     private LinearLayout Top1, Top2;
 
     private Dialog dialog;
+    private View dialogView;
 
     private TagGroup tagGroup;
+    private String OKSTATE;
+
+    private LinearLayout lin_choose;
+    private LinearLayout lin_ok;
+
+    private int choose_num = 1;
+
+    private Button et_num;
+    private boolean isAdd = true;
+    private int index = 500;
+
 
     protected void onLCreate(Bundle bundle) {
         parentView = getLayoutInflater().inflate(R.layout.activity_product_details, null);
@@ -84,24 +110,17 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     }
 
     public void buy(View v) {
+        lin_ok.setVisibility(View.VISIBLE);
+        lin_choose.setVisibility(View.GONE);
+        OKSTATE = "BUY";
         showBuyDialog();
     }
 
     public void add(View v) {
-        CustomDialog.Builder builder = new CustomDialog.Builder(this);
-        builder.setMessage("自定义的提示框");
-        builder.setPositiveButton("取消", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNegativeButton("确定",
-                new android.content.DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-        builder.create().show();
+        lin_ok.setVisibility(View.VISIBLE);
+        lin_choose.setVisibility(View.GONE);
+        OKSTATE = "ADD";
+        showBuyDialog();
     }
 
     public void back(View v) {
@@ -113,7 +132,9 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     }
 
     public void choose(View v) {
-
+        lin_choose.setVisibility(View.VISIBLE);
+        lin_ok.setVisibility(View.GONE);
+        showBuyDialog();
     }
 
     private void initAda() {
@@ -136,7 +157,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         toolbar = (RelativeLayout) findViewById(R.id.toolbar);
 
         tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tab_strip);
-//        tabStrip_top = (PagerSlidingTabStrip) findViewById(R.id.tab_strip_top);
 
         Top1 = (LinearLayout) findViewById(R.id.group_top1);
         Top2 = (LinearLayout) findViewById(R.id.group_top2);
@@ -161,22 +181,140 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         });
 
 
-        View view=getLayoutInflater().inflate(R.layout.activity_product_details_dialog, null);
+        dialogView = getLayoutInflater().inflate(R.layout.activity_product_details_dialog, null);
         dialog = new Dialog(this,
                 R.style.transparentFrameWindowStyle);
-        dialog.setContentView(view, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT,
+        dialog.setContentView(dialogView, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT));
-        initDialog(view);
+        initDialog(dialogView);
     }
 
     private void initDialog(View view) {
-        tagGroup=(TagGroup)view.findViewById(R.id.tag_group);
+        RelativeLayout btn_close = (RelativeLayout) view.findViewById(R.id.btn_close);
+        lin_choose = (LinearLayout) dialogView.findViewById(R.id.Lin_choose);
+        lin_ok = (LinearLayout) dialogView.findViewById(R.id.Lin_ok);
+
+        Button btn_ok = (Button) view.findViewById(R.id.btn_ok);
+        Button btn_add = (Button) view.findViewById(R.id.btn_add);
+        Button btn_buy = (Button) view.findViewById(R.id.btn_buy);
+        Button btn_l = (Button) view.findViewById(R.id.btn_l);
+        Button btn_r = (Button) view.findViewById(R.id.btn_r);
+        et_num = (Button) view.findViewById(R.id.et_num);
+        et_num.setText(choose_num + "");
+        ImageView image_product = (ImageView) view.findViewById(R.id.image);
+
+        btn_l.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        new Thread(new Runnable() {
+                            public void run() {
+                                isAdd = true;
+                                index = 300;
+                                while (isAdd) {
+                                    try {
+                                        handler.sendEmptyMessage(1);
+                                        Thread.sleep(index);
+                                        if (index > 20) {
+                                            index -= 10;
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }).start();
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        isAdd = false;
+                        index = 300;
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+
+        btn_r.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        new Thread(new Runnable() {
+                            public void run() {
+                                isAdd = true;
+                                index = 300;
+                                while (isAdd) {
+                                    try {
+                                        handler.sendEmptyMessage(0);
+                                        Thread.sleep(index);
+                                        if (index > 20) {
+                                            index -= 10;
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }).start();
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        isAdd = false;
+                        index = 300;
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btn_buy.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (OKSTATE.equals("ADD")) {
+                    dialog.dismiss();
+                    ImageView imageView = new ImageView(Product_details.this);
+                    imageView.setImageResource(R.mipmap.image1);
+                    imageView.setLayoutParams(new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.WRAP_CONTENT,
+                            WindowManager.LayoutParams.WRAP_CONTENT));
+
+                    RotateAnimation rotateAnimation = new RotateAnimation(0f, 45f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    rotateAnimation.setDuration(0);
+                    rotateAnimation.setFillAfter(true);
+                    imageView.startAnimation(rotateAnimation);
+
+                    Animation translateAnimation = new TranslateAnimation(0, 1000, 0, 100);
+                    rotateAnimation.setDuration(0);
+                    rotateAnimation.setFillAfter(true);
+                    imageView.startAnimation(translateAnimation);
+                } else if (OKSTATE.equals("BUY")) {
+
+                } else {
+                }
+            }
+        });
+
+        tagGroup = (TagGroup) view.findViewById(R.id.tag_group);
         List<String> list = new ArrayList<String>();
         list.add("350ml");
         list.add("500ml");
         list.add("800ml");
-        list.add("1000ml");
-        list.add("2500ml");
+        list.add("豪华精装3合一大礼包");
         tagGroup.setTags(list);
     }
 
@@ -251,6 +389,23 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             }
         }
     }
+
+    private android.os.Handler handler = new android.os.Handler() {
+        public void handleMessage(Message msg) {
+            if (msg.what == 0) {
+                if (choose_num < 999) {
+                    choose_num++;
+                    et_num.setText(choose_num + "");
+                }
+            } else if (msg.what == 1) {
+                if (choose_num > 1) {
+                    choose_num--;
+                    et_num.setText(choose_num + "");
+                }
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     private void showBuyDialog() {
         Window window = dialog.getWindow();

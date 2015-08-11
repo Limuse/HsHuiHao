@@ -1,12 +1,17 @@
 package com.huihao.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.huihao.R;
+import com.huihao.activity.LoginMain;
+import com.huihao.activity.Product_details;
 import com.huihao.adapter.MainGridAda;
 import com.huihao.custom.ImageCycleView;
 import com.huihao.custom.NoScrollGridView;
@@ -31,6 +36,8 @@ public class Fragment_main extends LFragment {
     private NoScrollGridView gridView;
     private List<Map<String, String>> gridList = new ArrayList<Map<String, String>>();
     private MainGridAda myGridAda;
+    private RelativeLayout r1, r2, r3, r4, r5;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -47,11 +54,50 @@ public class Fragment_main extends LFragment {
         super.onActivityCreated(savedInstanceState);
         initData();
         initView();
+        initClick();
         initAda();
+    }
+
+    private void initClick() {
+        r1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            Intent intent=new Intent(getActivity(),LoginMain.class);
+                startActivity(intent);
+            }
+        });
+        r2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+        r3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+        r4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+        r5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
+
     }
 
 
     private void initView() {
+        r1 = (RelativeLayout) parentView.findViewById(R.id.product1);
+        r2 = (RelativeLayout) parentView.findViewById(R.id.product2);
+        r3 = (RelativeLayout) parentView.findViewById(R.id.product3);
+        r4 = (RelativeLayout) parentView.findViewById(R.id.product4);
+        r5 = (RelativeLayout) parentView.findViewById(R.id.product5);
+
+
         mAdView = (ImageCycleView) parentView.findViewById(R.id.ImageCycleView);
         mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
         gridView = (NoScrollGridView) parentView.findViewById(R.id.gridView);
@@ -71,20 +117,21 @@ public class Fragment_main extends LFragment {
         for (int i = 0; i < 10; i++) {
             Map<String, String> map = new HashMap<String, String>();
             map.put("name", "把根留住");
-            map.put("price", "￥"+i);
+            map.put("price", "￥" + i);
             map.put("image", "http://img1.3lian.com/img2011/w1/106/1/46.jpg");
             gridList.add(map);
         }
     }
 
     private void initAda() {
-        myGridAda = new MainGridAda(getActivity(),gridList);
+        myGridAda = new MainGridAda(getActivity(), gridList);
         gridView.setAdapter(myGridAda);
     }
 
     private ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
         public void onImageClick(int position, View imageView) {
-            Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), Product_details.class);
+            startActivity(intent);
         }
     };
 }
