@@ -13,7 +13,7 @@ public class MtScrollView extends ScrollView {
     private static final float MOVE_FACTOR = 0.5f;
 
     //松开手指后, 界面回到正常位置需要的动画时间
-    private static final int ANIM_TIME = 300;
+    private static final int ANIM_TIME = 200;
 
     //ScrollView的子View， 也是ScrollView的唯一一个子View
     private View contentView;
@@ -130,8 +130,8 @@ public class MtScrollView extends ScrollView {
                     int offset = (int)(deltaY * MOVE_FACTOR);
 
                     //随着手指的移动而移动布局
-                    contentView.layout(originalRect.left, originalRect.top + offset,
-                            originalRect.right, originalRect.bottom + offset);
+                    contentView.layout(originalRect.left, originalRect.top + offset/2,
+                            originalRect.right, originalRect.bottom + offset/2);
 
                     isMoved = true;  //记录移动了布局
                 }

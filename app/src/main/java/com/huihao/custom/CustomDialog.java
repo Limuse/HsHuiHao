@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,14 +45,17 @@ public class CustomDialog extends Dialog {
             this.message = message;
             return this;
         }
+
         public Builder setMessage(int message) {
             this.message = (String) context.getText(message);
             return this;
         }
+
         public Builder setTitle(int title) {
             this.title = (String) context.getText(title);
             return this;
         }
+
         public Builder setTitle(String title) {
             this.title = title;
             return this;
@@ -61,6 +65,7 @@ public class CustomDialog extends Dialog {
             this.contentView = v;
             return this;
         }
+
         public Builder setPositiveButton(int positiveButtonText,
                                          DialogInterface.OnClickListener listener) {
             this.positiveButtonText = (String) context
@@ -94,7 +99,7 @@ public class CustomDialog extends Dialog {
         public CustomDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final CustomDialog dialog = new CustomDialog(context,R.style.Dialog);
+            final CustomDialog dialog = new CustomDialog(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_choose, null);
 
             DisplayMetrics dm = new DisplayMetrics();
@@ -140,9 +145,10 @@ public class CustomDialog extends Dialog {
                 ((LinearLayout) layout.findViewById(R.id.dialog_content))
                         .removeAllViews();
                 ((LinearLayout) layout.findViewById(R.id.dialog_content))
-                        .addView(contentView, new WindowManager.LayoutParams(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.FILL_PARENT));
+                        .addView(contentView, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
             }
             dialog.setContentView(layout);
+            dialog.setCanceledOnTouchOutside(false);
             return dialog;
         }
     }

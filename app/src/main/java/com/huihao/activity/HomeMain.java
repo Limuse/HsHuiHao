@@ -1,11 +1,13 @@
 package com.huihao.activity;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,12 +19,17 @@ import com.huihao.common.Bar;
 import com.huihao.common.Log;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.common.UntilList;
+import com.huihao.custom.ImageDialog;
 import com.huihao.fragment.Fragment_main;
 import com.huihao.fragment.Fragment_shop;
 import com.huihao.fragment.Fragment_my;
 import com.huihao.fragment.Fragment_story;
 import com.leo.base.activity.LActivity;
+import com.leo.base.util.T;
 import com.umeng.message.PushAgent;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -77,7 +84,8 @@ public class HomeMain extends LActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.inject(this);
         PushAgent.getInstance(this).onAppStart();
-        Bar.setWhite(this);      Log.e(UntilList.getAppInfo(this));
+        Bar.setWhite(this);
+        Log.e(UntilList.getAppInfo(this));
         initView();
     }
 
@@ -153,6 +161,19 @@ public class HomeMain extends LActivity {
     }
 
     private void initView() {
+
+        ImageDialog dialog = new ImageDialog.Builder(this).setImage(R.mipmap.dialog_logo).setMessage("30").setInfo("20", "10").setPositiveButton("暂不分享", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).setNegativeButton("现在就去", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create();
+        dialog.show();
+
+
         fragment_main = new Fragment_main();
         main.setBackgroundResource(R.mipmap.mainp);
         switchFragment(fragment_main, MAIN);
@@ -179,4 +200,30 @@ public class HomeMain extends LActivity {
         hideTag = tag;
         mFragmentTransaction.commit();
     }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exitBy2Click();
+        }
+        return false;
+    }
+
+    private static Boolean isExit = false;
+    private void exitBy2Click() {
+        Timer tExit = null;
+        if (isExit == false) {
+            isExit = true;
+            T.ss("再按一次退出程序");
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                public void run() {
+                    isExit = false;
+                }
+            }, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
+
 }

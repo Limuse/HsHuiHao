@@ -1,8 +1,6 @@
 package com.huihao.custom;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,20 +11,14 @@ import android.graphics.PathEffect;
 import android.graphics.RectF;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.InputFilter;
-import android.text.method.ArrowKeyMovementMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.huihao.R;
-import com.huihao.common.DensityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
