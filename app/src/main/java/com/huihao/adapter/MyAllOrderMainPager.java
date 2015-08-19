@@ -1,24 +1,14 @@
 package com.huihao.adapter;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.huihao.R;
-import com.huihao.activity.All_Orders;
 import com.huihao.fragment.Fragment_Orders;
 import com.huihao.fragment.Fragment_back_money;
 import com.huihao.fragment.Fragment_pay_money;
 import com.huihao.fragment.Fragment_reserve;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by huisou on 2015/7/31.

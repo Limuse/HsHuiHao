@@ -1,15 +1,10 @@
 package com.huihao.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,7 +12,6 @@ import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.activity.Address;
-import com.huihao.activity.All_Orders;
 import com.huihao.activity.ExtractActivity;
 import com.huihao.activity.More;
 import com.huihao.activity.My_Coupons;
@@ -25,15 +19,8 @@ import com.huihao.activity.My_Partner;
 import com.huihao.activity.My_Rebate;
 import com.huihao.activity.News;
 import com.huihao.activity.PersonSet;
-import com.huihao.common.Bar;
-import com.huihao.common.Log;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.util.T;
-import com.readystatesoftware.viewbadger.BadgeView;
-
-import org.w3c.dom.Text;
-
-import static android.view.View.VISIBLE;
 
 /**
  * Created by admin on 2015/6/26.

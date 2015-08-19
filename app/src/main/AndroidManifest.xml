@@ -92,10 +92,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <!--全部订单-->
-        <activity
-            android:name="com.huihao.activity.All_Orders"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"></activity>
         <!--提现账户-->
         <activity
             android:name=".activity.ExtractActivity"
