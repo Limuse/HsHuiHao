@@ -45,7 +45,6 @@ public class All_Orders extends LActivity {
 
 
     private void initView() {
-
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("我的订单");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
