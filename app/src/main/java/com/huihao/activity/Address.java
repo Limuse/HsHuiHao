@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.huihao.R;
 import com.huihao.adapter.AddressHoriSliseAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.custom.SlideListView2;
 import com.huihao.entity.AddressItemEntity;
 import com.leo.base.activity.LActivity;
 
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class Address extends LActivity implements View.OnClickListener {
     private Button btn_add_addr;
-    private ListView listView;
+    private SlideListView2 listView;
     private AddressHoriSliseAdapter adapter;
     List<AddressItemEntity> list = null;
 
@@ -56,7 +57,8 @@ public class Address extends LActivity implements View.OnClickListener {
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
-        listView = (ListView) findViewById(R.id.lv_list_addr);
+        listView = (SlideListView2) findViewById(R.id.lv_list_addr);
+        listView.initSlideMode(SlideListView2.MOD_BOTH);
         btn_add_addr = (Button) findViewById(R.id.btn_add_addr);
         btn_add_addr.setOnClickListener(this);
     }
@@ -71,7 +73,7 @@ public class Address extends LActivity implements View.OnClickListener {
             entity.addra = "江干区江干区干区江干区江干区江干区";
             list.add(entity);
         }
-        adapter = new AddressHoriSliseAdapter(this, list);
+        adapter = new AddressHoriSliseAdapter(this, list, listView);
         listView.setAdapter(adapter);
     }
 

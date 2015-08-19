@@ -79,7 +79,7 @@ public class My_Coupons extends LActivity {
         entity2.cptitile = "汇好商城优惠卷";
         entity2.cptime = "使用期限：2015.11.10前";
         entity2.cpuse = "满800可用";
-        entity1.t = 0;
+        entity2.t = 0;
 
         list.add(entity);
         list.add(entity1);

@@ -1,10 +1,40 @@
 package com.huihao.entity;
 
+import android.widget.CheckBox;
+
 /**
  * Created by huisou on 2015/7/23.
  */
 public class ShopItemEntity {
     private String title;
+    private int id;
+    private float danjia;
+
+    public float getDanjia() {
+        return danjia;
+    }
+
+    public void setDanjia(float danjia) {
+        this.danjia = danjia;
+    }
+
+    private boolean isCheck;//是否选中
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setIsCheck(boolean isCheck) {
+        this.isCheck = isCheck;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getNum() {
         return num;
@@ -38,16 +68,21 @@ public class ShopItemEntity {
     private int num;
     private String money;
 
-    public ShopItemEntity(){}
-    public ShopItemEntity(String title,String pic,String color,String size,String material,int num,String money){
-        this.title=title;
-        this.pic=pic;
-        this.color=color;
-        this.size=size;
-        this.material=material;
-        this.num=num;
-        this.money=money;
+    public ShopItemEntity() {
     }
+
+    public ShopItemEntity(int id, String title, String pic, String color, String size, String material, int num, String money,boolean ischeck,float danjia) {
+        this.title = title;
+        this.pic = pic;
+        this.color = color;
+        this.size = size;
+        this.material = material;
+        this.num = num;
+        this.money = money;
+        this.isCheck=isCheck;
+        this.danjia=danjia;
+    }
+
     public String getTitle() {
         return title;
     }

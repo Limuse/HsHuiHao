@@ -3,6 +3,7 @@ package com.huihao.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -19,14 +21,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huihao.R;
+import com.huihao.custom.CustomDialog;
+import com.huihao.custom.SlideListView2;
 import com.huihao.entity.AddressItemEntity;
+import com.huihao.entity.ShopItemEntity;
 
 import java.util.List;
 
 /**
  * Created by huisou on 2015/8/4.
  */
-public class AddressHoriSliseAdapter extends ArrayAdapter<AddressItemEntity> {
+public class AddressHoriSliseAdapter extends BaseAdapter {
 
     /**
      * 上下文对象
@@ -41,15 +46,7 @@ public class AddressHoriSliseAdapter extends ArrayAdapter<AddressItemEntity> {
      */
     private int mScreenWidth;
 
-    /**
-     * 删除按钮事件
-     */
-    private DeleteButtonOnclickImpl mDelOnclickImpl;
-    /**
-     * HorizontalScrollView左右滑动事件
-     */
-    private ScrollViewScrollImpl mScrollImpl;
-
+    private SlideListView2 listView;
     /**
      * 布局参数,动态让HorizontalScrollView中的TextView宽度包裹父容器
      */
@@ -59,15 +56,12 @@ public class AddressHoriSliseAdapter extends ArrayAdapter<AddressItemEntity> {
      */
     public HorizontalScrollView mScrollView;
 
-    /**
-     * touch事件锁定,如果已经有滑动出删除按钮的itemView,就屏蔽下一整次(down,move,up)的onTouch操作
-     */
-    public boolean mLockOnTouch = false;
 
-    public AddressHoriSliseAdapter(Context context, List<AddressItemEntity> entity) {
-        super(context, 0, entity);
+    public AddressHoriSliseAdapter(Context context, List<AddressItemEntity> entity, SlideListView2 listView) {
+        // super(context, 0, entity);
         this.context = context;
         this.entity = entity;
+        this.listView = listView;
         // 获得到屏幕宽度
         Display defaultDisplay = ((Activity) context).getWindowManager()
                 .getDefaultDisplay();
@@ -76,20 +70,30 @@ public class AddressHoriSliseAdapter extends ArrayAdapter<AddressItemEntity> {
         mScreenWidth = metrics.widthPixels;
         mParams = new LinearLayout.LayoutParams(mScreenWidth,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        // 初始化删除按钮事件与item滑动事件
-        mDelOnclickImpl = new DeleteButtonOnclickImpl();
-        mScrollImpl = new ScrollViewScrollImpl();
     }
 
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public int getCount() {
+        return entity.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return entity.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(getContext(), R.layout.item_address, null);
-            holder.scrollView = (HorizontalScrollView) convertView;
-            holder.scrollView.setOnTouchListener(mScrollImpl);
+            convertView = View.inflate(context, R.layout.item_address, null);
 
             holder.lyma = (LinearLayout) convertView.findViewById(R.id.ordersss);
             holder.lyma.setLayoutParams(mParams);
@@ -99,18 +103,46 @@ public class AddressHoriSliseAdapter extends ArrayAdapter<AddressItemEntity> {
             holder.deleteButton = (Button) convertView
                     .findViewById(R.id.tv_item_addr_delete);
 
-            holder.deleteButton.setOnClickListener(mDelOnclickImpl);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        AddressItemEntity datas = getItem(position);
+        AddressItemEntity datas = entity.get(position);
         holder.position = position;
-        holder.deleteButton.setTag(holder);
         holder.tv_nanea.setText(datas.namea);
         holder.tv_phonea.setText(datas.phonea);
         holder.tv_addra.setText(datas.addra);
-        holder.scrollView.scrollTo(0, 0);
+        holder.deleteButton.setTag(position);
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final CustomDialog alertDialog = new CustomDialog.Builder(context).
+                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                entity.remove(Integer.parseInt(v.getTag() + ""));
+                                listView.slideBack();
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
+                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).
+                        create();
+
+
+                alertDialog.show();
+
+            }
+
+
+        });
         return convertView;
     }
 
@@ -124,97 +156,5 @@ public class AddressHoriSliseAdapter extends ArrayAdapter<AddressItemEntity> {
         private int position;
     }
 
-
-    /**
-     * HorizontalScrollView的滑动事件
-     */
-    public class ScrollViewScrollImpl implements View.OnTouchListener {
-        /**
-         * 记录开始时的坐标
-         */
-        private float startX = 0;
-
-        @SuppressLint("ClickableViewAccessibility")
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    // 如果有划出删除按钮的itemView,就让他滑回去并且锁定本次touch操作,解锁会在父组件的dispatchTouchEvent中进行
-                    if (mScrollView != null) {
-                        scrollView(mScrollView, HorizontalScrollView.FOCUS_LEFT);
-                        mScrollView = null;
-                        mLockOnTouch = true;
-                        return true;
-                    }
-
-                    startX = event.getX();
-//                    if (FLG == false) {
-//                        /**
-//                         * 因物品数量而触发的滑动删除事件
-//                         */
-//                        //当购物车中物件的数量减为0时就触发滑动删除事件
-//                        HorizontalScrollView view = (HorizontalScrollView) v;
-//                        startX = 0;// 因为公用一个事件处理对象,防止错乱,还原startX值
-//                        scrollView(view, HorizontalScrollView.FOCUS_RIGHT);
-//                        mScrollView = view;
-//                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    HorizontalScrollView view = (HorizontalScrollView) v;
-                    // 如果滑动了>50个像素,就显示出删除按钮
-                    if (startX > event.getX() + 10) {
-                        //startX = 0;// 因为公用一个事件处理对象,防止错乱,还原startX值
-                        scrollView(view, HorizontalScrollView.FOCUS_RIGHT);
-                        mScrollView = view;
-                    } else {
-                        scrollView(view, HorizontalScrollView.FOCUS_LEFT);
-                    }
-                    break;
-            }
-            return false;
-        }
-    }
-
-    /**
-     * HorizontalScrollView左右滑动
-     */
-    public void scrollView(final HorizontalScrollView view, final int parameter) {
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                view.pageScroll(parameter);
-            }
-        });
-    }
-
-    /**
-     * 删除事件
-     */
-    private class DeleteButtonOnclickImpl implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            final ViewHolder holder = (ViewHolder) v.getTag();
-            Toast.makeText(getContext(), "删除第" + holder.position + "项",
-                    Toast.LENGTH_SHORT).show();
-            Animation animation = AnimationUtils.loadAnimation(getContext(),
-                    R.anim.anim_item_delete);
-            holder.scrollView.startAnimation(animation);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    remove(getItem(holder.position));
-                }
-            });
-
-        }
-    }
 
 }

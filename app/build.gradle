@@ -43,4 +43,5 @@ dependencies {
     compile files('D:/androidWork/HsHuiHao/libs/com.umeng.message.lib.jar')
     compile files('D:/androidWork/HsHuiHao/libs/android-viewbadger.jar')
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/android-viewbadger.jar')
+    compile files('D:/androidWork/HsHuiHao/libs/nineoldandroids-2.4.0.jar')
 }

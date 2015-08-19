@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.custom.RiseNumberTextView;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
 
@@ -25,6 +26,7 @@ import com.leo.base.util.T;
  */
 public class My_Rebate extends LActivity implements View.OnClickListener {
     private Button btn_rb;
+    private RiseNumberTextView numberTextView;
     private RelativeLayout rl_phone, rl_e, rl_f;
 
     @Override
@@ -57,12 +59,17 @@ public class My_Rebate extends LActivity implements View.OnClickListener {
         rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);
         rl_e = (RelativeLayout) findViewById(R.id.rl_e);
         rl_f = (RelativeLayout) findViewById(R.id.rl_f);
-
+        numberTextView=(RiseNumberTextView)findViewById(R.id.numbertv);
         btn_rb.setOnClickListener(this);
         rl_phone.setOnClickListener(this);
         rl_e.setOnClickListener(this);
         rl_f.setOnClickListener(this);
-
+        // 设置数据
+        numberTextView.withNumber(9999.50f);
+        // 设置动画播放时间
+        numberTextView.setDuration(1000);
+        // 开始播放动画
+        numberTextView.start();
 
     }
 

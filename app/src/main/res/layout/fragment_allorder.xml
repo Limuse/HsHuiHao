@@ -21,9 +21,11 @@
         android:textColor="@color/app_text_dark"
         app:pstsDividerColor="#00000000"
         app:pstsIndicatorColor="@color/app_greenfull_press"
+        app:selectedTabTextColor="@color/app_greenfull_press"
         app:pstsIndicatorHeight="2dp"
         app:pstsShouldExpand="true"
-        app:pstsUnderlineHeight="0dp" />
+        app:pstsUnderlineHeight="0dp"
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

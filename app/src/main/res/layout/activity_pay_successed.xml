@@ -174,20 +174,20 @@
 
                         <Button
                             android:id="@+id/btn_xq"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="130dp"
+                            android:layout_height="40dp"
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="@dimen/app_myself_left_mar"
                             android:background="@drawable/btn_out"
                             android:text="订单详情"
                             android:textColor="@color/app_text_press"
-                            android:textSize="20dp" />
+                            android:textSize="18sp" />
 
                         <Button
                             android:id="@+id/btn_bb"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="130dp"
+                            android:layout_height="40dp"
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/app_myself_left_mar"
@@ -195,7 +195,7 @@
                             android:background="@drawable/btn_out"
                             android:text="返回首页"
                             android:textColor="@color/app_text_press"
-                            android:textSize="20dp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
                 </RelativeLayout>
 
