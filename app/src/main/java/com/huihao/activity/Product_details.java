@@ -471,7 +471,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         });
         animationSet.addAnimation(scaleAnimation2);
 
-        Animation translateAnimation = new TranslateAnimation(0, UntilList.getWindosW(Product_details.this)+UntilList.dip2px(Product_details.this,32)+btn_shop.getWidth(), 0, -UntilList.getWindosH(Product_details.this)-UntilList.dip2px(Product_details.this,40));
+        Animation translateAnimation = new TranslateAnimation(0, UntilList.getWindosW(Product_details.this)+UntilList.dip2px(Product_details.this,32)+btn_shop.getWidth(), 0, -UntilList.getWindosH(Product_details.this)-UntilList.dip2px(Product_details.this,48));
         translateAnimation.setDuration(2200);
         translateAnimation.setFillAfter(true);
         animationSet.addAnimation(translateAnimation);
