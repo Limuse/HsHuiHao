@@ -288,6 +288,18 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                         : defaultTabLayoutParams);
     }
 
+    public void setCheckTab(int index) {
+        for (int i = 0; i < tabCount; i++) {
+            View v = tabsContainer.getChildAt(i);
+            TextView tab = (TextView) v;
+            if (i == index) {
+                tab.setTextColor(selectedTabTextColor);
+            } else {
+                tab.setTextColor(tabTextColor);
+            }
+        }
+    }
+
     private void updateTabStyles() {
 
         for (int i = 0; i < tabCount; i++) {

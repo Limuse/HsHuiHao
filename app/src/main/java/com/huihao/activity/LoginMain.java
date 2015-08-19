@@ -1,16 +1,26 @@
 package com.huihao.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.huihao.R;
 import com.huihao.common.Bar;
+import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.T;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by admin on 2015/8/10.
@@ -27,6 +37,7 @@ public class LoginMain extends LActivity {
     }
 
     private void initView() {
+        et_user=(EditText) findViewById(R.id.et_user);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
         btn_look = (Button) findViewById(R.id.btn_look);
     }
@@ -38,6 +49,15 @@ public class LoginMain extends LActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_white));
         toolbar.setBackgroundColor(Color.parseColor("#00ffffff"));
         toolbar.inflateMenu(R.menu.login);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.menu_login) {
+                    Intent intent = new Intent(LoginMain.this, Registered.class);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
         toolbar.setNavigationIcon(R.mipmap.back_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -59,11 +79,37 @@ public class LoginMain extends LActivity {
     }
 
     public void login(View v) {
+        Map<String,String>map=new HashMap<String,String>();
+        map.put("",et_user.getText().toString().trim());
+        map.put("",et_pwd.getText().toString().trim());
+        String url=getResources().getString(R.string.app_service_url)+"";
+        LReqEntity entity=new LReqEntity(url,map);
+        ActivityHandler handler=new ActivityHandler(this);
+        handler.startLoadingData(entity,1);
+    }
 
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            if (requestId == 1) {
+                getSmJsonData(msg.getStr());
+            } else {
+                T.ss("参数ID错误");
+            }
+        }else {
+            T.ss("数据获取失败");
+        }
+    }
+    private void getSmJsonData(String str) {
+        try {
+        } catch (Exception e) {
+        }
+        finish();
     }
 
     public void forget(View v) {
-
+        Intent intent = new Intent(LoginMain.this, FindPwd.class);
+        startActivity(intent);
     }
 
     public void QQ(View v) {

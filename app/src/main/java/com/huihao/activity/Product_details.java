@@ -13,7 +13,9 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,6 +33,7 @@ import com.huihao.adapter.ProductGridAda;
 import com.huihao.adapter.ProductPageAdapter;
 import com.huihao.common.Bar;
 import com.huihao.common.Log;
+import com.huihao.common.UntilList;
 import com.huihao.custom.CustomDialog;
 import com.huihao.custom.DatePickerFragment;
 import com.huihao.custom.ImageCycleView;
@@ -39,6 +42,9 @@ import com.huihao.custom.NoScrollGridView;
 import com.huihao.custom.PagerSlidingTabStrip;
 import com.huihao.custom.TagGroup;
 import com.leo.base.activity.LActivity;
+import com.leo.base.util.T;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,6 +104,15 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     private boolean isAdd = true;
     private int index = 500;
 
+    private ImageView imageAdd;
+
+    private Button btn_shop, btn_num;
+    private int num = 0;
+
+    private AnimationSet animationSet;
+
+    private boolean isCanAdd=true;
+
 
     protected void onLCreate(Bundle bundle) {
         parentView = getLayoutInflater().inflate(R.layout.activity_product_details, null);
@@ -153,6 +168,11 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         tv_old = (TextView) findViewById(R.id.tv_money_old);
         tv_old.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         gridView = (NoScrollGridView) findViewById(R.id.gridView);
+        btn_shop = (Button) findViewById(R.id.btn_shop);
+        btn_num = (Button) findViewById(R.id.shop_num);
+
+        imageAdd = (ImageView) findViewById(R.id.image_add);
+        imageAdd.setImageResource(R.mipmap.image1);
 
         toolbar = (RelativeLayout) findViewById(R.id.toolbar);
 
@@ -202,6 +222,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         et_num = (Button) view.findViewById(R.id.et_num);
         et_num.setText(choose_num + "");
         ImageView image_product = (ImageView) view.findViewById(R.id.image);
+
+        InitAnima();
 
         btn_l.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -280,28 +302,23 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         });
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                if(isCanAdd) {
+                    isCanAdd=false;
+                    dialog.dismiss();
+                    scrollView.invalidate();
+                    imageAdd.startAnimation(animationSet);
+                }
             }
         });
         btn_ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (OKSTATE.equals("ADD")) {
-                    dialog.dismiss();
-                    ImageView imageView = new ImageView(Product_details.this);
-                    imageView.setImageResource(R.mipmap.image1);
-                    imageView.setLayoutParams(new WindowManager.LayoutParams(
-                            WindowManager.LayoutParams.WRAP_CONTENT,
-                            WindowManager.LayoutParams.WRAP_CONTENT));
-
-                    RotateAnimation rotateAnimation = new RotateAnimation(0f, 45f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                    rotateAnimation.setDuration(0);
-                    rotateAnimation.setFillAfter(true);
-                    imageView.startAnimation(rotateAnimation);
-
-                    Animation translateAnimation = new TranslateAnimation(0, 1000, 0, 100);
-                    rotateAnimation.setDuration(0);
-                    rotateAnimation.setFillAfter(true);
-                    imageView.startAnimation(translateAnimation);
+                    if(isCanAdd) {
+                        isCanAdd=false;
+                        dialog.dismiss();
+                        scrollView.invalidate();
+                        imageAdd.startAnimation(animationSet);
+                    }
                 } else if (OKSTATE.equals("BUY")) {
 
                 } else {
@@ -418,5 +435,73 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         dialog.onWindowAttributesChanged(wl);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
+    }
+
+    private void InitAnima() {
+        animationSet = new AnimationSet(true);
+
+        RotateAnimation rotateAnimation = new RotateAnimation(0f, 45f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(0);
+        rotateAnimation.setFillAfter(true);
+        animationSet.addAnimation(rotateAnimation);
+
+
+        ScaleAnimation scaleAnimation1 = new ScaleAnimation(0.0f, 2.5f, 0.0f, 2.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation1.setDuration(1200);
+        scaleAnimation1.setFillAfter(true);
+        animationSet.addAnimation(scaleAnimation1);
+
+        ScaleAnimation scaleAnimation2 = new ScaleAnimation(2.5f, 0.0f, 2.5f, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation2.setDuration(800);
+        scaleAnimation2.setStartOffset(800);
+        scaleAnimation2.setFillAfter(true);
+        scaleAnimation2.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationStart(Animation animation) {
+
+            }
+            public void onAnimationEnd(Animation animation) {
+                addProduct(Integer.parseInt(et_num.getText().toString()));
+                isCanAdd=true;
+            }
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animationSet.addAnimation(scaleAnimation2);
+
+        Animation translateAnimation = new TranslateAnimation(0, UntilList.getWindosW(Product_details.this)+UntilList.dip2px(Product_details.this,32)+btn_shop.getWidth(), 0, -UntilList.getWindosH(Product_details.this)-UntilList.dip2px(Product_details.this,40));
+        translateAnimation.setDuration(2200);
+        translateAnimation.setFillAfter(true);
+        animationSet.addAnimation(translateAnimation);
+
+
+        animationSet.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationStart(Animation animation) {
+                imageAdd.setVisibility(View.VISIBLE);
+            }
+
+            public void onAnimationEnd(Animation animation) {
+                imageAdd.setVisibility(View.GONE);
+            }
+
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animationSet.setStartOffset(0);
+    }
+
+
+    public void addProduct(int add) {
+        num += add;
+        if (num > 0) {
+            btn_num.setText(num + "");
+        }
+        if (num > 99) {
+            btn_num.setText(99 + "");
+        }
+        btn_num.setVisibility(View.VISIBLE);
     }
 }

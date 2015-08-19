@@ -70,7 +70,8 @@ public class All_Orders extends LActivity {
         viewPager.setCurrentItem(p);
        // tabStrip.setIndicatorColor(getResources().getColor(R.color.app_greenfull_press));
         tabStrip.setViewPager(viewPager);
-
+        tabStrip.setCheckTab(p);
+        tabStrip.invalidate();
 
     }
 

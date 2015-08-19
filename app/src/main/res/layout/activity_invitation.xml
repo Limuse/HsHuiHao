@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/login_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_margin"></include>
+
+    <com.huihao.custom.MtScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:background="@mipmap/login_line"
+                android:drawableLeft="@mipmap/love"
+                android:drawablePadding="8dp"
+                android:hint="请输入邀请码"
+                android:maxLength="30"
+                android:paddingLeft="4dp"
+                android:paddingRight="8dp"
+                android:phoneNumber="true"
+                android:singleLine="true"
+                android:textColor="@color/app_white"
+                android:textColorHint="#80ffffff" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/btn_login"
+                android:onClick="ok"
+                android:text="确定"
+                android:textColor="@color/app_green"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </com.huihao.custom.MtScrollView>
+</LinearLayout>

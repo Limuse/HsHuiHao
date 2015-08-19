@@ -55,13 +55,21 @@
             android:name=".activity.LoginMain"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-
-
-
-
-
-
-
+        <!--注册-->
+        <activity
+            android:name=".activity.Registered"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--找回密码-->
+        <activity
+            android:name=".activity.FindPwd"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--邀请码-->
+        <activity
+            android:name=".activity.InvitationCode"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!--个人设置-->
         <activity
             android:name=".activity.PersonSet"

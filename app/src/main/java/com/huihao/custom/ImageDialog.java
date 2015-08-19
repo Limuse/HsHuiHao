@@ -3,6 +3,7 @@ package com.huihao.custom;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +18,12 @@ import com.huihao.R;
 /**
  * Created by admin on 2015/8/5.
  */
-public class CustomDialog extends Dialog {
+public class ImageDialog extends Dialog {
 
-    public CustomDialog(Context context) {
+    public ImageDialog(Context context) {
         super(context);
     }
-
-    public CustomDialog(Context context, int theme) {
+    public ImageDialog(Context context, int theme) {
         super(context, theme);
     }
 
@@ -31,43 +31,50 @@ public class CustomDialog extends Dialog {
         private Context context;
         private String title;
         private String message;
+        private String info;
+        private int imageRes;
         private String positiveButtonText;
         private String negativeButtonText;
         private View contentView;
-        private DialogInterface.OnClickListener positiveButtonClickListener;
-        private DialogInterface.OnClickListener negativeButtonClickListener;
+        private OnClickListener positiveButtonClickListener;
+        private OnClickListener negativeButtonClickListener;
 
         public Builder(Context context) {
             this.context = context;
         }
 
         public Builder setMessage(String message) {
-            this.message = message;
+            this.message = "恭喜你获得了<font color='#ff4400'>"+message+"</font>元优惠券";
             return this;
         }
-
         public Builder setMessage(int message) {
             this.message = (String) context.getText(message);
             return this;
         }
-
         public Builder setTitle(int title) {
             this.title = (String) context.getText(title);
             return this;
         }
-
         public Builder setTitle(String title) {
             this.title = title;
             return this;
         }
+        public Builder setInfo(String num1,String num2) {
+            this.info = "邀请新伙伴 他得<font color='#ff4400'>"+num1+"</font>元 你得<font color='#ff4400'>"+num2+"</font>元";
+            return this;
+        }
+        public Builder setImage(int res) {
+            this.imageRes = res;
+            return this;
+        }
+
 
         public Builder setContentView(View v) {
             this.contentView = v;
             return this;
         }
-
         public Builder setPositiveButton(int positiveButtonText,
-                                         DialogInterface.OnClickListener listener) {
+                                         OnClickListener listener) {
             this.positiveButtonText = (String) context
                     .getText(positiveButtonText);
             this.positiveButtonClickListener = listener;
@@ -75,14 +82,14 @@ public class CustomDialog extends Dialog {
         }
 
         public Builder setPositiveButton(String positiveButtonText,
-                                         DialogInterface.OnClickListener listener) {
+                                         OnClickListener listener) {
             this.positiveButtonText = positiveButtonText;
             this.positiveButtonClickListener = listener;
             return this;
         }
 
         public Builder setNegativeButton(int negativeButtonText,
-                                         DialogInterface.OnClickListener listener) {
+                                         OnClickListener listener) {
             this.negativeButtonText = (String) context
                     .getText(negativeButtonText);
             this.negativeButtonClickListener = listener;
@@ -90,17 +97,17 @@ public class CustomDialog extends Dialog {
         }
 
         public Builder setNegativeButton(String negativeButtonText,
-                                         DialogInterface.OnClickListener listener) {
+                                         OnClickListener listener) {
             this.negativeButtonText = negativeButtonText;
             this.negativeButtonClickListener = listener;
             return this;
         }
 
-        public CustomDialog create() {
+        public ImageDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final CustomDialog dialog = new CustomDialog(context, R.style.Dialog);
-            View layout = inflater.inflate(R.layout.dialog_choose, null);
+            final ImageDialog dialog = new ImageDialog(context,R.style.Dialog);
+            View layout = inflater.inflate(R.layout.dialog_image, null);
 
             DisplayMetrics dm = new DisplayMetrics();
 
@@ -139,8 +146,16 @@ public class CustomDialog extends Dialog {
                 layout.findViewById(R.id.dialog_left).setVisibility(
                         View.GONE);
             }
+
+            if (info != null) {
+                ((TextView) layout.findViewById(R.id.dialog_info)).setText(Html.fromHtml(info));
+            }
+            if (imageRes != 0) {
+                ((ImageView) layout.findViewById(R.id.dialog_logo)).setImageResource(imageRes);
+            }
+
             if (message != null) {
-                ((TextView) layout.findViewById(R.id.dialog_title)).setText(message);
+                ((TextView) layout.findViewById(R.id.dialog_title)).setText(Html.fromHtml(message));
             } else if (contentView != null) {
                 ((LinearLayout) layout.findViewById(R.id.dialog_content))
                         .removeAllViews();

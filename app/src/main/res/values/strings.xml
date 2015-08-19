@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">汇好</string>
     <string name="app_login">登录</string>
+    <string name="app_registered">注册</string>
+    <string name="app_Invitation">邀请码</string>
+    <string name="app_findpwd">找回密码</string>
     <string name="app_service_url">http://huihaowfx.huisou.com/</string>
 </resources>
