@@ -60,19 +60,16 @@ public class All_Orders extends LActivity {
         tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tab_strip);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        String t = getIntent().getStringExtra("gets");
-        int p = Integer.parseInt(t);
 
         pagerAdapter = new MyAllOrderMainPager(this, getSupportFragmentManager());
-      //  pagerAdapter.getPageTitle(p);
         viewPager.setAdapter(pagerAdapter);
 
-        viewPager.getAdapter().getPageTitle(p);
-
-        viewPager.setCurrentItem(p, false);
-
-
+        String t = getIntent().getStringExtra("gets");
+        int p = Integer.parseInt(t);
+        viewPager.setCurrentItem(p);
         tabStrip.setViewPager(viewPager);
+        tabStrip.setCheckTab(p);
+        tabStrip.invalidate();
 
     }
 
