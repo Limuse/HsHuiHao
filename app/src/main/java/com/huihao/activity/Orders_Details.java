@@ -21,8 +21,6 @@ import com.huihao.entity.AllOrderItemEntity;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 

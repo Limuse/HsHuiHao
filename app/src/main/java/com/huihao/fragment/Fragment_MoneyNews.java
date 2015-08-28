@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.huihao.R;
 import com.huihao.adapter.MoneyNewsAdapter;
 import com.huihao.entity.MoneyNewsEntity;
+import com.huihao.R;
 import com.leo.base.activity.fragment.LFragment;
 
 import java.util.ArrayList;

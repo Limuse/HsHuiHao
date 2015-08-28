@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,8 +15,6 @@ import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by huisou on 2015/8/3.

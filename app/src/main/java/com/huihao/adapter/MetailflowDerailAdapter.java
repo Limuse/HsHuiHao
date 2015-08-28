@@ -1,20 +1,15 @@
 package com.huihao.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.MetailflowEntity;
+import com.huihao.R;
 
 import java.util.List;
 

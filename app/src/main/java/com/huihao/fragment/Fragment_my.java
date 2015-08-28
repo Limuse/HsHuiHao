@@ -10,14 +10,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-import com.huihao.R;
 import com.huihao.activity.Address;
 import com.huihao.activity.ExtractActivity;
 import com.huihao.activity.More;
-import com.huihao.activity.My_Coupons;
 import com.huihao.activity.My_Partner;
 import com.huihao.activity.My_Rebate;
 import com.huihao.activity.News;
+import com.huihao.R;
+import com.huihao.activity.All_Orders;
+import com.huihao.activity.My_Coupons;
 import com.huihao.activity.PersonSet;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.util.T;

@@ -468,13 +468,6 @@ public class SystemBarTintManager {
             return Math.min(widthDp, heightDp);
         }
 
-        /**
-         * Should a navigation bar appear at the bottom of the screen in the current
-         * device configuration? A navigation bar may appear on the right side of
-         * the screen in certain configurations.
-         *
-         * @return True if navigation should appear at the bottom of the screen, False otherwise.
-         */
         public boolean isNavigationAtBottom() {
             return (mSmallestWidthDp >= 600 || mInPortrait);
         }

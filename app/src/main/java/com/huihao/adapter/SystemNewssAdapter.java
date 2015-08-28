@@ -9,9 +9,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huihao.R;
-import com.huihao.entity.SystemNewsEntity;
 import com.huihao.entity.SystemNewssEntity;
+import com.huihao.R;
 import com.leo.base.util.T;
 
 import java.util.List;

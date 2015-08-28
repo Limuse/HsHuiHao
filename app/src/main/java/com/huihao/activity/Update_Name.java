@@ -1,21 +1,17 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.R;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
 

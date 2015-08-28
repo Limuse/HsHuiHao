@@ -1,7 +1,6 @@
 package com.huihao.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.CouponsEntity;
+import com.huihao.R;
 
 import java.util.List;
-
-import static com.huihao.R.mipmap.no_u;
 
 /**
  * Created by huisou on 2015/7/30.

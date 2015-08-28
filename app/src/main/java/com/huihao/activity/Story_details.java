@@ -16,13 +16,11 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.huihao.R;
 import com.huihao.common.Bar;
-import com.huihao.common.Log;
 import com.huihao.custom.MyViewPager;
 import com.huihao.custom.TextViewVertical;
+import com.huihao.R;
 import com.huihao.fragment.Fragment_story_details;
-import com.huihao.fragment.Fragment_story_page;
 import com.leo.base.activity.LActivity;
 
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
 package com.huihao.common;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
 import android.view.Window;

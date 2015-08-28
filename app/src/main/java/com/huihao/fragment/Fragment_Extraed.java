@@ -2,16 +2,15 @@ package com.huihao.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.huihao.adapter.ExtraRecodeAdapter;
 import com.huihao.R;
 import com.huihao.activity.ExR_State;
-import com.huihao.adapter.ExtraRecodeAdapter;
 import com.huihao.entity.ExtraReEntity;
 import com.leo.base.activity.fragment.LFragment;
 

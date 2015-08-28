@@ -5,18 +5,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-import com.huihao.R;
-import com.huihao.activity.LoginMain;
+import com.huihao.activity.News;
 import com.huihao.activity.Product_details;
-import com.huihao.adapter.MainGridAda;
 import com.huihao.custom.ImageCycleView;
 import com.huihao.custom.NoScrollGridView;
+import com.huihao.MyApplication;
+import com.huihao.R;
+import com.huihao.adapter.MainGridAda;
+import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.T;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,13 +43,25 @@ import java.util.Map;
 
 public class Fragment_main extends LFragment {
     private View parentView;
+    private ScrollView scrollView;
     private ImageCycleView mAdView;
-    private ArrayList<String> mImageUrl = null;
-    private ArrayList<String> mImageName = null;
+    private ArrayList<String> pageImageList = new ArrayList<String>();
+    private ArrayList<String> pageImageId=  new ArrayList<String>();
     private NoScrollGridView gridView;
+
+    private List<Map<String, String>> mainProductList = new ArrayList<Map<String, String>>();
     private List<Map<String, String>> gridList = new ArrayList<Map<String, String>>();
     private MainGridAda myGridAda;
-    private RelativeLayout r1, r2, r3, r4, r5;
+    private RelativeLayout r1, r2, r3, r4, r5,msg;
+    private Button btn1,btn2;
+    private TextView name1, name2, name3, name4, name5;
+    private TextView price1, price2, price3, price4, price5;
+    private ImageView image1, image2, image3, image4, image5;
+    private TextView[] names, prices;
+    private ImageView[] images;
+
+    private DisplayImageOptions options;
+    private ImageLoader imageLoader;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +77,11 @@ public class Fragment_main extends LFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        imageLoader = ImageLoader.getInstance();
+        options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
+                .build();
+
         initData();
         initView();
         initClick();
@@ -61,76 +91,191 @@ public class Fragment_main extends LFragment {
     private void initClick() {
         r1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            Intent intent=new Intent(getActivity(),LoginMain.class);
+                Intent intent = new Intent(getActivity(), Product_details.class);
+                intent.putExtra("id",mainProductList.get(0).get("id"));
                 startActivity(intent);
             }
         });
         r2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), Product_details.class);
+                intent.putExtra("id",mainProductList.get(1).get("id"));
+                startActivity(intent);
             }
         });
         r3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), Product_details.class);
+                T.ss(mainProductList.get(2).get("id"));
+                intent.putExtra("id",mainProductList.get(2).get("id"));
+                startActivity(intent);
             }
         });
         r4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), Product_details.class);
+                intent.putExtra("id",mainProductList.get(3).get("id"));
+                startActivity(intent);
             }
         });
         r5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Product_details.class);
+                intent.putExtra("id",mainProductList.get(4).get("id"));
+                startActivity(intent);
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
             }
         });
 
+        btn1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
+            }
+        });
+
+        msg.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(MyApplication.isLogin(getActivity())){
+                    Intent intent=new Intent(getActivity(), News.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), Product_details.class);
+                intent.putExtra("id",gridList.get(0).get("id"));
+                startActivity(intent);
+            }
+        });
     }
 
 
     private void initView() {
+        scrollView=(ScrollView)parentView.findViewById(R.id.scrollView);
+        scrollView.scrollTo(0,0);
+
         r1 = (RelativeLayout) parentView.findViewById(R.id.product1);
         r2 = (RelativeLayout) parentView.findViewById(R.id.product2);
         r3 = (RelativeLayout) parentView.findViewById(R.id.product3);
         r4 = (RelativeLayout) parentView.findViewById(R.id.product4);
         r5 = (RelativeLayout) parentView.findViewById(R.id.product5);
+        msg=(RelativeLayout) parentView.findViewById(R.id.btn_mess);
 
+        btn1=(Button) parentView.findViewById(R.id.tv_buy2);
+        btn2=(Button) parentView.findViewById(R.id.tv_buy1);
+
+        name1 = (TextView) parentView.findViewById(R.id.tv_title2);
+        name2 = (TextView) parentView.findViewById(R.id.tv_title1);
+        name3 = (TextView) parentView.findViewById(R.id.tv_title3);
+        name4 = (TextView) parentView.findViewById(R.id.tv_title4);
+        name5 = (TextView) parentView.findViewById(R.id.tv_title5);
+
+        price1 = (TextView) parentView.findViewById(R.id.tv_price2);
+        price2 = (TextView) parentView.findViewById(R.id.tv_price1);
+        price3 = (TextView) parentView.findViewById(R.id.tv_price3);
+        price4 = (TextView) parentView.findViewById(R.id.tv_price4);
+        price5 = (TextView) parentView.findViewById(R.id.tv_price5);
+
+        image1 = (ImageView) parentView.findViewById(R.id.image2);
+        image2 = (ImageView) parentView.findViewById(R.id.image1);
+        image3 = (ImageView) parentView.findViewById(R.id.image3);
+        image4 = (ImageView) parentView.findViewById(R.id.image4);
+        image5 = (ImageView) parentView.findViewById(R.id.image5);
+
+        names = new TextView[]{name1, name2, name3, name4, name5};
+        prices = new TextView[]{price1, price2, price3, price4, price5};
+        images = new ImageView[]{image1, image2, image3, image4, image5};
 
         mAdView = (ImageCycleView) parentView.findViewById(R.id.ImageCycleView);
-        mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
         gridView = (NoScrollGridView) parentView.findViewById(R.id.gridView);
     }
 
     private void initData() {
-        mImageUrl = new ArrayList<String>();
-        mImageUrl.add("http://imgsrc.baidu.com/forum/w%3D580/sign=d2391eb40846f21fc9345e5bc6256b31/8381b4c379310a55b6ea8ebbb54543a9802610ed.jpg");
-        mImageUrl.add("http://s5.tuanimg.com/deal/deal_image/3029/2612/medium/webp-23642600-7f0d-4478-8345-ddecfa91a2ce.jpg");
-        mImageUrl.add("http://img2.duitang.com/uploads/item/201302/19/20130219115924_ZLNnS.thumb.600_0.jpeg");
-        mImageName = new ArrayList<String>();
-        mImageName.add("1");
-        mImageName.add("2");
-        mImageName.add("3");
+        String url = getResources().getString(R.string.app_service_url) + "/huihao/product/1/sign/aggregation/";
+        FragmentHandler handler = new FragmentHandler(this);
+        LReqEntity entity = new LReqEntity(url);
+        handler.startLoadingData(entity, 1);
+    }
 
-
-        for (int i = 0; i < 10; i++) {
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("name", "把根留住");
-            map.put("price", "￥" + i);
-            map.put("image", "http://img1.3lian.com/img2011/w1/106/1/46.jpg");
-            gridList.add(map);
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            if (requestId == 1) {
+                getSmJsonData(msg.getStr());
+            } else {
+                T.ss("参数ID错误");
+            }
+        } else {
+            T.ss("数据获取失败");
         }
     }
 
+    private void getSmJsonData(String str) {
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            int status = jsonObject.optInt("status");
+            if (status == 1) {
+                JSONObject list = jsonObject.optJSONObject("list");
+                JSONArray product_list = list.optJSONArray("product_list");
+                for (int i = 0; i < product_list.length(); i++) {
+                    JSONObject item = product_list.optJSONObject(i);
+                    Map<String, String> map = new HashMap<String, String>();
+                    String id = item.optString("id");
+                    String title = item.optString("title");
+                    String nprice = item.optString("nprice");
+                    String oprice = item.optString("oprice");
+                    String pic_homepage = item.optString("pic_homepage");
+                    String picurl = item.optString("picurl");
+                    map.put("id", id);
+                    map.put("title", title);
+                    map.put("nprice", nprice);
+                    map.put("oprice", oprice);
+                    map.put("pic_homepage", pic_homepage);
+                    map.put("picurl", picurl);
+                    if (i <= 4) {
+                        names[i].setText(title);
+                        prices[i].setText(nprice);
+                        if(i!=3) {
+                            imageLoader.displayImage(picurl, images[i], options);
+                        }
+                        mainProductList.add(map);
+                    } else {
+                        gridList.add(map);
+                    }
+                    if(!pic_homepage.equals("")){
+                        pageImageList.add(pic_homepage);
+                        pageImageId.add(id);
+                    }
+                }
+            } else {
+                 T.ss("数据获取失败");
+            }
+        } catch (Exception e) {
+            T.ss("数据解析失败");
+        }
+        initAda();
+    }
+
     private void initAda() {
+        if(pageImageList.size()>0&&pageImageList.size()>0){
+            mAdView.setImageResources(pageImageList, pageImageId, mAdCycleViewListener);
+        }
         myGridAda = new MainGridAda(getActivity(), gridList);
+        gridView.setFocusable(false);
         gridView.setAdapter(myGridAda);
     }
 
     private ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
         public void onImageClick(int position, View imageView) {
             Intent intent = new Intent(getActivity(), Product_details.class);
+            intent.putExtra("id",pageImageId.get(position));
             startActivity(intent);
         }
     };

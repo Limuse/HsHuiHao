@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.huihao.entity.MyPartnerEntity;
 import com.huihao.R;
 import com.huihao.adapter.MyPartnerAdapter;
-import com.huihao.entity.MyPartnerEntity;
 import com.leo.base.activity.fragment.LFragment;
 
 import java.util.ArrayList;

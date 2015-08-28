@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.MyPartnerEntity;
-
-import org.w3c.dom.Text;
+import com.huihao.R;
 
 import java.util.List;
 

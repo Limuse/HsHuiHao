@@ -11,12 +11,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.R;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by huisou on 2015/8/7.
@@ -62,7 +60,6 @@ public class Pay_Successed extends LActivity implements View.OnClickListener {
 
     }
 
-    @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
@@ -75,7 +72,6 @@ public class Pay_Successed extends LActivity implements View.OnClickListener {
         win.setAttributes(winParams);
     }
 
-    @Override
     public void onClick(View v) {
         int id = v.getId();
         //查看详情--订单详情
