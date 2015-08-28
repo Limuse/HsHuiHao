@@ -4,9 +4,11 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.huihao.adapter.ChooseCouponsAdapter;
@@ -25,6 +27,7 @@ public class Choose_Couppons extends LActivity {
     private ListView listview;
     private ChooseCouponsAdapter adapter;
     private List<CouponsEntity> list=null;
+    private LinearLayout headview;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_choose_coupons);
@@ -52,6 +55,8 @@ public class Choose_Couppons extends LActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         listview = (ListView) findViewById(R.id.lv_couponss);
+        headview=(LinearLayout) LayoutInflater.from(Choose_Couppons.this).inflate(R.layout.listview_head, null);
+        listview.addHeaderView(headview);
         initData();
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.huihao">
 
     <application
@@ -92,6 +93,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <!--全部订单-->
+        <activity
+            android:name="com.huihao.activity.All_Orders"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!--提现账户-->
         <activity
             android:name=".activity.ExtractActivity"
@@ -195,6 +200,11 @@
             android:name=".activity.News"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--修改收货地址-->
+        <activity
+            android:name=".activity.Update_Address"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!-- 推送配置开始 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
@@ -261,8 +271,37 @@
         <!-- V1.3.0添加的service，负责下载通知的资源 -->
         <service android:name="com.umeng.message.UmengDownloadResourceService" />
         <!-- 推送配置结束 -->
+
+
+
+        <!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
+        <!-- alipay sdk end -->
+
+
     </application>
 
+
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="8"
+        tools:ignore="OldTargetApi" />
+
+
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

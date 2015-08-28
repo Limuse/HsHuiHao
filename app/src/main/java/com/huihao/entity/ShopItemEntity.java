@@ -5,8 +5,17 @@ package com.huihao.entity;
  */
 public class ShopItemEntity {
     private String title;
-    private int id;
+    private String id;
     private float danjia;
+    private float sale;
+
+    public float getSale() {
+        return sale;
+    }
+
+    public void setSale(float sale) {
+        this.sale = sale;
+    }
 
     public float getDanjia() {
         return danjia;
@@ -26,11 +35,11 @@ public class ShopItemEntity {
         this.isCheck = isCheck;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

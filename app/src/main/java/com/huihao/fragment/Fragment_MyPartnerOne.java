@@ -4,13 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.adapter.MyPartnerAdapter;
 import com.huihao.entity.MyPartnerEntity;
 import com.leo.base.activity.fragment.LFragment;
+import com.leo.base.util.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +28,8 @@ public class Fragment_MyPartnerOne extends LFragment {
     private ListView listView;
     private MyPartnerAdapter adapter;
     private List<MyPartnerEntity> list = null;
+    private LinearLayout lyms;
+    private ScrollView scrollView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +54,10 @@ public class Fragment_MyPartnerOne extends LFragment {
         tv_money = (TextView) getActivity().findViewById(R.id.tv_prmoney);
         tv_nums = (TextView) getActivity().findViewById(R.id.tv_parnum);
         listView = (ListView) getActivity().findViewById(R.id.lv_backmoney);
-
+        lyms = (LinearLayout) getActivity().findViewById(R.id.lyms);
+        scrollView = (ScrollView) getActivity().findViewById(R.id.cccd);
     }
+
 
     private void initData() {
         list = new ArrayList<MyPartnerEntity>();
@@ -60,8 +69,20 @@ public class Fragment_MyPartnerOne extends LFragment {
         }
         adapter = new MyPartnerAdapter(getActivity(), list);
         listView.setAdapter(adapter);
-
+        Scrollto();
     }
+
+    private void Scrollto() {
+        scrollView.post(new Runnable() {
+            //让scrollview跳转到顶部，必须放在runnable()方法中
+            @Override
+            public void run() {
+                scrollView.scrollTo(0, 0);
+            }
+        });
+        listView.setFocusable(false);
+    }
+
 
     public static Fragment_MyPartnerOne newInstance() {
         Fragment_MyPartnerOne fragment = new Fragment_MyPartnerOne();
@@ -69,4 +90,6 @@ public class Fragment_MyPartnerOne extends LFragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+
 }

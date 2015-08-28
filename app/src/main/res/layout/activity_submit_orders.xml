@@ -13,7 +13,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/app_background" />
+        android:background="@color/app_line" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -298,14 +298,15 @@
                     android:text="优惠卷"
                     android:textColor="@color/app_text_dark"
                     android:textSize="@dimen/app_myself_tex" />
+
                 <TextView
                     android:id="@+id/tv_yh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/app_setting_right"
                     android:layout_toLeftOf="@+id/img_right4"
                     android:text="-20.00元"
-                    android:layout_marginRight="@dimen/app_setting_right"
                     android:textColor="@color/app_text_dark"
                     android:textSize="@dimen/app_myself_tex" />
 
@@ -372,11 +373,11 @@
                     android:id="@+id/et_please_num"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/app_myself_left_mar"
                     android:background="@android:color/transparent"
-                    android:hint="给卖家留言"
-                    android:layout_centerVertical="true"
                     android:gravity="center_vertical"
+                    android:hint="给卖家留言"
                     android:singleLine="false"
                     android:textSize="@dimen/app_text_big" />
 
@@ -453,6 +454,11 @@
 
 
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/app_line" />
 
             <RelativeLayout
                 android:id="@+id/rl_azj"

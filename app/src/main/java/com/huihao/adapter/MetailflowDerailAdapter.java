@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class MetailflowDerailAdapter extends BaseAdapter {
     private Context context;
-    private List<MetailflowEntity> list = null;
+    private List<MetailflowEntity.ExressDetailEntity> list = null;
 
-    public MetailflowDerailAdapter(Context context, List<MetailflowEntity> list) {
+    public MetailflowDerailAdapter(Context context, List<MetailflowEntity.ExressDetailEntity> list) {
         this.context = context;
         this.list = list;
     }
@@ -70,9 +70,9 @@ public class MetailflowDerailAdapter extends BaseAdapter {
 
         }
 
-        MetailflowEntity entity = list.get(position);
-        viewHolder.tv1.setText(entity.tv1);
-        viewHolder.tv2.setText(entity.tv2);
+        MetailflowEntity.ExressDetailEntity entity = list.get(position);
+        viewHolder.tv1.setText(entity.getContext());
+        viewHolder.tv2.setText(entity.getFtime());
 
         return convertView;
     }

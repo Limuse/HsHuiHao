@@ -98,7 +98,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_out));
             viewHolder.btn_del.setVisibility(View.VISIBLE);
         }else if(entity.astate==3){
-            viewHolder.tv_states.setText("代付款");
+            viewHolder.tv_states.setText("待付款");
             viewHolder.btn_del.setText("付款");
             viewHolder.btn_see.setText("取消订单");
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_add));

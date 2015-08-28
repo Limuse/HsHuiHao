@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.huihao.entity.MyPartnerEntity;
@@ -23,6 +26,9 @@ public class Fragment_MyPartnerTwo extends LFragment {
     private ListView listView;
     private MyPartnerAdapter adapter;
     private List<MyPartnerEntity> list = null;
+    private LinearLayout lym;
+    private int listHeight;
+    private ScrollView scrollView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,11 @@ public class Fragment_MyPartnerTwo extends LFragment {
         tv_money = (TextView) getActivity().findViewById(R.id.tv_prmoney);
         tv_nums = (TextView) getActivity().findViewById(R.id.tv_parnum);
         listView = (ListView) getActivity().findViewById(R.id.lv_backmoneys);
+        lym = (LinearLayout) getActivity().findViewById(R.id.lym);
+        scrollView = (ScrollView) getActivity().findViewById(R.id.scccs);
+
     }
+
 
     private void initData() {
         list = new ArrayList<MyPartnerEntity>();
@@ -58,9 +68,22 @@ public class Fragment_MyPartnerTwo extends LFragment {
             list.add(en);
         }
         adapter = new MyPartnerAdapter(getActivity(), list);
-        listView.setAdapter(adapter);
 
+        listView.setAdapter(adapter);
+        Scrollto();
     }
+
+    private void Scrollto() {
+        scrollView.post(new Runnable() {
+            //让scrollview跳转到顶部，必须放在runnable()方法中
+            @Override
+            public void run() {
+                scrollView.scrollTo(0, 0);
+            }
+        });
+        listView.setFocusable(false);
+    }
+
 
     public static Fragment_MyPartnerTwo newInstance() {
         Fragment_MyPartnerTwo fragment = new Fragment_MyPartnerTwo();

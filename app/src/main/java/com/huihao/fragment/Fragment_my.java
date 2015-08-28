@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 
 import com.huihao.activity.Address;
+import com.huihao.activity.All_Orders;
 import com.huihao.activity.ExtractActivity;
 import com.huihao.activity.More;
 import com.huihao.activity.My_Partner;

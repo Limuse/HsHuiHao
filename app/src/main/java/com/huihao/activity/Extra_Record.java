@@ -62,7 +62,8 @@ public class Extra_Record extends LActivity {
         int p = Integer.parseInt(t);
         viewPager.setCurrentItem(p);
         tabStrip.setViewPager(viewPager);
-
+        tabStrip.setCheckTab(p);
+        tabStrip.invalidate();
     }
 
 

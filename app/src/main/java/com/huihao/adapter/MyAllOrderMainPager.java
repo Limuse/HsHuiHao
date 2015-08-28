@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.huihao.activity.All_Orders;
 import com.huihao.fragment.Fragment_Orders;
 import com.huihao.fragment.Fragment_pay_money;
 import com.huihao.activity.All_Orders;
@@ -17,7 +18,7 @@ import com.huihao.fragment.Fragment_reserve;
 public class MyAllOrderMainPager extends FragmentPagerAdapter {
 
 
-    final String[] titles={"全部订单","代付款","待收货","退款中"};
+    final String[] titles={"全部订单","待付款","待收货","退款中"};
 
 
     public MyAllOrderMainPager(All_Orders all_Orders,FragmentManager fm){

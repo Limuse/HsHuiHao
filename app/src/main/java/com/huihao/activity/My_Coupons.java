@@ -4,9 +4,11 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.huihao.adapter.CouponsAdapter;
@@ -26,7 +28,7 @@ public class My_Coupons extends LActivity {
     private ListView listview;
     private List<CouponsEntity> list = null;
     private CouponsAdapter adapter;
-
+    private LinearLayout headview;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_my_coupons);
@@ -53,8 +55,9 @@ public class My_Coupons extends LActivity {
             }
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
-
+        headview=(LinearLayout) LayoutInflater.from(My_Coupons.this).inflate(R.layout.listview_head,null);
         listview = (ListView) findViewById(R.id.lv_coupons);
+        listview.addHeaderView(headview);
 
     }
 
