@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -16,14 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
-import com.huihao.custom.TagGroup;
+import com.huihao.R;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by huisou on 2015/8/3.

@@ -1,7 +1,5 @@
 package com.huihao.entity;
 
-import android.widget.CheckBox;
-
 /**
  * Created by huisou on 2015/7/23.
  */

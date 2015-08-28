@@ -5,13 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.SystemNewsEntity;
-
-import org.w3c.dom.Text;
+import com.huihao.R;
 
 import java.util.List;
 

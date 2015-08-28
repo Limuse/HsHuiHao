@@ -1,30 +1,23 @@
 package com.huihao.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.huihao.R;
 import com.huihao.custom.CustomDialog;
+import com.huihao.R;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.AddressItemEntity;
-import com.huihao.entity.ShopItemEntity;
 
 import java.util.List;
 

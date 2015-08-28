@@ -12,20 +12,18 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
 
-
+        <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="559f847a67e58e2bd70050be"></meta-data>
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
         <meta-data
-            android:name="UMENG_MESSAGE_SECRET"
-            android:value="d3617d8bb9c0b911f010cfaf9f5ce8df" />
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="HUISOU"></meta-data>
+            android:name="JPUSH_APPKEY"
+            android:value="f8fb92b015921edb6e43c605" />
+        <!--  </>值来自开发者平台取得的AppKey-->
 
 
         <activity
-            android:name="com.huihao.activity.GuideLoading"
+            android:name=".activity.GuideLoading"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -48,6 +46,11 @@
         <!--商品详情-->
         <activity
             android:name=".activity.Product_details"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--图片详情-->
+        <activity
+            android:name=".activity.ImageDetail"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <!--登录-->
@@ -93,7 +96,7 @@
             android:screenOrientation="portrait"></activity>
         <!--全部订单-->
         <activity
-            android:name="com.huihao.activity.All_Orders"
+            android:name=".activity.All_Orders"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <!--提现账户-->
@@ -199,82 +202,127 @@
             android:name=".activity.News"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <!-- 推送配置开始 -->
-        <receiver
-            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-            android:exported="false"></receiver>
-        <receiver android:name="com.umeng.message.RegistrationReceiver">
+
+
+        <!-- Required -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false" >
             <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- Required SDK 核心功能-->
+        <!-- since 1.8.0 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter >
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.huihao"/>
+            </intent-filter>
+        </service>
+
+        <!-- Required -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true" >
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+                <category android:name="com.huihao"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
+            <!-- Optional -->
             <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-
-
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-
-        </receiver>
-        <receiver android:name="com.umeng.message.UmengBroadcastReceiver">
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.RECEIVE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.huihao.intent.action.COMMAND" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.RE_ELECTION_V2" />
+                <data android:scheme="com.huihao" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.umeng.message.BootBroadcastReceiver">
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.huihao" />
             </intent-filter>
-        </receiver>
-
+        </activity>
+        <!-- Required SDK核心功能-->
         <service
-            android:name="com.umeng.message.UmengService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":pushService_v1">
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+        <!-- Required SDK核心功能-->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
+
+        <!-- User defined. 用户自定义的广播接收器-->
+        <receiver
+            android:name=".handle.MyReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <!--Required 用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <!--Required 用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!--Required 用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!--Required 用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="com.huihao" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required. For publish channel feature -->
+        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。-->
+        <!-- 例如: -->
+        <!-- 发到 Google Play 的APK可以设置为 google-play; -->
+        <!-- 发到其他市场的 APK 可以设置为 xxx-market。 -->
+        <!-- 目前这个渠道统计功能的报表还未开放。-->
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="f8fb92b015921edb6e43c605" /> <!--  </>值来自开发者平台取得的AppKey-->
 
 
-            <intent-filter>
-                <action android:name="com.huihao.intent.action.START" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.huihao.intent.action.COCKROACH" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.PING" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="org.android.agoo.service.ElectionService"
-            android:exported="true"
-            android:process=":pushService_v1">
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.ELECTION_V2" />
-            </intent-filter>
-        </service>
-        <service android:name="com.umeng.message.UmengIntentService" />
-        <!-- V1.3.0添加的service，负责下载通知的资源 -->
-        <service android:name="com.umeng.message.UmengDownloadResourceService" />
-        <!-- 推送配置结束 -->
     </application>
 
 
+    <!-- Required 自定义用来收发消息的相关权限 -->
+    <permission
+        android:name="com.huihao.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 </manifest>

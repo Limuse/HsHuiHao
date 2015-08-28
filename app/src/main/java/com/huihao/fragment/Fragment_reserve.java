@@ -1,16 +1,15 @@
 package com.huihao.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.huihao.R;
-import com.huihao.adapter.AllOrderAdapter;
 import com.huihao.entity.AllOrderEntity;
 import com.huihao.entity.AllOrderItemEntity;
+import com.huihao.R;
+import com.huihao.adapter.AllOrderAdapter;
 import com.leo.base.activity.fragment.LFragment;
 
 import java.util.List;

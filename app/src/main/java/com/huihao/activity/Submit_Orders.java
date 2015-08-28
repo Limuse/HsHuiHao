@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huihao.R;
-import com.huihao.adapter.AllOrderAdapter;
 import com.huihao.adapter.BuysNumAdapter;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.AllOrderItemEntity;

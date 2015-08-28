@@ -10,13 +10,11 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.adapter.MetailflowDerailAdapter;
-import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.MetailflowEntity;
+import com.huihao.R;
+import com.huihao.common.SystemBarTintManager;
 import com.leo.base.activity.LActivity;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

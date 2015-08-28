@@ -1,7 +1,6 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,10 +9,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
 
-import com.huihao.R;
 import com.huihao.adapter.CouponsAdapter;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.CouponsEntity;
+import com.huihao.R;
 import com.leo.base.activity.LActivity;
 
 import java.util.ArrayList;

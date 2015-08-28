@@ -11,13 +11,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.activity.Submit_Orders;
 import com.huihao.adapter.HorizontalSlideAdapter;
+import com.huihao.R;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.ShopItemEntity;
 import com.leo.base.activity.fragment.LFragment;
-import com.leo.base.util.T;
 
 import java.util.ArrayList;
 import java.util.List;

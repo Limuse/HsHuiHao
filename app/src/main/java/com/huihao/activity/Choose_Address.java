@@ -12,17 +12,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.huihao.R;
-import com.huihao.adapter.AddressHoriSliseAdapter;
 import com.huihao.adapter.ChooseAddressAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.R;
 import com.huihao.entity.AddressItemEntity;
 import com.leo.base.activity.LActivity;
-import com.leo.base.util.T;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by huisou on 2015/8/7.

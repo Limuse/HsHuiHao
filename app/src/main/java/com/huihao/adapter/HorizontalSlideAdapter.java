@@ -1,9 +1,6 @@
 package com.huihao.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,18 +14,15 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.custom.CustomDialog;
+import com.huihao.R;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.ShopItemEntity;
 import com.leo.base.util.T;
-
-import org.w3c.dom.Text;
 
 public class HorizontalSlideAdapter extends BaseAdapter {
     /**

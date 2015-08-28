@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.activity.MetailFlow_Detail;
 import com.huihao.custom.IlistView;
 import com.huihao.entity.AllOrderEntity;
 import com.huihao.entity.AllOrderItemEntity;
+import com.huihao.R;
 
 import java.util.List;
 

@@ -3,9 +3,7 @@ package com.huihao.activity;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,25 +15,20 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.util.Base64;
 
+import com.huihao.common.SystemBarTintManager;
 import com.huihao.R;
 import com.huihao.common.HavaSdCard;
-import com.huihao.common.SystemBarTintManager;
-import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
-import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by huisou on 2015/7/29.

@@ -10,8 +10,6 @@ import android.widget.TextView;
 import com.huihao.R;
 import com.huihao.entity.RebateDetailEntity;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**

@@ -2,7 +2,6 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,12 +9,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.R;
 import com.huihao.custom.RiseNumberTextView;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;

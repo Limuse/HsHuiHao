@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.huihao.custom.CustomDialog;
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
-import com.huihao.custom.CustomDialog;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
 

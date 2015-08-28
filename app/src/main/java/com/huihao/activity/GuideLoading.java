@@ -3,13 +3,8 @@ package com.huihao.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.huihao.R;
 import com.huihao.common.DepthPageTransformer;
-import com.huihao.common.Log;
-import com.leo.base.util.L;
-import com.leo.base.util.T;
-import com.umeng.message.PushAgent;
-import com.umeng.message.UmengRegistrar;
+import com.huihao.R;
 
 import android.app.Activity;
 import android.content.Intent;

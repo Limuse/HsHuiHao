@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_white"
     android:orientation="vertical">
 
     <com.huihao.custom.NoScrollListview
         android:id="@+id/lv_product"
+        android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/app_white"
         android:scrollbars="none"></com.huihao.custom.NoScrollListview>
-
 </LinearLayout>

@@ -1,7 +1,6 @@
 package com.huihao.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.huihao.R;
-import com.huihao.activity.Story_details;
 import com.leo.base.activity.fragment.LFragment;
 
 import java.util.ArrayList;

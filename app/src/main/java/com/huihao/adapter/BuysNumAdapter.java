@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.AllOrderItemEntity;
+import com.huihao.R;
 
 import java.util.List;
 
