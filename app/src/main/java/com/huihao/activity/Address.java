@@ -29,6 +29,8 @@ public class Address extends LActivity implements View.OnClickListener {
     private AddressHoriSliseAdapter adapter;
     List<AddressItemEntity> list = null;
 
+
+
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_address);
