@@ -22,7 +22,6 @@ public class Extra_RecordCopy extends LActivity {
     private PagerSlidingTabStrip tabStrip;
     private ViewPager viewPager;
     private ExtraRecordCopyPager pagerAdapter;
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_extra_recode);
