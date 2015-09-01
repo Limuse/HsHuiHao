@@ -38,7 +38,6 @@ public class BuysNumAdapter extends BaseAdapter {
     public Object getItem(int position) {
         return itemlist.get(position);
     }
-
     @Override
     public long getItemId(int position) {
         return 0;

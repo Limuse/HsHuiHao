@@ -50,7 +50,6 @@ public class ExR_State extends LActivity implements View.OnClickListener {
     private LinearLayout ly_btn;
     private String tid=null;
     private Dialog dialog;
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_exr_state);

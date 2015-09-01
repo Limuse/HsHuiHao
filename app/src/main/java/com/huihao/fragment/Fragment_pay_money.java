@@ -47,6 +47,7 @@ public class Fragment_pay_money extends LFragment {
                 container, false);
     }
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

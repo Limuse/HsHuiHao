@@ -39,7 +39,6 @@ public class Extra_RecordCopy extends LActivity {
 
 
     private void initView() {
-
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("提取记录");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));

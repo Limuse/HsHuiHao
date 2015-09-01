@@ -20,7 +20,6 @@ import java.util.List;
 public class TebateDetailAdapter extends BaseAdapter {
     private Context context = null;
     private List<RebateDetailEntity> list = null;
-
     public TebateDetailAdapter(Context context, List<RebateDetailEntity> list) {
         this.context = context;
         this.list = list;

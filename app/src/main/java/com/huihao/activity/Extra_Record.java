@@ -28,7 +28,6 @@ public class Extra_Record extends LActivity {
     private PagerSlidingTabStrip tabStrip;
     private ViewPager viewPager;
     private ExtraRecordPager pagerAdapter;
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_extra_recode);

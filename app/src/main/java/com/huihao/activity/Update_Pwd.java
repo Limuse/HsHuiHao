@@ -39,7 +39,6 @@ public class Update_Pwd extends LActivity {
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
     }
-
     private void initView() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("修改密码");

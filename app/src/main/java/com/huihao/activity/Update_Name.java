@@ -49,7 +49,6 @@ public class Update_Name extends LActivity {
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
     }
-
     private void initView() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("昵称设置");

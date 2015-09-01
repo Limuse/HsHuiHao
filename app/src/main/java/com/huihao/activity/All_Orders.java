@@ -27,7 +27,6 @@ public class All_Orders extends LActivity {
     private ViewPager viewPager;
     private MyAllOrderMainPager pagerAdapter;
 
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.fragment_allorder);

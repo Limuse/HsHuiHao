@@ -52,7 +52,6 @@ public class My_Partner extends LActivity {
         tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tab_strip);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-
         pagerAdapter = new MyPartnerPager(this, getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         tabStrip.setViewPager(viewPager);

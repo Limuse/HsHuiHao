@@ -51,7 +51,6 @@ public class Extract_Rebate extends LActivity implements View.OnClickListener {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
-
     }
 
     private void initView() {

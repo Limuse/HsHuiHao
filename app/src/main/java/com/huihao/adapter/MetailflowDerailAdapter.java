@@ -34,7 +34,6 @@ public class MetailflowDerailAdapter extends BaseAdapter {
     public int getCount() {
         return list.size();
     }
-
     @Override
     public Object getItem(int position) {
         return list.get(position);

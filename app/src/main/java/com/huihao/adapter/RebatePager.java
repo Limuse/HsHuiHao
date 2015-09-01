@@ -18,7 +18,6 @@ public class RebatePager extends FragmentPagerAdapter {
     public RebatePager(Rebate rebate, FragmentManager fm) {
         super(fm);
     }
-
     @Override
     public Fragment getItem(int position) {
         Fragment fragment;

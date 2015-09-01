@@ -42,7 +42,6 @@ public class MetailFlow_Detail extends LActivity {
     private ScrollView scrollView;
     private MetailflowEntity entity = new MetailflowEntity();
     private List<MetailflowEntity.ExressDetailEntity> list = new ArrayList<MetailflowEntity.ExressDetailEntity>();
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_metailflow_detail);

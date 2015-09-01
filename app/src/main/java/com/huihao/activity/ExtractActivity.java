@@ -36,7 +36,6 @@ import java.util.Map;
 public class ExtractActivity extends LActivity {
     private EditText et_zaccount, et_zname, et_zphone;
     private boolean flg = true;
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_extarct_account);

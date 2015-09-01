@@ -30,7 +30,6 @@ public class ExtraRecodeAdapter extends BaseAdapter {
         this.entity = list;
 
     }
-
     @Override
     public int getCount() {
         return entity.size();

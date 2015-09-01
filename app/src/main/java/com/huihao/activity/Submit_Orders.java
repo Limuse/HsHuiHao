@@ -340,7 +340,6 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
             startActivityForResult(intent, 0);
 
         }
-
         //优惠卷
         if (id == R.id.rl_cu) {
             Intent intent = new Intent(this, Choose_Couppons.class);

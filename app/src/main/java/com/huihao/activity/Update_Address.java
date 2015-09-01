@@ -59,7 +59,6 @@ public class Update_Address extends LActivity {
 
     }
 
-
     private void initView() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("修改收货地址");

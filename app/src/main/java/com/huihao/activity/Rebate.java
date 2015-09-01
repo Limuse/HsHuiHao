@@ -17,6 +17,7 @@ import com.leo.base.activity.LActivity;
 
 /**
  * Created by huisou on 2015/8/30.
+ * 我的返利
  */
 public class Rebate extends LActivity {
     private RebatePager pagerAdapter;

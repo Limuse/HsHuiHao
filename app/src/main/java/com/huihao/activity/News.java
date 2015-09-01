@@ -23,7 +23,6 @@ public class News extends LActivity {
     private PagerSlidingTabStrip tabStrip;
     private ViewPager viewPager;
     private NewsPager pagerAdapter;
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_news);

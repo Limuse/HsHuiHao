@@ -80,7 +80,6 @@ public class Fragment_Extraed extends LFragment implements AdapterView.OnItemCli
             }
         }
     }
-
     private void getJsonData(String data) {
         try {
             JSONObject jsonObject = new JSONObject(data);

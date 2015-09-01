@@ -100,7 +100,6 @@ public class ChooseAddressAdapter extends LBaseAdapter {
             }
         });
 
-
         return convertView;
     }
 

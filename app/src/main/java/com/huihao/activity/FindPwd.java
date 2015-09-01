@@ -29,7 +29,6 @@ public class FindPwd extends LActivity {
         initBar();
         initView();
     }
-
     private void initView() {
         et_pwd = (EditText) findViewById(R.id.et_pwd);
         btn_look = (Button) findViewById(R.id.btn_look);

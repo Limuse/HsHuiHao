@@ -83,7 +83,6 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         initView();
         Data();
     }
-
     private void initView() {
         myself_image = (ImageView) getActivity().findViewById(R.id.myself_image);
         emails = (ImageView) getActivity().findViewById(R.id.person_emlss);//消息

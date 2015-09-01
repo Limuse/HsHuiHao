@@ -49,8 +49,6 @@ public class Address extends LActivity implements View.OnClickListener {
     private LinearLayout headview;
     private Address context;
 
-
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_address);

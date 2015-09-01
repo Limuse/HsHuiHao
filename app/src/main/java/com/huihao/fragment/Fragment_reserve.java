@@ -48,6 +48,7 @@ public class Fragment_reserve extends LFragment {
                 container, false);
     }
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

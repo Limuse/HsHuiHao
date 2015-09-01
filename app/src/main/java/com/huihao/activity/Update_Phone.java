@@ -36,7 +36,6 @@ public class Update_Phone extends LActivity {
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
     }
-
     private void initView() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("手机设置");

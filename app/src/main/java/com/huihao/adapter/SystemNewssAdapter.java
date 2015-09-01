@@ -29,7 +29,6 @@ public class SystemNewssAdapter extends BaseAdapter {
     private Context context;
 
     private List<SystemNewsEntity> list = null;
-
     public SystemNewssAdapter(Context context, List<SystemNewsEntity> list) {
         this.context = context;
         this.list = list;

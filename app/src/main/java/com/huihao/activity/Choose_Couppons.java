@@ -64,7 +64,7 @@ public class Choose_Couppons extends LActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String cids = adapter.rCid();
-                if (cids ==null) {
+                if (cids == null) {
                     T.ss("请选择优惠卷");
 
                     setResult(1, null);
@@ -83,7 +83,6 @@ public class Choose_Couppons extends LActivity {
         listview.addHeaderView(headview);
         initData();
     }
-
 
     private void initData() {
         list = new ArrayList<CouponsEntity>();

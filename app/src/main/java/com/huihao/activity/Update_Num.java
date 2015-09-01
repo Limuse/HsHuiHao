@@ -46,7 +46,6 @@ public class Update_Num extends LActivity {
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
     }
-
     private void initView() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("优惠码");

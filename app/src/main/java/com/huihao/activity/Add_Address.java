@@ -86,7 +86,6 @@ public class Add_Address extends LActivity implements View.OnClickListener {
         et_shen = (EditText) findViewById(R.id.et_shen);
         et_xiang = (EditText) findViewById(R.id.et_xiang);
         iv_del = (ImageView) findViewById(R.id.iv_del);
-
         iv_del.setOnClickListener(this);
     }
 

@@ -51,7 +51,6 @@ public class More extends LActivity implements View.OnClickListener {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
-
         initView();
     }
 

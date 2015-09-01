@@ -107,7 +107,6 @@ public class Fragment_Extraedone extends LFragment implements AdapterView.OnItem
 
 
 
-
     public static Fragment_Extraedone newInstance() {
         Fragment_Extraedone fragment = new Fragment_Extraedone();
         Bundle args = new Bundle();

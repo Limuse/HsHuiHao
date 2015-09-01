@@ -31,7 +31,6 @@ public class ExtraRecordPager extends FragmentPagerAdapter {
                 fragment= Fragment_Extraed.newInstance();//已提现
                 break;
         }
-
         return fragment;
     }
 

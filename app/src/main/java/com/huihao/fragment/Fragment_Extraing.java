@@ -35,7 +35,6 @@ public class Fragment_Extraing extends LFragment implements AdapterView.OnItemCl
     private ListView listView;
     private ExtraRecodeAdapter adapter;
     List<ExtraReEntity> list=null;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

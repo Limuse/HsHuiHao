@@ -47,6 +47,7 @@ public class Fragment_Rebatetwo extends LFragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

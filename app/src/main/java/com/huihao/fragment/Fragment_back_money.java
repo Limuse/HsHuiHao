@@ -36,7 +36,6 @@ public class Fragment_back_money extends LFragment {
     private AllOrderAdapter adapter;
     private List<AllOrderEntity.ChildEntity> itemlist = null;//new ArrayList<AllOrderEntity.ChildEntity>();
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

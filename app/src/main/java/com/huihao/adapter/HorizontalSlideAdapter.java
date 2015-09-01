@@ -421,7 +421,6 @@ public class HorizontalSlideAdapter extends BaseAdapter {
         private LinearLayout llm;
         private int position;
 
-
         public ViewHolder(View view) {
             this.et_num = (Button) view.findViewById(R.id.et_num);//t2
             this.tv_money = (TextView) view.findViewById(R.id.tv_money);

@@ -21,7 +21,6 @@ import com.leo.base.util.T;
  */
 public class FeedBack extends LActivity {
     private EditText et_desc, et_p;
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_feedback);

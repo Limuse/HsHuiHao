@@ -90,7 +90,6 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
                     intent.putExtra("counrty", country);
                     setResult(0, intent);
                 }
-
                 finish();
             }
         });

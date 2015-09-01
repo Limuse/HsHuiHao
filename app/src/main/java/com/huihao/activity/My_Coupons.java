@@ -40,10 +40,9 @@ import java.util.List;
 public class My_Coupons extends LActivity {
     private ListView listview;
     private List<CouponsEntity> list = new ArrayList<CouponsEntity>();
-    ;
+
     private CouponsAdapter adapter;
     private LinearLayout headview;
-
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_my_coupons);

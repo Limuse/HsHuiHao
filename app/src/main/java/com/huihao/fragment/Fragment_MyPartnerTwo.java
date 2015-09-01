@@ -40,6 +40,8 @@ public class Fragment_MyPartnerTwo extends LFragment {
     private int listHeight;
     private ScrollView scrollView;
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

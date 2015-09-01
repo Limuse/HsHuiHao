@@ -130,16 +130,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
 //        iee.oldm = "109";
 //        iee.numss = "1";
 //        itemlist.add(iee);
-//        AllOrderItemEntity iee1 = new AllOrderItemEntity();
-//        iee1.idss = 1;
-//        iee1.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
-//        iee1.acolor = "黑色";
-//        iee1.asize = "M";
-//        iee1.metails = "水晶";
-//        iee1.amoney = "222";
-//        iee1.oldm = "109";
-//        iee1.numss = "1";
-//        itemlist.add(iee1);
+
         adapter = new BuysNumAdapter(this, itemlist);
         listView.setAdapter(adapter);
         scrollView.post(new Runnable() {

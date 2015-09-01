@@ -50,7 +50,6 @@ public class AddressHoriSliseAdapter extends LBaseAdapter implements AdapterView
      * 上下文对象
      */
     private Address context;
-
     private List<AddressItemEntity> entity = null;
     private int flg = 0;
     private AddressHoriSliseAdapter adater = AddressHoriSliseAdapter.this;

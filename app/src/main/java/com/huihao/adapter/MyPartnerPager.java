@@ -17,7 +17,6 @@ public class MyPartnerPager extends FragmentPagerAdapter {
     public MyPartnerPager(My_Partner my_partner, FragmentManager fm) {
         super(fm);
     }
-
     @Override
     public Fragment getItem(int position) {
         Fragment fragment;

@@ -69,6 +69,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         return parentView;
     }
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

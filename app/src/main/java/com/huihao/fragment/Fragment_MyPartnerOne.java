@@ -43,7 +43,6 @@ public class Fragment_MyPartnerOne extends LFragment {
     private List<MyPartnerEntity.ChildList> list =new ArrayList<MyPartnerEntity.ChildList>();
     private LinearLayout lyms;
     private ScrollView scrollView;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

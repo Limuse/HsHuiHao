@@ -51,7 +51,7 @@ public class Pay_Successed extends LActivity implements View.OnClickListener {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
-      //  initData();
+//        initData();
     }
 
     private void initView() {

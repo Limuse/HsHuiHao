@@ -20,7 +20,6 @@ public class NewsPager extends FragmentPagerAdapter {
     public NewsPager(News news, FragmentManager fm) {
         super(fm);
     }
-
     @Override
     public Fragment getItem(int position) {
         Fragment fragment;

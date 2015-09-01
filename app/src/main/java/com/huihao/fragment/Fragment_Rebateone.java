@@ -48,6 +48,7 @@ public class Fragment_Rebateone extends LFragment implements View.OnClickListene
     private String rests;
     private String tran;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

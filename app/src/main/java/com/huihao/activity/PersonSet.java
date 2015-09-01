@@ -52,7 +52,6 @@ public class PersonSet extends LActivity implements View.OnClickListener {
     private RelativeLayout rl_phone, rl_name, rl_pwd, rl_img;
     private TextView tv_phone, tv_name, tv_num;
     private ImageView my_imgs;
-
     private Dialog dialog;
     private String logoBase;
     private String img;

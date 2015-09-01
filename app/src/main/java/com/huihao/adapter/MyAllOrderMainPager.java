@@ -19,7 +19,6 @@ public class MyAllOrderMainPager extends FragmentPagerAdapter {
 
     final String[] titles={"全部订单","待付款","待发货","待收货"};
 
-
     public MyAllOrderMainPager(All_Orders all_Orders,FragmentManager fm){
         super(fm);
 
