@@ -28,8 +28,8 @@ public class ExtraRecodeAdapter extends BaseAdapter {
     public ExtraRecodeAdapter(Context context, List<ExtraReEntity> list) {
         this.context = context;
         this.entity = list;
-
     }
+
     @Override
     public int getCount() {
         return entity.size();
@@ -61,7 +61,7 @@ public class ExtraRecodeAdapter extends BaseAdapter {
         }
         ExtraReEntity en = entity.get(position);
 
-            viewHolder.tv_state.setText(en.state);
+        viewHolder.tv_state.setText(en.state);
 
 
         viewHolder.tv_time.setText(en.time);

@@ -24,6 +24,7 @@ public class MyAllOrderMainPager extends FragmentPagerAdapter {
 
     }
 
+
     @Override
     public Fragment getItem(int position) {
         Fragment fragment;

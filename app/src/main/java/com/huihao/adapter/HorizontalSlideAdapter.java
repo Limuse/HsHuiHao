@@ -61,7 +61,6 @@ public class HorizontalSlideAdapter extends BaseAdapter {
     private Context context = null;
 
     private List<ShopItemEntity> entity = null;
-
     private List<Need> need = new ArrayList<Need>();
     /**
      * 屏幕宽度

@@ -35,6 +35,7 @@ public class ChooseAddressAdapter extends LBaseAdapter {
         this.list = list;
     }
 
+
     @Override
     public int getCount() {
         return list.size();

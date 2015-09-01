@@ -30,6 +30,7 @@ public class MetailflowDerailAdapter extends BaseAdapter {
         this.list = list;
     }
 
+
     @Override
     public int getCount() {
         return list.size();

@@ -30,6 +30,7 @@ public class AllOrderAdapter extends BaseAdapter {
     private Context context;
     private List<AllOrderEntity> list = null;
 
+
     public AllOrderAdapter(Context context, List<AllOrderEntity> list) {
         this.context = context;
         this.list = list;
