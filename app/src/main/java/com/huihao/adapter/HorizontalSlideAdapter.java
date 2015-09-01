@@ -1,10 +1,15 @@
 package com.huihao.adapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -14,15 +19,40 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huihao.custom.CustomDialog;
+import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.common.CircleBitmapDisplayer;
+import com.huihao.custom.CustomDialog;
 import com.huihao.custom.SlideListView2;
+import com.huihao.entity.Need;
 import com.huihao.entity.ShopItemEntity;
+import com.huihao.fragment.Fragment_shop;
+import com.huihao.handle.ActivityHandler;
+import com.huihao.handle.FragmentHandler;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.T;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class HorizontalSlideAdapter extends BaseAdapter {
     /**
@@ -32,7 +62,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
     private List<ShopItemEntity> entity = null;
 
-
+    private List<Need> need = new ArrayList<Need>();
     /**
      * 屏幕宽度
      */
@@ -50,6 +80,14 @@ public class HorizontalSlideAdapter extends BaseAdapter {
      */
     private OnNumChangeListener onNumChangeListener;
 
+    private int flg = 0;
+    private TakeAsyncTask task;
+    private String ids;
+    private View view = null;
+    private float Danjia;
+
+    private List<String> listName = new ArrayList<String>();
+    private List<String> listNum = new ArrayList<String>();
 
     public void setOnNumChangeListener(OnNumChangeListener onNumChangeListener) {
         this.onNumChangeListener = onNumChangeListener;
@@ -128,25 +166,44 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
         final ShopItemEntity datas = entity.get(position);
         // holder.position = position;
-        // holder.deleteButton.setTag(holder);
+//         holder.deleteButton.setTag(position);
+
         holder.infoTextView.setText(datas.getTitle());
         holder.et_num.setText(datas.getNum() + "");
         holder.tv_color.setText(datas.getColor());
-        holder.tv_money.setText(datas.getMoney());
+        String moe = (datas.getDanjia() * datas.getNum()) + "";
+        holder.tv_money.setText(moe);
         holder.tv_size.setText(datas.getSize());
         holder.tv_material.setText(datas.getMaterial());
         holder.cb_checkb.setChecked(datas.isCheck());
         holder.et_num.setTag(position);
-
         /**
          * 图片需要处理
          */
+        ImageLoader imageLoader = null;
+
+        // 图片
+        if (imageLoader == null) {
+            imageLoader = MyApplication.getInstance().getImageLoader();
+        }
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.logo)
+                .showImageForEmptyUri(R.mipmap.logo)
+                .showImageOnFail(R.mipmap.logo)
+                .cacheInMemory(true).cacheOnDisk(true)
+                .considerExifParams(true)
+                .displayer(new FadeInBitmapDisplayer(200))
+                .build();
+        imageLoader.displayImage(datas.getPic(), holder.img_pic, options);
+
+
         //holder.img_pic.setImageDrawable();
         //标题的点击事件
         holder.infoTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                T.ss("跳到订单页面");
+                T.ss("跳到物品详情页面");
             }
         });
 
@@ -161,25 +218,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                TextView tv_tt = (TextView) v.getTag();
-                                TextView money = (TextView) tv_tt.getTag();
-                                Button btn_num = (Button) tv_tt.getTag();
-                                if (onNumChangeListener != null) {
-
-
-                                    int num = Integer.parseInt(btn_num.getText().toString());
-                                    float jiage = datas.getDanjia();
-                                    jiage = num * jiage;
-
-                                    int index = Integer.parseInt(btn_num.getTag() + "");
-                                    ShopItemEntity entity1 = entity.get(index);
-                                    if (entity1.isCheck())
-                                        onNumChangeListener.OnNumJianChange(jiage);
-
-
-                                }
-                                entity.remove(Integer.parseInt(btn_num.getTag() + ""));
-                                listView.slideBack();
+                                view = v;
+                                ids = datas.getId();
+                                Danjia = datas.getDanjia();
+                                task = new TakeAsyncTask();
+                                task.execute();
                                 notifyDataSetChanged();
                                 dialog.dismiss();
                             }
@@ -227,8 +270,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
                     entity1.setMoney(datas.getDanjia() * num + "");
                     entity.set(index, entity1);
 
-                    if (entity1.isCheck())
+                    if (entity1.isCheck()) {
+                        listName.add(datas.getSpecid());
+                        listNum.add(num + "");
                         onNumChangeListener.OnNumJiaChange(jiage);
+                    }
                 }
                 notifyDataSetChanged();
 
@@ -270,8 +316,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
                     entity.set(index, entity1);
 
 
-                    if (entity1.isCheck())
+                    if (entity1.isCheck()) {
+                        listName.remove(datas.getSpecid());
+                        listNum.remove(num + "");
                         onNumChangeListener.OnNumJianChange(jiage);
+                    }
                 }
                 notifyDataSetChanged();
 
@@ -298,11 +347,17 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
 
                 if (isChecked) {//选中　计算总价
-
+                    listName.add(datas.getSpecid());
+                    listNum.add(num + "");
                     onNumChangeListener.OnNumJiaChange(jiage);
+//                    Need nn=new Need();
+//                    nn.ids=datas.getSpecid();
+//                    nn.nums=num+"";
+//                    need.add(nn);
 
                 } else {//未选中
-
+                    listName.remove(datas.getSpecid());
+                    listNum.remove(num + "");
                     onNumChangeListener.OnNumJianChange(jiage);
 
                 }
@@ -324,6 +379,35 @@ public class HorizontalSlideAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public String getRname() {
+        String rName = "";
+        if (listName.size() < 1) {
+            rName = null;
+            return rName;
+        } else {
+
+            for (int i = 0; i < listName.size(); i++) {
+                rName = rName + listName.get(i) + ",";
+            }
+            rName = rName.substring(0, rName.lastIndexOf(','));
+
+            return rName;
+        }
+    }
+
+    public String getRnum() {
+        String rNum = "";
+        if (listNum.size() < 1) {
+            rNum = null;
+            return rNum;
+        } else {
+            for (int i = 0; i < listNum.size(); i++) {
+                rNum = rNum + listNum.get(i) + ",";
+            }
+            rNum = rNum.substring(0, rNum.lastIndexOf(','));
+            return rNum;
+        }
+    }
 
     static class ViewHolder {
         private TextView infoTextView;
@@ -352,6 +436,83 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             btn_Redc.setTag(tv_tt);
             deleteButton.setTag(tv_tt);
             cb_checkb.setTag(tv_tt);
+        }
+    }
+
+    private class TakeAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+
+            if (task.isCancelled() == true) {
+                return null;
+            }
+            String result = null;
+
+            Resources res = context.getResources();
+            String url = res.getString(R.string.app_service_url)
+                    + "/huihao/cart/del/1/sign/aggregation/";
+
+            try {
+
+                HttpPost post = new HttpPost(url);
+                List<NameValuePair> par = new ArrayList<NameValuePair>();
+
+                par.add(new BasicNameValuePair("uuid", "6a35c1ed7255077d57d57be679048034"));
+                par.add(new BasicNameValuePair("id", ids));
+
+                HttpResponse httpResponse = null;
+                post.setEntity(new UrlEncodedFormEntity(par, HTTP.UTF_8));
+                HttpClient httpClient = new DefaultHttpClient();
+                httpResponse = httpClient.execute(post);
+
+                if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                    result = EntityUtils.toString(httpResponse.getEntity());
+                    return result;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            JSONObject jsonObject;
+
+            try {
+                jsonObject = new JSONObject(result);
+                int code = jsonObject.getInt("status");
+                if (code == 1) {
+                    T.ss("数据已删除");
+                    TextView tv_tt = (TextView) view.getTag();
+                    TextView money = (TextView) tv_tt.getTag();
+                    Button btn_num = (Button) tv_tt.getTag();
+                    if (onNumChangeListener != null) {
+                        int num = Integer.parseInt(btn_num.getText().toString());
+                        float jiage = Danjia;
+                        jiage = num * jiage;
+
+                        int index = Integer.parseInt(btn_num.getTag() + "");
+                        ShopItemEntity entity1 = entity.get(index);
+                        if (entity1.isCheck())
+                            onNumChangeListener.OnNumJianChange(jiage);
+                        listName.remove(entity1.getSpecid());
+                        listNum.remove(num + "");
+                    }
+                    entity.remove(Integer.parseInt(btn_num.getTag() + ""));
+                    listView.slideBack();
+                    notifyDataSetChanged();
+                } else {
+                    T.ss("数据删除失败");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:background="@mipmap/yus" />
 
         <View
@@ -62,7 +62,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginRight="16dp"
             android:id="@+id/tv_tvmw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

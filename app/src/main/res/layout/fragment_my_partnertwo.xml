@@ -23,12 +23,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/app_myself_left_mar"
                 android:layout_marginTop="@dimen/app_myself_left_mar"
-                android:text="下级分销总额"
+                android:text="下下级分销总额"
                 android:textColor="@color/app_white"
                 android:textSize="@dimen/app_text_normal" />
 
             <TextView
-                android:id="@+id/tv_prmoney"
+                android:id="@+id/tv_prmoneys"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/app_myself_left_mar"
@@ -53,7 +53,7 @@
                     android:textSize="@dimen/app_text_big" />
 
                 <TextView
-                    android:id="@+id/tv_parnum"
+                    android:id="@+id/tv_parnums"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

@@ -105,7 +105,7 @@ public class ChooseAddressAdapter extends LBaseAdapter {
     }
 
     public AddressItemEntity BaReturn() {
-        if (fal==true) {
+        if (fal==false) {
             return null;
         } else {
             return items;

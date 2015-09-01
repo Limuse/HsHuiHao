@@ -22,6 +22,8 @@ import com.huihao.entity.AllOrderItemEntity;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
-        initData();
+        //initData();
     }
 
     private void initView() {
@@ -119,25 +121,25 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
     private void initData() {
         itemlist = new ArrayList<AllOrderItemEntity>();
         AllOrderItemEntity iee = new AllOrderItemEntity();
-        iee.idss = 1;
-        iee.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
-        iee.acolor = "黑色";
-        iee.asize = "M";
-        iee.metails = "水晶";
-        iee.amoney = "222";
-        iee.oldm = "109";
-        iee.numss = "1";
-        itemlist.add(iee);
-        AllOrderItemEntity iee1 = new AllOrderItemEntity();
-        iee1.idss = 1;
-        iee1.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
-        iee1.acolor = "黑色";
-        iee1.asize = "M";
-        iee1.metails = "水晶";
-        iee1.amoney = "222";
-        iee1.oldm = "109";
-        iee1.numss = "1";
-        itemlist.add(iee1);
+//        iee.idss = 1;
+//        iee.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
+//        iee.acolor = "黑色";
+//        iee.asize = "M";
+//        iee.metails = "水晶";
+//        iee.amoney = "222";
+//        iee.oldm = "109";
+//        iee.numss = "1";
+//        itemlist.add(iee);
+//        AllOrderItemEntity iee1 = new AllOrderItemEntity();
+//        iee1.idss = 1;
+//        iee1.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
+//        iee1.acolor = "黑色";
+//        iee1.asize = "M";
+//        iee1.metails = "水晶";
+//        iee1.amoney = "222";
+//        iee1.oldm = "109";
+//        iee1.numss = "1";
+//        itemlist.add(iee1);
         adapter = new BuysNumAdapter(this, itemlist);
         listView.setAdapter(adapter);
         scrollView.post(new Runnable() {

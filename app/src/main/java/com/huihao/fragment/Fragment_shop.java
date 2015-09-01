@@ -1,25 +1,46 @@
 package com.huihao.fragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.huihao.MyApplication;
+import com.huihao.R;
 import com.huihao.activity.Submit_Orders;
 import com.huihao.adapter.HorizontalSlideAdapter;
-import com.huihao.R;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.ShopItemEntity;
+import com.huihao.entity.UsErId;
+import com.huihao.handle.ActivityHandler;
+import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
+import com.leo.base.util.T;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 2015/6/26.
@@ -31,8 +52,8 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
     private TextView tv_all_choose, tv_all_money;
     private CheckBox cb_all_cbx;
     private Button btn_all_js;
-
-    private List<ShopItemEntity> list;// = new ArrayList<ShopItemEntity>();
+    public static Fragment_shop instance = null;
+    private List<ShopItemEntity> list = new ArrayList<ShopItemEntity>();
 
     private HorizontalSlideAdapter adapter;
 
@@ -44,20 +65,21 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_shop,
                 container, false);
+
         return parentView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        instance = Fragment_shop.this;
         Toolbar toolbar = (Toolbar) parentView.findViewById(R.id.toolbar);
         toolbar.setTitle("购物车");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
-
-        initData();
         initView();
+        initData();
+
 
     }
 
@@ -65,7 +87,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
     private void initView() {
 
         listview = (SlideListView2) getActivity().findViewById(R.id.lv_list_shop);
-        listview.initSlideMode(SlideListView2.MOD_BOTH);
+        listview.initSlideMode(SlideListView2.MOD_RIGHT);
         tv_all_choose = (TextView) getActivity().findViewById(R.id.tv_all_choose);
         tv_all_money = (TextView) getActivity().findViewById(R.id.tv_all_money);
         cb_all_cbx = (CheckBox) getActivity().findViewById(R.id.cb_all_checkbox);
@@ -74,7 +96,13 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         // cb_all_cbx.setOnClickListener(this);
         btn_all_js.setOnClickListener(this);
         tv_all_money.setText("0.00");
+
+    }
+
+    private void Tsum() {
+
         adapter = new HorizontalSlideAdapter(getActivity(), list, listview);
+
         adapter.setOnNumChangeListener(new HorizontalSlideAdapter.OnNumChangeListener() {
 
             @Override
@@ -98,8 +126,8 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
             }
 
         });
-        listview.setAdapter(adapter);
 
+        listview.setAdapter(adapter);
 
         cb_all_cbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -129,26 +157,84 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
 
             }
         });
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                T.ss("dddd");
+            }
+        });
 
     }
+
 
     private void initData() {
-        list = new ArrayList<ShopItemEntity>();
+        Resources res = getResources();
+        String url = res.getString(R.string.app_service_url)
+                + "/huihao/cart/1/sign/aggregation/?uuid="+ UsErId.uuid;
+        LReqEntity entity = new LReqEntity(url);
 
-        for (int i = 0; i < 50; i++) {
-            ShopItemEntity be = new ShopItemEntity
-                    (i, "把根留住火麻茶麸洗发露洗发露" + i,
-                            "",
-                            "绿色" + i,
-                            "M" + i,
-                            "水晶" + i,
-                            1,
-                            "223", false, 223.0f);
-            list.add(be);
-        }
-
+        // Fragment用FragmentHandler/Activity用ActivityHandler
+        FragmentHandler handler = new FragmentHandler(this);
+        handler.startLoadingData(entity, 1);
 
     }
+
+    private void getJsonData(String data) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                JSONObject result = jsonObject.getJSONObject("list");
+                JSONArray jsonArray = result.getJSONArray("cart_list");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    ShopItemEntity entity = new ShopItemEntity();
+                    entity.setId(object.getString("id"));
+                    entity.setTitle(object.getString("title"));
+                    entity.setPic(object.getString("picurl"));
+                    entity.setNum(Integer.parseInt(object.getString("bnum")));
+                    entity.setIsCheck(false);
+                    entity.setSpecid(object.getString("spec_id"));
+                    entity.setDanjia(Float.parseFloat(object.getString("nprice")));
+                    entity.setSale(Float.parseFloat(object.getString("oprice")));
+                    String spec1 = object.getString("title_1") + ":" + object.getString("spec_1");
+                    if (spec1.length() > 2) {
+                        entity.setColor(spec1);
+                    }
+
+                    String spec2 = object.getString("title_2") + ":" + object.getString("spec_2");
+                    if (spec2.length() > 2) {
+                        entity.setSize(spec2);
+                    }
+
+                    list.add(entity);
+                }
+                Tsum();
+
+            } else {
+                T.ss("获取数据失败");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // 返回获取的网络数据
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            if (requestId == 1) {
+                getJsonData(msg.getStr());
+            } else {
+                T.ss("获取数据失败");
+            }
+        }
+    }
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -202,8 +288,20 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
             /**
              * 跳转到结算的下个页面
              */
-            Intent intent = new Intent(getActivity(), Submit_Orders.class);
-            getActivity().startActivity(intent);
+
+
+            String spec_id=adapter.getRname();
+            String spec_num=adapter.getRnum();
+            if(spec_id==null||spec_num==null){
+                T.ss("请选择商品！");
+            }else{
+                Intent intent = new Intent(getActivity(), Submit_Orders.class);
+                intent.putExtra("spec_id",spec_id);
+                intent.putExtra("spec_num",spec_num);
+                getActivity().startActivity(intent);
+            }
+
+
         }
     }
 

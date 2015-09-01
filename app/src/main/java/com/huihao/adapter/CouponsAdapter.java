@@ -1,6 +1,7 @@
 package com.huihao.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huihao.entity.CouponsEntity;
 import com.huihao.R;
+import com.huihao.entity.CouponsEntity;
 
 import java.util.List;
+
+import static com.huihao.R.mipmap.no_u;
 
 /**
  * Created by huisou on 2015/7/30.
@@ -61,10 +64,10 @@ public class CouponsAdapter extends BaseAdapter {
         }
         CouponsEntity ce = cpentity.get(position);
         //viewHolder.iv_cpimg
-        viewHolder.tv_cptitle.setText(ce.cptitile);
+        //viewHolder.tv_cptitle.setText(ce.cptitile);//没返回数据
         viewHolder.tv_cptime.setText(ce.cptime);
         viewHolder.tv_cpmoey.setText(ce.cpmoney);
-        viewHolder.tv_cpuse.setText(ce.cpuse);
+       // viewHolder.tv_cpuse.setText(ce.cpuse);//没返回数据
         /**
          *   viewHolder.ly_con
          *   需要换背景.no_u
@@ -75,7 +78,7 @@ public class CouponsAdapter extends BaseAdapter {
          *
          */
         switch (ce.t) {
-            case 1:
+            case 3:
                 viewHolder.ly_con.setBackground(context.getResources().getDrawable(R.mipmap.no_u));
                 viewHolder.iv_cpuuu.setBackground(context.getResources().getDrawable(R.mipmap.used));
                 viewHolder.tv_cptitle.setTextColor(context.getResources().getColor(R.color.app_conp_text));

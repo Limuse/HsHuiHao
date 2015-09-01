@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.huihao.adapter.NewsPager;
 import com.huihao.R;
+import com.huihao.adapter.NewsPager;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.custom.PagerSlidingTabStrip;
 import com.leo.base.activity.LActivity;

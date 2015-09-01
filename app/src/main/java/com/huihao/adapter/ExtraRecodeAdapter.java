@@ -5,10 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huihao.R;
+import com.huihao.entity.CouponsEntity;
 import com.huihao.entity.ExtraReEntity;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -56,19 +61,9 @@ public class ExtraRecodeAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         ExtraReEntity en = entity.get(position);
-        int t = en.state;
-        if (t == 0) {
-            viewHolder.tv_state.setText("待打款");
-        }
-        if (t == 1) {
-            viewHolder.tv_state.setText("带确认");
-        }
-        if (t == 2) {
-            viewHolder.tv_state.setText("已拒绝");
-        }
-        if (t == 3) {
-            viewHolder.tv_state.setText("已完成");
-        }
+
+            viewHolder.tv_state.setText(en.state);
+
 
         viewHolder.tv_time.setText(en.time);
         viewHolder.tv_money.setText(en.money);

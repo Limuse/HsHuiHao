@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.AddressItemEntity;
+import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
@@ -109,7 +110,7 @@ public class Update_Address extends LActivity {
          itmid = getIntent().getExtras().getString("itmid");
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/myaddress/getinfo/1/sign/aggregation/?uuid=6a35c1ed7255077d57d57be679048034&id=" + itmid;
+                + "/huihao/myaddress/getinfo/1/sign/aggregation/?uuid="+ UsErId.uuid+"&id=" + itmid;
         LReqEntity entity = new LReqEntity(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(this);
@@ -172,7 +173,7 @@ public class Update_Address extends LActivity {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/myaddress/edit/1/sign/aggregation/";
         final Map<String, String> map = new HashMap<String, String>();
-        map.put("uuid", "6a35c1ed7255077d57d57be679048034");
+        map.put("uuid", UsErId.uuid);
         map.put("id", itmid );//地址id
         map.put("uname", name);//收货人名
         map.put("uphone", phone);// 收货人联系号码

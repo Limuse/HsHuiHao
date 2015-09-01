@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.huihao.R;
 import com.huihao.entity.RebateDetailEntity;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -55,24 +57,16 @@ public class TebateDetailAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.state1.setVisibility(View.GONE);
         viewHolder.state2.setVisibility(View.GONE);
         RebateDetailEntity rdes = list.get(position);
-        viewHolder.pnum.setText(rdes.dnum);
-        viewHolder.pname.setText(rdes.pname);
-        viewHolder.pmoney.setText(rdes.dmoeny);
-        viewHolder.almoney.setText(rdes.pmoney);
-        if (rdes.states==0) {
-            viewHolder.state1.setVisibility(View.VISIBLE);
-            viewHolder.state1.setText("待收货");
-        } else if (rdes.states==1) {
-            viewHolder.state1.setVisibility(View.VISIBLE);
-            viewHolder.state1.setText("待付款");
-        }
-        else if (rdes.states==2) {
-            viewHolder.state2.setVisibility(View.VISIBLE);
-            viewHolder.state2.setText("退款中");
-        }
+        viewHolder.pnum.setText(rdes.getOrderid());
+        viewHolder.pname.setText(rdes.getUsername());
+        viewHolder.pmoney.setText(rdes.getTotal_price());
+        viewHolder.almoney.setText(rdes.getMoney());
+
+        viewHolder.state1.setVisibility(View.VISIBLE);
+        viewHolder.state1.setText(rdes.getState());
+
         return convertView;
     }
 

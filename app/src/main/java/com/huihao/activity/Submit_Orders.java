@@ -2,6 +2,7 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,13 +22,16 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.huihao.R;
+import com.huihao.adapter.AllOrderAdapter;
 import com.huihao.adapter.BuysNumAdapter;
 import com.huihao.common.PayResult;
 import com.huihao.common.SignUtils;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.AddressItemEntity;
 import com.huihao.entity.AllOrderItemEntity;
+import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
+import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
@@ -35,6 +39,7 @@ import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -70,8 +75,16 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
     private String provinces;
     private String citys;
     private String countrys;
-    private String idss = null;
+    private String addridss = null;
 
+    private String spec_id;
+    private String spec_num;
+    private String exress_id;
+    private String cids;//优惠卷id
+    //地址
+    private String adrname = null;
+    private String adrphone = null;
+    private String adraddr = null;
     /**
      * 支付宝相关
      *
@@ -108,6 +121,12 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                                 Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Submit_Orders.this, Pay_Successed.class);
                         intent.putExtra("price", price);
+                        intent.putExtra("orderid", orderid);
+                        intent.putExtra("addrname", adrname);
+                        intent.putExtra("addrphone", adrphone);
+                        intent.putExtra("addrs", adraddr);
+                        intent.putExtra("price", price);
+                       intent.putExtra("orderid",orderid);
                         startActivity(intent);
 
                     } else {
@@ -250,8 +269,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         tintManager.setStatusBarTintResource(R.color.app_white);
 
         initView();
-
-        initData();
+        getInitData();
     }
 
     private void initView() {
@@ -293,31 +311,6 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
 
     }
 
-    private void initData() {
-        itemlist = new ArrayList<AllOrderItemEntity>();
-        AllOrderItemEntity iee = new AllOrderItemEntity();
-        iee.idss = 1;
-        iee.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
-        iee.acolor = "黑色";
-        iee.asize = "M";
-        iee.metails = "水晶";
-        iee.amoney = "222";
-        iee.oldm = "109";
-        iee.numss = "1";
-        itemlist.add(iee);
-        AllOrderItemEntity iee1 = new AllOrderItemEntity();
-        iee1.idss = 1;
-        iee1.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
-        iee1.acolor = "黑色";
-        iee1.asize = "M";
-        iee1.metails = "水晶";
-        iee1.amoney = "222";
-        iee1.oldm = "109";
-        iee1.numss = "1";
-        itemlist.add(iee1);
-        adapter = new BuysNumAdapter(this, itemlist);
-        listView.setAdapter(adapter);
-    }
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
@@ -351,7 +344,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         //优惠卷
         if (id == R.id.rl_cu) {
             Intent intent = new Intent(this, Choose_Couppons.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         }
         //支付方式
         if (id == R.id.rl_zf) {
@@ -360,51 +353,62 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         //结算
         if (id == R.id.btn_alljs) {
             // http://huihaowfx.huisou.com/huihao/orders/addorder/1/sign/aggregation/uuid=6a35c1ed7255077d57d57be679048034&spec_id=463&spec_num=4&payment_id=3&address_id=3&exress_id=3
+//            if (addridss==null) {
+//                T.ss("请选择收货地址");
+//            } else {
+//                Map<String, String> map = new HashMap<String, String>();
+//                map.put("uuid", UsErId.uuid);
+//                map.put("spec_id", spec_id);
+//                map.put("spec_num", spec_num);
+//                map.put("payment_id", "3");
+//                map.put("coupon_arr", cids);
+//                map.put("address_id", addridss);
+//                map.put("exress_id", exress_id);
+//                map.put("buy_message", et_please_num.getText().toString());
+//                Resources res = getResources();
+//                String url = res.getString(R.string.app_service_url)
+//                        + "/huihao/orders/addorder/1/sign/aggregation/";
+//                LReqEntity entity = new LReqEntity(url, map);
+//                ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
+//                handler.startLoadingData(entity, 1);
+//            }
+            Intent intent = new Intent(Submit_Orders.this, Pay_Successed.class);
 
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("uuid", "6a35c1ed7255077d57d57be679048034");
-            map.put("spec_id", "479,488");
-            map.put("spec_num", "41,21");
-            map.put("payment_id", "3");
-            map.put("address_id", "3");
-            map.put("exress_id", "3");
-
-            String url = "http://huihaowfx.huisou.com/huihao/orders/addorder/1/sign/aggregation/";
-            LReqEntity entity = new LReqEntity(url, map);
-            ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
-            handler.startLoadingData(entity, 1);
-
-
+            startActivity(intent);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String name = null;
-        String phone = null;
-        String addr = null;
 
-        name = data.getExtras().getString("name");
-        phone = data.getExtras().getString("phone");
-        addr = data.getExtras().getString("addr");
-        idss = data.getExtras().getString("ids");
         switch (requestCode) {
             case 0:
-                if (name == null) {
+                if (data == null) {
                     rl_ano.setVisibility(View.VISIBLE);
                     ly_alladdr.setVisibility(View.GONE);
                 } else {
+                    adrname = data.getExtras().getString("name");
+                    adrphone = data.getExtras().getString("phone");
+                    adraddr = data.getExtras().getString("addr");
+                    addridss = data.getExtras().getString("ids");
                     rl_ano.setVisibility(View.GONE);
                     ly_alladdr.setVisibility(View.VISIBLE);
                     provinces = data.getExtras().getString("province");
                     citys = data.getExtras().getString("city");
                     countrys = data.getExtras().getString("country");
-                    tv_name.setText(name);
-                    tv_phone.setText(phone);
-                    tv_addrs.setText(addr);
+                    tv_name.setText(adrname);
+                    tv_phone.setText(adrphone);
+                    tv_addrs.setText(adraddr);
                 }
 
+                break;
+            case 1:
+                if (data == null) {
+                    cids = null;
+                } else {
+                    cids = data.getExtras().getString("cids");
+                }
                 break;
         }
     }
@@ -471,12 +475,95 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
 
     }
 
+    private void getInitData() {
+        itemlist = new ArrayList<AllOrderItemEntity>();
+        Resources res = getResources();
+        String url = res.getString(R.string.app_service_url)
+                + "/huihao/orders/confirmorder/1/sign/aggregation/";
+
+        Map<String, String> map = new HashMap<String, String>();
+        spec_id = getIntent().getExtras().getString("spec_id");
+        spec_num = getIntent().getExtras().getString("spec_num");
+        map.put("uuid", UsErId.uuid);
+        map.put("spec_id", spec_id);
+        map.put("spec_num", spec_num);
+
+        LReqEntity entity = new LReqEntity(url, map);
+
+        // Fragment用FragmentHandler/Activity用ActivityHandler
+        ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
+        handler.startLoadingData(entity, 2);
+    }
+
+    private void getJsonInit(String data) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                JSONObject jsb = jsonObject.getJSONObject("list");
+                String total_preferential = jsb.getString("total_preferential");
+                String total_price = jsb.getString("total_price");
+                tv_js.setText("￥" + total_price);
+                tv_azf.setText("￥" + total_price);
+                if (total_preferential.equals(null) || total_preferential.equals("")) {
+                    tv_fj.setText("");
+                } else {
+                    tv_fj.setText("-" + total_preferential + "元");
+                }
+                JSONArray ja = jsb.getJSONArray("exress_list");
+
+                if (ja.length() == 1) {
+                    JSONObject j = ja.getJSONObject(0);
+                    exress_id = j.getString("id");
+                    String kdtitle = j.getString("title");
+                    tv_ym.setText(kdtitle);
+                } else {
+                    for (int i = 0; i < ja.length(); i++) {
+                        JSONObject j = ja.getJSONObject(i);
+                        String id = j.getString("id");
+                        String titless = j.getString("title");
+                    }
+                }
+                JSONArray jar = jsb.getJSONArray("product_list");
+                tv_snum.setText(jar.length() + "");
+                for (int i = 0; i < jar.length(); i++) {
+                    JSONObject jo = jar.getJSONObject(i);
+                    AllOrderItemEntity iee = new AllOrderItemEntity();
+                    iee.setBuynum(jo.getString("buynum"));
+                    iee.setTitle_1(jo.getString("title_1"));
+                    iee.setTitle_2(jo.getString("title_2"));
+                    iee.setSpec_1(jo.getString("spec_1"));
+                    iee.setNprice(jo.getString("nprice"));
+                    iee.setPreferential(jo.getString("preferential"));
+                    iee.setPicurl(jo.getString("picurl"));
+                    iee.setSpec_2(jo.getString("spec_2"));
+                    iee.setSpec_id(jo.getString("spec_id"));
+                    iee.setId(jo.getString("id"));
+                    iee.setTitle(jo.getString("title"));
+                    iee.setBuymin(jo.getString("buymin"));
+                    iee.setMaxnum(jo.getString("maxnum"));
+                    iee.setBuymax(jo.getString("buymax"));
+                    itemlist.add(iee);
+                }
+
+                adapter = new BuysNumAdapter(this, itemlist);
+                listView.setAdapter(adapter);
+            } else {
+                T.ss("获取数据失败");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void onResultHandler(LMessage msg, int requestId) {
         super.onResultHandler(msg, requestId);
         if (msg != null) {
             if (requestId == 1) {
                 getSmJsonData(msg.getStr());
+            } else if (requestId == 2) {
+                getJsonInit(msg.getStr());
             } else {
                 T.ss("获取数据失败");
             }

@@ -1,5 +1,6 @@
 package com.huihao.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,10 +13,14 @@ import android.widget.EditText;
 
 import com.huihao.R;
 import com.huihao.common.Bar;
+import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
-import com.leo.base.util.LSharePreference;
+import com.leo.base.net.LReqEntity;
 import com.leo.base.util.T;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by admin on 2015/8/10.
@@ -74,16 +79,13 @@ public class LoginMain extends LActivity {
     }
 
     public void login(View v) {
-        LSharePreference.getInstance(this).setBoolean("login",true);
-        finish();
-
-//        Map<String,String>map=new HashMap<String,String>();
-//        map.put("",et_user.getText().toString().trim());
-//        map.put("",et_pwd.getText().toString().trim());
-//        String url=getResources().getString(R.string.app_service_url)+"";
-//        LReqEntity entity=new LReqEntity(url,map);
-//        ActivityHandler handler=new ActivityHandler(this);
-//        handler.startLoadingData(entity,1);
+        Map<String,String>map=new HashMap<String,String>();
+        map.put("",et_user.getText().toString().trim());
+        map.put("",et_pwd.getText().toString().trim());
+        String url=getResources().getString(R.string.app_service_url)+"";
+        LReqEntity entity=new LReqEntity(url,map);
+        ActivityHandler handler=new ActivityHandler(this);
+        handler.startLoadingData(entity,1);
     }
 
     public void onResultHandler(LMessage msg, int requestId) {

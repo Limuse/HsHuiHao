@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.huihao.activity.News;
 import com.huihao.fragment.Fragment_MoneyNews;
+import com.huihao.fragment.Fragment_MyPartnerOne;
+import com.huihao.fragment.Fragment_MyPartnerTwo;
 import com.huihao.fragment.Fragment_OrderNews;
 import com.huihao.fragment.Fragment_SystemNews;
 

@@ -306,7 +306,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/app_setting_right"
                     android:layout_toLeftOf="@+id/img_right4"
-                    android:text="-20.00元"
                     android:textColor="@color/app_text_dark"
                     android:textSize="@dimen/app_myself_tex" />
 

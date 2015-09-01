@@ -1,26 +1,32 @@
 package com.huihao.activity;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.huihao.R;
+import com.huihao.common.Bar;
+import com.huihao.common.Log;
+import com.huihao.common.SystemBarTintManager;
 import com.huihao.common.UntilList;
 import com.huihao.custom.ImageDialog;
 import com.huihao.fragment.Fragment_main;
 import com.huihao.fragment.Fragment_shop;
-import com.huihao.fragment.Fragment_story;
-import com.huihao.R;
-import com.huihao.common.Bar;
-import com.huihao.common.Log;
 import com.huihao.fragment.Fragment_my;
+import com.huihao.fragment.Fragment_story;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
+import com.umeng.message.PushAgent;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,7 +34,6 @@ import java.util.TimerTask;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by admin on 2015/6/26.
@@ -77,13 +82,8 @@ public class HomeMain extends LActivity {
 
     protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home);
-
-        JPushInterface.init(this);
-        T.ss(JPushInterface.getRegistrationID(this) + "");
-        T.ss(JPushInterface.getUdid(this)+"");
-        T.ss(JPushInterface.getConnectionState(this)+"");
-
         ButterKnife.inject(this);
+        PushAgent.getInstance(this).onAppStart();
         Bar.setWhite(this);
         Log.e(UntilList.getAppInfo(this));
         initView();

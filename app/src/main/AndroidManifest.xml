@@ -110,7 +110,7 @@
             android:screenOrientation="portrait"></activity>
         <!--我的返利-->
         <activity
-            android:name=".activity.My_Rebate"
+            android:name=".activity.Rebate"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         Extract_Rebate
@@ -122,6 +122,11 @@
         <!--提取记录-->
         <activity
             android:name=".activity.Extra_Record"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+        <!--提取记录2-->
+        <activity
+            android:name=".activity.Extra_RecordCopy"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
         <!--提取记录2-->

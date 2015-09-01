@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.0 rc2"
+    buildToolsVersion "22"
 
     defaultConfig {
         applicationId "com.android.hshuihao"
@@ -10,9 +10,6 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-    }
-    sourceSets.main {
-        jniLibs.srcDir 'src/main/jniLibs' // <-- Set your folder here!
     }
 
     signingConfigs {
@@ -48,5 +45,5 @@ dependencies {
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/android-viewbadger.jar')
     compile files('D:/androidWork/HsHuiHao/libs/nineoldandroids-2.4.0.jar')
     compile files('E:/AndroidStudioWork/HsHuiHao/libs/nineoldandroids-2.4.0.jar')
-    compile files('E:/AndroidStudioWork/HsHuiHao/libs/jpush-sdk-release1.8.0.jar')
+    compile files('D:/androidWork/HsHuiHao/libs/alipaySDK-20150610.jar')
 }

@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,9 @@ public class MainGridAda extends BaseAdapter {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
         options = new DisplayImageOptions.Builder()
-         .cacheInMemory(true)
+                .showImageOnLoading(R.mipmap.ic_stub)
+                .showImageForEmptyUri(R.mipmap.ic_empty)
+                .showImageOnFail(R.mipmap.ic_error).cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
                 .displayer(new FadeInBitmapDisplayer(200))
@@ -71,11 +74,9 @@ public class MainGridAda extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tv_name.setText(gridList.get(position).get("title"));
-        viewHolder.tv_price.setText(gridList.get(position).get("nprice"));
-        if(!gridList.get(position).get("picurl").equals("")){
-            imageLoader.displayImage(gridList.get(position).get("picurl"), viewHolder.image, options);
-        }
+        viewHolder.tv_name.setText(gridList.get(position).get("name"));
+        viewHolder.tv_price.setText(gridList.get(position).get("price"));
+        imageLoader.displayImage(gridList.get(position).get("image"), viewHolder.image, options);
         return convertView;
     }
 

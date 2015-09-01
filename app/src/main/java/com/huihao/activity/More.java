@@ -3,6 +3,7 @@ package com.huihao.activity;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,11 +14,20 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huihao.custom.CustomDialog;
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.custom.CustomDialog;
+import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
 import com.leo.base.util.T;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -105,13 +115,13 @@ public class More extends LActivity implements View.OnClickListener {
         //版权信息
         if (mid == R.id.rl_bx) {
             T.ss("版权信息");
-            Intent intent=new Intent(this,CopyRight.class);
+            Intent intent = new Intent(this, CopyRight.class);
             startActivity(intent);
         }
         //意见反馈
         if (mid == R.id.rl_advice) {
             T.ss("意见反馈");
-            Intent intent=new Intent(this,FeedBack.class);
+            Intent intent = new Intent(this, FeedBack.class);
             startActivity(intent);
 
         }
@@ -144,7 +154,49 @@ public class More extends LActivity implements View.OnClickListener {
         //退出登录
         if (mid == R.id.btn_outline) {
             T.ss("退出登录");
+           loades();
         }
 
+    }
+
+
+    private void loades() {
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("uuid", "6a35c1ed7255077d57d57be679048034");
+        Resources res = getResources();
+        String url = res.getString(R.string.app_service_url)
+                + "/huihao/member/logout/1/sign/aggregation/";
+        LReqEntity entity = new LReqEntity(url, map);
+        ActivityHandler handler = new ActivityHandler(this);
+        handler.startLoadingData(entity, 1);
+
+    }
+
+    // 返回获取的网络数据
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            if (requestId == 1) {
+                getJsonData(msg.getStr());
+            } else {
+                T.ss("获取数据失败");
+            }
+        }
+    }
+
+    private void getJsonData(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                T.ss("退出成功！");
+
+            } else {
+                T.ss(jsonObject.getString("info"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -141,7 +141,8 @@
             android:layout_width="match_parent"
             android:layout_marginBottom="48dp"
             android:background="#fffbcd"
-            android:layout_height="60dp">
+            android:layout_height="60dp"
+            android:visibility="gone">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,7 +151,7 @@
                 android:textSize="@dimen/app_text_small"
                 android:singleLine="false"
                 android:layout_marginLeft="@dimen/app_myself_left_mar"
-                android:text="申请提取的佣金已经打到一下账号了哦，请查收并确认。若没有收到相应的金额，请点击拒绝按钮，并说明拒绝原因。"/>
+                android:text="申请提取的佣金已经打到以下账号了哦，请查收并确认。若没有收到相应的金额，请点击拒绝按钮，并说明拒绝原因。"/>
         </RelativeLayout>
         
         <LinearLayout
@@ -159,7 +160,8 @@
             android:layout_height="56dp"
             android:background="@color/app_white"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/btn_no"

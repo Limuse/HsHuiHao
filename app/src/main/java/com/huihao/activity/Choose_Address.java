@@ -20,6 +20,7 @@ import com.huihao.adapter.AddressHoriSliseAdapter;
 import com.huihao.adapter.ChooseAddressAdapter;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.AddressItemEntity;
+import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
@@ -117,7 +118,7 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
     private void initData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/myaddress/1/sign/aggregation/?uuid=6a35c1ed7255077d57d57be679048034";
+                + "/huihao/myaddress/1/sign/aggregation/?uuid="+ UsErId.uuid;
         LReqEntity entity = new LReqEntity(url);
         //http://huihaowfx.huisou.com//huihao/myaddress/1/sign/aggregation/?uuid=6a35c1ed7255077d57d57be679048034
         // Fragment用FragmentHandler/Activity用ActivityHandler
