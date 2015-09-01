@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.entity.AddressItemEntity;
-import com.leo.base.adapter.LBaseAdapter;
-import com.leo.base.util.L;
-import com.leo.base.util.T;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,15 +19,12 @@ import java.util.Map;
 /**
  * Created by huisou on 2015/8/7.
  */
-public class ChooseAddressAdapter extends LBaseAdapter {
+public class ChooseAddressAdapter extends BaseAdapter {
     private Context context;
     private List<AddressItemEntity> list = null;
-    private boolean fal=false;
-    private AddressItemEntity items = new AddressItemEntity();
-    Map<Integer, Boolean> isCheckMap = new HashMap<Integer, Boolean>();
 
+    Map<Integer, Boolean> isCheckMap =  new HashMap<Integer, Boolean>();
     public ChooseAddressAdapter(Context context, List<AddressItemEntity> list) {
-        super(context, list, true);
         this.context = context;
         this.list = list;
     }
@@ -65,51 +59,41 @@ public class ChooseAddressAdapter extends LBaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         AddressItemEntity entity = list.get(position);
-        viewHolder.tv_nanea.setText(entity.getUname());
-        viewHolder.tv_phonea.setText(entity.getUphone());
-        viewHolder.tv_addra.setText(entity.getAddress());
-        viewHolder.cb_check.setTag(position);//get("radioid").toString());
+        viewHolder.tv_nanea.setText(entity.namea);
+        viewHolder.tv_phonea.setText(entity.phonea);
+        viewHolder.tv_addra.setText(entity.addra);
+        viewHolder.cb_check.setTag(list.get(position).ida) ;//get("radioid").toString());
 
 
-        if (isCheckMap != null && isCheckMap.containsKey(position)) {
+        if(isCheckMap!=null && isCheckMap.containsKey(position))
+        {
             viewHolder.cb_check.setChecked(isCheckMap.get(position));
-            int t = Integer.parseInt(viewHolder.cb_check.getTag().toString());
-            items = null;
-            items = list.get(t);
-            fal=true;
-
-        } else {
+        }
+        else
+        {
             viewHolder.cb_check.setChecked(false);
-            fal=false;
         }
         viewHolder.cb_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int radiaoId = Integer.parseInt(buttonView.getTag().toString());
-                if (isChecked) {
+                if(isChecked)
+                {
                     isCheckMap.clear();
                     notifyDataSetChanged();
-                    // 将选中的放入hashmap中
+                    //将选中的放入hashmap中
                     isCheckMap.put(radiaoId, isChecked);
-                } else {
+                }
+                else
+                {
                     //取消选中的则剔除
                     isCheckMap.remove(radiaoId);
                 }
                 notifyDataSetChanged();
-
             }
         });
 
         return convertView;
-    }
-
-    public AddressItemEntity BaReturn() {
-        if (fal==false) {
-            return null;
-        } else {
-            return items;
-        }
-
     }
 
     private class ViewHolder {

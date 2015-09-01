@@ -19,9 +19,6 @@ import android.widget.TextView;
 
 import com.huihao.MyApplication;
 import com.huihao.R;
-import com.huihao.common.CircleBitmapDisplayer;
-import com.huihao.common.Log;
-import com.leo.base.application.LApplication;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -116,9 +113,8 @@ public class ImageCycleView extends LinearLayout {
         mGroup = (ViewGroup) findViewById(R.id.viewGroup);
         imageName = (TextView) findViewById(R.id.viewGroup2);
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.ic_stub)
-                .showImageForEmptyUri(R.mipmap.ic_empty)
-                .showImageOnFail(R.mipmap.ic_error).cacheInMemory(true)
+                .showImageForEmptyUri(R.mipmap.ic_stub).showImageOnFail(R.mipmap.ic_error).showImageForEmptyUri(R.mipmap.ic_empty)
+                .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
                 .displayer(new FadeInBitmapDisplayer(200))
@@ -292,7 +288,7 @@ public class ImageCycleView extends LinearLayout {
             if (mImageViewCacheList.isEmpty()) {
                 imageView = new ImageView(mContext);
                 imageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-                imageView.setScaleType(ScaleType.CENTER_CROP);
+                imageView.setScaleType(ScaleType.FIT_XY);
                 // 设置图片点击监听
                 imageView.setOnClickListener(new OnClickListener() {
                     @Override

@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.huihao.R;
@@ -21,8 +20,6 @@ import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.AllOrderItemEntity;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +38,6 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
             tv_pay, tv_stateo, tv_odnum,
             tv_paytime, tv_opent, tv_desc;
     private Button btn_kf, btn_suok;
-    private ScrollView scrollView;
 
     private BuysNumAdapter adapter;
     private List<AllOrderItemEntity> itemlist = null;
@@ -57,7 +53,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
-        //initData();
+        initData();
     }
 
     private void initView() {
@@ -72,7 +68,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
             }
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
-        scrollView=(ScrollView)findViewById(R.id.eeee);
+
         /**
          *物流状态判断，这个需要值判断是否隐藏
          */
@@ -121,25 +117,27 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
     private void initData() {
         itemlist = new ArrayList<AllOrderItemEntity>();
         AllOrderItemEntity iee = new AllOrderItemEntity();
-//        iee.idss = 1;
-//        iee.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
-//        iee.acolor = "黑色";
-//        iee.asize = "M";
-//        iee.metails = "水晶";
-//        iee.amoney = "222";
-//        iee.oldm = "109";
-//        iee.numss = "1";
-//        itemlist.add(iee);
-
+        iee.idss = 1;
+        iee.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
+        iee.acolor = "黑色";
+        iee.asize = "M";
+        iee.metails = "水晶";
+        iee.amoney = "222";
+        iee.oldm = "109";
+        iee.numss = "1";
+        itemlist.add(iee);
+        AllOrderItemEntity iee1 = new AllOrderItemEntity();
+        iee1.idss = 1;
+        iee1.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
+        iee1.acolor = "黑色";
+        iee1.asize = "M";
+        iee1.metails = "水晶";
+        iee1.amoney = "222";
+        iee1.oldm = "109";
+        iee1.numss = "1";
+        itemlist.add(iee1);
         adapter = new BuysNumAdapter(this, itemlist);
         listView.setAdapter(adapter);
-        scrollView.post(new Runnable() {
-            //让scrollview跳转到顶部，必须放在runnable()方法中
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, 0);
-            }
-        });
     }
 
     @TargetApi(19)

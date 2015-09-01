@@ -9,11 +9,17 @@
 
     <include layout="@layout/toolbar" />
 
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/app_line" />
+        android:background="@color/app_background" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/app_lycard"
+        android:background="@color/app_background" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,32 +27,24 @@
         android:background="@color/app_background">
 
 
+
+
         <com.huihao.custom.SlideListView2
             android:id="@+id/lv_list_addr"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="56dp"
-            android:background="@color/app_background"
             android:cacheColorHint="#00000000"
             android:divider="@null"
+            android:background="@color/app_background"
             android:drawSelectorOnTop="false"
+            android:layout_marginBottom="56dp"
             android:listSelector="@android:color/transparent"
-            android:scrollbars="none"
-            />
-
-
-
+            android:scrollbars="none" />
         <RelativeLayout
-            android:id="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_alignParentBottom="true"
             android:background="@color/app_white">
-            <View
-                android:layout_alignParentTop="true"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/app_line" />
 
             <Button
                 android:id="@+id/btn_add_addr"
@@ -61,6 +59,4 @@
                 android:textSize="@dimen/app_text_big" />
         </RelativeLayout>
     </RelativeLayout>
-
-
 </LinearLayout>

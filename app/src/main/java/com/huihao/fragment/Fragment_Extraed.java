@@ -1,30 +1,18 @@
 package com.huihao.fragment;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.huihao.adapter.ExtraRecodeAdapter;
 import com.huihao.R;
 import com.huihao.activity.ExR_State;
-import com.huihao.adapter.ExtraRecodeAdapter;
 import com.huihao.entity.ExtraReEntity;
-import com.huihao.entity.MyEntiy;
-import com.huihao.entity.UsErId;
-import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
-import com.leo.base.entity.LMessage;
-import com.leo.base.net.LReqEntity;
-import com.leo.base.util.T;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,55 +47,31 @@ public class Fragment_Extraed extends LFragment implements AdapterView.OnItemCli
         listView = (ListView) getActivity().findViewById(R.id.lv_extraed);
     }
 
-    private void initData(){
+    private void initData() {
         list = new ArrayList<ExtraReEntity>();
-        Resources res=getResources();
-        String url=res.getString(R.string.app_service_url)+"/huihao/member/commissionapply/1/sign/aggregation/?t=1&uuid="+ UsErId.uuid;
-        LReqEntity entity = new LReqEntity(url);
-        FragmentHandler handler = new FragmentHandler(Fragment_Extraed.this);
-        handler.startLoadingData(entity, 1);
 
+        ExtraReEntity entity = new ExtraReEntity();
+        entity.id = 1;
+        entity.state = 3;
+        entity.time = "2015-01-09";
+        entity.money = "3000.00";
+        ExtraReEntity entity2 = new ExtraReEntity();
+        entity2.id = 2;
+        entity2.state = 3;
+        entity2.time = "2015-01-09";
+        entity2.money = "3000.00";
+        ExtraReEntity entity3 = new ExtraReEntity();
+        entity3.id = 3;
+        entity3.state = 3;
+        entity3.time = "2015-01-09";
+        entity3.money = "3000.00";
+        list.add(entity);
+        list.add(entity2);
+        list.add(entity3);
+        adapter = new ExtraRecodeAdapter(getActivity(), list);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
     }
-
-    // 返回获取的网络数据
-    public void onResultHandler(LMessage msg, int requestId) {
-        super.onResultHandler(msg, requestId);
-        if (msg != null) {
-            if (requestId == 1) {
-                getJsonData(msg.getStr());
-            } else {
-                T.ss("获取数据失败");
-            }
-        }
-    }
-    private void getJsonData(String data) {
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            int code = jsonObject.getInt("status");
-            if (code == 1) {
-                JSONArray array = jsonObject.getJSONArray("list");
-                for (int i = 0; i < array.length(); i++) {
-                    ExtraReEntity entity = new ExtraReEntity();
-                    JSONObject jso = array.getJSONObject(i);
-                    entity.id = jso.getString("id");
-                    entity.state = jso.getString("status");
-                    entity.time =jso.getString("ctime");
-                    entity.money =jso.getString("amount");
-                    list.add(entity);
-                }
-                adapter = new ExtraRecodeAdapter(getActivity(), list);
-                listView.setAdapter(adapter);
-                listView.setOnItemClickListener(this);
-            } else {
-                T.ss(jsonObject.getString("info"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
 
     public static Fragment_Extraed newInstance() {
         Fragment_Extraed fragment = new Fragment_Extraed();
@@ -119,7 +83,7 @@ public class Fragment_Extraed extends LFragment implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ExtraReEntity en = list.get(position);
-        String t = en.id;
+        int t = en.state;
         Intent intent = new Intent(getActivity(), ExR_State.class);
         intent.putExtra("state", t + "");
         startActivity(intent);

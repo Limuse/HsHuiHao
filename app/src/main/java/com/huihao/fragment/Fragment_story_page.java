@@ -9,11 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.activity.Story_details;
 import com.leo.base.activity.fragment.LFragment;
+import com.leo.base.util.T;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 2015/6/26.
@@ -22,9 +30,13 @@ import java.util.ArrayList;
 public class Fragment_story_page extends LFragment {
     private ViewPager viewPager;
     private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
+    private Map<String, String> imageInfo = new HashMap<String, String>();
     private String info;
     private View total;
     private ImageView image;
+
+    private DisplayImageOptions options;
+    private ImageLoader imageLoader;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,32 +54,48 @@ public class Fragment_story_page extends LFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if (imageLoader == null) {
+            imageLoader = MyApplication.getInstance().getImageLoader();
+        }
+        options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                .cacheOnDisc(true)
+                .showImageForEmptyUri(R.mipmap.book_load).showImageOnLoading(R.mipmap.book_load)
+                .considerExifParams(true)
+                .displayer(new FadeInBitmapDisplayer(200))
+//                .displayer(new CircleBitmapDisplayer())//切圆
+                .build();
+
         initView();
         initData();
     }
 
     private void initView() {
-        image=(ImageView)total.findViewById(R.id.page_image);
+        image = (ImageView) total.findViewById(R.id.page_image);
     }
 
     private void initData() {
-        if(info.equals("0")){
-            image.setImageResource(R.mipmap.story1);
-        }else if(info.equals("1")){
-            image.setImageResource(R.mipmap.story2);
+        if (!imageInfo.get("image").equals("")) {
+            imageLoader.displayImage(imageInfo.get("image"), image, options);
+            image.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if (imageInfo.containsKey("id")) {
+                        Intent intent = new Intent(getActivity(), Story_details.class);
+                        intent.putExtra("id", imageInfo.get("id"));
+                        startActivity(intent);
+                    }
+                }
+            });
+        } else {
+            image.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    T.ss("加载中，请稍后");
+                }
+            });
         }
-        else if(info.equals("2")){
-            image.setImageResource(R.mipmap.story3);
-        }
-        image.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),Story_details.class);
-                startActivity(intent);
-            }
-        });
     }
 
-    public  void getData(String info) {
-        this.info = info;
+    public void getData(Map<String, String> map) {
+        this.imageInfo = map;
     }
 }

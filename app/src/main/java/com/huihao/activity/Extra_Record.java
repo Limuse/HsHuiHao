@@ -8,17 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.huihao.R;
 import com.huihao.adapter.ExtraRecordPager;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.custom.PagerSlidingTabStrip;
-import com.huihao.entity.ExtraReEntity;
 import com.leo.base.activity.LActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by huisou on 2015/8/3.
@@ -66,8 +61,7 @@ public class Extra_Record extends LActivity {
         int p = Integer.parseInt(t);
         viewPager.setCurrentItem(p);
         tabStrip.setViewPager(viewPager);
-        tabStrip.setCheckTab(p);
-        tabStrip.invalidate();
+
     }
 
 

@@ -28,21 +28,6 @@
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
                 android:background="@mipmap/emils" />
-
-            <TextView
-                android:id="@+id/img_n"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginLeft="-10dp"
-                android:layout_marginTop="-3dp"
-                android:layout_toEndOf="@+id/person_emlss"
-                android:background="@drawable/clicer"
-                android:gravity="center"
-                android:text=""
-                android:paddingBottom="2dp"
-                android:textSize="11sp"
-                android:textColor="@color/app_white"
-                android:visibility="gone" />
         </RelativeLayout>
 
 
@@ -115,12 +100,9 @@
                     android:layout_toEndOf="@+id/person_no_pay"
                     android:background="@drawable/clicer"
                     android:gravity="center"
-                    android:text=""
+                    android:text="1"
                     android:textColor="@color/app_white"
-                    android:paddingBottom="2dp"
-                   android:textSize="11sp"
-                    android:visibility="gone"
-                    />
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -139,7 +121,7 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:background="@android:color/transparent"
                     android:gravity="center"
-                    android:text="待发货"
+                    android:text="待收货"
                     android:textColor="@drawable/person_top_text"
                     android:textSize="@dimen/app_myself_tex" />
 
@@ -152,9 +134,7 @@
                     android:layout_toEndOf="@+id/person_rec"
                     android:background="@drawable/clicer"
                     android:gravity="center"
-                    android:text=""
-                    android:paddingBottom="2dp"
-                    android:textSize="11sp"
+                    android:text="1"
                     android:textColor="@color/app_white"
                     android:visibility="gone" />
             </RelativeLayout>
@@ -174,7 +154,7 @@
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:background="@android:color/transparent"
                     android:gravity="center"
-                    android:text="待收货"
+                    android:text="退款中"
                     android:textColor="@drawable/person_top_text"
                     android:textSize="@dimen/app_myself_tex" />
 
@@ -187,9 +167,7 @@
                     android:layout_toEndOf="@+id/person_back_money"
                     android:background="@drawable/clicer"
                     android:gravity="center"
-                    android:text=""
-                    android:paddingBottom="2dp"
-                    android:textSize="11sp"
+                    android:text="1"
                     android:textColor="@color/app_white"
                     android:visibility="gone" />
             </RelativeLayout>
@@ -287,7 +265,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="35dp"
                 android:background="@color/app_background" />
 
             <RelativeLayout
@@ -312,83 +291,6 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/person_parper"
                     android:text="我的优惠卷"
-                    android:textColor="@color/app_text_dark"
-                    android:textSize="@dimen/app_myself_tex" />
-
-                <ImageView
-                    android:layout_width="@dimen/app_myself_right_image"
-                    android:layout_height="@dimen/app_myself_right_image"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/app_myself_left_mar"
-                    android:src="@mipmap/right_to" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="35dp"
-                android:background="@color/app_background" />
-            <RelativeLayout
-                android:id="@+id/yaoqing"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/app_toolbar"
-                android:background="@drawable/btn_press"
-                android:clickable="true">
-
-                <ImageView
-                    android:id="@+id/person_parperz"
-                    android:layout_width="@dimen/app_myself_right_image"
-                    android:layout_height="@dimen/app_myself_right_image"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/app_myself_left_mar"
-                    android:layout_marginRight="5dp"
-                    android:background="@mipmap/loves" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/person_parperz"
-                    android:text="优惠码"
-                    android:textColor="@color/app_text_dark"
-                    android:textSize="@dimen/app_myself_tex" />
-
-                <ImageView
-                    android:layout_width="@dimen/app_myself_right_image"
-                    android:layout_height="@dimen/app_myself_right_image"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/app_myself_left_mar"
-                    android:src="@mipmap/right_to" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="35dp"
-                android:background="@color/app_background" />
-            <RelativeLayout
-                android:id="@+id/share"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/app_toolbar"
-                android:background="@drawable/btn_press"
-                android:clickable="true">
-
-                <ImageView
-                    android:id="@+id/person_parperzs"
-                    android:layout_width="@dimen/app_myself_right_image"
-                    android:layout_height="@dimen/app_myself_right_image"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/app_myself_left_mar"
-                    android:layout_marginRight="5dp"
-                    android:background="@mipmap/shares" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/person_parperzs"
-                    android:text="分享"
                     android:textColor="@color/app_text_dark"
                     android:textSize="@dimen/app_myself_tex" />
 

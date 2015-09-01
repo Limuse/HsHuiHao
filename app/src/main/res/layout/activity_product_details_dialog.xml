@@ -27,7 +27,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:text="￥998"
                 android:textColor="@color/app_orange"
                 android:textSize="20dp" />
 
@@ -39,7 +38,6 @@
                 android:layout_below="@+id/tv_price"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="350ml"
                 android:textColor="@color/app_text_dark"
                 android:textSize="@dimen/app_text_normal" />
 
@@ -50,7 +48,6 @@
                 android:layout_below="@+id/tv_size"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="库存9999件"
                 android:textColor="@color/app_text_light"
                 android:textSize="@dimen/app_text_normal" />
 
@@ -91,7 +88,7 @@
                 android:layout_width="116dp"
                 android:layout_height="116dp"
                 android:layout_centerInParent="true"
-                android:background="@mipmap/image1" />
+                android:scaleType="fitXY" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -115,15 +112,30 @@
             android:textColor="@color/app_text_light"
             android:textSize="@dimen/app_text_normal" />
 
-        <com.huihao.custom.TagGroup
-            android:id="@+id/tag_group"
+        <ScrollView
+            android:id="@+id/tag_scroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            app:isAppendMode="true" />
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+                <com.huihao.custom.TagGroup
+                    android:id="@+id/tag_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    app:isAppendMode="true" />
+            </RelativeLayout>
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout

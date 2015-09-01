@@ -1,114 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.huihao.custom.LvScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
-    android:id="@+id/cccd"
-    android:scrollbars="none">
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="180dp"
+        android:background="@mipmap/blues_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_marginTop="@dimen/app_myself_left_mar"
+            android:text="下级分销总额"
+            android:textColor="@color/app_white"
+            android:textSize="@dimen/app_text_normal" />
+
+        <TextView
+            android:id="@+id/tv_prmoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:layout_marginTop="60dp"
+            android:text="1,000.29"
+            android:textColor="@color/app_white"
+            android:textSize="50sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="@mipmap/blues_bg">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/app_myself_left_mar"
-                android:layout_marginTop="@dimen/app_myself_left_mar"
-                android:text="下级分销总额"
-                android:textColor="@color/app_white"
-                android:textSize="@dimen/app_text_normal" />
-
-            <TextView
-                android:id="@+id/tv_prmoney"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/app_myself_left_mar"
-                android:layout_marginTop="60dp"
-                android:text="1,000.29"
-                android:textColor="@color/app_white"
-                android:textSize="50sp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_alignParentBottom="true"
-                android:background="@mipmap/addr_bg">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/app_myself_left_mar"
-                    android:text="下级伙伴数"
-                    android:textColor="@color/app_white"
-                    android:textSize="@dimen/app_text_big" />
-
-                <TextView
-                    android:id="@+id/tv_parnum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/app_myself_left_mar"
-                    android:text="128"
-                    android:textColor="@color/app_white"
-                    android:textSize="@dimen/app_text_big" />
-            </RelativeLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:background="@color/app_background">
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/addr_bg">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/app_myself_left_mar"
-                android:text="伙伴名称"
-                android:textColor="@color/app_text_light"
-                android:textSize="@dimen/app_text_normal" />
+                android:text="下级伙伴数"
+                android:textColor="@color/app_white"
+                android:textSize="@dimen/app_text_big" />
 
             <TextView
+                android:id="@+id/tv_parnum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/app_myself_left_mar"
-                android:text="发展金额"
-                android:textColor="@color/app_text_light"
-                android:textSize="@dimen/app_text_normal" />
+                android:text="128"
+                android:textColor="@color/app_white"
+                android:textSize="@dimen/app_text_big" />
         </RelativeLayout>
+    </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/lyms"
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:background="@color/app_background">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <com.huihao.custom.IlistView
-            android:id="@+id/lv_backmoney"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:cacheColorHint="#00000000"
-            android:clickable="true"
-            android:divider="@null"
-            android:fadingEdge="none"
-            android:focusable="true"
-            android:layoutAnimation="@anim/navagation_listview_anim4"
-            android:listSelector="#00000000"
-            android:scrollbars="none" />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:text="伙伴名称"
+            android:textColor="@color/app_text_light"
+            android:textSize="@dimen/app_text_normal" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/app_myself_left_mar"
+            android:text="发展金额"
+            android:textColor="@color/app_text_light"
+            android:textSize="@dimen/app_text_normal" />
+    </RelativeLayout>
 
-</com.huihao.custom.LvScrollView>
+    <ListView
+        android:id="@+id/lv_backmoney"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:cacheColorHint="#00000000"
+        android:clickable="true"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:focusable="true"
+        android:layoutAnimation="@anim/navagation_listview_anim4"
+        android:listSelector="#00000000"
+        android:scrollbars="none" />
+
+</LinearLayout>

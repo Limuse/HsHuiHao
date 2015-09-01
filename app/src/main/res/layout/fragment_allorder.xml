@@ -11,23 +11,21 @@
 
     <include layout="@layout/toolbar" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/app_line" />
 
     <com.huihao.custom.PagerSlidingTabStrip
         android:id="@+id/tab_strip"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bottom"
+        android:layout_marginTop="1dp"
         android:background="@color/app_white"
         android:textColor="@color/app_text_dark"
         app:pstsDividerColor="#00000000"
         app:pstsIndicatorColor="@color/app_greenfull_press"
+        app:selectedTabTextColor="@color/app_greenfull_press"
         app:pstsIndicatorHeight="2dp"
         app:pstsShouldExpand="true"
         app:pstsUnderlineHeight="0dp"
-        app:selectedTabTextColor="@color/app_greenfull_press" />
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

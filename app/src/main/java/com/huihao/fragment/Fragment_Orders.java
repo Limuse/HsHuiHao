@@ -1,6 +1,5 @@
 package com.huihao.fragment;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +10,7 @@ import com.huihao.R;
 import com.huihao.adapter.AllOrderAdapter;
 import com.huihao.entity.AllOrderEntity;
 import com.huihao.entity.AllOrderItemEntity;
-import com.huihao.entity.UsErId;
-import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
-import com.leo.base.entity.LMessage;
-import com.leo.base.net.LReqEntity;
-import com.leo.base.util.T;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +21,9 @@ import java.util.List;
  */
 public class Fragment_Orders extends LFragment {
     private ListView listView;
-    private List<AllOrderEntity> list = new ArrayList<AllOrderEntity>();
+    private List<AllOrderEntity> list = null;
     private AllOrderAdapter adapter;
-    private List<AllOrderEntity.ChildEntity> itemlist = null;//new ArrayList<AllOrderEntity.ChildEntity>();
+    private List<AllOrderItemEntity> itemlist = null;
 
 
     @Override
@@ -60,77 +50,61 @@ public class Fragment_Orders extends LFragment {
         listView = (ListView) getView().findViewById(R.id.lv_showall);
     }
 
-
     private void initData() {
-//t 订单状态（1未付款2待发货3待收货，不传则表示全部订单）
-        Resources res = getResources();
-        String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/1/sign/aggregation/?uuid="+ UsErId.uuid;
-        LReqEntity entity = new LReqEntity(url);
-        FragmentHandler handler = new FragmentHandler(Fragment_Orders.this);
-        handler.startLoadingData(entity, 1);
-
-    }
-
-
-    // 返回获取的网络数据
-    public void onResultHandler(LMessage msg, int requestId) {
-        super.onResultHandler(msg, requestId);
-        if (msg != null) {
-            if (requestId == 1) {
-                getJsonSubmit(msg.getStr());
-            } else {
-                T.ss("获取数据失败");
-            }
-        }
-    }
-
-    private void getJsonSubmit(String data) {
-
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            int code = jsonObject.getInt("status");
-            if (code == 1) {
-                JSONObject o = jsonObject.getJSONObject("list");
-                JSONArray jo = o.getJSONArray("orderlist");
-                for (int i = 0; i < jo.length(); i++) {
-                    JSONObject ob = jo.getJSONObject(i);
-                    AllOrderEntity ee = new AllOrderEntity();
-                    ee.setState(ob.getString("state"));
-                    ee.setId(ob.getString("id"));
-                    ee.setTotal_price(ob.getString("total_price"));
-                    ee.setPay_price(ob.getString("pay_price"));
-                    JSONArray ja = ob.getJSONArray("_child");
-                    itemlist = new ArrayList<AllOrderEntity.ChildEntity>();
-                    for (int j = 0; j < ja.length(); j++) {
-                        JSONObject jt = ja.getJSONObject(j);
-                        AllOrderEntity.ChildEntity ce = new AllOrderEntity.ChildEntity();
-                        ce.setOrderid(jt.getString("orderid"));
-                        ce.setTitle(jt.getString("title"));
-                        ce.setSpec_1(jt.getString("spec_1"));
-                        ce.setSpec_2(jt.getString("spec_2"));
-                        ce.setPrice(jt.getString("price"));
-                        ce.setNewprice(jt.getString("newprice"));
-                        ce.setNum(jt.getString("num"));
-                        ce.setPicurl(jt.getString("picurl"));
-                        itemlist.add(ce);
-
-                    }
-                    ee.set_child(itemlist);
-                    list.add(ee);
-
-                }
-
-                adapter = new AllOrderAdapter(getActivity(), list);
-                listView.setAdapter(adapter);
-
-            } else {
-
-                T.ss(jsonObject.getString("info").toString());
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        list=new ArrayList<AllOrderEntity>();
+        AllOrderEntity ee=new AllOrderEntity();
+        ee.aid=1;
+        ee.number="12965376343";
+        ee.astate=0;
+        ee.allmoney="98";
+        list.add(ee);
+        AllOrderEntity ee1=new AllOrderEntity();
+        ee1.aid=2;
+        ee1.number="12965376343";
+        ee1.astate=1;
+        ee1.allmoney="98";
+        list.add(ee1);
+        AllOrderEntity ee2=new AllOrderEntity();
+        ee2.aid=3;
+        ee2.number="12965376343";
+        ee2.astate=2;
+        ee2.allmoney="98";
+        list.add(ee2);
+        AllOrderEntity ee3=new AllOrderEntity();
+        ee3.aid=3;
+        ee3.number="12965376343";
+        ee3.astate=3;
+        ee3.allmoney="98";
+        list.add(ee3);
+        AllOrderEntity ee4=new AllOrderEntity();
+        ee4.aid=4;
+        ee4.number="12965376343";
+        ee4.astate=4;
+        ee4.allmoney="98";
+        list.add(ee4);
+        itemlist=new ArrayList<AllOrderItemEntity>();
+        AllOrderItemEntity iee=new AllOrderItemEntity();
+        iee.idss=1;
+        iee.atitle="洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
+        iee.acolor="黑色";
+        iee.asize="M";
+        iee.metails="水晶";
+        iee.amoney="222";
+        iee.oldm="109";
+        iee.numss="1";
+        itemlist.add(iee);
+        AllOrderItemEntity iee1=new AllOrderItemEntity();
+        iee1.idss=1;
+        iee1.atitle="洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
+        iee1.acolor="黑色";
+        iee1.asize="M";
+        iee1.metails="水晶";
+        iee1.amoney="222";
+        iee1.oldm="109";
+        iee1.numss="1";
+        itemlist.add(iee1);
+        adapter=new AllOrderAdapter(getActivity(),list,itemlist);
+        listView.setAdapter(adapter);
     }
 
     public static Fragment_Orders newInstance() {

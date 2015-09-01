@@ -18,7 +18,7 @@
             android:layout_marginBottom="4dp"
             android:text="2015年5月15日 09：30:01"
             android:textColor="@color/app_text_light"
-            android:textSize="@dimen/app_text_normal" />
+            android:textSize="@dimen/app_text_small" />
     </RelativeLayout>
 
     <LinearLayout
@@ -46,7 +46,7 @@
                 android:singleLine="false"
                 android:text="流年似水，而情依旧流年似水，而情依旧流年似水，而情依旧流年似水，而情依旧流年似水"
                 android:textColor="@color/app_text_dark"
-                android:textSize="@dimen/app_text_big" />
+                android:textSize="@dimen/app_text_small" />
         </RelativeLayout>
 
         <View
@@ -60,50 +60,50 @@
             android:id="@+id/iv_imgs"
             android:layout_width="match_parent"
             android:layout_height="128dp"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
             android:layout_marginRight="@dimen/app_myself_left_mar"
-            android:layout_marginTop="8dp" />
+            android:background="@mipmap/blues_bg" />
 
         <TextView
             android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
             android:layout_marginRight="@dimen/app_myself_left_mar"
-            android:layout_marginTop="12dp"
             android:singleLine="false"
-            android:text="这个故事，或许有些朋友已经听我讲过了。故事说的是一位老朋友，三年前反反复复凤飞飞飞"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="@dimen/app_text_small"
             android:textColor="@color/app_text_dark"
-            android:textSize="@dimen/app_text_normal" />
+            android:text="这个故事，或许有些朋友已经听我讲过了。故事说的是一位老朋友，三年前反反复复凤飞飞飞"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/app_myself_left_mar"
+            android:background="@color/app_background"
             android:layout_marginRight="@dimen/app_myself_left_mar"
-            android:background="@color/app_background" />
-
+            android:layout_marginLeft="@dimen/app_myself_left_mar"/>
         <RelativeLayout
             android:id="@+id/rl_yuanw"
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:layout_marginBottom="1.5dp"
-            android:layout_marginLeft="1.5dp"
             android:layout_marginRight="1.5dp"
+            android:layout_marginLeft="1.5dp"
+            android:layout_marginBottom="1.5dp"
             android:background="@drawable/btn_press">
 
             <TextView
                 android:id="@+id/tv_chak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/app_myself_left_mar"
-                android:layout_toStartOf="@+id/iv"
                 android:text="查看原文"
+                android:layout_centerVertical="true"
                 android:textColor="@color/app_text_light"
-                android:textSize="@dimen/app_text_normal" />
-
+                android:textSize="@dimen/app_text_small"
+                android:layout_toStartOf="@+id/iv"
+                android:layout_marginRight="@dimen/app_myself_left_mar"
+                />
             <ImageView
                 android:id="@+id/iv"
                 android:layout_width="@dimen/app_myself_right_image"

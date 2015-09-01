@@ -75,7 +75,7 @@
             android:layout_toRightOf="@+id/ttt"
             android:background="@android:color/transparent"
             android:hint="请输入手机号码"
-            android:maxLength="11"
+            android:maxLength="10"
             android:textColor="@color/app_text_dark"
             android:textSize="@dimen/app_text_big" />
 

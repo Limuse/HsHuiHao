@@ -8,12 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.huihao.MyApplication;
-import com.huihao.R;
 import com.huihao.entity.AllOrderItemEntity;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.huihao.R;
 
 import java.util.List;
 
@@ -52,7 +48,7 @@ public class BuysNumAdapter extends BaseAdapter {
             viewHolders.img = (ImageView) convertView.findViewById(R.id.img_tilz);
             viewHolders.tv_title = (TextView) convertView.findViewById(R.id.tv_item_otitle);
             viewHolders.tv_metarils = (TextView) convertView.findViewById(R.id.tv_resa);
-            viewHolders.tv_size = (TextView) convertView.findViewById(R.id.tv_sizes);
+            viewHolders.tv_size = (TextView) convertView.findViewById(R.id.tv_sizez);
             viewHolders.tv_colors = (TextView) convertView.findViewById(R.id.tv_colorz);
             viewHolders.tv_moneys = (TextView) convertView.findViewById(R.id.tv_money);
             viewHolders.tv_oldmoney = (TextView) convertView.findViewById(R.id.tv_oldm);
@@ -65,40 +61,15 @@ public class BuysNumAdapter extends BaseAdapter {
         /**
          * 图片需要另作处理
          */
-        ImageLoader imageLoader = null;
+        // viewHolderders.img
 
-        // 图片
-        if (imageLoader == null) {
-            imageLoader = MyApplication.getInstance().getImageLoader();
-        }
-
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.logo)
-                .showImageForEmptyUri(R.mipmap.logo)
-                .showImageOnFail(R.mipmap.logo)
-                .cacheInMemory(true).cacheOnDisk(true)
-                .considerExifParams(true)
-                .displayer(new FadeInBitmapDisplayer(200))
-                .build();
-        imageLoader.displayImage(ient.getPicurl(), viewHolders.img, options);
-        viewHolders.tv_title.setText(ient.getTitle());
-        if (ient.getTitle_1().equals(null) || ient.getTitle_1().equals("null") || ient.getTitle_1().equals("")) {
-            viewHolders.tv_colors.setText("");
-        } else {
-            String title1 = ient.getTitle_1() + ":" + ient.getSpec_1();
-            viewHolders.tv_colors.setText(title1);
-        }
-        if (ient.getTitle_2().equals(null) || ient.getTitle_2().equals("null") || ient.getTitle_2().equals("")) {
-            viewHolders.tv_size.setText("");
-        } else {
-            String title2 = ient.getTitle_2() + ":" + ient.getSpec_2();
-            viewHolders.tv_size.setText(title2);
-        }
-
-
-        viewHolders.tv_moneys.setText(ient.getPreferential());
-        viewHolders.tv_oldmoney.setText("￥" + ient.getNprice());
-        viewHolders.tv_nums.setText("x" + ient.getBuynum());
+        viewHolders.tv_title.setText(ient.atitle);
+        viewHolders.tv_metarils.setText(ient.metails);
+        viewHolders.tv_colors.setText(ient.acolor);
+        viewHolders.tv_size.setText(ient.asize);
+        viewHolders.tv_moneys.setText(ient.amoney);
+        viewHolders.tv_oldmoney.setText("￥" + ient.oldm);
+        viewHolders.tv_nums.setText("x" + ient.numss);
         return convertView;
     }
 
