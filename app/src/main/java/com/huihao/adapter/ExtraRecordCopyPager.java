@@ -21,6 +21,7 @@ public class ExtraRecordCopyPager extends FragmentPagerAdapter {
     public ExtraRecordCopyPager(Extra_RecordCopy extra_recordCopy,FragmentManager fm){
         super(fm);
     }
+
     @Override
     public Fragment getItem(int position) {
         Fragment fragment;
@@ -32,8 +33,10 @@ public class ExtraRecordCopyPager extends FragmentPagerAdapter {
                 fragment= Fragment_Extraedone.newInstance();//已提现
                 break;
         }
+
         return fragment;
     }
+
     @Override
     public CharSequence getPageTitle(int position) {
         return titles[position];

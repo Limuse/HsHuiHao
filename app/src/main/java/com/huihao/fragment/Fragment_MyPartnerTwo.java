@@ -24,8 +24,6 @@ public class Fragment_MyPartnerTwo extends LFragment {
     private MyPartnerAdapter adapter;
     private List<MyPartnerEntity> list = null;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

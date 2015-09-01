@@ -25,6 +25,7 @@ public class Fragment_back_money extends LFragment {
     private List<AllOrderItemEntity> itemlist=null;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
