@@ -22,6 +22,7 @@ public class OrdersNewsAdapter extends BaseAdapter {
     private Context context;
     private List<OrdersNewsEntity> list = null;
 
+
     public OrdersNewsAdapter(Context context, List<OrdersNewsEntity> list) {
         this.context = context;
         this.list = list;

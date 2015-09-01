@@ -25,6 +25,7 @@ public class MoneyNewsAdapter extends BaseAdapter {
         this.context = context;
         this.list = list;
     }
+
     @Override
     public int getCount() {
         return list.size();

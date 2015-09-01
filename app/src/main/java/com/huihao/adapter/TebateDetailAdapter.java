@@ -75,6 +75,7 @@ public class TebateDetailAdapter extends BaseAdapter {
         return convertView;
     }
 
+
     private class ViewHolder {
         private TextView pnum;
         private TextView state1;
