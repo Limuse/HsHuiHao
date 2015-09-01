@@ -34,7 +34,6 @@ public class ExtraRecordCopyPager extends FragmentPagerAdapter {
         }
         return fragment;
     }
-
     @Override
     public CharSequence getPageTitle(int position) {
         return titles[position];
