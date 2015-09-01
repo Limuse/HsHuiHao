@@ -5,6 +5,7 @@ package com.huihao.entity;
  * Created by huisou on 2015/8/4.
  */
 public class AddressItemEntity {
+
     /**
      * id : 3
      * uname : 你好23
