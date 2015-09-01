@@ -3,6 +3,7 @@ package com.huihao.entity;
 import java.util.List;
 /**
  * Created by huisou on 2015/8/5.
+ * update by9/1
  */
 public class AllOrderEntity {
 
