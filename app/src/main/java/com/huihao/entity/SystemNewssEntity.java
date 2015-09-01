@@ -10,3 +10,4 @@ public class SystemNewssEntity {
     public String image;
     public String desc;
 }
+

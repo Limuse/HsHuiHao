@@ -8,4 +8,5 @@ public class ExtraReEntity {
     public String state;
     public String time;
     public String money;
+
 }

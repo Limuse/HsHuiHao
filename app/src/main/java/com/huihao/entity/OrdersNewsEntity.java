@@ -5,15 +5,6 @@ package com.huihao.entity;
  */
 public class OrdersNewsEntity {
 
-   // public int id;
-    public String time;
-    public String tjtime;
-    public String khinfo;
-    public String ordermoney;
-    public String yjmoney;
-    public int state;
-
-
     /**
      * orderid : 2008080880
      * user_info : huanglei 15312341234

@@ -6,7 +6,6 @@ import java.util.List;
  * Created by huisou on 2015/8/10.
  */
 public class MetailflowEntity {
-
     /**
      * title : 默认天天快递(包邮)
      * status_name : 已发出

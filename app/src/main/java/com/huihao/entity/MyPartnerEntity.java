@@ -6,10 +6,6 @@ import java.util.List;
  * Created by huisou on 2015/8/4.
  */
 public class MyPartnerEntity {
-//    public int pid;
-//    public String names;
-//    public String moneys;
-
 
     private String total;
     private String child;

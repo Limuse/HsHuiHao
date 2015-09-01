@@ -4,11 +4,6 @@ package com.huihao.entity;
  * Created by huisou on 2015/8/11.
  */
 public class SystemNewsEntity {
-    public int id;
-    public String time1;
-
-    public String names;
-
 
     public String getIds() {
         return ids;
@@ -17,6 +12,7 @@ public class SystemNewsEntity {
     public void setIds(String ids) {
         this.ids = ids;
     }
+
 
     /**
      * title : 测试2

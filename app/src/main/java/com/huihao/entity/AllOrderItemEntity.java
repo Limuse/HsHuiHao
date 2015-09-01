@@ -20,7 +20,6 @@ public class AllOrderItemEntity {
      * maxnum : 999
      * buymax : 0
      */
-
     private String buynum;
     private String title_1;
     private String title_2;

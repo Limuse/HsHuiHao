@@ -13,5 +13,4 @@ public class CouponsEntity {
     public String cpuse;
     public int t;
 
-
 }

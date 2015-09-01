@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class MyEntiy {
 
-
     /**
      * head_img : http://huihaowfx.huisou.com/Uploads/appavater/14408301215897.jpg
      * meassage : 0

@@ -6,3 +6,4 @@ package com.huihao.entity;
 public class UsErId {
     public static String uuid="973038b80108a78fe0a8293e2c183dfc";
 }
+
