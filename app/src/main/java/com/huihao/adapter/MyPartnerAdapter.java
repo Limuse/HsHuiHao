@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.MyPartnerEntity;
-
-import org.w3c.dom.Text;
+import com.huihao.R;
 
 import java.util.List;
 
@@ -19,13 +17,12 @@ import java.util.List;
  */
 public class MyPartnerAdapter extends BaseAdapter {
     private Context context = null;
-    private List<MyPartnerEntity.ChildList> list = null;
+    private List<MyPartnerEntity> list = null;
 
-    public MyPartnerAdapter(Context context, List<MyPartnerEntity.ChildList> list) {
+    public MyPartnerAdapter(Context context, List<MyPartnerEntity> list) {
         this.context = context;
         this.list = list;
     }
-
     @Override
     public int getCount() {
         return list.size();
@@ -53,10 +50,10 @@ public class MyPartnerAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        MyPartnerEntity.ChildList entity = list.get(position);
+        MyPartnerEntity entity = list.get(position);
 
-        viewHolder.tv_money.setText(entity.getUsername());
-        viewHolder.tv_name.setText(entity.getAmount());
+        viewHolder.tv_money.setText(entity.moneys);
+        viewHolder.tv_name.setText(entity.names);
 
         return convertView;
     }

@@ -1,1 +1,1 @@
-include ':app', ':build.gradleg'
+include ':app'

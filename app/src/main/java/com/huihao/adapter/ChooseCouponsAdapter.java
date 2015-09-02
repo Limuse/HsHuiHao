@@ -6,15 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.CouponsEntity;
+import com.huihao.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,19 +18,16 @@ import java.util.List;
  */
 public class ChooseCouponsAdapter extends BaseAdapter {
     private Context context;
-    private List<CouponsEntity> list = null;
-    private List<String> listid = new ArrayList<String>();
+    private List<CouponsEntity> list=null;
 
-    public ChooseCouponsAdapter(Context context, List<CouponsEntity> list) {
-        this.context = context;
-        this.list = list;
+    public ChooseCouponsAdapter (Context context, List<CouponsEntity> list){
+        this.context=context;
+        this.list=list;
     }
-
     @Override
     public int getCount() {
         return list.size();
     }
-
 
     @Override
     public Object getItem(int position) {
@@ -54,7 +47,7 @@ public class ChooseCouponsAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_choose_coupons, null);
-            viewHolder.cb = (CheckBox) convertView.findViewById(R.id.cb_cb);
+            viewHolder.cb=(CheckBox)convertView.findViewById(R.id.cb_cb);
             viewHolder.tv_cptitle = (TextView) convertView.findViewById(R.id.conupons_title);
             viewHolder.tv_cptime = (TextView) convertView.findViewById(R.id.conupons_time);
             viewHolder.tv_cpmoey = (TextView) convertView.findViewById(R.id.conupons_money);
@@ -63,47 +56,17 @@ public class ChooseCouponsAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        final CouponsEntity ce = list.get(position);
+        CouponsEntity ce = list.get(position);
         viewHolder.tv_cptitle.setText(ce.cptitile);
         viewHolder.tv_cptime.setText(ce.cptime);
         viewHolder.tv_cpmoey.setText(ce.cpmoney);
         viewHolder.tv_cpuse.setText(ce.cpuse);
-        viewHolder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-
-                    notifyDataSetChanged();
-                    // 将选中的放入hashmap中
-                    listid.add(ce.cpid);
-                } else {
-                    //取消选中的则剔除
-                    listid.remove(ce.cpid);
-                }
-                notifyDataSetChanged();
-
-            }
-        });
         return convertView;
 
     }
 
-    public String rCid() {
-        String cid = "";
-        if (listid.size() < 1) {
-            cid = null;
-            return cid;
-        } else {
-            for (int i = 0; i < listid.size(); i++) {
-                cid = cid + listid.get(i) + ",";
-            }
-            cid = cid.substring(0, cid.lastIndexOf(','));
-            return cid;
-        }
-    }
-
-    private class ViewHolder {
-        CheckBox cb;
+    private class ViewHolder{
+         CheckBox cb;
         TextView tv_cptitle;
         TextView tv_cptime;
         TextView tv_cpmoey;

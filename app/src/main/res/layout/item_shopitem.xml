@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:background="@color/app_white"
     android:orientation="vertical"
-    android:paddingRight="-90dp">
+    android:paddingRight="-90dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-
 
 
             <LinearLayout
@@ -47,6 +47,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginTop="8dp"
+                        android:background="@mipmap/xifas"
                         android:gravity="left" />
 
                     <LinearLayout
@@ -65,7 +66,7 @@
                             android:maxEms="12"
                             android:onClick="true"
                             android:singleLine="true"
-                            android:text="把根留住火麻茶麸洗发洗发露露"
+                            android:text="把根留住火麻茶麸洗发露"
                             android:textColor="@drawable/shop_item_text_color"
                             android:textSize="@dimen/app_text_big" />
 
@@ -76,143 +77,167 @@
                             android:layout_marginTop="5dp"
                             android:orientation="horizontal">
 
+                            <TextView
+                                android:id="@+id/tv_g"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="颜色:"
+                                android:textColor="@color/app_text_light"
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:id="@+id/tv_color"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=""
-                                android:layout_marginRight="4dp"
+                                android:text="黑色"
+                                android:textColor="@color/app_text_light"
+                                android:textSize="@dimen/app_text_normal" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=";"
                                 android:textColor="@color/app_text_light"
                                 android:textSize="@dimen/app_text_normal" />
 
 
-
-
-
+                            <TextView
+                                android:id="@+id/tv_size"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="尺码:"
+                                android:textColor="@color/app_text_light"
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:id="@+id/tv_sizes"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=""
-                                android:layout_marginRight="4dp"
+                                android:text="M"
                                 android:textColor="@color/app_text_light"
                                 android:textSize="@dimen/app_text_normal" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=";"
+                                android:textColor="@color/app_text_light"
+                                android:textSize="@dimen/app_text_normal" />
 
-
-
+                            <TextView
+                                android:id="@+id/tv_re"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="材质:"
+                                android:textColor="@color/app_text_light"
+                                android:textSize="@dimen/app_text_normal" />
 
                             <TextView
                                 android:id="@+id/tv_res"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
-                                android:text=""
+                                android:text="水晶"
                                 android:textColor="@color/app_text_light"
                                 android:textSize="@dimen/app_text_normal" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text=";"
+                                android:textColor="@color/app_text_light"
+                                android:textSize="@dimen/app_text_normal" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="230dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
                             android:layout_marginTop="6dp"
                             android:orientation="horizontal">
 
-                            <RelativeLayout
+                            <TextView
+                                android:id="@+id/tv_tt"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="￥"
+                                android:textColor="@color/app_orange"
+                                android:textSize="@dimen/app_text_big" />
 
-                                <LinearLayout
-                                    android:id="@+id/ls"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/tv_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="998.00"
+                                android:textColor="@color/app_orange"
+                                android:textSize="@dimen/app_text_big" />
 
-                                    <TextView
-                                        android:id="@+id/tv_tt"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:text="￥"
-                                        android:textColor="@color/app_orange"
-                                        android:textSize="@dimen/app_text_big" />
+                            <LinearLayout
+                                android:id="@+id/ly_nu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal|right"
+                                android:layout_marginLeft="40dp"
+                                android:layout_marginRight="4dp"
+                                android:layout_marginTop="0dp"
+                                android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/tv_money"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:text="998.00"
-                                        android:textColor="@color/app_orange"
-                                        android:textSize="@dimen/app_text_big" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/ly_nu"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_gravity="center_horizontal|right"
-                                    android:layout_marginRight="4dp"
-                                    android:layout_marginTop="0dp"
-                                    android:orientation="horizontal">
-
-                                    <Button
-                                        android:id="@+id/btn_jian"
-                                        android:layout_width="40dp"
-                                        android:layout_height="match_parent"
-                                        android:background="@drawable/btn_num_left"
-                                        android:text="-"
-                                        android:textColor="@color/app_text_dark"
-                                        android:textSize="@dimen/app_text_big" />
+                                <Button
+                                    android:id="@+id/btn_jian"
+                                    android:layout_width="40dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/btn_num_left"
+                                    android:text="-"
+                                    android:textColor="@color/app_text_dark"
+                                    android:textSize="@dimen/app_text_big" />
 
 
-                                    <RelativeLayout
-                                        android:layout_width="40dp"
-                                        android:layout_height="match_parent">
+                                <RelativeLayout
+                                    android:layout_width="40dp"
+                                    android:layout_height="match_parent">
 
-                                        <View
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.5dp"
-                                            android:layout_alignParentTop="true"
-                                            android:layout_alignTop="@+id/et_num"
-                                            android:background="@color/app_line"></View>
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0.5dp"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_alignTop="@+id/et_num"
+                                        android:background="@color/app_line"></View>
 
-                                        <View
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.5dp"
-                                            android:layout_alignBottom="@+id/et_num"
-                                            android:layout_alignParentBottom="true"
-                                            android:background="@color/app_line"></View>
-
-                                        <Button
-                                            android:id="@+id/et_num"
-                                            android:layout_width="40dp"
-                                            android:layout_height="match_parent"
-                                            android:background="@null"
-                                            android:cursorVisible="false"
-                                            android:gravity="center"
-                                            android:textColor="@color/app_text_dark"
-                                            android:textSize="@dimen/app_text_big" />
-                                    </RelativeLayout>
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0.5dp"
+                                        android:layout_alignBottom="@+id/et_num"
+                                        android:layout_alignParentBottom="true"
+                                        android:background="@color/app_line"></View>
 
                                     <Button
-                                        android:id="@+id/btn_jia"
+                                        android:id="@+id/et_num"
                                         android:layout_width="40dp"
                                         android:layout_height="match_parent"
-                                        android:background="@drawable/btn_num_right"
-                                        android:text="+"
+                                        android:background="@null"
+                                        android:cursorVisible="false"
+                                        android:gravity="center"
                                         android:textColor="@color/app_text_dark"
                                         android:textSize="@dimen/app_text_big" />
+                                </RelativeLayout>
 
-                                </LinearLayout>
+                                <Button
+                                    android:id="@+id/btn_jia"
+                                    android:layout_width="40dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/btn_num_right"
+                                    android:text="+"
+                                    android:textColor="@color/app_text_dark"
+                                    android:textSize="@dimen/app_text_big" />
+                            </LinearLayout>
 
-                            </RelativeLayout>
+
                         </LinearLayout>
 
 

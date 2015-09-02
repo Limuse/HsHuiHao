@@ -2,39 +2,24 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.huihao.R;
-import com.huihao.adapter.AddressHoriSliseAdapter;
 import com.huihao.adapter.ChooseAddressAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.R;
 import com.huihao.entity.AddressItemEntity;
-import com.huihao.entity.UsErId;
-import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
-import com.leo.base.entity.LMessage;
-import com.leo.base.net.LReqEntity;
-import com.leo.base.util.L;
-import com.leo.base.util.T;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by huisou on 2015/8/7.
@@ -43,8 +28,7 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
     private Button btn_addr;
     private ListView listView;
     private ChooseAddressAdapter adapter;
-    private List<AddressItemEntity> list = new ArrayList<AddressItemEntity>();
-    private LinearLayout headview;
+    private List<AddressItemEntity> list=null;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -106,70 +90,26 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
         listView = (ListView) findViewById(R.id.lv_cadd);
-
-        headview = (LinearLayout) LayoutInflater.from(Choose_Address.this).inflate(R.layout.listview_head, null);
-        listView.addHeaderView(headview);
         btn_addr = (Button) findViewById(R.id.btn_add_addrs);
         btn_addr.setOnClickListener(this);
     }
 
 
     private void initData() {
-        Resources res = getResources();
-        String url = res.getString(R.string.app_service_url)
-                + "/huihao/myaddress/1/sign/aggregation/?uuid="+ UsErId.uuid;
-        LReqEntity entity = new LReqEntity(url);
-        //http://huihaowfx.huisou.com//huihao/myaddress/1/sign/aggregation/?uuid=6a35c1ed7255077d57d57be679048034
-        // Fragment用FragmentHandler/Activity用ActivityHandler
-        ActivityHandler handler = new ActivityHandler(this);
-        handler.startLoadingData(entity, 1);
-    }
-
-    private void getJsonData(String data) {
-        list.clear();
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            int code = jsonObject.getInt("status");
-            if (code == 1) {
-                JSONObject result = jsonObject.getJSONObject("list");
-                JSONArray array = result.getJSONArray("address_list");
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject object = array.getJSONObject(i);
-                    AddressItemEntity itementity = new AddressItemEntity();
-                    itementity.setId(object.getString("id"));
-                    itementity.setUname(object.getString("uname"));
-                    itementity.setUphone(object.getString("uphone"));
-                    itementity.setProvince(object.getString("province"));
-                    itementity.setCity(object.getString("city"));
-                    itementity.setCountry(object.getString("country"));
-                    itementity.setAddress(object.getString("address"));
-                    list.add(itementity);
-                }
-                adapter = new ChooseAddressAdapter(Choose_Address.this, list);
-                listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-                listView.setAdapter(adapter);
-
-            } else {
-                T.ss("获取数据失败");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        list = new ArrayList<AddressItemEntity>();
+        for (int i = 0; i < 10; i++) {
+            AddressItemEntity entity = new AddressItemEntity();
+            entity.ida = i;
+            entity.namea = "张三";
+            entity.phonea = "1802142445";
+            entity.addra = "江干区江干区干区江干区江干区江干区";
+            list.add(entity);
         }
+        adapter = new ChooseAddressAdapter(this, list);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listView.setAdapter(adapter);
+
     }
-
-
-    // 返回获取的网络数据
-    public void onResultHandler(LMessage msg, int requestId) {
-        super.onResultHandler(msg, requestId);
-        if (msg != null) {
-            if (requestId == 1) {
-                getJsonData(msg.getStr());
-            } else {
-                T.ss("获取数据失败");
-            }
-        }
-    }
-
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
@@ -183,12 +123,6 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
         }
         win.setAttributes(winParams);
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//      //  initData();
-//    }
 
     @Override
     public void onClick(View v) {

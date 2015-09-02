@@ -34,6 +34,7 @@ public class Fragment_Extraedone extends LFragment implements AdapterView.OnItem
     private ListView listView;
     private ExtraRecodeAdapter adapter;
     List<ExtraReEntity> list = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

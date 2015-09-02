@@ -2,32 +2,20 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.huihao.R;
 import com.huihao.adapter.ChooseCouponsAdapter;
-import com.huihao.adapter.CouponsAdapter;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.CouponsEntity;
-import com.huihao.entity.UsErId;
-import com.huihao.handle.ActivityHandler;
+import com.huihao.R;
 import com.leo.base.activity.LActivity;
-import com.leo.base.entity.LMessage;
-import com.leo.base.net.LReqEntity;
 import com.leo.base.util.T;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +26,7 @@ import java.util.List;
 public class Choose_Couppons extends LActivity {
     private ListView listview;
     private ChooseCouponsAdapter adapter;
-    private List<CouponsEntity> list = null;
-    private LinearLayout headview;
-
+    private List<CouponsEntity> list=null;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_choose_coupons);
@@ -54,8 +40,7 @@ public class Choose_Couppons extends LActivity {
 
         initView();
     }
-
-    private void initView() {
+    private void initView(){
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("我的优惠卷");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
@@ -79,65 +64,33 @@ public class Choose_Couppons extends LActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         listview = (ListView) findViewById(R.id.lv_couponss);
-        headview = (LinearLayout) LayoutInflater.from(Choose_Couppons.this).inflate(R.layout.listview_head, null);
-        listview.addHeaderView(headview);
         initData();
     }
 
     private void initData() {
         list = new ArrayList<CouponsEntity>();
-        Resources res = getResources();
-        String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/coupon/1/sign/aggregation/?uuid=" + UsErId.uuid;
-        LReqEntity entity = new LReqEntity(url);
-        //http://huihaowfx.huisou.com/uuid=6a35c1ed7255077d57d57be679048034
-        // Fragment用FragmentHandler/Activity用ActivityHandler
-        ActivityHandler handler = new ActivityHandler(this);
-        handler.startLoadingData(entity, 1);
-    }
+        CouponsEntity entity = new CouponsEntity();
+        entity.cpmoney = "￥100";
+        entity.cptitile = "汇好商城优惠卷";
+        entity.cptime = "使用期限：2015.11.10前";
+        entity.cpuse = "满800可用";
+        CouponsEntity entity1 = new CouponsEntity();
+        entity1.cpmoney = "￥100";
+        entity1.cptitile = "汇好商城优惠卷";
+        entity1.cptime = "使用期限：2015.11.10前";
+        entity1.cpuse = "满800可用";
 
-    private void getJsonData(String data) {
-        list.clear();
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            int code = jsonObject.getInt("status");
-            if (code == 1) {
-                JSONArray array = jsonObject.getJSONArray("list");
+        CouponsEntity entity2 = new CouponsEntity();
+        entity2.cpmoney = "￥100";
+        entity2.cptitile = "汇好商城优惠卷";
+        entity2.cptime = "使用期限：2015.11.10前";
+        entity2.cpuse = "满800可用";
 
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject object = array.getJSONObject(i);
-                    CouponsEntity entity = new CouponsEntity();
-                    entity.cpmoney = object.getString("money");
-                    entity.cptitile = "汇好商城优惠卷";
-                    String tme = object.getString("end_time").substring(0, 10);
-                    entity.cptime = "使用期限" + tme + "前";
-                    // entity.cpuse = "满800可用";
-                    entity.cpid = object.getString("id");
-                    entity.t = -1;
-                    list.add(entity);
-                }
-                adapter = new ChooseCouponsAdapter(this, list);
-                listview.setAdapter(adapter);
-
-            } else {
-                T.ss("获取数据失败");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    // 返回获取的网络数据
-    public void onResultHandler(LMessage msg, int requestId) {
-        super.onResultHandler(msg, requestId);
-        if (msg != null) {
-            if (requestId == 1) {
-                getJsonData(msg.getStr());
-            } else {
-                T.ss("获取数据失败");
-            }
-        }
+        list.add(entity);
+        list.add(entity1);
+        list.add(entity2);
+        adapter = new ChooseCouponsAdapter(this, list);
+        listview.setAdapter(adapter);
     }
 
     @TargetApi(19)

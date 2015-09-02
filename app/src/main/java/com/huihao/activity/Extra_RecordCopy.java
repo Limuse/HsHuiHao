@@ -15,6 +15,7 @@ import com.huihao.adapter.ExtraRecordPager;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.custom.PagerSlidingTabStrip;
 import com.leo.base.activity.LActivity;
+
 /**
  * Created by huisou on 2015/8/31.
  */
@@ -22,6 +23,7 @@ public class Extra_RecordCopy extends LActivity {
     private PagerSlidingTabStrip tabStrip;
     private ViewPager viewPager;
     private ExtraRecordCopyPager pagerAdapter;
+
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_extra_recode);
@@ -34,6 +36,8 @@ public class Extra_RecordCopy extends LActivity {
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
     }
+
+
     private void initView() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("提取记录");

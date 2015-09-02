@@ -14,7 +14,6 @@ import com.huihao.fragment.Fragment_MyPartnerTwo;
 public class MyPartnerPager extends FragmentPagerAdapter {
     final String[] titles = {"下级分销商", "下下级分销商"};
 
-
     public MyPartnerPager(My_Partner my_partner, FragmentManager fm) {
         super(fm);
     }

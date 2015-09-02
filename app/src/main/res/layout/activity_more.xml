@@ -13,7 +13,19 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/app_line" />
+        android:background="@color/app_background" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@mipmap/more_bg" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/app_lycard"
+        android:background="@color/app_background" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,25 +40,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@mipmap/more_bg" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="@dimen/app_lycard"
-                android:background="@color/app_background" />
-
-
             <RelativeLayout
                 android:id="@+id/rl_web"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginBottom="0.5dp"
-                android:background="@drawable/btn_press"
-                android:clickable="true">
+                android:background="@drawable/btn_press">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,11 +71,11 @@
 
             <RelativeLayout
                 android:id="@+id/rl_kp"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginBottom="@dimen/app_lycard"
-                android:background="@drawable/btn_press"
-                android:clickable="true">
+                android:background="@drawable/btn_press">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -101,11 +101,11 @@
 
             <RelativeLayout
                 android:id="@+id/rl_bx"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginBottom="@dimen/app_viewcard"
-                android:background="@drawable/btn_press"
-                android:clickable="true">
+                android:background="@drawable/btn_press">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -127,11 +127,11 @@
 
             <RelativeLayout
                 android:id="@+id/rl_advice"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginBottom="@dimen/app_viewcard"
-                android:background="@drawable/btn_press"
-                android:clickable="true">
+                android:background="@drawable/btn_press">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -153,11 +153,11 @@
 
             <RelativeLayout
                 android:id="@+id/rl_pingf"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginBottom="@dimen/app_lycard"
-                android:background="@drawable/btn_press"
-                android:clickable="true">
+                android:background="@drawable/btn_press">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -179,11 +179,11 @@
 
             <RelativeLayout
                 android:id="@+id/rl_clear"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_toolbar"
                 android:layout_marginBottom="@dimen/app_viewcard"
-                android:background="@drawable/btn_press"
-                android:clickable="true">
+                android:background="@drawable/btn_press">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -198,9 +198,9 @@
                     android:id="@+id/tv_nc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/iv_cl"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/iv_cl"
                     android:text="0M"
                     android:textColor="@color/app_text_light"
                     android:textSize="@dimen/app_text_big" />
@@ -219,13 +219,13 @@
                 android:id="@+id/btn_outline"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginBottom="30dp"
                 android:layout_marginLeft="@dimen/app_myself_left_mar"
                 android:layout_marginRight="@dimen/app_setting_right"
                 android:layout_marginTop="27dp"
                 android:background="@drawable/btn_out"
                 android:text="退出登录"
                 android:textColor="@color/app_green"
+                android:layout_marginBottom="30dp"
                 android:textSize="@dimen/app_text_big" />
         </LinearLayout>
     </ScrollView>

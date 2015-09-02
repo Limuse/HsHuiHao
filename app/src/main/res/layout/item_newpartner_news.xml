@@ -18,7 +18,7 @@
             android:layout_marginBottom="4dp"
             android:text="2015年5月15日 09：30:01"
             android:textColor="@color/app_text_light"
-            android:textSize="@dimen/app_text_normal" />
+            android:textSize="@dimen/app_text_small" />
     </RelativeLayout>
 
     <LinearLayout
@@ -42,7 +42,7 @@
                 android:paddingLeft="@dimen/app_myself_left_mar"
                 android:text="新伙伴通知"
                 android:textColor="@color/app_text_dark"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/tv_3"
@@ -76,7 +76,7 @@
                 android:layout_marginLeft="@dimen/app_myself_left_mar"
                 android:text="恭喜！"
                 android:textColor="@color/app_text_dark"
-                android:textSize="@dimen/app_text_normal" />
+                android:textSize="@dimen/app_text_small" />
 
             <TextView
                 android:id="@+id/tv_pname"
@@ -85,7 +85,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="张小江"
                 android:textColor="@color/app_green"
-                android:textSize="@dimen/app_text_normal" />
+                android:textSize="@dimen/app_text_small" />
 
             <TextView
                 android:id="@+id/tv_money"
@@ -94,7 +94,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="加入了你！"
                 android:textColor="@color/app_text_dark"
-                android:textSize="@dimen/app_text_normal" />
+                android:textSize="@dimen/app_text_small" />
 
 
 
@@ -114,7 +114,7 @@
             android:layout_toStartOf="@+id/iv"
             android:text="你的团队又壮大了！继续努力赚钱吧！"
             android:textColor="@color/app_text_dark"
-            android:textSize="@dimen/app_text_normal" />
+            android:textSize="@dimen/app_text_small" />
 
 
     </LinearLayout>

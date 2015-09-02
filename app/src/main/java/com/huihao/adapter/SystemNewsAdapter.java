@@ -5,13 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.SystemNewsEntity;
-
-import org.w3c.dom.Text;
+import com.huihao.R;
 
 import java.util.List;
 
@@ -54,8 +51,8 @@ public class SystemNewsAdapter extends BaseAdapter {
             viewHolders=(ViewHolders)convertView.getTag();
         }
         SystemNewsEntity entity=list.get(position);
-//        viewHolders.time1.setText(entity.time1);
-//        viewHolders.name.setText(entity.names);
+        viewHolders.time1.setText(entity.time1);
+        viewHolders.name.setText(entity.names);
 
         return convertView;
     }

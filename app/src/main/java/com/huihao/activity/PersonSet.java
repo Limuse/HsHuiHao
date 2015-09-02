@@ -2,54 +2,40 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.util.Base64;
 
+import com.huihao.common.SystemBarTintManager;
 import com.huihao.R;
 import com.huihao.common.HavaSdCard;
-import com.huihao.common.SystemBarTintManager;
-import com.huihao.entity.UsErId;
-import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
-import com.leo.base.entity.LMessage;
-import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
 import com.leo.base.util.T;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by huisou on 2015/7/29.
  * 个人设置
  */
 public class PersonSet extends LActivity implements View.OnClickListener {
-    private RelativeLayout rl_phone, rl_name, rl_pwd, rl_img;
+    private RelativeLayout rl_phone, rl_name, rl_num, rl_pwd, rl_img;
     private TextView tv_phone, tv_name, tv_num;
     private ImageView my_imgs;
     private Dialog dialog;
@@ -58,8 +44,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
     private static final String IMGURL = Environment
             .getExternalStorageDirectory() + "/Android/data/com.android.hshuihao/";
 
-
-    private static final String IMAGE_FILE_NAME_TEMP = "hh_image.jpg";
+    private static final String IMAGE_FILE_NAME_TEMP = "hui_image.jpg";
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -74,8 +59,8 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         View view = getLayoutInflater().inflate(R.layout.pic_show, null);
         dialog = new Dialog(this,
                 R.style.transparentFrameWindowStyle);
-        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
+        dialog.setContentView(view, new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT));
         initView();
         initDialog(view);
 
@@ -97,11 +82,12 @@ public class PersonSet extends LActivity implements View.OnClickListener {
 
         tv_phone = (TextView) findViewById(R.id.setting_phone);
         tv_name = (TextView) findViewById(R.id.setting_name);
-//        tv_num = (TextView) findViewById(R.id.setting_num);
+        tv_num = (TextView) findViewById(R.id.setting_num);
 
         rl_img = (RelativeLayout) findViewById(R.id.rl_img);
         rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);
         rl_name = (RelativeLayout) findViewById(R.id.rl_name);
+        rl_num = (RelativeLayout) findViewById(R.id.rl_num);
         rl_pwd = (RelativeLayout) findViewById(R.id.rl_pwd);
 
         my_imgs = (ImageView) findViewById(R.id.setting_img);
@@ -109,7 +95,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         rl_img.setOnClickListener(this);
         rl_phone.setOnClickListener(this);
         rl_name.setOnClickListener(this);
-
+        rl_num.setOnClickListener(this);
         rl_pwd.setOnClickListener(this);
 
     }
@@ -121,13 +107,13 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         /**
          * 弹框点击事件
          *
-         */
-
+         */L.e(IMGURL + "路径");
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 T.ss("拍照");
                 openCamera();
+                // dialog.dismiss();
 
             }
         });
@@ -136,6 +122,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
             public void onClick(View v) {
                 T.ss("从相册中选择");
                 openPhones();
+                // dialog.dismiss();
             }
         });
         btn_cncel.setOnClickListener(new View.OnClickListener() {
@@ -204,6 +191,8 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                         public void run() {
                             tempFile.delete();
                         }
+
+                        ;
                     }.start();
                 }
                 if (data != null) {
@@ -215,8 +204,8 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                         byte[] bytes = baos.toByteArray();
                         logoBase = Base64.encodeToString(bytes, Base64.DEFAULT);
                         my_imgs.setImageBitmap(photo);
-                        img = logoBase;//当上传时可以上传img
-                        picloade();
+                        img = logoBase.toString();//当上传时可以上传img
+                        // picloade();
                     }
                 }
                 dialog.cancel();
@@ -224,44 +213,16 @@ public class PersonSet extends LActivity implements View.OnClickListener {
     }
 
     private void picloade() {
+//        Map<String, String> map = new HashMap<String, String>();
+//        map.put("token", Token.get(this));
+//        map.put("pictures", img);// 头像
+//        Resources res = getResources();
+//        String url = res.getString(R.string.app_service_url)
+//                + "picture/upload.do";
+//        LReqEntity entity = new LReqEntity(url, map);
+//        ActivityHandler handler = new ActivityHandler(this);
+//        handler.startLoadingData(entity, 2);
 
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("pictures", img);// 头像
-        map.put("uuid", UsErId.uuid);
-        Resources res = getResources();
-        String url = res.getString(R.string.app_service_url)
-                + "/huihao/member/amendavatar/1/sign/aggregation/";
-        LReqEntity entity = new LReqEntity(url, map);
-        ActivityHandler handler = new ActivityHandler(this);
-        handler.startLoadingData(entity, 1);
-
-    }
-
-    // 返回获取的网络数据
-    public void onResultHandler(LMessage msg, int requestId) {
-        super.onResultHandler(msg, requestId);
-        if (msg != null) {
-            if (requestId == 1) {
-                getJsonData(msg.getStr());
-            } else {
-                T.ss("获取数据失败");
-            }
-        }
-    }
-
-    private void getJsonData(String data) {
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            int code = jsonObject.getInt("status");
-            if (code == 1) {
-                T.ss("图片已上传");
-
-            } else {
-                T.ss(jsonObject.getString("info"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     private void showBuyDialog() {
@@ -291,7 +252,11 @@ public class PersonSet extends LActivity implements View.OnClickListener {
             Intent intent = new Intent(this, Update_Name.class);
             startActivity(intent);
         }
-
+        //邀请码
+        if (id == R.id.rl_num) {
+            Intent intent = new Intent(this, Update_Num.class);
+            startActivity(intent);
+        }
         //修改密码
         if (id == R.id.rl_pwd) {
             Intent intent = new Intent(this, Update_Pwd.class);

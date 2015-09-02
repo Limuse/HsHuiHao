@@ -1,20 +1,15 @@
 package com.huihao.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huihao.R;
 import com.huihao.entity.MetailflowEntity;
+import com.huihao.R;
 
 import java.util.List;
 
@@ -23,13 +18,12 @@ import java.util.List;
  */
 public class MetailflowDerailAdapter extends BaseAdapter {
     private Context context;
-    private List<MetailflowEntity.ExressDetailEntity> list = null;
+    private List<MetailflowEntity> list = null;
 
-    public MetailflowDerailAdapter(Context context, List<MetailflowEntity.ExressDetailEntity> list) {
+    public MetailflowDerailAdapter(Context context, List<MetailflowEntity> list) {
         this.context = context;
         this.list = list;
     }
-
 
     @Override
     public int getCount() {
@@ -75,9 +69,9 @@ public class MetailflowDerailAdapter extends BaseAdapter {
 
         }
 
-        MetailflowEntity.ExressDetailEntity entity = list.get(position);
-        viewHolder.tv1.setText(entity.getContext());
-        viewHolder.tv2.setText(entity.getFtime());
+        MetailflowEntity entity = list.get(position);
+        viewHolder.tv1.setText(entity.tv1);
+        viewHolder.tv2.setText(entity.tv2);
 
         return convertView;
     }

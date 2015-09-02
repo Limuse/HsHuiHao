@@ -15,6 +15,7 @@ import com.huihao.fragment.Fragment_Extraing;
  */
 public class ExtraRecordPager extends FragmentPagerAdapter {
     final String[] titles={"提取中","已提现"};
+
     public ExtraRecordPager(Extra_Record extra_record,FragmentManager fm){
         super(fm);
     }
