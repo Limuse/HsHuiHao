@@ -1,5 +1,6 @@
 package com.huihao.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,18 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.huihao.common.Bar;
 import com.huihao.R;
-import com.huihao.common.Log;
-import com.huihao.common.UntilList;
-import com.huihao.handle.ActivityHandler;
+import com.huihao.common.Bar;
 import com.leo.base.activity.LActivity;
-import com.leo.base.entity.LMessage;
-import com.leo.base.net.LReqEntity;
-import com.leo.base.util.T;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by admin on 2015/8/11.
@@ -38,7 +30,6 @@ public class FindPwd extends LActivity {
         initView();
     }
     private void initView() {
-        et_user = (EditText) findViewById(R.id.et_user);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
         btn_look = (Button) findViewById(R.id.btn_look);
         btn_send1=(Button)findViewById(R.id.btn_send1);
@@ -74,40 +65,10 @@ public class FindPwd extends LActivity {
     }
 
     public void send(View v) {
-        if (UntilList.isPhone(et_user.getText().toString().trim())) {
-            time = 60;
-            flag = true;
-            getTime();
-            String url = getResources().getString(R.string.app_service_url) + "/huihao/register/captchas/1/sign/aggregation/";
-            ActivityHandler handler = new ActivityHandler(this);
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("mobile", et_user.getText().toString().trim());
-            LReqEntity entity = new LReqEntity(url,map);
-            handler.startLoadingData(entity, 1);
-        } else {
-            T.ss("请输入正确的手机号码");
-        }
+        time = 60;
+        flag = true;
+        getTime();
     }
-
-    public void onResultHandler(LMessage msg, int requestId) {
-        super.onResultHandler(msg, requestId);
-        if (msg != null) {
-            if (requestId == 1) {
-                getCode(msg.getStr());
-            } else if (requestId == 2) {
-            } else {
-                T.ss("参数ID错误");
-            }
-        } else {
-            T.ss("数据获取失败");
-        }
-    }
-
-    public void getCode(String str) {
-        Log.e(str);
-    }
-
-
     public void ok(View v) {
         finish();
     }

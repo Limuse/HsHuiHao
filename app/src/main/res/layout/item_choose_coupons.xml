@@ -70,7 +70,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/app_myself_left_mar"
             android:layout_marginTop="6dp"
-            android:text="满800可用"
+            android:text="满100可用"
             android:textColor="@color/app_white"
             android:textSize="@dimen/app_text_normal" />
 

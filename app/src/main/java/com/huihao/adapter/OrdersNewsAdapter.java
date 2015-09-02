@@ -22,6 +22,7 @@ public class OrdersNewsAdapter extends BaseAdapter {
     private Context context;
     private List<OrdersNewsEntity> list = null;
 
+
     public OrdersNewsAdapter(Context context, List<OrdersNewsEntity> list) {
         this.context = context;
         this.list = list;
@@ -52,7 +53,7 @@ public class OrdersNewsAdapter extends BaseAdapter {
             viewHolder.tv_khinfo = (TextView) convertView.findViewById(R.id.tv_khxi);
             viewHolder.tv_ordermoney = (TextView) convertView.findViewById(R.id.tv_odm);
             viewHolder.tv_hmoney = (TextView) convertView.findViewById(R.id.tv_yj);
-            viewHolder.iv_mg = (ImageView) convertView.findViewById(R.id.tv_3);
+            viewHolder.iv_mg = (ImageView) convertView.findViewById(R.id.tv_3s);
             viewHolder.rl_see = (RelativeLayout) convertView.findViewById(R.id.rl_xiangq);
             convertView.setTag(viewHolder);
         } else {
@@ -60,17 +61,17 @@ public class OrdersNewsAdapter extends BaseAdapter {
         }
         viewHolder.iv_mg.setVisibility(View.GONE);
         OrdersNewsEntity entity = list.get(position);
-        if(entity.state==1){
+        if (entity.getStatus().equals("1")) {
             viewHolder.iv_mg.setVisibility(View.VISIBLE);
-        }else if(entity.state==0){
+        } else {
             viewHolder.iv_mg.setVisibility(View.GONE);
         }
 
-        viewHolder.tv_ntime.setText(entity.time);
-        viewHolder.tv_tjtime.setText(entity.tjtime);
-        viewHolder.tv_khinfo.setText(entity.khinfo);
-        viewHolder.tv_ordermoney.setText(entity.ordermoney);
-        viewHolder.tv_hmoney.setText(entity.yjmoney);
+        viewHolder.tv_ntime.setText(entity.getCtime());
+        viewHolder.tv_tjtime.setText(entity.getCtime());
+        viewHolder.tv_khinfo.setText(entity.getUser_info());
+        viewHolder.tv_ordermoney.setText(entity.getTotal_price());
+        viewHolder.tv_hmoney.setText(entity.getOverdue());
         viewHolder.rl_see.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

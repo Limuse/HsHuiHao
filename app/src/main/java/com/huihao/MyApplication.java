@@ -1,26 +1,36 @@
 package com.huihao;
 
+import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
-import com.huihao.activity.LoginMain;
 import com.leo.base.application.LApplication;
-import com.leo.base.util.LSharePreference;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
-import cn.jpush.android.api.JPushInterface;
+import java.io.File;
 
 /**
  * Created by admin on 2015/6/29.
  */
 public class MyApplication extends LApplication {
-    private static final String TAG = "JPush";
 
     private static MyApplication instance;
 
     public static Context applicationContext;
 
-    private static boolean isLog = true;
+    private static boolean isLog = false;
 
     public static boolean isLog() {
         return isLog;
@@ -34,10 +44,6 @@ public class MyApplication extends LApplication {
 
     public void onCreate() {
         super.onCreate();
-
-        JPushInterface.setDebugMode(false);
-        JPushInterface.init(this);
-
         ImageLoaderConfiguration configuration = ImageLoaderConfiguration
                 .createDefault(this);
         setImageLoader(configuration);
@@ -52,15 +58,6 @@ public class MyApplication extends LApplication {
         return instance;
     }
 
-    public static boolean isLogin(Context context) {
-        if (LSharePreference.getInstance(context).getBoolean("login")) {
-            return true;
-        } else {
-            Intent intent = new Intent(context, LoginMain.class);
-            context.startActivity(intent);
-            return LSharePreference.getInstance(context).getBoolean("login");
-        }
-    }
     public static MyApplication getInstance() {
         return instance;
     }

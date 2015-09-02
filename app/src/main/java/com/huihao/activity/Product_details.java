@@ -1,7 +1,7 @@
 package com.huihao.activity;
 
 import android.app.Dialog;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Message;
@@ -18,51 +18,45 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.huihao.adapter.ProductGridAda;
-import com.huihao.common.UntilList;
-import com.huihao.custom.ImageCycleView;
-import com.huihao.custom.TagGroup;
-import com.huihao.fragment.Fragment_Product_info;
-import com.huihao.handle.ActivityHandler;
-import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.adapter.ProductGridAda;
 import com.huihao.adapter.ProductPageAdapter;
 import com.huihao.common.Bar;
+import com.huihao.common.Log;
+import com.huihao.common.UntilList;
+import com.huihao.custom.CustomDialog;
+import com.huihao.custom.DatePickerFragment;
+import com.huihao.custom.ImageCycleView;
 import com.huihao.custom.MyScrollView;
 import com.huihao.custom.NoScrollGridView;
 import com.huihao.custom.PagerSlidingTabStrip;
-import com.huihao.fragment.Fragment_Product_para;
+import com.huihao.custom.TagGroup;
 import com.leo.base.activity.LActivity;
-import com.leo.base.entity.LMessage;
-import com.leo.base.net.LReqEntity;
-import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * Created by admin on 2015/7/29.
  */
 public class Product_details extends LActivity implements MyScrollView.ScrollViewListener {
-    public static Product_details context;
-
-    private String productId;
-
     private View parentView;
     private MyScrollView scrollView;
 
@@ -70,19 +64,16 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     private List<Map<String, String>> gridList = new ArrayList<Map<String, String>>();
     private ProductGridAda myGridAda;
 
-    private List<Map<String, String>> TagList = new ArrayList<Map<String, String>>();
-
-    private ArrayList<String> mImageUrl = new ArrayList<String>();
-    private ArrayList<String> mImageName = new ArrayList<String>();
+    private ArrayList<String> mImageUrl = null;
+    private ArrayList<String> mImageName = null;
+    private TextView tv_old;
     private ImageCycleView mAdView;
 
     private PagerSlidingTabStrip tabStrip;
-    public ViewPager viewPager;
+    private ViewPager viewPager;
     private ProductPageAdapter pageAdapter;
 
     private LinearLayout.LayoutParams linearParams;
-
-    private ScrollView tagScroll;
 
     private RelativeLayout bgColor;
 
@@ -120,37 +111,15 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
 
     private AnimationSet animationSet;
 
-    private boolean isCanAdd = true;
+    private boolean isCanAdd=true;
 
-    private TextView name, nprice, oprice, realsalenum;
-
-    private TextView tv_price, tv_size, tv_num;
-
-    private List<Map<String, String>> imageList = new ArrayList<Map<String, String>>();
-    private List<Map<String, String>> contentList = new ArrayList<Map<String, String>>();
-
-    private DisplayImageOptions options;
-    private ImageLoader imageLoader;
-    private ImageView image_product;
 
     protected void onLCreate(Bundle bundle) {
         parentView = getLayoutInflater().inflate(R.layout.activity_product_details, null);
         setContentView(parentView);
         Bar.setWhite(this);
-        context = this;
-
-        if (imageLoader == null) {
-            imageLoader = MyApplication.getInstance().getImageLoader();
-        }
-        options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisc(true)
-                .considerExifParams(true)
-                .displayer(new FadeInBitmapDisplayer(200))
-                .build();
-
-
-        initView();
         initData();
+        initView();
         initAda();
         initScroll();
     }
@@ -184,21 +153,20 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     }
 
     private void initAda() {
-        //        mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
         myGridAda = new ProductGridAda(this, gridList);
         gridView.setAdapter(myGridAda);
+
+        pageAdapter = new ProductPageAdapter(this, getSupportFragmentManager());
+        viewPager.setAdapter(pageAdapter);
+        tabStrip.setViewPager(viewPager);
     }
 
     private void initView() {
-        name = (TextView) findViewById(R.id.tv_title);
-        nprice = (TextView) findViewById(R.id.tv_money_now);
-        oprice = (TextView) findViewById(R.id.tv_money_old);
-        oprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        realsalenum = (TextView) findViewById(R.id.tv_num);
-
         scrollView = (MyScrollView) findViewById(R.id.scrollView);
         mAdView = (ImageCycleView) findViewById(R.id.ImageCycleView);
-
+        mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
+        tv_old = (TextView) findViewById(R.id.tv_money_old);
+        tv_old.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         gridView = (NoScrollGridView) findViewById(R.id.gridView);
         btn_shop = (Button) findViewById(R.id.btn_shop);
         btn_num = (Button) findViewById(R.id.shop_num);
@@ -214,10 +182,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         Top2 = (LinearLayout) findViewById(R.id.group_top2);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        pageAdapter = new ProductPageAdapter(this, getSupportFragmentManager());
-        viewPager.setFocusable(false);
-        viewPager.setAdapter(pageAdapter);
-        tabStrip.setViewPager(viewPager);
 
         bgColor = (RelativeLayout) findViewById(R.id.bg_color);
 
@@ -228,17 +192,15 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     isGetHight = true;
                     ViewHight = mAdView.getMeasuredHeight();
                     linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-//                    PageHight = LSharePreference.getInstance(context).getInt("pager1");
-//                    linearParams.height = PageHight;
-//                    viewPager.setLayoutParams(linearParams);
+                    PageHight = ViewHight * 5;
+                    linearParams.height = PageHight;
+                    viewPager.setLayoutParams(linearParams);
                     TabHitht = Top2.getTop() - toolbar.getHeight();
-//                    TabHitht = Top2.getTop();
-
-//                    T.ss(LSharePreference.getInstance(context).getInt("pager1")+"-----"+LSharePreference.getInstance(context).getInt("pager2"));
-
                 }
             }
         });
+
+
         dialogView = getLayoutInflater().inflate(R.layout.activity_product_details_dialog, null);
         dialog = new Dialog(this,
                 R.style.transparentFrameWindowStyle);
@@ -252,10 +214,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         lin_choose = (LinearLayout) dialogView.findViewById(R.id.Lin_choose);
         lin_ok = (LinearLayout) dialogView.findViewById(R.id.Lin_ok);
 
-        tv_price = (TextView) dialogView.findViewById(R.id.tv_price);
-        tv_size = (TextView) dialogView.findViewById(R.id.tv_size);
-        tv_num = (TextView) dialogView.findViewById(R.id.tv_num);
-
         Button btn_ok = (Button) view.findViewById(R.id.btn_ok);
         Button btn_add = (Button) view.findViewById(R.id.btn_add);
         Button btn_buy = (Button) view.findViewById(R.id.btn_buy);
@@ -263,9 +221,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         Button btn_r = (Button) view.findViewById(R.id.btn_r);
         et_num = (Button) view.findViewById(R.id.et_num);
         et_num.setText(choose_num + "");
-        image_product = (ImageView) view.findViewById(R.id.image);
-        tagGroup = (TagGroup) view.findViewById(R.id.tag_group);
-        tagScroll = (ScrollView) view.findViewById(R.id.tag_scroll);
+        ImageView image_product = (ImageView) view.findViewById(R.id.image);
+
         InitAnima();
 
         btn_l.setOnTouchListener(new View.OnTouchListener() {
@@ -345,8 +302,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         });
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (isCanAdd) {
-                    isCanAdd = false;
+                if(isCanAdd) {
+                    isCanAdd=false;
                     dialog.dismiss();
                     scrollView.invalidate();
                     imageAdd.startAnimation(animationSet);
@@ -356,8 +313,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         btn_ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (OKSTATE.equals("ADD")) {
-                    if (isCanAdd) {
-                        isCanAdd = false;
+                    if(isCanAdd) {
+                        isCanAdd=false;
                         dialog.dismiss();
                         scrollView.invalidate();
                         imageAdd.startAnimation(animationSet);
@@ -368,49 +325,34 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                 }
             }
         });
-    }
 
-    public void setTagInfo(int i) {
-        tv_price.setText(TagList.get(i).get("nprice"));
-        tv_size.setText(TagList.get(i).get("spec"));
-        tv_num.setText(TagList.get(i).get("maxnum"));
-    }
-
-    public void setPageH() {
-        linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-        PageHight = LSharePreference.getInstance(context).getInt("pager1");
-
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(100);
-                    if (PageHight > 100) {
-                        handler.sendEmptyMessage(10);
-                    } else {
-                        setPageH();
-                    }
-                } catch (Exception e) {
-                }
-            }
-        }).start();
+        tagGroup = (TagGroup) view.findViewById(R.id.tag_group);
+        List<String> list = new ArrayList<String>();
+        list.add("350ml");
+        list.add("500ml");
+        list.add("800ml");
+        list.add("豪华精装3合一大礼包");
+        tagGroup.setTags(list);
     }
 
     private void initScroll() {
         scrollView.setScrollViewListener(this);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             public void onPageSelected(int position) {
                 PageIndex = position;
                 if (position == 0) {
                     linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-                    PageHight = LSharePreference.getInstance(context).getInt("pager1");
+                    PageHight = ViewHight * 5;
                     linearParams.height = PageHight;
                     viewPager.setLayoutParams(linearParams);
+
                 } else if (position == 1) {
                     linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-                    PageHight = LSharePreference.getInstance(context).getInt("pager2");
+                    PageHight = ViewHight * 10;
                     linearParams.height = PageHight;
                     viewPager.setLayoutParams(linearParams);
                 }
@@ -423,153 +365,28 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     }
 
     private void initData() {
-        Intent intent = getIntent();
-        productId = intent.getStringExtra("id");
-        String url = getResources().getString(R.string.app_service_url) + "/huihao/product/detail/1/sign/aggregation/?id=" + productId;
-        ActivityHandler handler = new ActivityHandler(this);
-        LReqEntity entity = new LReqEntity(url);
-        handler.startLoadingData(entity, 1);
-    }
+        mImageUrl = new ArrayList<String>();
+        mImageUrl.add("http://imgsrc.baidu.com/forum/w%3D580/sign=d2391eb40846f21fc9345e5bc6256b31/8381b4c379310a55b6ea8ebbb54543a9802610ed.jpg");
+        mImageUrl.add("http://s5.tuanimg.com/deal/deal_image/3029/2612/medium/webp-23642600-7f0d-4478-8345-ddecfa91a2ce.jpg");
+        mImageUrl.add("http://img2.duitang.com/uploads/item/201302/19/20130219115924_ZLNnS.thumb.600_0.jpeg");
+        mImageName = new ArrayList<String>();
+        mImageName.add("1");
+        mImageName.add("2");
+        mImageName.add("3");
 
-    public void onResultHandler(LMessage msg, int requestId) {
-        super.onResultHandler(msg, requestId);
-        if (msg != null) {
-            if (requestId == 1) {
-                getSmJsonData(msg.getStr());
-            } else {
-                T.ss("参数ID错误");
-            }
-        } else {
-            T.ss("数据获取失败");
-        }
-    }
-
-    private void getSmJsonData(String str) {
-        try {
-            JSONObject object = new JSONObject(str);
-            int status = object.optInt("status");
-            if (status == 1) {
-                JSONObject list = object.optJSONObject("list");
-                JSONObject info = list.optJSONObject("info");
-                name.setText(info.optString("title"));
-                nprice.setText(info.optString("nprice"));
-                oprice.setText(info.optString("oprice"));
-                realsalenum.setText(info.optString("preferential"));
-
-
-                if (!info.opt("infopic").equals("")) {
-                    JSONArray infopic = info.optJSONArray("infopic");
-                    if (infopic.length() > 0) {
-                        for (int i = 0; i < infopic.length(); i++) {
-                            JSONObject item = infopic.optJSONObject(i);
-                            mImageName.add(item.opt("productid").toString());
-                            mImageUrl.add(item.opt("picurl").toString());
-                        }
-                        mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
-                    }
-                }
-
-                if (!list.opt("infospec").equals("")) {
-                    JSONArray infospec = list.optJSONArray("infospec");
-                    List<String> specList = new ArrayList<String>();
-                    Map<String, String> map = new HashMap<String, String>();
-                    if (infospec.length() > 0) {
-                        for (int i = 0; i < infospec.length(); i++) {
-                            map = new HashMap<String, String>();
-                            JSONObject item = infospec.optJSONObject(i);
-                            map.put("title", item.opt("title_1").toString());
-                            map.put("spec", item.opt("spec_1").toString());
-                            map.put("maxnum", "库存" + item.opt("maxnum").toString() + "件");
-                            map.put("nprice", "￥" + item.opt("nprice").toString());
-                            TagList.add(map);
-                            specList.add(item.opt("spec_1").toString());
-                        }
-                    } else {
-                        map.put("title", "暂无数据");
-                        map.put("spec", "暂无数据");
-                        map.put("maxnum", "暂无数据");
-                        map.put("nprice", "暂无数据");
-                        TagList.add(map);
-                        specList.add("暂无");
-                    }
-                    tagGroup.setTags(specList);
-                    tagGroup.getTagViewAt(0).setChecked(true);
-                    setTagInfo(0);
-                }
-
-                if (!info.opt("parameter").equals("")) {
-                    JSONArray parameter = info.optJSONArray("parameter");
-                    for (int i = 0; i < parameter.length(); i++) {
-                        Map<String, String> map = new HashMap<String, String>();
-                        String para = parameter.get(i).toString();
-                        if (para.length() > 3) {
-                            String[] sp = parameter.get(i).toString().split("：");
-                            map.put("title", sp[0]);
-                            map.put("info", sp[1]);
-                        } else {
-                            map.put("title", para);
-                            map.put("info", "");
-                        }
-                        contentList.add(map);
-                    }
-                    if (contentList.size() > 0) {
-                        Fragment_Product_para.context.InitData(contentList);
-                    }
-                }
-
-                imageLoader.displayImage(info.optString("picurl"), image_product, options);
-                imageLoader.displayImage(info.optString("picurl"), imageAdd, options);
-
-                if (!info.opt("content").equals("")) {
-                    JSONArray content = info.optJSONArray("content");
-                    for (int i = 0; i < content.length(); i++) {
-                        Map<String, String> map = new HashMap<String, String>();
-                        map.put("image", content.opt(i).toString());
-                        imageList.add(map);
-                    }
-                    if (imageList.size() > 0) {
-                        Fragment_Product_info.context.InitData(imageList);
-                    }
-                }
-
-                if (!info.opt("description").equals("")) {
-                    JSONArray description = info.optJSONArray("description");
-                    for (int i = 0; i < description.length(); i++) {
-                        Map<String, String> map = new HashMap<String, String>();
-                        map.put("name", description.opt(i).toString());
-                        gridList.add(map);
-                    }
-                }
-            } else {
-                T.ss("数据获取失败");
-            }
-        } catch (Exception e) {
-            linearParams.height = 100;
-            viewPager.setLayoutParams(linearParams);
-            T.ss("数据解析失败");
+        for (int i = 0; i < 4; i++) {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("name", "不要钱");
+            gridList.add(map);
         }
     }
 
     private ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
         @Override
         public void onImageClick(int position, View imageView) {
-            if (mImageUrl.size() > 0) {
-                Intent intent = new Intent(Product_details.this, ImageDetail.class);
-                intent.putExtra("ProjectImg", mImageUrl);
-                intent.putExtra("index", position);
-                startActivity(intent);
-            } else {
-                T.ss("该产品暂无详情图");
-            }
+            Toast.makeText(Product_details.this, position + "", Toast.LENGTH_SHORT).show();
         }
     };
-
-    public void ImageDetails(int position, ArrayList<String> ImageUrl){
-        Intent intent = new Intent(Product_details.this, ImageDetail.class);
-        intent.putExtra("ProjectImg", ImageUrl);
-        intent.putExtra("index", position);
-        startActivity(intent);
-    }
 
     public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
         bgColor.setAlpha(Float.valueOf(y / TabHitht + "f"));
@@ -602,11 +419,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     choose_num--;
                     et_num.setText(choose_num + "");
                 }
-            }
-
-            if (msg.what == 10) {
-                linearParams.height = PageHight;
-                viewPager.setLayoutParams(linearParams);
             }
             super.handleMessage(msg);
         }
@@ -649,19 +461,17 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             public void onAnimationStart(Animation animation) {
 
             }
-
             public void onAnimationEnd(Animation animation) {
                 addProduct(Integer.parseInt(et_num.getText().toString()));
-                isCanAdd = true;
+                isCanAdd=true;
             }
-
             public void onAnimationRepeat(Animation animation) {
 
             }
         });
         animationSet.addAnimation(scaleAnimation2);
 
-        Animation translateAnimation = new TranslateAnimation(0, UntilList.getWindosW(Product_details.this) + UntilList.dip2px(Product_details.this, 32) + btn_shop.getWidth(), 0, -UntilList.getWindosH(Product_details.this) - UntilList.dip2px(Product_details.this, 48));
+        Animation translateAnimation = new TranslateAnimation(0, UntilList.getWindosW(Product_details.this)+UntilList.dip2px(Product_details.this,32)+btn_shop.getWidth(), 0, -UntilList.getWindosH(Product_details.this)-UntilList.dip2px(Product_details.this,48));
         translateAnimation.setDuration(2200);
         translateAnimation.setFillAfter(true);
         animationSet.addAnimation(translateAnimation);
@@ -693,12 +503,5 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             btn_num.setText(99 + "");
         }
         btn_num.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        LSharePreference.getInstance(Product_details.this).setInt("pager1", 0);
-        LSharePreference.getInstance(Product_details.this).setInt("pager2", 0);
     }
 }

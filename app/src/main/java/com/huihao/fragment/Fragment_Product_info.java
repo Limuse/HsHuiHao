@@ -4,16 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import com.huihao.R;
 import com.huihao.adapter.ProductInfoImageAda;
 import com.huihao.custom.NoScrollListview;
 import com.leo.base.activity.fragment.LFragment;
-import com.leo.base.util.LSharePreference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,10 +22,10 @@ import java.util.Map;
 public class Fragment_Product_info extends LFragment {
     private View parentView;
     private NoScrollListview listView;
-    public static Fragment_Product_info context;
+
     private static ProductInfoImageAda imageAda;
 
-    private List<Map<String, String>> mlist = new ArrayList<Map<String, String>>();
+    private List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,28 +41,30 @@ public class Fragment_Product_info extends LFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        context = Fragment_Product_info.this;
         initView();
+        initData();
+        initAda();
     }
 
-    public void InitData(List<Map<String, String>> list) {
-        this.mlist = list;
-        imageAda = new ProductInfoImageAda(getActivity(), mlist);
-        listView.setFocusable(false);
+    private void initAda() {
+        imageAda=new ProductInfoImageAda(getActivity(),list);
         listView.setAdapter(imageAda);
-        setListViewHeight();
-//        Product_details.context.setPageH();
-    }
-
-    public void setListViewHeight() {
-        setListViewHeightBasedOnChildren(listView);
     }
 
     private void initView() {
-        listView = (NoScrollListview) parentView.findViewById(R.id.lv_product);
+        listView = (NoScrollListview)parentView.findViewById(R.id.lv_product);
     }
 
-    public static void AdaNotif() {
+    private void initData() {
+        Map<String, String> map;
+        for (int i = 0; i < 5; i++) {
+            map = new HashMap<String, String>();
+            map.put("image", "http://img1.gamedog.cn/2013/01/22/24-1301220949490-50.jpg");
+            list.add(map);
+        }
+    }
+
+    public static void AdaNotif(){
         imageAda.notifyDataSetChanged();
     }
 
@@ -75,27 +75,5 @@ public class Fragment_Product_info extends LFragment {
         return fragment;
     }
 
-    public void setListViewHeightBasedOnChildren(ListView listView) {
 
-        ListAdapter listAdapter = listView.getAdapter();
-
-        if (listAdapter == null) {
-            return;
-        }
-
-        int totalHeight = 0;
-
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-
-        params.height = totalHeight
-                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        LSharePreference.getInstance(getActivity()).setInt("pager1", totalHeight);
-    }
 }

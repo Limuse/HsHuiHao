@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class MoneyNewsAdapter extends BaseAdapter {
         this.context = context;
         this.list = list;
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -46,18 +48,23 @@ public class MoneyNewsAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_moneynews, null);
             viewHolder = new ViewHolder();
+
             viewHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_timess);
             viewHolder.tv_num = (TextView) convertView.findViewById(R.id.tv_order_num);
-            viewHolder.tv_money = (TextView) convertView.findViewById(R.id.tv_money);
+            viewHolder.imgv=(ImageView)convertView.findViewById(R.id.tv_3);
             viewHolder.rl_ssee = (RelativeLayout) convertView.findViewById(R.id.rl_xiangqs);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         MoneyNewsEntity entity = list.get(position);
-        viewHolder.tv_time.setText(entity.time);
-        viewHolder.tv_num.setText(entity.num);
-        viewHolder.tv_money.setText(entity.money);
+        viewHolder.tv_time.setText(entity.getCtime());
+        viewHolder.tv_num.setText(entity.getContent());
+        if(entity.getStatus().equals("1")){
+            viewHolder.imgv.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.imgv.setVisibility(View.GONE);
+        }
         viewHolder.rl_ssee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +77,7 @@ public class MoneyNewsAdapter extends BaseAdapter {
     private class ViewHolder {
         TextView tv_time;
         TextView tv_num;
-        TextView tv_money;
+        ImageView imgv;
         RelativeLayout rl_ssee;
     }
 

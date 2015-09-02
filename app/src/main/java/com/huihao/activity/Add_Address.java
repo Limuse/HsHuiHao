@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -87,6 +88,7 @@ public class Add_Address extends LActivity implements View.OnClickListener {
         et_xiang = (EditText) findViewById(R.id.et_xiang);
         iv_del = (ImageView) findViewById(R.id.iv_del);
         iv_del.setOnClickListener(this);
+        et_shen.setOnClickListener(this);
     }
 
     private void subm() {
@@ -140,7 +142,7 @@ public class Add_Address extends LActivity implements View.OnClickListener {
                     getJsonData(msg.getStr());
                     break;
                 default:
-                   // T.ss("获取数据失败");
+                    // T.ss("获取数据失败");
                     break;
             }
         }
@@ -164,6 +166,20 @@ public class Add_Address extends LActivity implements View.OnClickListener {
         int id = v.getId();
         if (id == R.id.iv_del) {
             et_phone.setText(null);
+        }
+        if (id == R.id.et_shen) {
+            Intent intent = new Intent(this, ProviceInfoPlace.class);
+            startActivityForResult(intent, 0);
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 0:
+                break;
+            default:
+                break;
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +14,17 @@ import com.huihao.R;
 import com.huihao.adapter.TebateDetailAdapter;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.RebateDetailEntity;
+import com.huihao.entity.UsErId;
+import com.huihao.handle.ActivityHandler;
+import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.LActivity;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.T;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +36,7 @@ import java.util.List;
 public class Rebate_Detail extends LActivity {
     private ListView listView;
     private TebateDetailAdapter adapter;
-    private List<RebateDetailEntity> list = null;
+    private List<RebateDetailEntity> list = new ArrayList<RebateDetailEntity>();
 
 
     @Override
@@ -39,7 +50,7 @@ public class Rebate_Detail extends LActivity {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
-        initData();
+        initDatas();
     }
 
     private void initView() {
@@ -57,39 +68,67 @@ public class Rebate_Detail extends LActivity {
         listView = (ListView) findViewById(R.id.lv_redatil);
     }
 
-    private void initData() {
-        list = new ArrayList<RebateDetailEntity>();
-        RebateDetailEntity entity=new RebateDetailEntity();
-        entity.id=1;
-        entity.dnum="12532424";
-        entity.pname="张三";
-        entity.pmoney="￥10.00";
-        entity.dmoeny="100.00";
-        entity.states=0;
 
-        RebateDetailEntity entity1=new RebateDetailEntity();
-        entity1.id=2;
-        entity1.dnum="12532424";
-        entity1.pname="张三";
-        entity1.pmoney="￥10.00";
-        entity1.dmoeny="100.00";
-        entity1.states=1;
+    private void initDatas() {
+        Resources res = getResources();
+        String url = null;
+        String s = getIntent().getExtras().getString("s");
+        if (s.equals("1")) {
+            url = res.getString(R.string.app_service_url)
+                    + "/huihao/member/commissiondetail/1/sign/aggregation/?uuid="+ UsErId.uuid;
 
-        RebateDetailEntity entity2=new RebateDetailEntity();
-        entity2.id=3;
-        entity2.dnum="12532424";
-        entity2.pname="张三";
-        entity2.pmoney="￥10.00";
-        entity2.dmoeny="100.00";
-        entity2.states=2;
+        } else if (s.equals("2")) {
+            url = res.getString(R.string.app_service_url)
+                    + "/huihao/member/profitsdetail/1/sign/aggregation/?uuid="+UsErId.uuid;
 
-        list.add(entity);
-        list.add(entity1);
-        list.add(entity2);
+        }
+        LReqEntity entity = new LReqEntity(url);
+        ActivityHandler handler = new ActivityHandler(Rebate_Detail.this);
+        handler.startLoadingData(entity, 1);
 
-        adapter=new TebateDetailAdapter(this,list);
-        listView.setAdapter(adapter);
+    }
 
+
+    // 返回获取的网络数据
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            if (requestId == 1) {
+                getJsonSubmit(msg.getStr());
+            } else {
+                T.ss("获取数据失败");
+            }
+        }
+    }
+
+    private void getJsonSubmit(String data) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                JSONArray o = jsonObject.getJSONArray("list");
+                for (int i = 0; i < o.length(); i++) {
+                    JSONObject js = o.getJSONObject(i);
+                    RebateDetailEntity entity = new RebateDetailEntity();
+                    entity.setOrderid(js.getString("orderid"));
+                    entity.setTotal_price(js.getString("total_price"));
+                    entity.setMoney(js.getString("money"));
+                    entity.setUsername(js.getString("username"));
+                    entity.setState(js.getString("state"));
+                    list.add(entity);
+
+                }
+                adapter = new TebateDetailAdapter(this, list);
+                listView.setAdapter(adapter);
+
+            } else {
+
+                T.ss(jsonObject.getString("info").toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @TargetApi(19)

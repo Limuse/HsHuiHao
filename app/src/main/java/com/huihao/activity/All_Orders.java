@@ -1,7 +1,9 @@
 package com.huihao.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -9,11 +11,13 @@ import android.view.WindowManager;
 import android.view.Window;
 import android.annotation.TargetApi;
 
+import com.huihao.R;
 import com.huihao.adapter.MyAllOrderMainPager;
+import com.huihao.common.Log;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.custom.PagerSlidingTabStrip;
-import com.huihao.R;
 import com.leo.base.activity.LActivity;
+import com.leo.base.util.L;
 
 /**
  * Created by huisou on 2015/7/31.

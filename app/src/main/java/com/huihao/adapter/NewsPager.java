@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.huihao.activity.News;
 import com.huihao.fragment.Fragment_MoneyNews;
+import com.huihao.fragment.Fragment_MyPartnerOne;
+import com.huihao.fragment.Fragment_MyPartnerTwo;
 import com.huihao.fragment.Fragment_OrderNews;
 import com.huihao.fragment.Fragment_SystemNews;
 
@@ -14,6 +16,7 @@ import com.huihao.fragment.Fragment_SystemNews;
  */
 public class NewsPager extends FragmentPagerAdapter {
     final String[] titles = {"系统消息", "订单消息", "财富消息"};
+
 
     public NewsPager(News news, FragmentManager fm) {
         super(fm);

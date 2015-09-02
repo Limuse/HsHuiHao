@@ -98,7 +98,7 @@
 
         <Button
             android:id="@+id/btn_dddd"
-            android:layout_width="100dp"
+            android:layout_width="82dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
@@ -110,7 +110,7 @@
 
         <Button
             android:id="@+id/btn_sed"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

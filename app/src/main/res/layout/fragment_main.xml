@@ -5,7 +5,6 @@
     android:background="@color/app_line"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -13,7 +12,6 @@
         android:background="@color/app_white">
 
         <RelativeLayout
-            android:id="@+id/btn_mess"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_alignParentRight="true"
@@ -46,12 +44,8 @@
     </RelativeLayout>
 
     <ScrollView
-        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadingEdge="none"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -61,10 +55,9 @@
             android:background="@null">
 
             <com.huihao.custom.ImageCycleView
-                android:background="@color/app_white"
                 android:id="@+id/ImageCycleView"
                 android:layout_width="match_parent"
-                android:layout_height="224dp"></com.huihao.custom.ImageCycleView>
+                android:layout_height="256dp"></com.huihao.custom.ImageCycleView>
 
 
             <RelativeLayout
@@ -89,6 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="16dp"
+                        android:text="逍遥护理"
                         android:textColor="@color/app_text_dark"
                         android:textSize="@dimen/app_text_normal" />
 
@@ -98,6 +92,7 @@
                         android:layout_height="25dp"
                         android:layout_below="@+id/tv_title1"
                         android:layout_marginLeft="15dp"
+                        android:text="￥228"
                         android:textColor="@color/app_orange"
                         android:textSize="@dimen/app_text_normal" />
 
@@ -113,11 +108,11 @@
                         android:textSize="10sp" />
 
                     <ImageView
-                        android:id="@+id/image1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="6dp"
-                        android:layout_toRightOf="@+id/tv_title1" />
+                        android:layout_toRightOf="@+id/tv_title1"
+                        android:background="@mipmap/ic_launcher" />
 
                 </RelativeLayout>
 
@@ -142,6 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="16dp"
+                        android:text="把根留住"
                         android:textColor="@color/app_text_dark"
                         android:textSize="@dimen/app_text_normal" />
 
@@ -151,6 +147,7 @@
                         android:layout_height="25dp"
                         android:layout_below="@+id/tv_title2"
                         android:layout_marginLeft="15dp"
+                        android:text="￥998"
                         android:textColor="@color/app_orange"
                         android:textSize="@dimen/app_text_normal" />
 
@@ -166,11 +163,11 @@
                         android:textSize="10sp" />
 
                     <ImageView
-                        android:id="@+id/image2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="6dp"
-                        android:layout_toRightOf="@+id/tv_title2" />
+                        android:layout_toRightOf="@+id/tv_title2"
+                        android:background="@mipmap/ic_launcher" />
 
                 </RelativeLayout>
 
@@ -216,6 +213,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="16dp"
+                        android:text="把根留住洗发水"
                         android:textColor="@color/app_text_dark"
                         android:textSize="@dimen/app_text_big" />
 
@@ -225,6 +223,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_title3"
                         android:layout_marginLeft="15dp"
+                        android:text="天然植物头皮护理"
                         android:textColor="@color/app_text_light"
                         android:textSize="@dimen/app_text_normal" />
 
@@ -240,12 +239,12 @@
 
 
                     <ImageView
-                        android:id="@+id/image3"
                         android:layout_width="100dp"
                         android:layout_height="120dp"
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/tv_price3"
-                        android:layout_margin="12dp" />
+                        android:layout_margin="12dp"
+                        android:background="@mipmap/ic_launcher" />
 
                 </RelativeLayout>
 
@@ -285,6 +284,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="24dp"
+                            android:text="逍遥护理"
                             android:textColor="@color/app_text_dark"
                             android:textSize="@dimen/app_text_normal" />
 
@@ -294,16 +294,17 @@
                             android:layout_height="25dp"
                             android:layout_below="@+id/tv_title5"
                             android:layout_marginLeft="15dp"
+                            android:text="￥228"
                             android:textColor="@color/app_orange"
                             android:textSize="@dimen/app_text_normal" />
 
 
                         <ImageView
-                            android:id="@+id/image5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="6dp"
-                            android:layout_toRightOf="@+id/tv_title5" />
+                            android:layout_toRightOf="@+id/tv_title5"
+                            android:background="@mipmap/ic_launcher" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -320,6 +321,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="24dp"
+                            android:text="纳多卫生巾"
                             android:textColor="@color/app_text_dark"
                             android:textSize="@dimen/app_text_normal" />
 
@@ -329,15 +331,16 @@
                             android:layout_height="25dp"
                             android:layout_below="@+id/tv_title4"
                             android:layout_marginLeft="15dp"
+                            android:text="￥98"
                             android:textColor="@color/app_orange"
                             android:textSize="@dimen/app_text_normal" />
 
                         <ImageView
-                            android:id="@+id/image4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="6dp"
-                            android:layout_toRightOf="@+id/tv_title4" />
+                            android:layout_toRightOf="@+id/tv_title4"
+                            android:background="@mipmap/ic_launcher" />
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
@@ -350,8 +353,6 @@
                 android:layout_marginTop="@dimen/app_viewcard"
                 android:background="@null"
                 android:cacheColorHint="@color/app_line"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
                 android:horizontalSpacing="0.8dp"
                 android:numColumns="2"
                 android:verticalSpacing="0.8dp"></com.huihao.custom.NoScrollGridView>

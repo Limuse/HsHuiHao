@@ -10,6 +10,7 @@ import com.leo.base.exception.LLoginException;
 import com.leo.base.handler.LHandler;
 import com.leo.base.net.ILNetwork.LReqResultState;
 import com.leo.base.net.LNetwork;
+import com.leo.base.net.ILNetworkCallback;
 import com.leo.base.net.LReqEntity;
 
 public abstract class MHandler extends LHandler {

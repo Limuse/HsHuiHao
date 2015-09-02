@@ -5,11 +5,4 @@
     <string name="app_Invitation">邀请码</string>
     <string name="app_findpwd">找回密码</string>
     <string name="app_service_url">http://huihaowfx.huisou.com/</string>
-
-    <string name="WXKEY">wx8c8d900046cb3a91</string>
-    <string name="WX_SECRET_KEY">31b71ab1370f2726a118dcebb2492459</string>
-    <string name="QQ_APP_ID">1104592434</string>
-    <string name="QQ_APP_KEY">BbnJHsHMmlDRCSQ</string>
-
-
 </resources>

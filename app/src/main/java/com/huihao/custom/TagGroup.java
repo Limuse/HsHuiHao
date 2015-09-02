@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.huihao.R;
-import com.huihao.activity.Product_details;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -548,19 +547,19 @@ public class TagGroup extends ViewGroup {
     }
 
     class OnTagClickListener implements OnClickListener {
+        @Override
         public void onClick(View v) {
-            TagView clickedTagView = (TagView) v;
+            final TagView clickedTagView = (TagView) v;
             if (clickedTagView.mState == TagView.STATE_INPUT) {
             } else {
                 if (clickedTagView.isChecked) {
                 } else {
                     for (int i = 0; i < getChildCount(); i++) {
-                        TagView tagView = getTagViewAt(i);
+                        final TagView tagView = getTagViewAt(i);
                         if (tagView.isChecked) {
                             tagView.setChecked(false);
                         }
                     }
-                    Product_details.context.setTagInfo(indexOfChild(clickedTagView));
                     clickedTagView.setChecked(true);
                 }
             }
