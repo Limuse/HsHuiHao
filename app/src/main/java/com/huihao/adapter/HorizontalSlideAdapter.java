@@ -112,7 +112,13 @@ public class HorizontalSlideAdapter extends BaseAdapter {
     }
 
     public void updateData(List<ShopItemEntity> list) {
+//        listName.clear();
+//        listNum.clear();
         this.entity = list;
+        for(int i=0;i<list.size();i++){
+        listName.add(list.get(i).getSpecid());
+        listNum.add(list.get(i).getNum()+"");
+        }
         notifyDataSetChanged();
     }
 

@@ -148,6 +148,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                     for (ShopItemEntity e : adapter.getList()) {
                         e.setIsCheck(false);
                         newlist.add(e);
+                       // newlist.get(e).getId();
                         tv_all_choose.setText("全选");
 
                     }
