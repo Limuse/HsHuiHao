@@ -2,6 +2,7 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,9 +20,16 @@ import com.huihao.R;
 import com.huihao.adapter.BuysNumAdapter;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.AllOrderItemEntity;
+import com.huihao.entity.UsErId;
+import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.T;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -119,18 +127,16 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
     }
 
     private void initData() {
+        String orderid=getIntent().getExtras().getString("orderid");
         itemlist = new ArrayList<AllOrderItemEntity>();
-        AllOrderItemEntity iee = new AllOrderItemEntity();
-//        iee.idss = 1;
-//        iee.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
-//        iee.acolor = "黑色";
-//        iee.asize = "M";
-//        iee.metails = "水晶";
-//        iee.amoney = "222";
-//        iee.oldm = "109";
-//        iee.numss = "1";
-//        itemlist.add(iee);
+        Resources res=getResources();
+        String url=res.getString(R.string.app_service_url)+"/huihao/orders/detail/1/sign/aggregation/?uuid="+ UsErId.uuid+"&id="+orderid;
 
+        LReqEntity entitys = new LReqEntity(url);
+        L.e(entitys + "");
+        ActivityHandler handler = new ActivityHandler(Orders_Details.this);
+        handler.startLoadingData(entitys, 1);
+        AllOrderItemEntity iee = new AllOrderItemEntity();
         adapter = new BuysNumAdapter(this, itemlist);
         listView.setAdapter(adapter);
         scrollView.post(new Runnable() {
@@ -140,6 +146,36 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
                 scrollView.scrollTo(0, 0);
             }
         });
+    }
+    private void getJsonData(String data) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                T.ss("保存成功！");
+            } else {
+                T.ss(jsonObject.getString("info").toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // 返回获取的网络数据
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            switch (requestId) {
+                case 1:
+                    getJsonData(msg.getStr());
+                    break;
+                default:
+
+                    break;
+            }
+        }
     }
 
     @TargetApi(19)

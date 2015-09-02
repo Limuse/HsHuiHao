@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/app_background"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <include layout="@layout/toolbar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/app_line" />
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:orientation="horizontal"
+        >
+        <ExpandableListView
+            android:id="@+id/exp_lv" 
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbars="none"
+            android:divider="@null"
+            android:background="@null"
+            ></ExpandableListView>
+        <View 
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/app_viewcard"
+            />
+        <ListView 
+            android:id="@+id/lv_direction_three"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbars="none"
+            android:divider="@null"
+            android:background="@null"
+            ></ListView>
+    </LinearLayout>
+</RelativeLayout>

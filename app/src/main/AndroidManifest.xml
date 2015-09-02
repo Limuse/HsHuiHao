@@ -205,11 +205,12 @@
             android:name=".activity.News"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <!--修改收货地址-->
+        <!--省市区-->
         <activity
-            android:name=".activity.Update_Address"
+            android:name=".activity.ProviceInfoPlace"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+
         <!-- 推送配置开始 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"

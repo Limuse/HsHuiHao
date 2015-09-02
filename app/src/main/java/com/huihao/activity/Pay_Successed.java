@@ -108,6 +108,7 @@ public class Pay_Successed extends LActivity implements View.OnClickListener {
         if (id == R.id.btn_xq) {
             //T.ss("订单详情");
             Intent intent = new Intent(this, Orders_Details.class);
+            intent.putExtra("orderid",orderid);
             startActivity(intent);
         }
         //返回首页

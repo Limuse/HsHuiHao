@@ -140,7 +140,7 @@ public class Add_Address extends LActivity implements View.OnClickListener {
                     getJsonData(msg.getStr());
                     break;
                 default:
-                    T.ss("获取数据失败");
+                   // T.ss("获取数据失败");
                     break;
             }
         }
