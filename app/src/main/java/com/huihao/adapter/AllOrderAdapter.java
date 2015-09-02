@@ -17,6 +17,7 @@ import com.huihao.activity.MetailFlow_Detail;
 import com.huihao.custom.IlistView;
 import com.huihao.entity.AllOrderEntity;
 import com.huihao.entity.AllOrderItemEntity;
+import com.leo.base.util.L;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -52,7 +53,7 @@ public class AllOrderAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView( final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -95,6 +96,7 @@ public class AllOrderAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MetailFlow_Detail.class);
                     intent.putExtra("id",entity.getId().toString());
+                   // L.e(entity.getId().toString());
                     context.startActivity(intent);
                 }
             });

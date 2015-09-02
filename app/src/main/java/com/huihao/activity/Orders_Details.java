@@ -65,7 +65,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
-        //initData();
+        initData();
     }
 
     private void initView() {
@@ -80,7 +80,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
             }
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
-        scrollView=(ScrollView)findViewById(R.id.eeee);
+        scrollView = (ScrollView) findViewById(R.id.eeee);
         /**
          *物流状态判断，这个需要值判断是否隐藏
          */
@@ -127,32 +127,76 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        String orderid=getIntent().getExtras().getString("orderid");
+        String orderid = getIntent().getExtras().getString("orderid");
         itemlist = new ArrayList<AllOrderItemEntity>();
-        Resources res=getResources();
-        String url=res.getString(R.string.app_service_url)+"/huihao/orders/detail/1/sign/aggregation/?uuid="+ UsErId.uuid+"&id="+orderid;
+        Resources res = getResources();
+        String url = res.getString(R.string.app_service_url) + "/huihao/orders/detail/1/sign/aggregation/?uuid=" + UsErId.uuid + "&id=" + "2008080882";//orderid;
 
         LReqEntity entitys = new LReqEntity(url);
         L.e(entitys + "");
         ActivityHandler handler = new ActivityHandler(Orders_Details.this);
         handler.startLoadingData(entitys, 1);
-        AllOrderItemEntity iee = new AllOrderItemEntity();
-        adapter = new BuysNumAdapter(this, itemlist);
-        listView.setAdapter(adapter);
-        scrollView.post(new Runnable() {
-            //让scrollview跳转到顶部，必须放在runnable()方法中
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, 0);
-            }
-        });
+//        AllOrderItemEntity iee = new AllOrderItemEntity();
+//        adapter = new BuysNumAdapter(this, itemlist);
+//        listView.setAdapter(adapter);
+//        scrollView.post(new Runnable() {
+//            //让scrollview跳转到顶部，必须放在runnable()方法中
+//            @Override
+//            public void run() {
+//                scrollView.scrollTo(0, 0);
+//            }
+//        });
     }
+
     private void getJsonData(String data) {
 
         try {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
             if (code == 1) {
+                JSONObject josno = jsonObject.getJSONObject("list");
+                JSONObject jsd = josno.getJSONObject("order_base");
+                String id = jsd.getString("id");
+                String wid = jsd.getString("wid");
+                String uid = jsd.getString("uid");
+                String username = jsd.getString("username");
+                tv_aname.setText("收货人:" + username);
+                String address = jsd.getString("address");
+                tv_addr.setText("收货地址:" + address);
+                String phone = jsd.getString("phone");
+                tv_p.setText(phone);//收货人电话
+                String post_id = jsd.getString("post_id");
+                String buy_message = jsd.getString("buy_message");
+                tv_talk.setText(buy_message);
+                String total_title = jsd.getString("total_title");
+                String total_price = jsd.getString("total_price");
+                String product_price = jsd.getString("product_price");
+                String exress_weight = jsd.getString("exress_weight");
+                String post_price = jsd.getString("post_price");
+                String exress_id = jsd.getString("exress_id");
+                String exress_no = jsd.getString("exress_no");
+                String prefer_id = jsd.getString("prefer_id");
+                String prefer_price = jsd.getString("prefer_price");
+                String balance_price = jsd.getString("balance_price");
+                String pay_price = jsd.getString("pay_price");
+                String payment = jsd.getString("payment");//  payment": "3",
+                String trade_no = jsd.getString("payment"); //  "trade_no": null,
+                String openid = jsd.getString("openid");   //       "openid": null,
+                String sale_message = jsd.getString("sale_message");   //      "sale_message": null,
+                String addtime = jsd.getString("addtime");     //   "addtime": "1440750211",
+                String paytime = jsd.getString("paytime");      // "paytime": "2015-08-28 16:23",
+                String sendtime = jsd.getString("sendtime");       // "sendtime": "",
+                String receivetime = jsd.getString("receivetime");      //   "receivetime": null,
+                String ctime = jsd.getString("ctime");      //   "ctime": "1440750211",
+                String etime = jsd.getString("etime");       //    "etime": "1440750211",
+                String is_app = jsd.getString("is_app");       //    "is_app": "1",
+                String duser_id = jsd.getString("duser_id");     //     "duser_id": "0",
+                String coupon_arr = jsd.getString("coupon_arr");    //     "coupon_arr": "30.00",
+                String statename = jsd.getString("statename");       //  "statename": "未支付",
+                String payname = jsd.getString("payname");      //  "payname": "线下支付",
+                String address_detail = jsd.getString("address_detail");      //   "address_detail": "﻿北京﻿北京﻿北京24567777",
+                String suretime = jsd.getString("suretime");      //   "suretime": "",
+                String exressinfo = jsd.getString("exressinfo");       //   "exressinfo": null
                 T.ss("保存成功！");
             } else {
                 T.ss(jsonObject.getString("info").toString());

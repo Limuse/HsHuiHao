@@ -21,6 +21,7 @@ import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -42,6 +43,7 @@ public class MetailFlow_Detail extends LActivity {
     private ScrollView scrollView;
     private MetailflowEntity entity = new MetailflowEntity();
     private List<MetailflowEntity.ExressDetailEntity> list = new ArrayList<MetailflowEntity.ExressDetailEntity>();
+
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_metailflow_detail);
@@ -76,40 +78,14 @@ public class MetailFlow_Detail extends LActivity {
 
     }
 
-//    private void initDatas() {
-//        list = new ArrayList<MetailflowEntity>();
-//        MetailflowEntity entity1 = new MetailflowEntity();
-//        entity1.idm = 1;
-//        entity1.tv1 = "物件已经扫描，正在装运中";
-//        entity1.tv2 = "2015-08-10 10:30:51";
-//        MetailflowEntity entity2 = new MetailflowEntity();
-//        entity2.idm = 2;
-//        entity2.tv1 = "物件已经从广州物资站发往杭州，正在前往杭州中转站";
-//        entity2.tv2 = "2015-08-10 12:30:51";
-//        MetailflowEntity entity3 = new MetailflowEntity();
-//        entity3.idm = 3;
-//        entity3.tv1 = "物件正在派送中";
-//        entity3.tv2 = "2015-08-10 18:30:51";
-//        MetailflowEntity entity4 = new MetailflowEntity();
-//        entity4.idm = 4;
-//        entity4.tv1 = "正在前往杭州中转站";
-//        entity4.tv2 = "2015-08-10 18:30:51";
-//        list.add(entity3);
-//        list.add(entity4);
-//        list.add(entity2);
-//        list.add(entity1);
-//
-//    }
-
 
     private void initData() {
         String ids = getIntent().getExtras().getString("id");
-        //  http://huihaowfx.huisou.com//huihao/orders/courier/1/sign/aggregation/?uuid=6a35c1ed7255077d57d57be679048034&id=2008080793
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/courier/1/sign/aggregation/?uuid="+ UsErId.uuid+"&id=" + "2008080793";//ids
+                + "/huihao/orders/courier/1/sign/aggregation/?uuid=" + UsErId.uuid + "&id=" + ids;//ids
         LReqEntity entity = new LReqEntity(url);
-
+        L.e(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(this);
         handler.startLoadingData(entity, 1);
@@ -118,25 +94,49 @@ public class MetailFlow_Detail extends LActivity {
     private void getJsonData(String data) {
 
         try {
-            JSONObject jsonObject = new JSONObject(data);
-            //int code = jsonObject.getInt("status");
+            JSONObject jsonObjects = new JSONObject(data);
+            int code = jsonObjects.getInt("status");
+            if(code==1){
+
+
+            JSONObject jsonObject=jsonObjects.getJSONObject("list");
+
             if (jsonObject.length() > 1) {
+
                 MetailflowEntity mfentity = new MetailflowEntity();
-                mfentity.setTitle(jsonObject.getString("title"));
-                mfentity.setExress_no(jsonObject.getString("exress_no"));
-                mfentity.setStatus_name(jsonObject.getString("status_name"));
+                if (jsonObject.getString("title").equals(null) || jsonObject.getString("title").equals("null") || jsonObject.getString("title").equals("")) {
+                    mfentity.setTitle("没有消息");
+                } else {
+                    mfentity.setTitle(jsonObject.getString("title"));
+                }
+                String exress = jsonObject.getString("exress_no");
+                if (exress == null || exress.equals(null) || exress.equals("")) {
+                    mfentity.setExress_no("没有运单编号");
+                } else {
+                    mfentity.setExress_no(jsonObject.getString("exress_no"));
+                }
+                if (jsonObject.getString("status_name").equals(null) || jsonObject.getString("status_name").equals("") || jsonObject.getString("status_name").equals("null")) {
+                    mfentity.setStatus_name("没有数据");
+                }
+                {
+                    mfentity.setStatus_name(jsonObject.getString("status_name"));
+                }
                 tv_mn.setText(mfentity.getTitle());
                 tv_mnum.setText(mfentity.getExress_no());
                 tv_mstate.setText(mfentity.getStatus_name());
 
                 JSONArray array = jsonObject.getJSONArray("exress_detail");
-                for (int i = 0; i < array.length(); i++) {
-                    MetailflowEntity.ExressDetailEntity exlist = new MetailflowEntity.ExressDetailEntity();
-                    JSONObject object = array.getJSONObject(i);
-                    exlist.setTime(object.getString("time"));
-                    exlist.setContext(object.getString("context"));
-                    exlist.setFtime(object.getString("ftime"));
-                    list.add(exlist);
+                if (array.length() < 1) {
+                    T.ss("没有物流信息");
+                } else {
+                    for (int i = 0; i < array.length(); i++) {
+                        MetailflowEntity.ExressDetailEntity exlist = new MetailflowEntity.ExressDetailEntity();
+                        JSONObject object = array.getJSONObject(i);
+                        exlist.setTime(object.getString("time"));
+                        exlist.setContext(object.getString("context"));
+                        exlist.setFtime(object.getString("ftime"));
+                        list.add(exlist);
+                    }
                 }
                 adapter = new MetailflowDerailAdapter(MetailFlow_Detail.this, list);
                 listView.setAdapter(adapter);
@@ -148,7 +148,9 @@ public class MetailFlow_Detail extends LActivity {
                     }
                 });
 
-            } else {
+            }else{
+                T.ss("没有数据");
+            }} else {
                 T.ss("获取数据失败");
             }
         } catch (JSONException e) {
