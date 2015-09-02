@@ -22,14 +22,11 @@ public class Fragment_MyPartnerOne extends LFragment {
     private TextView tv_money, tv_nums;
     private ListView listView;
     private MyPartnerAdapter adapter;
-<<<<<<< Updated upstream
     private List<MyPartnerEntity.ChildList> list =new ArrayList<MyPartnerEntity.ChildList>();
     private LinearLayout lyms;
     private ScrollView scrollView;
-=======
     private List<MyPartnerEntity> list = null;
 
->>>>>>> Stashed changes
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
