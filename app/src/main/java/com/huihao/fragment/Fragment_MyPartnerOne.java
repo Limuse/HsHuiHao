@@ -27,6 +27,8 @@ public class Fragment_MyPartnerOne extends LFragment {
     private ScrollView scrollView;
     private List<MyPartnerEntity> list = null;
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
