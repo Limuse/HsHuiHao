@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:paddingRight="-90dp"
-    >
+    android:scrollbars="none">
 
     <LinearLayout
         android:id="@+id/ly_mam"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
+        android:layout_marginBottom="0.5dp"
+        android:background="@color/app_white"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/ordersss"
             android:layout_width="match_parent"
             android:layout_height="85dp"
-            android:focusable="false"
+            android:layout_marginBottom="0.5dp"
             android:background="@drawable/btn_press"
             android:orientation="horizontal">
 
@@ -126,13 +126,8 @@
                 android:paddingRight="20dp"
                 android:text="删除"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/app_text_big"
-                android:focusable="false"/>
+                android:textSize="@dimen/app_text_big" />
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/app_background" />
 </LinearLayout>

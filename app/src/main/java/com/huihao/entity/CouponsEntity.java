@@ -5,7 +5,7 @@ package com.huihao.entity;
  */
 public class CouponsEntity {
 
-    public int cpid;
+    public String cpid;
     public String cpimg;
     public String cptitile;
     public String cptime;

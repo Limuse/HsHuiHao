@@ -15,7 +15,6 @@ import com.huihao.fragment.Fragment_SystemNews;
 public class NewsPager extends FragmentPagerAdapter {
     final String[] titles = {"系统消息", "订单消息", "财富消息"};
 
-
     public NewsPager(News news, FragmentManager fm) {
         super(fm);
     }

@@ -33,7 +33,6 @@ public class ExtraRecordCopyPager extends FragmentPagerAdapter {
                 fragment= Fragment_Extraedone.newInstance();//已提现
                 break;
         }
-
         return fragment;
     }
 

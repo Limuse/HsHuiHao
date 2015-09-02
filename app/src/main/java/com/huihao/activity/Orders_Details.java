@@ -117,6 +117,16 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
     private void initData() {
         itemlist = new ArrayList<AllOrderItemEntity>();
         AllOrderItemEntity iee = new AllOrderItemEntity();
+//        iee.idss = 1;
+//        iee.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
+//        iee.acolor = "黑色";
+//        iee.asize = "M";
+//        iee.metails = "水晶";
+//        iee.amoney = "222";
+//        iee.oldm = "109";
+//        iee.numss = "1";
+//        itemlist.add(iee);
+
         iee.idss = 1;
         iee.atitle = "洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水洗发水";
         iee.acolor = "黑色";

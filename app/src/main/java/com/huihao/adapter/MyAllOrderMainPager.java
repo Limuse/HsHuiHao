@@ -5,10 +5,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.huihao.activity.All_Orders;
 import com.huihao.fragment.Fragment_Orders;
-import com.huihao.fragment.Fragment_back_money;
 import com.huihao.fragment.Fragment_pay_money;
+import com.huihao.activity.All_Orders;
+import com.huihao.fragment.Fragment_back_money;
 import com.huihao.fragment.Fragment_reserve;
 
 /**
@@ -17,8 +17,7 @@ import com.huihao.fragment.Fragment_reserve;
 public class MyAllOrderMainPager extends FragmentPagerAdapter {
 
 
-    final String[] titles={"全部订单","待付款","待发货","待收货"};
-
+    final String[] titles={"全部订单","代付款","待收货","退款中"};
 
     public MyAllOrderMainPager(All_Orders all_Orders,FragmentManager fm){
         super(fm);
@@ -37,10 +36,10 @@ public class MyAllOrderMainPager extends FragmentPagerAdapter {
                 fragment= Fragment_pay_money.newInstance();//待付款
                 break;
             case 2:
-                fragment= Fragment_reserve.newInstance();//待发货
+                fragment= Fragment_reserve.newInstance();//待收货
                 break;
            default:
-               fragment= Fragment_back_money.newInstance();//待收货
+               fragment= Fragment_back_money.newInstance();//退款中
                 break;
         }
         return fragment;

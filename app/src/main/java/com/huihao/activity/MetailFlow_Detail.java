@@ -28,6 +28,9 @@ public class MetailFlow_Detail extends LActivity {
     private ListView listView;
     private List<MetailflowEntity> list;
     private MetailflowDerailAdapter adapter;
+    private ScrollView scrollView;
+    private MetailflowEntity entity = new MetailflowEntity();
+    private List<MetailflowEntity.ExressDetailEntity> list = new ArrayList<MetailflowEntity.ExressDetailEntity>();
 
 
     @Override

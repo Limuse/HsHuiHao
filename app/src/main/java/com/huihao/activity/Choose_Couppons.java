@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import com.huihao.common.SystemBarTintManager;
 import com.huihao.entity.CouponsEntity;
 import com.huihao.R;
 import com.leo.base.activity.LActivity;
+import com.leo.base.util.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,16 @@ public class Choose_Couppons extends LActivity {
         //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                String cids = adapter.rCid();
+                if (cids == null) {
+                    T.ss("请选择优惠卷");
+
+                    setResult(1, null);
+                } else {
+                    Intent intent = new Intent();
+                    intent.putExtra("cids", cids);
+                    setResult(1, intent);
+                }
                 finish();
             }
         });

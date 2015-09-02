@@ -25,7 +25,6 @@ public class BuysNumAdapter extends BaseAdapter {
         this.itemlist = list;
     }
 
-
     @Override
     public int getCount() {
         return itemlist.size();

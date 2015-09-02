@@ -26,7 +26,6 @@ public class CouponsAdapter extends BaseAdapter {
         this.cpentity = list;
 
     }
-
     @Override
     public int getCount() {
         return cpentity.size();

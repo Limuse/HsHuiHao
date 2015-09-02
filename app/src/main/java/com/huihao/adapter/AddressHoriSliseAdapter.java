@@ -30,7 +30,6 @@ public class AddressHoriSliseAdapter extends BaseAdapter {
      * 上下文对象
      */
     private Context context = null;
-
     private List<AddressItemEntity> entity = null;
 
 

@@ -13,6 +13,11 @@ import com.huihao.R;
 import com.huihao.activity.ExR_State;
 import com.huihao.entity.ExtraReEntity;
 import com.leo.base.activity.fragment.LFragment;
+import com.leo.base.util.T;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +77,34 @@ public class Fragment_Extraed extends LFragment implements AdapterView.OnItemCli
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
     }
+    private void getJsonData(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                JSONArray array = jsonObject.getJSONArray("list");
+                for (int i = 0; i < array.length(); i++) {
+                    ExtraReEntity entity = new ExtraReEntity();
+                    JSONObject jso = array.getJSONObject(i);
+                    entity.id = jso.getString("id");
+                    entity.state = jso.getString("status");
+                    entity.time =jso.getString("ctime");
+                    entity.money =jso.getString("amount");
+                    list.add(entity);
+                }
+                adapter = new ExtraRecodeAdapter(getActivity(), list);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(this);
+            } else {
+                T.ss(jsonObject.getString("info"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public static Fragment_Extraed newInstance() {
         Fragment_Extraed fragment = new Fragment_Extraed();

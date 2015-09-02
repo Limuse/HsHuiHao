@@ -21,6 +21,7 @@ import com.leo.base.util.T;
  */
 public class ExtractActivity extends LActivity {
     private EditText et_zaccount, et_zname, et_zphone;
+    private boolean flg = true;
 
     @Override
     protected void onLCreate(Bundle bundle) {

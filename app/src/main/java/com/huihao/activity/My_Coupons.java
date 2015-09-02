@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.huihao.adapter.CouponsAdapter;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 public class My_Coupons extends LActivity {
     private ListView listview;
+    private LinearLayout headview;
     private List<CouponsEntity> list = null;
     private CouponsAdapter adapter;
 

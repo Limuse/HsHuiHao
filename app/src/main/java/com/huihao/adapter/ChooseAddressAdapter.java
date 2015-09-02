@@ -29,7 +29,6 @@ public class ChooseAddressAdapter extends BaseAdapter {
         this.list = list;
     }
 
-
     @Override
     public int getCount() {
         return list.size();

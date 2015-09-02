@@ -29,7 +29,6 @@ public class ChooseCouponsAdapter extends BaseAdapter {
         return list.size();
     }
 
-
     @Override
     public Object getItem(int position) {
         return list.get(position);

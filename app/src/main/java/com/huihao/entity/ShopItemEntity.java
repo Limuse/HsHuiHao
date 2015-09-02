@@ -1,12 +1,31 @@
 package com.huihao.entity;
 
+
 /**
  * Created by huisou on 2015/7/23.
  */
 public class ShopItemEntity {
     private String title;
-    private int id;
+    private String id;
     private float danjia;
+    private float sale;
+    private String specid;
+
+    public String getSpecid() {
+        return specid;
+    }
+
+    public void setSpecid(String specid) {
+        this.specid = specid;
+    }
+
+    public float getSale() {
+        return sale;
+    }
+
+    public void setSale(float sale) {
+        this.sale = sale;
+    }
 
     public float getDanjia() {
         return danjia;
@@ -26,11 +45,11 @@ public class ShopItemEntity {
         this.isCheck = isCheck;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -69,7 +88,7 @@ public class ShopItemEntity {
     public ShopItemEntity() {
     }
 
-    public ShopItemEntity(int id, String title, String pic, String color, String size, String material, int num, String money,boolean ischeck,float danjia) {
+    public ShopItemEntity(int id, String title, String pic, String color, String size, String material, int num, String money, boolean ischeck, float danjia) {
         this.title = title;
         this.pic = pic;
         this.color = color;
@@ -77,8 +96,8 @@ public class ShopItemEntity {
         this.material = material;
         this.num = num;
         this.money = money;
-        this.isCheck=isCheck;
-        this.danjia=danjia;
+        this.isCheck = isCheck;
+        this.danjia = danjia;
     }
 
     public String getTitle() {

@@ -51,8 +51,8 @@ public class SystemNewsAdapter extends BaseAdapter {
             viewHolders=(ViewHolders)convertView.getTag();
         }
         SystemNewsEntity entity=list.get(position);
-//        viewHolders.time1.setText(entity.time1);
-//        viewHolders.name.setText(entity.names);
+        viewHolders.time1.setText(entity.time1);
+        viewHolders.name.setText(entity.names);
 
         return convertView;
     }
