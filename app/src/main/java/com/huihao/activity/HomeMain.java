@@ -1,38 +1,47 @@
 package com.huihao.activity;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 
-import com.huihao.R;
-import com.huihao.common.Bar;
-import com.huihao.common.Log;
-import com.huihao.common.SystemBarTintManager;
 import com.huihao.common.UntilList;
 import com.huihao.custom.ImageDialog;
 import com.huihao.fragment.Fragment_main;
 import com.huihao.fragment.Fragment_shop;
-import com.huihao.fragment.Fragment_my;
 import com.huihao.fragment.Fragment_story;
+import com.huihao.R;
+import com.huihao.common.Bar;
+import com.huihao.common.Log;
+import com.huihao.fragment.Fragment_my;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.T;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by admin on 2015/6/26.
@@ -42,6 +51,9 @@ import butterknife.OnClick;
  * Tag
  */
 public class HomeMain extends LActivity {
+
+    private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+
     @InjectView(R.id.main)
     Button main;
     @InjectView(R.id.story)
@@ -81,6 +93,9 @@ public class HomeMain extends LActivity {
 
     protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home);
+
+        JPushInterface.init(getApplicationContext());
+
         ButterKnife.inject(this);
         Bar.setWhite(this);
         Log.e(UntilList.getAppInfo(this));
@@ -120,7 +135,6 @@ public class HomeMain extends LActivity {
 
         linearLayout.setFitsSystemWindows(true);
         linearLayout.setClipToPadding(true);
-
     }
 
     @OnClick(R.id.relshop)
@@ -136,6 +150,8 @@ public class HomeMain extends LActivity {
         switchFragment(fragment_shop, SHOP);
 
     }
+
+
 
     @OnClick(R.id.relmy)
     void my() {
@@ -166,7 +182,9 @@ public class HomeMain extends LActivity {
             }
         }).setNegativeButton("现在就去", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                share();
                 dialog.dismiss();
+
             }
         }).create();
         dialog.show();
@@ -207,6 +225,7 @@ public class HomeMain extends LActivity {
     }
 
     private static Boolean isExit = false;
+
     private void exitBy2Click() {
         Timer tExit = null;
         if (isExit == false) {
@@ -223,5 +242,45 @@ public class HomeMain extends LActivity {
             System.exit(0);
         }
     }
+    public void share(){
+// 设置分享内容
+        mController.setShareContent("友盟社会化组件（SDK）让移动应用快速整合社交分享功能，http://www.umeng.com/social");
+// 设置分享图片, 参数2为图片的url地址
+        mController.setShareMedia(new UMImage(HomeMain.this,
+                "http://tb.himg.baidu.com/sys/portrait/item/94edd7eed6d5c5c7bbb22924"));
 
+        String appID = "wx967daebe835fbeac";
+        String appSecret = "5fa9e68ca3970e87a1f83e563c8dcbce";
+// 添加微信平台
+        UMWXHandler wxHandler = new UMWXHandler(HomeMain.this,appID,appSecret);
+        wxHandler.addToSocialSDK();
+// 添加微信朋友圈
+        UMWXHandler wxCircleHandler = new UMWXHandler(HomeMain.this,appID,appSecret);
+        wxCircleHandler.setToCircle(true);
+        wxCircleHandler.addToSocialSDK();
+
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(HomeMain.this, "100424468",
+                "c7394704798a158208a74ab60104f0ba");
+        qqSsoHandler.addToSocialSDK();
+
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(HomeMain.this, "100424468",
+                "c7394704798a158208a74ab60104f0ba");
+        qZoneSsoHandler.addToSocialSDK();
+
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+
+        mController.getConfig().removePlatform(SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
+        mController.openShare(HomeMain.this, false);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**使用SSO授权必须添加如下代码 */
+        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+        if(ssoHandler != null){
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
 }

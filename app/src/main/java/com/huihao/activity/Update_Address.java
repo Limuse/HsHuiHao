@@ -2,7 +2,6 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.content.res.Resources;
-import android.media.ResourceBusyException;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +23,6 @@ import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
 import com.leo.base.util.T;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

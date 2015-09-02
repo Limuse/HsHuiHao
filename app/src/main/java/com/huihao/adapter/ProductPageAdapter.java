@@ -14,7 +14,6 @@ import com.huihao.fragment.Fragment_Product_para;
 public class ProductPageAdapter extends FragmentPagerAdapter{
     final String[] titles = { "商品详情", "产品参数"};
 
-
     public ProductPageAdapter(Product_details personFiles, FragmentManager fragmentManager) {
         super(fragmentManager);
     }

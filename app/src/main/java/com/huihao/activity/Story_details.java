@@ -16,23 +16,31 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.huihao.R;
 import com.huihao.common.Bar;
 import com.huihao.common.Log;
 import com.huihao.custom.MyViewPager;
 import com.huihao.custom.TextViewVertical;
-import com.huihao.fragment.Fragment_story_details;
+import com.huihao.R;
 import com.huihao.fragment.Fragment_story_page;
+import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.T;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 2015/7/29.
  */
 public class Story_details extends LActivity {
-
+    private List<Map<String, String>> imageInfo = new ArrayList<Map<String, String>>();
     private MyViewPager viewPager;
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
     private TextViewVertical textViewVertical;
@@ -46,6 +54,8 @@ public class Story_details extends LActivity {
     private int viewWidth;
     private int windosWidth;
     private View view;
+
+    private String pageId;
 
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_story_details);
@@ -89,25 +99,68 @@ public class Story_details extends LActivity {
         });
     }
 
-    public void back(View v){
+    public void back(View v) {
         finish();
     }
 
     private void initData() {
-        for (int i = 0; i < 3; i++) {
-            Fragment_story_details fragmentStoryPage = new Fragment_story_details();
-            fragmentStoryPage.getData(i + "");
-            fragmentList.add(fragmentStoryPage);
+        Intent intent=getIntent();
+        pageId=intent.getStringExtra("id");
+        String url = getResources().getString(R.string.app_service_url) + "/huihao/product/specialdetail/1/sign/aggregation/?id="+pageId;
+        Log.e(url);
+        ActivityHandler handler = new ActivityHandler(this);
+        LReqEntity entity = new LReqEntity(url);
+        handler.startLoadingData(entity, 1);
+    }
+
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            if (requestId == 1) {
+                getSmJsonData(msg.getStr());
+            } else {
+                T.ss("参数ID错误");
+            }
+        } else {
+            T.ss("数据获取失败");
         }
     }
 
+    private void getSmJsonData(String str) {
+        try {
+            JSONObject object = new JSONObject(str);
+            int status = object.optInt("status");
+            if (status == 1) {
+                JSONObject list = object.optJSONObject("list");
+                JSONArray special_detail = list.optJSONArray("special_detail");
+                for (int i = 0; i < special_detail.length(); i++) {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("image", special_detail.opt(i).toString());
+                    imageInfo.add(map);
+                }
+            } else {
+                T.ss("数据获取失败");
+            }
+        } catch (Exception e) {
+            T.ss("数据解析失败");
+        }
+        initPage();
+    }
+
     private void initPage() {
+        for (int i = 0; i < imageInfo.size(); i++) {
+            Fragment_story_page fragmentStoryPage = new Fragment_story_page();
+            fragmentStoryPage.getData(imageInfo.get(i));
+            fragmentList.add(fragmentStoryPage);
+        }
+
         viewPager.setOffscreenPageLimit(3);
         viewPager.setPageMargin(0);
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
+
             public void onPageSelected(int position) {
                 currentPage = position;
             }
@@ -128,11 +181,11 @@ public class Story_details extends LActivity {
                                                          if (dx > 0) {
                                                              viewPager.setScrollble(false);
                                                              LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                                             lp.setMargins(-dx / 3, 0, dx/3, 0);
+                                                             lp.setMargins(-dx / 3, 0, dx / 3, 0);
                                                              viewPager.setLayoutParams(lp);
 
                                                              lp = new LinearLayout.LayoutParams(viewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
-                                                             lp.setMargins(-dx/3 , 0, 0, 0);
+                                                             lp.setMargins(-dx / 3, 0, 0, 0);
                                                              textgroup.setLayoutParams(lp);
                                                          }
                                                          break;
@@ -149,6 +202,7 @@ public class Story_details extends LActivity {
 
                                                          if (dx > windosWidth / 2) {
                                                              Intent intent = new Intent(Story_details.this, Product_details.class);
+                                                             intent.putExtra("id",pageId);
                                                              startActivity(intent);
                                                          }
                                                          break;

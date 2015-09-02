@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by admin on 2015/8/10.
  */
@@ -42,6 +45,14 @@ public class UntilList {
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    public static boolean isPhone(String phone) {
+        String check = phone;
+        Pattern p = Pattern
+                .compile("^((13[0-9])|(147)|(17[7,8])|(15[0-9])|(18[0-9]))\\d{8}$");
+        Matcher m = p.matcher(check);
+        return m.find();
     }
 
 }

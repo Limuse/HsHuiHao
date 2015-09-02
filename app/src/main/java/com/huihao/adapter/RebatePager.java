@@ -15,7 +15,6 @@ import com.huihao.fragment.Fragment_Rebatetwo;
 public class RebatePager extends FragmentPagerAdapter {
     final String[] titles = {"普通利润", "代理利润"};
 
-
     public RebatePager(Rebate rebate, FragmentManager fm) {
         super(fm);
     }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +17,14 @@ import com.huihao.activity.Extract_Rebate;
 import com.huihao.activity.Rebate_Detail;
 import com.huihao.custom.RiseNumberTextView;
 import com.huihao.entity.UsErId;
-import com.huihao.handle.ActivityHandler;
 import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
-import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by huisou on 2015/8/30.
