@@ -13,17 +13,29 @@ import android.widget.EditText;
 
 import com.huihao.R;
 import com.huihao.common.Bar;
+import com.huihao.common.Log;
+import com.huihao.common.UntilList;
+import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
+import com.leo.base.util.T;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by admin on 2015/8/11.
  */
 public class Registered extends LActivity {
     private int isEye = 0;
-    private EditText et_user, et_pwd;
+    private EditText et_user, et_pwd,et_code;
     private Button btn_look, btn_send, btn_send1, btn_send2;
     private boolean flag = true;
     private int time = 60;
+    private String code;
 
     protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_registered);
@@ -32,7 +44,9 @@ public class Registered extends LActivity {
     }
 
     private void initView() {
+        et_user = (EditText) findViewById(R.id.et_user);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
+        et_code=(EditText) findViewById(R.id.et_code);
         btn_look = (Button) findViewById(R.id.btn_look);
         btn_send1 = (Button) findViewById(R.id.btn_send1);
         btn_send2 = (Button) findViewById(R.id.btn_send2);
@@ -65,15 +79,90 @@ public class Registered extends LActivity {
     }
 
     public void send(View v) {
-        time = 60;
-        flag = true;
-        getTime();
+        if (UntilList.isPhone(et_user.getText().toString().trim())) {
+            time = 60;
+            flag = true;
+            getTime();
+            String url = getResources().getString(R.string.app_service_url) + "/huihao/register/captchas/1/sign/aggregation/";
+            ActivityHandler handler = new ActivityHandler(this);
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("mobile", et_user.getText().toString().trim());
+            LReqEntity entity = new LReqEntity(url,map);
+            handler.startLoadingData(entity, 1);
+        } else {
+            T.ss("请输入正确的手机号码");
+        }
+    }
+
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            if (requestId == 1) {
+                getCode(msg.getStr());
+            } else if (requestId == 2) {
+               reg(msg.getStr());
+            } else {
+                T.ss("参数ID错误");
+            }
+        } else {
+            T.ss("数据获取失败");
+        }
+    }
+
+    public void reg(String str) {
+        try{
+            JSONObject info=new JSONObject(str);
+            int status=info.optInt("status");
+            if(status==1){
+                T.ss("注册成功");
+                finish();
+            }else {
+                T.ss(info.opt("info").toString());
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    public void getCode(String str) {
+        try{
+            JSONObject info=new JSONObject(str);
+            int status=info.optInt("status");
+            if(status==1){
+                T.ss("验证码发送成功，请注意查收");
+            }else {
+                T.ss("验证码发送失败，请重试");
+                handler.sendEmptyMessage(2);
+            }
+        }catch (Exception e){
+
+        }
     }
 
     public void ok(View v) {
-        Intent intent = new Intent(Registered.this, InvitationCode.class);
-        startActivity(intent);
-        finish();
+        if (!UntilList.isPhone(et_user.getText().toString().trim())) {
+            T.ss("请输入正确的手机号码");
+            return;
+        }
+
+        if(!(et_code.getText().toString().length()>0)){
+            T.ss("请输入验证码");
+            return;
+        }
+
+        if(!(et_pwd.getText().toString().length()>0)){
+            T.ss("请输入密码");
+            return;
+        }
+
+        ActivityHandler handler = new ActivityHandler(this);
+        String url = getResources().getString(R.string.app_service_url) + "/huihao/register/registerexecute/1/sign/aggregation/";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("mobile", et_user.getText().toString().trim());
+        map.put("captcha", et_code.getText().toString().trim());
+        map.put("password", et_pwd.getText().toString().trim());
+        LReqEntity entity = new LReqEntity(url,map);
+        handler.startLoadingData(entity, 2);
     }
 
     public void getTime() {
@@ -89,7 +178,6 @@ public class Registered extends LActivity {
                             handler.sendEmptyMessage(2);
                         }
                     } catch (InterruptedException e) {
-
                         e.printStackTrace();
                     }
                 }

@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -64,6 +66,9 @@ public class ImageDetail extends Activity implements View.OnClickListener {
         imageLoader = ImageLoader.getInstance();
         imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
                 .build();
+
+        tv_imgPostion.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG );
+        tv_imgPostion.getPaint().setAntiAlias(true);
 
         vp.setPageMargin(30);
         vp.setAdapter(new MyVpAdapter());
