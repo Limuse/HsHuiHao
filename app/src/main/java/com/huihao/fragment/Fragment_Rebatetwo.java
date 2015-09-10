@@ -159,7 +159,7 @@ public class Fragment_Rebatetwo extends LFragment implements View.OnClickListene
         }
         //提取中
         if (id == R.id.rl_phones) {
-            Intent intent = new Intent(getActivity(), Extra_Record.class);
+            Intent intent = new Intent(getActivity(), Extra_RecordCopy.class);
             intent.putExtra("gets", "0");
             startActivity(intent);
         }

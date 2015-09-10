@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.huihao.R;
 import com.huihao.adapter.SystemNewsAdapter;
 import com.huihao.adapter.SystemNewssAdapter;
+import com.huihao.common.Token;
 import com.huihao.entity.SystemNewsEntity;
 import com.huihao.entity.SystemNewssEntity;
 import com.huihao.entity.UsErId;
@@ -38,12 +40,12 @@ public class Fragment_SystemNews extends LFragment {
     // private SystemNewsAdapter adapter;//新朋友
     private SystemNewssAdapter adapter;//带图片的
     private List<SystemNewsEntity> list = null;
+    private RelativeLayout rl_neww, rl_nal;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
 
     @Override
@@ -60,6 +62,8 @@ public class Fragment_SystemNews extends LFragment {
     }
 
     private void initView() {
+        rl_neww = (RelativeLayout) getActivity().findViewById(R.id.rl_neww);
+        rl_nal = (RelativeLayout) getActivity().findViewById(R.id.rl_nal);
         listView = (ListView) getActivity().findViewById(R.id.lv_systemd);
     }
 
@@ -69,9 +73,9 @@ public class Fragment_SystemNews extends LFragment {
 //        /huihao/member/usermsg/1/sign/aggregation/
         list = new ArrayList<SystemNewsEntity>();
         Resources res = getResources();
-        String url = res.getString(R.string.app_service_url) + "/huihao/member/usermsg/1/sign/aggregation/?t=1&uuid=" + UsErId.uuid;
+        String url = res.getString(R.string.app_service_url) + "/huihao/member/usermsg/1/sign/aggregation/?t=1&uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-        L.e(url);
+       // L.e(url);
         FragmentHandler handler = new FragmentHandler(Fragment_SystemNews.this);
         handler.startLoadingData(entity, 1);
 
@@ -95,6 +99,13 @@ public class Fragment_SystemNews extends LFragment {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONArray json = jsonObject.getJSONArray("list");
+                if(json.equals("")||json.equals(null)||json.length()<1){
+                    rl_nal.setVisibility(View.GONE);
+                    rl_neww.setVisibility(View.VISIBLE);
+                }else{
+                    rl_nal.setVisibility(View.VISIBLE);
+                    rl_neww.setVisibility(View.GONE);
+
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jsb = json.getJSONObject(i);
                     SystemNewsEntity entity = new SystemNewsEntity();
@@ -110,11 +121,13 @@ public class Fragment_SystemNews extends LFragment {
                 }
                 adapter = new SystemNewssAdapter(getActivity(), list);
                 listView.setAdapter(adapter);
-            } else {
+            } }else {
                 T.ss(jsonObject.getString("info"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_nal.setVisibility(View.GONE);
+            rl_neww.setVisibility(View.VISIBLE);
         }
     }
 

@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.huihao.R;
 import com.huihao.adapter.OrdersNewsAdapter;
+import com.huihao.common.Token;
 import com.huihao.entity.OrdersNewsEntity;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.FragmentHandler;
@@ -33,6 +35,8 @@ public class Fragment_OrderNews extends LFragment {
     private ListView listView;
     private OrdersNewsAdapter adapter;
     private List<OrdersNewsEntity> list = null;
+    private RelativeLayout rl_newws;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,31 +59,18 @@ public class Fragment_OrderNews extends LFragment {
     }
 
     private void initView() {
+        rl_newws=(RelativeLayout)getActivity().findViewById(R.id.rl_newws);
         listView = (ListView) getActivity().findViewById(R.id.lv_orders);
     }
 
     private void initData() {
         list = new ArrayList<OrdersNewsEntity>();
         Resources res = getResources();
-        String url = res.getString(R.string.app_service_url) + "/huihao/member/usermsg/1/sign/aggregation/?t=2&uuid=" + UsErId.uuid;
+        String url = res.getString(R.string.app_service_url) + "/huihao/member/usermsg/1/sign/aggregation/?t=2&uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-        L.e(url);
+       // L.e(url);
         FragmentHandler handler = new FragmentHandler(Fragment_OrderNews.this);
         handler.startLoadingData(entity, 1);
-//        list = new ArrayList<OrdersNewsEntity>();
-//        OrdersNewsEntity entity = new OrdersNewsEntity();
-//        entity.state = 1;
-//        entity.time = "2015年6月25日 8:20:00";
-//        entity.tjtime = "2015年6月26日 8:20:00";
-//        entity.khinfo = "浙江省杭州市 张小江";
-//        entity.ordermoney = "11,900.00";
-//        entity.yjmoney = "100.00";
-//        list.add(entity);
-//        OrdersNewsEntity entity1 = new OrdersNewsEntity();
-
-//        list.add(entity1);
-//        adapter = new OrdersNewsAdapter(getActivity(), list);
-//        listView.setAdapter(adapter);
 
     }
 
@@ -101,15 +92,17 @@ public class Fragment_OrderNews extends LFragment {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONArray json = jsonObject.getJSONArray("list");
+                if(json.equals("")||json.equals(null)||json.length()<1){
+                    rl_newws.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
+                }else{
+                    rl_newws.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject jsob = json.getJSONObject(i);
                     OrdersNewsEntity entity = new OrdersNewsEntity();
-                    //        entity1.state = 0;
-//        entity1.time = "2015年6月25日 8:20:00";
-//        entity1.tjtime = "2015年6月26日 8:20:00";
-//        entity1.khinfo = "浙江省杭州市 张小江";
-//        entity1.ordermoney = "11,900.00";
-//        entity1.yjmoney = "100.00";
+
                     entity.setId(jsob.getString("id"));
                     entity.setOrderid(jsob.getString("orderid"));
                     entity.setUser_info(jsob.getString("user_info"));
@@ -123,11 +116,13 @@ public class Fragment_OrderNews extends LFragment {
                 adapter = new OrdersNewsAdapter(getActivity(), list);
                 listView.setAdapter(adapter);
 
-            } else {
+            } }else {
                 T.ss(jsonObject.getString("info"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_newws.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
         }
     }
 

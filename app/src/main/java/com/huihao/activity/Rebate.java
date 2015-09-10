@@ -23,10 +23,11 @@ public class Rebate extends LActivity {
     private RebatePager pagerAdapter;
     private PagerSlidingTabStrip tabStrip;
     private ViewPager viewPager;
-
+    public static Rebate instance = null;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_rebate);
+        instance=this;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }

@@ -21,5 +21,46 @@
         android:layout_height="match_parent"
         android:background="@null"
         android:divider="@null"
-        android:scrollbars="none"></ListView>
+        android:scrollbars="none"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_gcopus"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/img_shop"
+            android:layout_width="113dp"
+            android:layout_height="113dp"
+            android:layout_alignBottom="@+id/tccoup"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="50dp"
+            android:background="@mipmap/ccoup" />
+
+        <TextView
+            android:id="@+id/tccoup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="您还没有优惠卷哦"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_big" />
+
+        <Button
+            android:id="@+id/btn_gos"
+            android:layout_width="75dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_ok"
+            android:text="去逛逛"
+            android:layout_alignTop="@+id/tccoup"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="42dp"
+            android:textColor="@color/app_green"
+            android:textSize="@dimen/app_text_big" />
+    </RelativeLayout>
 </LinearLayout>

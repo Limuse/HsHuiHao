@@ -1,14 +1,19 @@
 package com.huihao.fragment;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.huihao.R;
+import com.huihao.activity.All_Orders;
+import com.huihao.activity.HomeMain;
 import com.huihao.adapter.AllOrderAdapter;
 import com.huihao.common.Token;
 import com.huihao.entity.AllOrderEntity;
@@ -36,7 +41,8 @@ public class Fragment_reserve extends LFragment {
     private List<AllOrderEntity> list = new ArrayList<AllOrderEntity>();
     private AllOrderAdapter adapter;
     private List<AllOrderEntity.ChildEntity> itemlist = null;//new ArrayList<AllOrderEntity.ChildEntity>();
-
+    private RelativeLayout rl_gssa;
+    private Button btn_gsas;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,21 @@ public class Fragment_reserve extends LFragment {
         super.onActivityCreated(savedInstanceState);
         initView();
         initData();
+    }
+    private void initView() {
+        rl_gssa=(RelativeLayout)getView().findViewById(R.id.rl_gssa);
+        btn_gsas=(Button)getView().findViewById(R.id.btn_gsas);
+        listView = (ListView) getView().findViewById(R.id.lv_reserve);
+        btn_gsas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), HomeMain.class);
+                getActivity().startActivity(intent);
+                getActivity().finish();
+                All_Orders.instance.finish();
+                Fragment_my.instance.getActivity().finish();
+            }
+        });
     }
     private void initData() {
 //t 订单状态（1未付款2待发货3待收货，不传则表示全部订单）
@@ -87,6 +108,13 @@ public class Fragment_reserve extends LFragment {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONObject o = jsonObject.getJSONObject("list");
+                if(o.equals("")||o.equals(null)||o.length()<1){
+                    rl_gssa.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
+                }else{
+                    rl_gssa.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+
                 JSONArray jo = o.getJSONArray("orderlist");
                 for (int i = 0; i < jo.length(); i++) {
                     JSONObject ob = jo.getJSONObject(i);
@@ -119,18 +147,18 @@ public class Fragment_reserve extends LFragment {
                 adapter = new AllOrderAdapter(Fragment_reserve.this, list);
                 listView.setAdapter(adapter);
 
-            } else {
+            } } else {
 
                 T.ss(jsonObject.getString("info").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_gssa.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
         }
     }
 
-    private void initView() {
-        listView = (ListView) getView().findViewById(R.id.lv_reserve);
-    }
+
 
     public static Fragment_reserve newInstance() {
         Fragment_reserve fragment = new Fragment_reserve();

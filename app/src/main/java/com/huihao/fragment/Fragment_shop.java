@@ -18,8 +18,10 @@ import android.widget.TextView;
 
 import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.activity.HomeMain;
 import com.huihao.activity.Submit_Orders;
 import com.huihao.adapter.HorizontalSlideAdapter;
+import com.huihao.common.Token;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.ShopItemEntity;
 import com.huihao.entity.UsErId;
@@ -178,7 +180,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
     private void initData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/cart/1/sign/aggregation/?uuid=" + UsErId.uuid;
+                + "/huihao/cart/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
 
         // Fragment用FragmentHandler/Activity用ActivityHandler
@@ -235,12 +237,13 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                 Tsum();
 
             } }else {
-                T.ss("获取数据失败");
-                rl_shops.setVisibility(View.GONE);
-                rl_gshops.setVisibility(View.VISIBLE);
+                T.ss(jsonObject.getString("info").toString());
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_shops.setVisibility(View.GONE);
+            rl_gshops.setVisibility(View.VISIBLE);
         }
     }
 
@@ -303,9 +306,10 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
 //                tv_all_choose.setText("全选");
 //            }
 //        }
-        if (v == btn_go) {
-            Intent intent = new Intent(getActivity(), Fragment_main.class);
+        if (v ==btn_go) {
+            Intent intent = new Intent(getActivity(), HomeMain.class);
             startActivity(intent);
+            getActivity().finish();
         }
         /**
          * 点击结算

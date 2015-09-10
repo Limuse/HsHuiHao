@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.huihao.R;
 import com.huihao.adapter.MoneyNewsAdapter;
+import com.huihao.common.Token;
 import com.huihao.entity.MoneyNewsEntity;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.FragmentHandler;
@@ -33,6 +35,7 @@ public class Fragment_MoneyNews extends LFragment {
     private ListView listView;
     private MoneyNewsAdapter adapter;
     private List<MoneyNewsEntity> list = null;
+    private RelativeLayout rl_newwss;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,48 +56,18 @@ public class Fragment_MoneyNews extends LFragment {
     }
 
     private void initView() {
+        rl_newwss=(RelativeLayout)getActivity().findViewById(R.id.rl_newwss);
         listView = (ListView) getActivity().findViewById(R.id.lv_money);
     }
 
     private void initData() {
         list = new ArrayList<MoneyNewsEntity>();
         Resources res = getResources();
-        String url = res.getString(R.string.app_service_url) + "/huihao/member/usermsg/1/sign/aggregation/?t=3&uuid=" + UsErId.uuid;
+        String url = res.getString(R.string.app_service_url) + "/huihao/member/usermsg/1/sign/aggregation/?t=3&uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-        L.e(url);
+       // L.e(url);
         FragmentHandler handler = new FragmentHandler(Fragment_MoneyNews.this);
         handler.startLoadingData(entity, 1);
-
-//        list = new ArrayList<MoneyNewsEntity>();
-//        MoneyNewsEntity entity = new MoneyNewsEntity();
-//        entity.time = "2015年5月12日 13:12:30";
-//        entity.num = "12345124531";
-//        entity.money = "45";
-//        list.add(entity);
-//        MoneyNewsEntity entity1 = new MoneyNewsEntity();
-//        entity1.time = "2015年5月12日 13:12:30";
-//        entity1.num = "12345124531";
-//        entity1.money = "45";
-//        list.add(entity1);
-//        MoneyNewsEntity entity2 = new MoneyNewsEntity();
-//        entity2.time = "2015年5月12日 13:12:30";
-//        entity2.num = "12345124531";
-//        entity2.money = "45";
-//        list.add(entity2);
-//        MoneyNewsEntity entity3 = new MoneyNewsEntity();
-//        entity3.time = "2015年5月12日 13:12:30";
-//        entity3.num = "12345124531";
-//        entity3.money = "45";
-//        list.add(entity3);
-//        MoneyNewsEntity entity4 = new MoneyNewsEntity();
-//        entity4.time = "2015年5月12日 13:12:30";
-//        entity4.num = "12345124531";
-//        entity4.money = "45";
-//        list.add(entity4);
-//        adapter = new MoneyNewsAdapter(getActivity(), list);
-//        listView.setAdapter(adapter);
-
-
     }
 
     // 返回获取的网络数据
@@ -115,6 +88,13 @@ public class Fragment_MoneyNews extends LFragment {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONArray json = jsonObject.getJSONArray("list");
+                if(json.equals("")||json.equals(null)||json.length()<1){
+                    rl_newwss.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
+                }else{
+                    rl_newwss.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+
                 for (int i = 0; i < json.length(); i++) {
                     MoneyNewsEntity entity = new MoneyNewsEntity();
                     JSONObject jsb = json.getJSONObject(i);
@@ -125,11 +105,13 @@ public class Fragment_MoneyNews extends LFragment {
                 }
                 adapter = new MoneyNewsAdapter(getActivity(), list);
                 listView.setAdapter(adapter);
-            } else {
+            }  }else {
                 T.ss(jsonObject.getString("info"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_newwss.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
         }
     }
 

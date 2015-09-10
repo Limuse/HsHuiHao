@@ -9,11 +9,15 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.huihao.R;
+import com.huihao.activity.All_Orders;
+import com.huihao.activity.HomeMain;
 import com.huihao.activity.Pay_Successed;
 import com.huihao.adapter.AllOrderAdapter;
 import com.huihao.common.PayResult;
@@ -50,7 +54,8 @@ public class Fragment_Orders extends LFragment {
     private List<AllOrderEntity> list = new ArrayList<AllOrderEntity>();
     private AllOrderAdapter adapter;
     private List<AllOrderEntity.ChildEntity> itemlist = null;//new ArrayList<AllOrderEntity.ChildEntity>();
-
+    private RelativeLayout rl_gsss;
+    private Button btn_gsa;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,8 +78,19 @@ public class Fragment_Orders extends LFragment {
     }
 
     private void initView() {
-
+        rl_gsss=(RelativeLayout)getView().findViewById(R.id.rl_gsss);
+        btn_gsa=(Button) getView().findViewById(R.id.btn_gsa);
         listView = (ListView) getView().findViewById(R.id.lv_showall);
+        btn_gsa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), HomeMain.class);
+                getActivity().startActivity(intent);
+                getActivity().finish();
+                All_Orders.instance.finish();
+                Fragment_my.instance.getActivity().finish();
+            }
+        });
     }
 
 
@@ -110,6 +126,13 @@ public class Fragment_Orders extends LFragment {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONObject o = jsonObject.getJSONObject("list");
+                if(o.equals("")||o.equals(null)||o.length()<1){
+                    rl_gsss.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
+                }else{
+                    rl_gsss.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+
                 JSONArray jo = o.getJSONArray("orderlist");
                 for (int i = 0; i < jo.length(); i++) {
                     JSONObject ob = jo.getJSONObject(i);
@@ -143,12 +166,14 @@ public class Fragment_Orders extends LFragment {
                 listView.setAdapter(adapter);
 
 
-            } else {
+            }  }else {
 
                 T.ss(jsonObject.getString("info").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_gsss.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
         }
     }
 

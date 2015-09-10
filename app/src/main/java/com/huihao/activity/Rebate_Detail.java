@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,13 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.huihao.R;
 import com.huihao.adapter.TebateDetailAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.RebateDetailEntity;
 import com.huihao.entity.UsErId;
+import com.huihao.fragment.Fragment_my;
 import com.huihao.handle.ActivityHandler;
 import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.LActivity;
@@ -37,7 +42,8 @@ public class Rebate_Detail extends LActivity {
     private ListView listView;
     private TebateDetailAdapter adapter;
     private List<RebateDetailEntity> list = new ArrayList<RebateDetailEntity>();
-
+    private RelativeLayout rl_rebt;
+    private Button btn_rebt;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -65,7 +71,20 @@ public class Rebate_Detail extends LActivity {
             }
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
+        rl_rebt=(RelativeLayout)findViewById(R.id.rl_rebt);
+        btn_rebt=(Button)findViewById(R.id.btn_rebt);
         listView = (ListView) findViewById(R.id.lv_redatil);
+        btn_rebt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Rebate_Detail.this,HomeMain.class);
+                startActivity(intent);
+                finish();
+                Rebate.instance.finish();
+                Fragment_my.instance.getActivity().finish();
+
+            }
+        });
     }
 
 
@@ -75,11 +94,11 @@ public class Rebate_Detail extends LActivity {
         String s = getIntent().getExtras().getString("s");
         if (s.equals("1")) {
             url = res.getString(R.string.app_service_url)
-                    + "/huihao/member/commissiondetail/1/sign/aggregation/?uuid="+ UsErId.uuid;
+                    + "/huihao/member/commissiondetail/1/sign/aggregation/?uuid="+ Token.get(this);
 
         } else if (s.equals("2")) {
             url = res.getString(R.string.app_service_url)
-                    + "/huihao/member/profitsdetail/1/sign/aggregation/?uuid="+UsErId.uuid;
+                    + "/huihao/member/profitsdetail/1/sign/aggregation/?uuid="+Token.get(this);
 
         }
         LReqEntity entity = new LReqEntity(url);
@@ -108,6 +127,12 @@ public class Rebate_Detail extends LActivity {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONArray o = jsonObject.getJSONArray("list");
+                if(o.equals("")||o.equals(null)||o.length()<1){
+                    rl_rebt.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
+                }else{
+                    rl_rebt.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
                 for (int i = 0; i < o.length(); i++) {
                     JSONObject js = o.getJSONObject(i);
                     RebateDetailEntity entity = new RebateDetailEntity();
@@ -122,12 +147,14 @@ public class Rebate_Detail extends LActivity {
                 adapter = new TebateDetailAdapter(this, list);
                 listView.setAdapter(adapter);
 
-            } else {
+            } }else {
 
                 T.ss(jsonObject.getString("info").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_rebt.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
         }
     }
 

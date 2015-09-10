@@ -1,25 +1,31 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.sax.RootElement;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.huihao.R;
 import com.huihao.adapter.ChooseAddressAdapter;
 import com.huihao.adapter.CouponsAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.AddressItemEntity;
 import com.huihao.entity.CouponsEntity;
 import com.huihao.entity.UsErId;
+import com.huihao.fragment.Fragment_my;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
@@ -40,9 +46,10 @@ import java.util.List;
 public class My_Coupons extends LActivity {
     private ListView listview;
     private List<CouponsEntity> list = new ArrayList<CouponsEntity>();
-
+    private RelativeLayout rl_gcopus;
     private CouponsAdapter adapter;
     private LinearLayout headview;
+    private Button btn_gos;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -72,7 +79,19 @@ public class My_Coupons extends LActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
         headview = (LinearLayout) LayoutInflater.from(My_Coupons.this).inflate(R.layout.listview_head, null);
         listview = (ListView) findViewById(R.id.lv_coupons);
+        rl_gcopus = (RelativeLayout) findViewById(R.id.rl_gcopus);
+        btn_gos = (Button) findViewById(R.id.btn_gos);
         listview.addHeaderView(headview);
+        btn_gos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(My_Coupons.this, HomeMain.class);
+                startActivity(intent);
+                finish();
+                Fragment_my.instance.getActivity().finish();
+
+            }
+        });
 
     }
 
@@ -80,7 +99,7 @@ public class My_Coupons extends LActivity {
     private void initData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/coupon/1/sign/aggregation/?uuid=" + UsErId.uuid;
+                + "/huihao/orders/coupon/1/sign/aggregation/?uuid=" + Token.get(this);
         LReqEntity entity = new LReqEntity(url);
         //http://huihaowfx.huisou.com/uuid=6a35c1ed7255077d57d57be679048034
         // Fragment用FragmentHandler/Activity用ActivityHandler
@@ -95,10 +114,12 @@ public class My_Coupons extends LActivity {
             int code = jsonObject.getInt("status");
             if (code == 1) {
 
-                if (jsonObject.getString("list").equals(null) || jsonObject.getString("list").equals("") || jsonObject.getString("list").equals("null")) {
-                    T.ss("没有数据");
-
+                if (jsonObject.getString("list").equals(null) || jsonObject.getString("list").equals("") || jsonObject.getString("list").equals("null") || jsonObject.getString("list").length() < 1) {
+                    rl_gcopus.setVisibility(View.VISIBLE);
+                    listview.setVisibility(View.GONE);
                 } else {
+                    rl_gcopus.setVisibility(View.GONE);
+                    listview.setVisibility(View.VISIBLE);
                     JSONArray array = jsonObject.getJSONArray("list");
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
@@ -117,10 +138,14 @@ public class My_Coupons extends LActivity {
 
                 }
             } else {
-                T.ss("获取数据失败");
+                T.ss(jsonObject.getString("info").toString());
+//                rl_gcopus.setVisibility(View.VISIBLE);
+//                listview.setVisibility(View.GONE);
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_gcopus.setVisibility(View.VISIBLE);
+            listview.setVisibility(View.GONE);
         }
     }
 

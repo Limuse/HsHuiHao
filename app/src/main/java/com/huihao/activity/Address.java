@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.huihao.R;
@@ -42,11 +43,12 @@ import java.util.List;
  * Created by huisou on 2015/8/4.
  */
 public class Address extends LActivity implements View.OnClickListener {
-    private Button btn_add_addr;
+    private Button btn_add_addr, btn_gods;
     private SlideListView2 listView;
     private AddressHoriSliseAdapter adapter;
     private List<AddressItemEntity> list = new ArrayList<AddressItemEntity>();
     private LinearLayout headview;
+    private RelativeLayout rl_gaddr, rl_all;
     private Address context;
 
     @Override
@@ -78,10 +80,14 @@ public class Address extends LActivity implements View.OnClickListener {
         headview = (LinearLayout) LayoutInflater.from(Address.this).inflate(R.layout.listview_head, null);
         listView = (SlideListView2) findViewById(R.id.lv_list_addr);
         listView.addHeaderView(headview);
+        rl_all = (RelativeLayout) findViewById(R.id.rl_all);
+        rl_gaddr = (RelativeLayout) findViewById(R.id.rl_gaddr);
+        btn_gods = (Button) findViewById(R.id.btn_gods);
         btn_add_addr = (Button) findViewById(R.id.btn_add_addr);
+        btn_gods.setOnClickListener(this);
         btn_add_addr.setOnClickListener(this);
         listView.initSlideMode(SlideListView2.MOD_RIGHT);
-       // listView.setOnItemClickListener(this);
+        // listView.setOnItemClickListener(this);
 
     }
 
@@ -103,7 +109,7 @@ public class Address extends LActivity implements View.OnClickListener {
     private void initData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/myaddress/1/sign/aggregation/?uuid="+ UsErId.uuid;
+                + "/huihao/myaddress/1/sign/aggregation/?uuid=" + UsErId.uuid;
         LReqEntity entity = new LReqEntity(url);
         //http://huihaowfx.huisou.com//huihao/myaddress/1/sign/aggregation/?uuid=6a35c1ed7255077d57d57be679048034
         // Fragment用FragmentHandler/Activity用ActivityHandler
@@ -118,6 +124,13 @@ public class Address extends LActivity implements View.OnClickListener {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONObject result = jsonObject.getJSONObject("list");
+                if (result.length() < 1) {
+                    rl_gaddr.setVisibility(View.VISIBLE);
+                    rl_all.setVisibility(View.GONE);
+                }else{
+                    rl_gaddr.setVisibility(View.GONE);
+                    rl_all.setVisibility(View.VISIBLE);
+
                 JSONArray array = result.getJSONArray("address_list");
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
@@ -134,11 +147,14 @@ public class Address extends LActivity implements View.OnClickListener {
                 adapter = new AddressHoriSliseAdapter(context, list, listView);
                 listView.setAdapter(adapter);
 
-            } else {
-                T.ss("获取数据失败");
+            }
+            }else {
+                T.ss(jsonObject.getString("info").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            rl_gaddr.setVisibility(View.VISIBLE);
+            rl_all.setVisibility(View.GONE);
         }
     }
 
@@ -179,6 +195,10 @@ public class Address extends LActivity implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btn_add_addr) {
+            Intent intnet = new Intent(this, Add_Address.class);
+            startActivity(intnet);
+        }
+        if (id == R.id.btn_gods) {
             Intent intnet = new Intent(this, Add_Address.class);
             startActivity(intnet);
         }

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
+
     <ListView
-        android:layout_marginTop="@dimen/app_myself_left_mar"
         android:id="@+id/lv_extraing"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/app_myself_left_mar"
         android:background="@null"
         android:cacheColorHint="#00000000"
         android:clickable="true"
@@ -21,5 +22,46 @@
         android:focusable="true"
         android:layoutAnimation="@anim/navagation_listview_anim4"
         android:listSelector="#00000000"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_accc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/img_shop"
+            android:layout_width="113dp"
+            android:layout_height="113dp"
+            android:layout_alignBottom="@+id/tasss"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="50dp"
+            android:background="@mipmap/accc" />
+
+        <TextView
+            android:id="@+id/tasss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="您还没有相关记录哦"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_big" />
+
+        <Button
+            android:id="@+id/btn_accc"
+            android:layout_width="75dp"
+            android:layout_height="45dp"
+            android:layout_alignTop="@+id/tasss"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="42dp"
+            android:background="@drawable/btn_ok"
+            android:text="去逛逛"
+            android:textColor="@color/app_green"
+            android:textSize="@dimen/app_text_big" />
+    </RelativeLayout>
 </RelativeLayout>

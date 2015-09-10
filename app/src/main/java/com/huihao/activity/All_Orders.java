@@ -26,10 +26,11 @@ public class All_Orders extends LActivity {
     private PagerSlidingTabStrip tabStrip;
     private ViewPager viewPager;
     private MyAllOrderMainPager pagerAdapter;
-
+    public static All_Orders instance = null;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.fragment_allorder);
+        instance=this;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }

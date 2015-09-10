@@ -21,5 +21,45 @@
         android:layoutAnimation="@anim/navagation_listview_anim4"
         android:listSelector="#00000000"
         android:scrollbars="none" />
+    <RelativeLayout
+        android:id="@+id/rl_gssa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/img_shop"
+            android:layout_width="113dp"
+            android:layout_height="113dp"
+            android:layout_alignBottom="@+id/tassa"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="50dp"
+            android:background="@mipmap/ssaa" />
+
+        <TextView
+            android:id="@+id/tassa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="您还没有相关订单哦"
+            android:textColor="@color/app_text_dark"
+            android:textSize="@dimen/app_text_big" />
+
+        <Button
+            android:id="@+id/btn_gsas"
+            android:layout_width="75dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_ok"
+            android:text="去逛逛"
+            android:layout_alignTop="@+id/tassa"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="42dp"
+            android:textColor="@color/app_green"
+            android:textSize="@dimen/app_text_big" />
+    </RelativeLayout>
 </RelativeLayout>
 

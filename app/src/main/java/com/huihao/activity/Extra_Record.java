@@ -28,9 +28,11 @@ public class Extra_Record extends LActivity {
     private PagerSlidingTabStrip tabStrip;
     private ViewPager viewPager;
     private ExtraRecordPager pagerAdapter;
+    public static Extra_Record instance=null;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_extra_recode);
+        instance=this;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }

@@ -63,7 +63,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     private ImageLoader imageLoader;
     private String img;
     private MyEntiy.StatusListEntity statusListEntity;
-
+    public static Fragment_my instance = null;
     private List<MyEntiy.StatusListEntity> listEntities = new ArrayList<MyEntiy.StatusListEntity>();
 
     public void onCreate(Bundle savedInstanceState) {
@@ -80,9 +80,11 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        instance = Fragment_my.this;
         initView();
         Data();
     }
+
     private void initView() {
         myself_image = (ImageView) getActivity().findViewById(R.id.myself_image);
         emails = (ImageView) getActivity().findViewById(R.id.person_emlss);//消息
@@ -153,7 +155,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         int id = v.getId();
         //消息
         if (id == R.id.person_emls) {
-            T.ss("跳到消息的页面");
+            // T.ss("跳到消息的页面");
             Intent intent = new Intent(getActivity(), News.class);
             getActivity().startActivity(intent);
             img_n.setVisibility(View.GONE);
@@ -161,12 +163,14 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         //头像
         if (id == R.id.myself_image) {
             Intent intent = new Intent(getActivity(), PersonSet.class);
+            intent.putExtra("img",img);
+            intent.putExtra("names", tv_name.getText());
             getActivity().startActivity(intent);
         }
 
         //待付款
         if (id == R.id.rl_tv1) {
-            T.ss("待付款");
+            // T.ss("待付款");
             //tv_1.setVisibility(View.VISIBLE);
             Intent intent = new Intent(getActivity(), All_Orders.class);
             intent.putExtra("gets", "1");
@@ -175,16 +179,16 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         }
         //待发货
         if (id == R.id.rl_tv2) {
-            T.ss("待发货");
+            //   T.ss("待发货");
             // tv_2.setVisibility(View.VISIBLE);
             Intent intent = new Intent(getActivity(), All_Orders.class);
             intent.putExtra("gets", "2");
             getActivity().startActivity(intent);
             tv_2.setVisibility(View.GONE);
         }
-        //带收货
+        //待收货
         if (id == R.id.rl_tv3) {
-            T.ss("带收货");
+            //  T.ss("待收货");
             //  tv_3.setVisibility(View.VISIBLE);
             Intent intent = new Intent(getActivity(), All_Orders.class);
             intent.putExtra("gets", "3");
@@ -248,7 +252,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
 
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/member/1/sign/aggregation/?uuid="+ UsErId.uuid;//+Token.get(this);
+                + "/huihao/member/1/sign/aggregation/?uuid=" + UsErId.uuid;//+Token.get(this);
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(Fragment_my.this);
         handler.startLoadingData(entity, 1);

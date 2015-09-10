@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.common.HavaSdCard;
 import com.huihao.common.SystemBarTintManager;
@@ -35,6 +36,9 @@ import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
 import com.leo.base.util.T;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +64,8 @@ public class PersonSet extends LActivity implements View.OnClickListener {
 
 
     private static final String IMAGE_FILE_NAME_TEMP = "hh_image.jpg";
-
+    private DisplayImageOptions options;
+    private ImageLoader imageLoader;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_person_set);
@@ -81,6 +86,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
 
 
     }
+
 
     private void initView() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
@@ -109,9 +115,29 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         rl_name.setOnClickListener(this);
 
         rl_pwd.setOnClickListener(this);
-
+        String ims=getIntent().getExtras().getString("img");
+        img=ims;
+        String names=getIntent().getExtras().getString("names");
+        tv_name.setText(names);
+        img();
     }
+    private void img() {
+        // 图片
+        if (imageLoader == null) {
+            imageLoader = MyApplication.getInstance().getImageLoader();
+        }
 
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.title_img)
+                .showImageForEmptyUri(R.mipmap.title_img)
+                .showImageOnFail(R.mipmap.title_img).cacheInMemory(true)
+                .cacheOnDisk(true).considerExifParams(true)
+                .displayer(new FadeInBitmapDisplayer(200))
+                        //.displayer(new CircleBitmapDisplayer())
+                        // .displayer(new RoundedBitmapDisplayer(99))
+                .build();
+        imageLoader.displayImage(img, my_imgs, options);
+    }
     private void initDialog(View view) {
         Button btn_play = (Button) view.findViewById(R.id.btn_play);
         Button btn_pics = (Button) view.findViewById(R.id.btn_pics);
@@ -212,7 +238,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                         photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] bytes = baos.toByteArray();
                         logoBase = Base64.encodeToString(bytes, Base64.DEFAULT);
-                        my_imgs.setImageBitmap(photo);
+                       // my_imgs.setImageBitmap(photo);
                         img = logoBase;//当上传时可以上传img
                         picloade();
                     }
