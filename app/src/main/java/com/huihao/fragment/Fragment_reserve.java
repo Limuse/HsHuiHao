@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.huihao.R;
 import com.huihao.adapter.AllOrderAdapter;
+import com.huihao.common.Token;
 import com.huihao.entity.AllOrderEntity;
 import com.huihao.entity.AllOrderItemEntity;
 import com.huihao.entity.UsErId;
@@ -59,7 +60,7 @@ public class Fragment_reserve extends LFragment {
 //t 订单状态（1未付款2待发货3待收货，不传则表示全部订单）
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/1/sign/aggregation/?t=2&uuid="+ UsErId.uuid;
+                + "/huihao/orders/1/sign/aggregation/?t=2&uuid="+ Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(Fragment_reserve.this);
         handler.startLoadingData(entity, 1);
@@ -115,7 +116,7 @@ public class Fragment_reserve extends LFragment {
 
                 }
 
-                adapter = new AllOrderAdapter(getActivity(), list);
+                adapter = new AllOrderAdapter(Fragment_reserve.this, list);
                 listView.setAdapter(adapter);
 
             } else {

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
@@ -109,7 +111,32 @@ public class More extends LActivity implements View.OnClickListener {
         }
         //客服电话
         if (mid == R.id.rl_kp) {
-            T.ss("客服电话");
+            final CustomDialog alertDialog = new CustomDialog.Builder(this).
+                    setMessage("确定联系客服吗？").
+                    setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "正在呼叫  " + "400-123-123",
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                            Uri uri = Uri.parse("tel:"
+                                    +"400-123-123");
+                            Intent intent = new Intent(
+                                    Intent.ACTION_CALL, uri);
+                            startActivity(intent);
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).create();
+
+
+            alertDialog.show();
         }
         //版权信息
         if (mid == R.id.rl_bx) {

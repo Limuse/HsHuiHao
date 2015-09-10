@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.huihao.R;
 import com.huihao.adapter.AllOrderAdapter;
+import com.huihao.common.Token;
 import com.huihao.entity.AllOrderEntity;
 import com.huihao.entity.AllOrderItemEntity;
 import com.huihao.entity.UsErId;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TooManyListenersException;
 
 /**
  * Created by huisou on 2015/7/31.
@@ -63,7 +65,7 @@ public class Fragment_back_money extends LFragment {
 //t 订单状态（1未付款2待发货3待收货，不传则表示全部订单）
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/1/sign/aggregation/?uuid="+ UsErId.uuid;
+                + "/huihao/orders/1/sign/aggregation/?t=3&uuid="+ Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(Fragment_back_money.this);
         handler.startLoadingData(entity, 1);
@@ -119,7 +121,7 @@ public class Fragment_back_money extends LFragment {
 
                 }
 
-                adapter = new AllOrderAdapter(getActivity(), list);
+                adapter = new AllOrderAdapter(Fragment_back_money.this, list);
                 listview.setAdapter(adapter);
 
             } else {

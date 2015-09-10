@@ -2,14 +2,22 @@ package com.huihao.fragment;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.huihao.R;
 import com.huihao.adapter.AllOrderAdapter;
+import com.huihao.common.PayResult;
+import com.huihao.common.SignUtils;
+import com.huihao.common.Token;
 import com.huihao.entity.AllOrderEntity;
 import com.huihao.entity.AllOrderItemEntity;
 import com.huihao.entity.UsErId;
@@ -23,8 +31,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 /**
  * Created by huisou on 2015/7/31.
@@ -53,6 +67,7 @@ public class Fragment_pay_money extends LFragment {
         super.onActivityCreated(savedInstanceState);
         initView();
         initData();
+
     }
 
     private void initView() {
@@ -63,7 +78,7 @@ public class Fragment_pay_money extends LFragment {
 //t 订单状态（1未付款2待发货3待收货，不传则表示全部订单）
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/1/sign/aggregation/?t=1&uuid="+ UsErId.uuid;
+                + "/huihao/orders/1/sign/aggregation/?t=1&uuid="+ Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(Fragment_pay_money.this);
         handler.startLoadingData(entity, 1);
@@ -119,7 +134,7 @@ public class Fragment_pay_money extends LFragment {
 
                 }
 
-                adapter = new AllOrderAdapter(getActivity(), list);
+                adapter = new AllOrderAdapter(Fragment_pay_money.this, list);
                 listView.setAdapter(adapter);
 
             } else {

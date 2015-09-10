@@ -125,9 +125,9 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         rl_more.setOnClickListener(this);
         rl_image.setOnClickListener(this);
         rl_parper.setOnClickListener(this);
-        tv_1.setVisibility(View.VISIBLE);
-        tv_2.setVisibility(View.VISIBLE);
-        tv_3.setVisibility(View.VISIBLE);
+        tv_1.setVisibility(View.GONE);
+        tv_2.setVisibility(View.GONE);
+        tv_3.setVisibility(View.GONE);
     }
 
     private void img() {
@@ -248,7 +248,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
 
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/member/1/sign/aggregation/?uuid="+ UsErId.uuid;
+                + "/huihao/member/1/sign/aggregation/?uuid="+ UsErId.uuid;//+Token.get(this);
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(Fragment_my.this);
         handler.startLoadingData(entity, 1);

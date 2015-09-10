@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,8 +13,15 @@ import android.widget.EditText;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
+import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
+import com.leo.base.entity.LMessage;
+import com.leo.base.net.LReqEntity;
 import com.leo.base.util.T;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by huisou on 2015/8/10.
@@ -21,6 +29,7 @@ import com.leo.base.util.T;
  */
 public class FeedBack extends LActivity {
     private EditText et_desc, et_p;
+
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_feedback);
@@ -35,6 +44,7 @@ public class FeedBack extends LActivity {
     }
 
     private void initView() {
+
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("反馈");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
@@ -50,7 +60,15 @@ public class FeedBack extends LActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_messages) {
-                    T.ss("发送成功");
+                    Resources res = getResources();
+                    String url = res.getString(R.string.app_service_url)
+                            + "/huihao/member/leaveword/1/sign/aggregation/?uuid=" +
+                            Token.get(FeedBack.this) + "&content"
+                            + et_desc.getText().toString() +
+                            "&phone"+et_p.getText().toString();
+                    LReqEntity entity = new LReqEntity(url);
+                    ActivityHandler handler = new ActivityHandler(FeedBack.this);
+                    handler.startLoadingData(entity, 1);
                 }
                 return false;
             }
@@ -59,6 +77,35 @@ public class FeedBack extends LActivity {
 
         et_desc = (EditText) findViewById(R.id.et_backa);
         et_p = (EditText) findViewById(R.id.ed_fid);
+
+    }
+
+
+    // 返回获取的网络数据
+    public void onResultHandler(LMessage msg, int requestId) {
+        super.onResultHandler(msg, requestId);
+        if (msg != null) {
+            if (requestId == 1) {
+                getJsonData(msg.getStr());
+            } else {
+                T.ss("获取数据失败");
+            }
+        }
+    }
+
+    private void getJsonData(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                T.ss("提交成功！");
+
+            } else {
+                T.ss(jsonObject.getString("info"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @TargetApi(19)

@@ -43,6 +43,7 @@ public class My_Coupons extends LActivity {
 
     private CouponsAdapter adapter;
     private LinearLayout headview;
+
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_my_coupons);
@@ -79,7 +80,7 @@ public class My_Coupons extends LActivity {
     private void initData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/coupon/1/sign/aggregation/?uuid="+ UsErId.uuid;
+                + "/huihao/orders/coupon/1/sign/aggregation/?uuid=" + UsErId.uuid;
         LReqEntity entity = new LReqEntity(url);
         //http://huihaowfx.huisou.com/uuid=6a35c1ed7255077d57d57be679048034
         // Fragment用FragmentHandler/Activity用ActivityHandler
@@ -93,23 +94,28 @@ public class My_Coupons extends LActivity {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
             if (code == 1) {
-                JSONArray array = jsonObject.getJSONArray("list");
 
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject object = array.getJSONObject(i);
-                    CouponsEntity entity = new CouponsEntity();
-                    entity.cpmoney = object.getString("money");
-                    entity.cptitile = "汇好商城优惠卷";
-                    String tme = object.getString("end_time").substring(0, 10);
-                    entity.cptime = "使用期限" + tme + "前";
-                    // entity.cpuse = "满800可用";
-                    entity.cpid = object.getString("id");
-                    entity.t = -1;
-                    list.add(entity);
+                if (jsonObject.getString("list").equals(null) || jsonObject.getString("list").equals("") || jsonObject.getString("list").equals("null")) {
+                    T.ss("没有数据");
+
+                } else {
+                    JSONArray array = jsonObject.getJSONArray("list");
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject object = array.getJSONObject(i);
+                        CouponsEntity entity = new CouponsEntity();
+                        entity.cpmoney = object.getString("money");
+                        entity.cptitile = "汇好商城优惠卷";
+                        String tme = object.getString("end_time").substring(0, 10);
+                        entity.cptime = "使用期限" + tme + "前";
+                        // entity.cpuse = "满800可用";
+                        entity.cpid = object.getString("id");
+                        entity.t = -1;
+                        list.add(entity);
+                    }
+                    adapter = new CouponsAdapter(this, list);
+                    listview.setAdapter(adapter);
+
                 }
-                adapter = new CouponsAdapter(this, list);
-                listview.setAdapter(adapter);
-
             } else {
                 T.ss("获取数据失败");
             }

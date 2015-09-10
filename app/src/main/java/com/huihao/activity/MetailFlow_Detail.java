@@ -85,7 +85,7 @@ public class MetailFlow_Detail extends LActivity {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/orders/courier/1/sign/aggregation/?uuid=" + UsErId.uuid + "&id=" + ids;//ids
         LReqEntity entity = new LReqEntity(url);
-        L.e(url);
+       // L.e(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(this);
         handler.startLoadingData(entity, 1);

@@ -95,19 +95,17 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
-        tv_phone = (TextView) findViewById(R.id.setting_phone);
         tv_name = (TextView) findViewById(R.id.setting_name);
 //        tv_num = (TextView) findViewById(R.id.setting_num);
 
         rl_img = (RelativeLayout) findViewById(R.id.rl_img);
-        rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);
         rl_name = (RelativeLayout) findViewById(R.id.rl_name);
         rl_pwd = (RelativeLayout) findViewById(R.id.rl_pwd);
 
         my_imgs = (ImageView) findViewById(R.id.setting_img);
 
         rl_img.setOnClickListener(this);
-        rl_phone.setOnClickListener(this);
+
         rl_name.setOnClickListener(this);
 
         rl_pwd.setOnClickListener(this);
@@ -281,11 +279,11 @@ public class PersonSet extends LActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        //绑定手机号
-        if (id == R.id.rl_phone) {
-            Intent intent = new Intent(this, Update_Phone.class);
-            startActivity(intent);
-        }
+//        //绑定手机号
+//        if (id == R.id.rl_phone) {
+//            Intent intent = new Intent(this, Update_Phone.class);
+//            startActivity(intent);
+//        }
         //修改昵称
         if (id == R.id.rl_name) {
             Intent intent = new Intent(this, Update_Name.class);

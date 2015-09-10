@@ -102,6 +102,10 @@ public class Choose_Couppons extends LActivity {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
             if (code == 1) {
+                if (jsonObject.getString("list").equals(null) || jsonObject.getString("list").equals("") || jsonObject.getString("list").equals("null")) {
+                    T.ss("没有数据");
+
+                } else {
                 JSONArray array = jsonObject.getJSONArray("list");
 
                 for (int i = 0; i < array.length(); i++) {
@@ -119,7 +123,7 @@ public class Choose_Couppons extends LActivity {
                 adapter = new ChooseCouponsAdapter(this, list);
                 listview.setAdapter(adapter);
 
-            } else {
+            } }else {
                 T.ss("获取数据失败");
             }
         } catch (JSONException e) {

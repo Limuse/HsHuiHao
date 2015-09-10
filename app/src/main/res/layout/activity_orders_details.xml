@@ -57,7 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:clickable="true">
+                android:clickable="true"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/parper"
@@ -97,7 +98,7 @@
                             android:textColor="@color/app_green"
                             android:textSize="@dimen/app_myself_tex" />
 
-                        <TextView
+                    <!--    <TextView
                             android:id="@+id/tv_qqt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -105,7 +106,7 @@
                             android:layout_marginTop="8dp"
                             android:text="2015-08-12 14:23:26"
                             android:textColor="@color/app_text_light"
-                            android:textSize="@dimen/app_myself_tex" />
+                            android:textSize="@dimen/app_myself_tex" />-->
 
                     </LinearLayout>
 
@@ -177,7 +178,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_weight="0.8"
                             android:gravity="center_vertical"
-                            android:text="收货人：张三"
+                            android:text="收货人："
                             android:textColor="@color/app_text_dark"
                             android:textSize="@dimen/app_text_big" />
 
@@ -190,7 +191,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_weight="0"
                             android:gravity="center"
-                            android:text="1426537872432"
+                            android:text=""
                             android:textColor="@color/app_text_dark"
                             android:textSize="@dimen/app_text_big" />
                     </LinearLayout>
@@ -209,7 +210,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:singleLine="false"
-                            android:text="收货地址：张三张三张三张三张三张三张三张三张三张三张三张三"
+                            android:text="收货地址："
                             android:textColor="@color/app_text_dark"
                             android:textSize="@dimen/app_text_big" />
                     </LinearLayout>
@@ -277,7 +278,7 @@
                         android:layout_marginBottom="@dimen/app_myself_left_mar"
                         android:layout_marginTop="8dp"
                         android:singleLine="false"
-                        android:text="张三张三张三三张三张三"
+                        android:text=""
                         android:textColor="@color/app_text_dark"
                         android:textSize="@dimen/app_text_big" />
 
@@ -395,7 +396,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/app_myself_left_mar"
-                    android:text="20.00"
+                    android:text=""
                     android:textColor="@color/app_text_dark"
                     android:textSize="@dimen/app_myself_tex" />
 
@@ -427,7 +428,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/app_setting_right"
-                    android:text="20.00"
+                    android:text=""
                     android:textColor="@color/app_orange"
                     android:textSize="18sp" />
 
@@ -524,6 +525,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_send"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/app_white"
@@ -568,7 +570,8 @@
                     android:singleLine="false"
                     android:text="您的订单已发货您的订单已发货您的订单已发货您的订单已发货"
                     android:textColor="@color/app_text_light"
-                    android:textSize="@dimen/app_text_big" />
+                    android:textSize="@dimen/app_text_big"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>
@@ -586,7 +589,8 @@
                 android:layout_height="54dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/app_white"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <Button
                     android:id="@+id/btn_kf"

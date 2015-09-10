@@ -351,29 +351,27 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         }
         //结算
         if (id == R.id.btn_alljs) {
-            // http://huihaowfx.huisou.com/huihao/orders/addorder/1/sign/aggregation/uuid=6a35c1ed7255077d57d57be679048034&spec_id=463&spec_num=4&payment_id=3&address_id=3&exress_id=3
-//            if (addridss==null) {
-//                T.ss("请选择收货地址");
-//            } else {
-//                Map<String, String> map = new HashMap<String, String>();
-//                map.put("uuid", UsErId.uuid);
-//                map.put("spec_id", spec_id);
-//                map.put("spec_num", spec_num);
-//                map.put("payment_id", "3");
-//                map.put("coupon_arr", cids);
-//                map.put("address_id", addridss);
-//                map.put("exress_id", exress_id);
-//                map.put("buy_message", et_please_num.getText().toString());
-//                Resources res = getResources();
-//                String url = res.getString(R.string.app_service_url)
-//                        + "/huihao/orders/addorder/1/sign/aggregation/";
-//                LReqEntity entity = new LReqEntity(url, map);
-//                ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
-//                handler.startLoadingData(entity, 1);
-//            }
-            Intent intent = new Intent(Submit_Orders.this, Pay_Successed.class);
+//             http://huihaowfx.huisou.com/huihao/orders/addorder/1/sign/aggregation/uuid=6a35c1ed7255077d57d57be679048034&spec_id=463&spec_num=4&payment_id=3&address_id=3&exress_id=3
+            if (addridss==null) {
+                T.ss("请选择收货地址");
+            } else {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("uuid", UsErId.uuid);
+                map.put("spec_id", spec_id);
+                map.put("spec_num", spec_num);
+                map.put("payment_id", "3");
+                map.put("coupon_arr", cids);
+                map.put("address_id", addridss);
+                map.put("exress_id", exress_id);
+                map.put("buy_message", et_please_num.getText().toString());
+                Resources res = getResources();
+                String url = res.getString(R.string.app_service_url)
+                        + "/huihao/orders/addorder/1/sign/aggregation/";
+                LReqEntity entity = new LReqEntity(url, map);
+                ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
+                handler.startLoadingData(entity, 1);
+            }
 
-            startActivity(intent);
         }
     }
 

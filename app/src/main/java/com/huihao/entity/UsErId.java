@@ -1,5 +1,7 @@
 package com.huihao.entity;
 
+import com.huihao.common.Token;
+
 /**
  * Created by huisou on 2015/8/31.
  */
