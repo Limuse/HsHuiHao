@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.huihao.R;
 import com.huihao.adapter.ProductInfoImageAda;
+import com.huihao.common.UntilList;
 import com.huihao.custom.NoScrollListview;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.util.LSharePreference;
@@ -50,9 +52,12 @@ public class Fragment_Product_info extends LFragment {
     public void InitData(List<Map<String, String>> list) {
         this.mlist = list;
         imageAda = new ProductInfoImageAda(getActivity(), mlist);
+        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) listView.getLayoutParams();
+        linearParams.height =    UntilList.getWindosW(getActivity())*list.size();
+        listView.setLayoutParams(linearParams);
         listView.setFocusable(false);
         listView.setAdapter(imageAda);
-        setListViewHeight();
+//        setListViewHeight();
 //        Product_details.context.setPageH();
     }
 
@@ -96,6 +101,6 @@ public class Fragment_Product_info extends LFragment {
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-        LSharePreference.getInstance(getActivity()).setInt("pager1", totalHeight);
+//        LSharePreference.getInstance(getActivity()).setInt("pager1", totalHeight);
     }
 }

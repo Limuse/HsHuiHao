@@ -16,6 +16,7 @@ import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
@@ -59,11 +60,10 @@ public class Fragment_story_page extends LFragment {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
         options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisc(true)
-                .showImageForEmptyUri(R.mipmap.book_load).showImageOnLoading(R.mipmap.book_load)
+                .cacheOnDisk(true)
                 .considerExifParams(true)
+                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .displayer(new FadeInBitmapDisplayer(200))
-//                .displayer(new CircleBitmapDisplayer())//切圆
                 .build();
 
         initView();

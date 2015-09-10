@@ -64,7 +64,7 @@
                 android:background="@color/app_white"
                 android:id="@+id/ImageCycleView"
                 android:layout_width="match_parent"
-                android:layout_height="224dp"></com.huihao.custom.ImageCycleView>
+                android:layout_height="240dp"></com.huihao.custom.ImageCycleView>
 
 
             <RelativeLayout

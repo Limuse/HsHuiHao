@@ -3,6 +3,7 @@ package com.huihao.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -45,6 +46,7 @@ import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import org.json.JSONArray;
@@ -133,6 +135,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     private ImageLoader imageLoader;
     private ImageView image_product;
 
+    private int content;
+
     protected void onLCreate(Bundle bundle) {
         parentView = getLayoutInflater().inflate(R.layout.activity_product_details, null);
         setContentView(parentView);
@@ -143,8 +147,9 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
         options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisc(true)
-                .considerExifParams(true)
+                .showImageOnLoading(R.mipmap.ic_stub)
+                .cacheOnDisc(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                .considerExifParams(true).resetViewBeforeLoading(true)
                 .displayer(new FadeInBitmapDisplayer(200))
                 .build();
 
@@ -377,22 +382,31 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     }
 
     public void setPageH() {
-        linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-        PageHight = LSharePreference.getInstance(context).getInt("pager1");
-
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(100);
-                    if (PageHight > 100) {
-                        handler.sendEmptyMessage(10);
-                    } else {
-                        setPageH();
-                    }
-                } catch (Exception e) {
-                }
-            }
-        }).start();
+//        linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
+//        PageHight = LSharePreference.getInstance(context).getInt("pager1");
+//
+//        new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    Thread.sleep(100);
+//                    if (PageHight > 100) {
+//                        handler.sendEmptyMessage(10);
+//                    } else {
+//                        setPageH();
+//                    }
+//                } catch (Exception e) {
+//                }
+//            }
+//        }).start();
+        if(content>10){
+            linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
+            linearParams.height =    UntilList.getWindosW(this)*(content-1);
+            viewPager.setLayoutParams(linearParams);
+        }else {
+            linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
+            linearParams.height =    UntilList.getWindosW(this)*(content);
+            viewPager.setLayoutParams(linearParams);
+        }
     }
 
     private void initScroll() {
@@ -400,14 +414,14 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
-
             public void onPageSelected(int position) {
                 PageIndex = position;
                 if (position == 0) {
-                    linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-                    PageHight = LSharePreference.getInstance(context).getInt("pager1");
-                    linearParams.height = PageHight;
-                    viewPager.setLayoutParams(linearParams);
+//                    linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
+//                    PageHight = LSharePreference.getInstance(context).getInt("pager1");
+//                    linearParams.height = PageHight;
+//                    viewPager.setLayoutParams(linearParams);
+                    setPageH();
                 } else if (position == 1) {
                     linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
                     PageHight = LSharePreference.getInstance(context).getInt("pager2");
@@ -456,14 +470,13 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                 oprice.setText(info.optString("oprice"));
                 realsalenum.setText(info.optString("preferential"));
 
-
                 if (!info.opt("infopic").equals("")) {
                     JSONArray infopic = info.optJSONArray("infopic");
                     if (infopic.length() > 0) {
                         for (int i = 0; i < infopic.length(); i++) {
-                            JSONObject item = infopic.optJSONObject(i);
-                            mImageName.add(item.opt("productid").toString());
-                            mImageUrl.add(item.opt("picurl").toString());
+                            String item = infopic.opt(i).toString();
+                            mImageName.add(i+"");
+                            mImageUrl.add(item);
                         }
                         mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
                     }
@@ -517,11 +530,13 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     }
                 }
 
-                imageLoader.displayImage(info.optString("picurl"), image_product, options);
-                imageLoader.displayImage(info.optString("picurl"), imageAdd, options);
+                imageLoader.displayImage(info.optString("app_cartpic"), image_product, options);
+                imageLoader.displayImage(info.optString("app_cartpic"), imageAdd, options);
 
                 if (!info.opt("content").equals("")) {
                     JSONArray content = info.optJSONArray("content");
+                    this.content=content.length();
+                    setPageH();
                     for (int i = 0; i < content.length(); i++) {
                         Map<String, String> map = new HashMap<String, String>();
                         map.put("image", content.opt(i).toString());
@@ -544,9 +559,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                 T.ss("数据获取失败");
             }
         } catch (Exception e) {
-            linearParams.height = 100;
-            viewPager.setLayoutParams(linearParams);
             T.ss("数据解析失败");
+//            T.ss(e.getMessage());
         }
     }
 
@@ -666,7 +680,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         translateAnimation.setFillAfter(true);
         animationSet.addAnimation(translateAnimation);
 
-
         animationSet.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationStart(Animation animation) {
                 imageAdd.setVisibility(View.VISIBLE);
@@ -693,12 +706,5 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             btn_num.setText(99 + "");
         }
         btn_num.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        LSharePreference.getInstance(Product_details.this).setInt("pager1", 0);
-        LSharePreference.getInstance(Product_details.this).setInt("pager2", 0);
     }
 }

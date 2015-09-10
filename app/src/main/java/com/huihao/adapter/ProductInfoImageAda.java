@@ -7,14 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.huihao.activity.Product_details;
+import com.huihao.common.UntilList;
 import com.huihao.fragment.Fragment_Product_info;
 import com.huihao.MyApplication;
 import com.huihao.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -26,7 +29,6 @@ import java.util.Map;
  * Created by admin on 2015/7/27.
  */
 public class ProductInfoImageAda extends BaseAdapter {
-
     private Context context;
     private List<Map<String, String>> gridList;
     private ArrayList<String>imageList=new ArrayList<String>();
@@ -42,8 +44,9 @@ public class ProductInfoImageAda extends BaseAdapter {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
         options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisc(true)
-                .considerExifParams(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+//                .considerExifParams(true)
                 .displayer(new FadeInBitmapDisplayer(200))
 //                .displayer(new CircleBitmapDisplayer())//切圆
                 .build();
@@ -87,30 +90,29 @@ public class ProductInfoImageAda extends BaseAdapter {
                 Product_details.context.ImageDetails(position,imageList);
             }
         });
-
-
-        imageLoader.loadImage(gridList.get(position).get("image"), options, new ImageLoadingListener() {
-            public void onLoadingStarted(String imageUri, View view) {
-
-            }
-
-            public void onLoadingFailed(String imageUri, View view,
-                                        FailReason failReason) {
-            }
-
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                viewHolder.image.setImageBitmap(loadedImage);
-                count++;
-                if (count == gridList.size()) {
-                    Fragment_Product_info.context.setListViewHeight();
-                    Product_details.context.setPageH();
-                }
-            }
-
-            public void onLoadingCancelled(String imageUri, View view) {
-
-            }
-        });
+        imageLoader.displayImage(gridList.get(position).get("image"),viewHolder.image,options);
+//        imageLoader.loadImage(gridList.get(position).get("image"), options, new ImageLoadingListener() {
+//            public void onLoadingStarted(String imageUri, View view) {
+//
+//            }
+//
+//            public void onLoadingFailed(String imageUri, View view,
+//                                        FailReason failReason) {
+//            }
+//
+//            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                viewHolder.image.setImageBitmap(loadedImage);
+////                count++;
+////                if (count == gridList.size()) {
+////                    Fragment_Product_info.context.setListViewHeight();
+////                    Product_details.context.setPageH();
+////                }
+//            }
+//
+//            public void onLoadingCancelled(String imageUri, View view) {
+//
+//            }
+//        });
         return convertView;
     }
 

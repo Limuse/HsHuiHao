@@ -231,7 +231,7 @@ public class Fragment_main extends LFragment {
                     String title = item.optString("title");
                     String nprice = item.optString("nprice");
                     String oprice = item.optString("oprice");
-                    String pic_homepage = item.optString("pic_homepage");
+                    String pic_homepage = item.optString("pic_app");
                     String picurl = item.optString("picurl");
                     map.put("id", id);
                     map.put("title", title);

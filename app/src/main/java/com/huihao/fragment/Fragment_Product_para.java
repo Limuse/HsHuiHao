@@ -81,12 +81,12 @@ public class Fragment_Product_para extends LFragment {
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
-//        ViewGroup.LayoutParams params = listView.getLayoutParams();
-//
-//        params.height = totalHeight
-//                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-//        listView.setLayoutParams(params);
-//        listView.deferNotifyDataSetChanged();
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.deferNotifyDataSetChanged();
         LSharePreference.getInstance(getActivity()).setInt("pager2", totalHeight);
     }
 }

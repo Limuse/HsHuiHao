@@ -51,6 +51,10 @@
             android:name=".activity.Product_details"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.WebActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!--图片详情-->
         <activity
             android:name=".activity.ImageDetail"
