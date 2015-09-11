@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.huihao.activity.LoginMain;
 import com.leo.base.application.LApplication;
 import com.leo.base.util.LSharePreference;
+import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import cn.jpush.android.api.JPushInterface;
@@ -56,6 +57,7 @@ public class MyApplication extends LApplication {
         if (LSharePreference.getInstance(context).getBoolean("login")) {
             return true;
         } else {
+            T.ss("请登录后操作");
             Intent intent = new Intent(context, LoginMain.class);
             context.startActivity(intent);
             return LSharePreference.getInstance(context).getBoolean("login");

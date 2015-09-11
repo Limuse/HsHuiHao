@@ -26,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.huihao.adapter.ProductGridAda;
+import com.huihao.common.Log;
 import com.huihao.common.Token;
 import com.huihao.common.UntilList;
 import com.huihao.custom.ImageCycleView;
@@ -65,6 +66,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     public static Product_details context;
 
     private String productId;
+    private String spec_id;
 
     private View parentView;
     private MyScrollView scrollView;
@@ -345,23 +347,17 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
 
         btn_buy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                if (MyApplication.isLogin(Product_details.this)) {
+                    Intent intent = new Intent(Product_details.this, Submit_Orders.class);
+                    intent.putExtra("spec_id", spec_id+"");
+                    intent.putExtra("spec_num", choose_num+"");
+                    startActivity(intent);
+                }
             }
         });
         btn_add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (isCanAdd) {
-                    isCanAdd = false;
-                    dialog.dismiss();
-                    scrollView.invalidate();
-                    imageAdd.startAnimation(animationSet);
-                    addForHttp();
-                }
-            }
-        });
-        btn_ok.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (OKSTATE.equals("ADD")) {
+                if (MyApplication.isLogin(Product_details.this)) {
                     if (isCanAdd) {
                         isCanAdd = false;
                         dialog.dismiss();
@@ -369,9 +365,27 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         imageAdd.startAnimation(animationSet);
                         addForHttp();
                     }
-                } else if (OKSTATE.equals("BUY")) {
-
-                } else {
+                }
+            }
+        });
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (MyApplication.isLogin(Product_details.this)) {
+                    if (OKSTATE.equals("ADD")) {
+                        if (isCanAdd) {
+                            isCanAdd = false;
+                            dialog.dismiss();
+                            scrollView.invalidate();
+                            imageAdd.startAnimation(animationSet);
+                            addForHttp();
+                        }
+                    } else if (OKSTATE.equals("BUY")) {
+                        Intent intent = new Intent(Product_details.this, Submit_Orders.class);
+                        intent.putExtra("spec_id", spec_id+"");
+                        intent.putExtra("spec_num", choose_num+"");
+                        startActivity(intent);
+                    } else {
+                    }
                 }
             }
         });
@@ -381,6 +395,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         tv_price.setText(TagList.get(i).get("nprice"));
         tv_size.setText(TagList.get(i).get("spec"));
         tv_num.setText(TagList.get(i).get("maxnum"));
+        spec_id = TagList.get(i).get("spec_id");
     }
 
     public void setPageH() {
@@ -414,8 +429,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     public void addForHttp() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("uuid", Token.get(this));
-        map.put("num", num + "");
-        map.put("id", productId);
+        map.put("num", choose_num + "");
+        map.put("id", spec_id);
         String url = getResources().getString(R.string.app_service_url) + "/huihao/cart/add/1/sign/aggregation/";
         LReqEntity entity = new LReqEntity(url, map);
         ActivityHandler handler = new ActivityHandler(this);
@@ -519,6 +534,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         for (int i = 0; i < infospec.length(); i++) {
                             map = new HashMap<String, String>();
                             JSONObject item = infospec.optJSONObject(i);
+                            map.put("spec_id", item.opt("spec_id").toString());
                             map.put("title", item.opt("title_1").toString());
                             map.put("spec", item.opt("spec_1").toString());
                             map.put("maxnum", "库存" + item.opt("maxnum").toString() + "件");
@@ -526,6 +542,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                             TagList.add(map);
                             specList.add(item.opt("spec_1").toString());
                         }
+                        spec_id = TagList.get(0).get("spec_id");
                     } else {
                         map.put("title", "暂无数据");
                         map.put("spec", "暂无数据");
