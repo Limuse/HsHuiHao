@@ -2,6 +2,7 @@ package com.huihao.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -60,10 +61,8 @@ public class Fragment_story_page extends LFragment {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
         options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-                .displayer(new FadeInBitmapDisplayer(200))
+                .cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
 
         initView();
@@ -75,8 +74,9 @@ public class Fragment_story_page extends LFragment {
     }
 
     private void initData() {
-        if (!imageInfo.get("image").equals("")) {
-            imageLoader.displayImage(imageInfo.get("image"), image, options);
+        image.setImageResource(R.mipmap.story_details1);
+//        if (!imageInfo.get("image").equals("")) {
+//            imageLoader.displayImage(imageInfo.get("image"), image, options);
             image.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     if (imageInfo.containsKey("id")) {
@@ -86,13 +86,13 @@ public class Fragment_story_page extends LFragment {
                     }
                 }
             });
-        } else {
-            image.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    T.ss("加载中，请稍后");
-                }
-            });
-        }
+//        } else {
+//            image.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    T.ss("加载中，请稍后");
+//                }
+//            });
+//        }
     }
 
     public void getData(Map<String, String> map) {

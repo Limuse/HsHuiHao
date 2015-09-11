@@ -191,7 +191,7 @@ public class ImageCycleView extends LinearLayout {
     /**
      * 停止图片滚动任务
      */
-    private void stopImageTimerTask() {
+    public void stopImageTimerTask() {
         isStop = true;
         mHandler.removeCallbacks(mImageTimerTask);
     }

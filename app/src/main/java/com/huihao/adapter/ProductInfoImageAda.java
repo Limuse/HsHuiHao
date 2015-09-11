@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.huihao.activity.Product_details;
+import com.huihao.common.Log;
 import com.huihao.common.UntilList;
 import com.huihao.fragment.Fragment_Product_info;
 import com.huihao.MyApplication;
 import com.huihao.R;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -31,11 +33,9 @@ import java.util.Map;
 public class ProductInfoImageAda extends BaseAdapter {
     private Context context;
     private List<Map<String, String>> gridList;
-    private ArrayList<String>imageList=new ArrayList<String>();
+    private ArrayList<String> imageList = new ArrayList<String>();
     private DisplayImageOptions options;
     private ImageLoader imageLoader;
-    private int flag = 0;
-    private int count = 0;
 
     public ProductInfoImageAda(Context context, List<Map<String, String>> list) {
         this.context = context;
@@ -44,15 +44,12 @@ public class ProductInfoImageAda extends BaseAdapter {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
         options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisk(true)
+                .cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-//                .considerExifParams(true)
-                .displayer(new FadeInBitmapDisplayer(200))
-//                .displayer(new CircleBitmapDisplayer())//切圆
                 .build();
 
 
-        for (int i=0;i<gridList.size();i++){
+        for (int i = 0; i < gridList.size(); i++) {
             imageList.add(gridList.get(i).get("image"));
         }
     }
@@ -85,34 +82,12 @@ public class ProductInfoImageAda extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.image.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Product_details.context.ImageDetails(position,imageList);
-            }
-        });
-        imageLoader.displayImage(gridList.get(position).get("image"),viewHolder.image,options);
-//        imageLoader.loadImage(gridList.get(position).get("image"), options, new ImageLoadingListener() {
-//            public void onLoadingStarted(String imageUri, View view) {
-//
-//            }
-//
-//            public void onLoadingFailed(String imageUri, View view,
-//                                        FailReason failReason) {
-//            }
-//
-//            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//                viewHolder.image.setImageBitmap(loadedImage);
-////                count++;
-////                if (count == gridList.size()) {
-////                    Fragment_Product_info.context.setListViewHeight();
-////                    Product_details.context.setPageH();
-////                }
-//            }
-//
-//            public void onLoadingCancelled(String imageUri, View view) {
-//
-//            }
-//        });
+//            viewHolder.image.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+//                    Product_details.context.ImageDetails(position, imageList);
+//                }
+//            });
+            imageLoader.displayImage(gridList.get(position).get("image"), viewHolder.image, options);
         return convertView;
     }
 

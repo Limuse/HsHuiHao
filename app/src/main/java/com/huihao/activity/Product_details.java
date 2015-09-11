@@ -209,7 +209,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         btn_num = (Button) findViewById(R.id.shop_num);
 
         imageAdd = (ImageView) findViewById(R.id.image_add);
-        imageAdd.setImageResource(R.mipmap.image1);
 
         toolbar = (RelativeLayout) findViewById(R.id.toolbar);
 
@@ -706,5 +705,11 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             btn_num.setText(99 + "");
         }
         btn_num.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.stopImageTimerTask();
     }
 }
