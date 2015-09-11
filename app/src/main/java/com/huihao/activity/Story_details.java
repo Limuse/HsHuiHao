@@ -21,6 +21,7 @@ import com.huihao.common.Log;
 import com.huihao.custom.MyViewPager;
 import com.huihao.custom.TextViewVertical;
 import com.huihao.R;
+import com.huihao.fragment.Fragment_story_details_page;
 import com.huihao.fragment.Fragment_story_page;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
@@ -149,8 +150,8 @@ public class Story_details extends LActivity {
 
     private void initPage() {
         for (int i = 0; i < imageInfo.size(); i++) {
-            Fragment_story_page fragmentStoryPage = new Fragment_story_page();
-            fragmentStoryPage.getData(imageInfo.get(i));
+            Fragment_story_details_page fragmentStoryPage = new Fragment_story_details_page();
+            Fragment_story_details_page.getData(imageInfo.get(i));
             fragmentList.add(fragmentStoryPage);
         }
 

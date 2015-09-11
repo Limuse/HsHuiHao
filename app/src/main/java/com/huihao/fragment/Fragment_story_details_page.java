@@ -1,6 +1,7 @@
 package com.huihao.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,28 +15,25 @@ import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.activity.Story_details;
 import com.leo.base.activity.fragment.LFragment;
-import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by admin on 2015/6/26.
  */
 
-public class Fragment_story_page extends LFragment {
+public class Fragment_story_details_page extends LFragment {
     private ViewPager viewPager;
     private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-    private Map<String, String> imageInfo = new HashMap<String, String>();
+    public static Map<String, String> imageInfo = new HashMap<String, String>();
     private String info;
     private View total;
-    private ImageView image;
+    public static ImageView image;
 
     private DisplayImageOptions options;
     private ImageLoader imageLoader;
@@ -73,28 +71,11 @@ public class Fragment_story_page extends LFragment {
         image = (ImageView) total.findViewById(R.id.page_image);
     }
 
-    private void initData() {
-        if (!imageInfo.get("image").equals("")) {
+    public void initData() {
             imageLoader.displayImage(imageInfo.get("image"), image, options);
-            image.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    if (imageInfo.containsKey("id")) {
-                        Intent intent = new Intent(getActivity(), Story_details.class);
-                        intent.putExtra("id", imageInfo.get("id"));
-                        startActivity(intent);
-                    }
-                }
-            });
-        } else {
-            image.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    T.ss("加载中，请稍后");
-                }
-            });
-        }
     }
 
-    public void getData(Map<String, String> map) {
-        this.imageInfo = map;
+    public static void getData(Map<String, String> map) {
+        imageInfo = map;
     }
 }
