@@ -25,6 +25,7 @@ import com.huihao.activity.PersonSet;
 import com.huihao.activity.Rebate;
 import com.huihao.activity.Update_Num;
 import com.huihao.common.CircleBitmapDisplayer;
+import com.huihao.common.Token;
 import com.huihao.entity.MyEntiy;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
@@ -252,7 +253,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
 
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/member/1/sign/aggregation/?uuid=" + UsErId.uuid;//+Token.get(this);
+                + "/huihao/member/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(Fragment_my.this);
         handler.startLoadingData(entity, 1);

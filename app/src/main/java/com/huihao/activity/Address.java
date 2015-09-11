@@ -22,6 +22,7 @@ import android.widget.ScrollView;
 import com.huihao.R;
 import com.huihao.adapter.AddressHoriSliseAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.AddressItemEntity;
 import com.huihao.entity.UsErId;
@@ -91,25 +92,12 @@ public class Address extends LActivity implements View.OnClickListener {
 
     }
 
-//    private void initDatas() {
-//        list = new ArrayList<AddressItemEntity>();
-//        for (int i = 0; i < 10; i++) {
-//            AddressItemEntity entity = new AddressItemEntity();
-//            entity.ida = i;
-//            entity.namea = "张三";
-//            entity.phonea = "1802142445";
-//            entity.addra = "江干区江干区干区江干区江干区江干区";
-//            list.add(entity);
-//        }
-//        adapter = new AddressHoriSliseAdapter(Address.this, list, listView);
-//        listView.setAdapter(adapter);
-//
-//    }
+
 
     private void initData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/myaddress/1/sign/aggregation/?uuid=" + UsErId.uuid;
+                + "/huihao/myaddress/1/sign/aggregation/?uuid=" + Token.get(this);
         LReqEntity entity = new LReqEntity(url);
         //http://huihaowfx.huisou.com//huihao/myaddress/1/sign/aggregation/?uuid=6a35c1ed7255077d57d57be679048034
         // Fragment用FragmentHandler/Activity用ActivityHandler

@@ -27,6 +27,7 @@ import com.huihao.adapter.BuysNumAdapter;
 import com.huihao.common.PayResult;
 import com.huihao.common.SignUtils;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.AddressItemEntity;
 import com.huihao.entity.AllOrderItemEntity;
 import com.huihao.entity.UsErId;
@@ -356,7 +357,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                 T.ss("请选择收货地址");
             } else {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("uuid", UsErId.uuid);
+                map.put("uuid", Token.get(this));
                 map.put("spec_id", spec_id);
                 map.put("spec_num", spec_num);
                 map.put("payment_id", "3");
@@ -481,7 +482,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         Map<String, String> map = new HashMap<String, String>();
         spec_id = getIntent().getExtras().getString("spec_id");
         spec_num = getIntent().getExtras().getString("spec_num");
-        map.put("uuid", UsErId.uuid);
+        map.put("uuid", Token.get(this));
         map.put("spec_id", spec_id);
         map.put("spec_num", spec_num);
 

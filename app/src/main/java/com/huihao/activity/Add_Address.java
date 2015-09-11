@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
@@ -103,7 +104,7 @@ public class Add_Address extends LActivity implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/myaddress/add/1/sign/aggregation/";
         final Map<String, String> map = new HashMap<String, String>();
-        map.put("uuid", UsErId.uuid);
+        map.put("uuid", Token.get(this));
         //map.put("id", );
         map.put("uname", name);//收货人名
         map.put("uphone", phone);// 收货人联系号码

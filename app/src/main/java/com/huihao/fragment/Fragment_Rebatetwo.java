@@ -16,6 +16,7 @@ import com.huihao.activity.Extra_Record;
 import com.huihao.activity.Extra_RecordCopy;
 import com.huihao.activity.Extract_Rebate;
 import com.huihao.activity.Rebate_Detail;
+import com.huihao.common.Token;
 import com.huihao.custom.RiseNumberTextView;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.FragmentHandler;
@@ -91,7 +92,7 @@ public class Fragment_Rebatetwo extends LFragment implements View.OnClickListene
     private void initData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/member/profits/1/sign/aggregation/?uuid="+ UsErId.uuid;
+                + "/huihao/member/profits/1/sign/aggregation/?uuid="+ Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(Fragment_Rebatetwo.this);
         handler.startLoadingData(entity, 1);

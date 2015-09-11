@@ -1,6 +1,7 @@
 package com.huihao.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huihao.R;
+import com.huihao.activity.WebActivity;
 import com.huihao.entity.OrdersNewsEntity;
 import com.leo.base.util.T;
 
@@ -60,7 +62,7 @@ public class OrdersNewsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.iv_mg.setVisibility(View.GONE);
-        OrdersNewsEntity entity = list.get(position);
+        final OrdersNewsEntity entity = list.get(position);
         if (entity.getStatus().equals("1")) {
             viewHolder.iv_mg.setVisibility(View.VISIBLE);
         } else {
@@ -76,6 +78,10 @@ public class OrdersNewsAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 T.ss("查看详情");
+//               Intent intent=new Intent(context, WebActivity.class);
+//
+//                context.startActivity(intent);
+
             }
         });
         return convertView;

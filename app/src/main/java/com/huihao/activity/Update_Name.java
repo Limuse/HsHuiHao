@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
@@ -84,7 +85,7 @@ public class Update_Name extends LActivity {
        else {
             Map<String, String> map = new HashMap<String, String>();
             map.put("name", name);// 昵称
-            map.put("uuid", UsErId.uuid);
+            map.put("uuid", Token.get(this));
             Resources res = getResources();
             String url = res.getString(R.string.app_service_url)
                     + "/huihao/member/amendname/1/sign/aggregation/";

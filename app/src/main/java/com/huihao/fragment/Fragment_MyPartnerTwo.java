@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.adapter.MyPartnerAdapter;
+import com.huihao.common.Token;
 import com.huihao.entity.MyPartnerEntity;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.FragmentHandler;
@@ -76,7 +77,7 @@ public class Fragment_MyPartnerTwo extends LFragment {
 
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/member/teamdetail/1/sign/aggregation/?uuid="+ UsErId.uuid;
+                + "/huihao/member/teamdetail/1/sign/aggregation/?uuid="+ Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(this);
         handler.startLoadingData(entity, 1);

@@ -1,6 +1,7 @@
 package com.huihao.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huihao.R;
+import com.huihao.activity.Rebate_Detail;
 import com.huihao.entity.MoneyNewsEntity;
 import com.leo.base.util.T;
 
@@ -69,6 +71,9 @@ public class MoneyNewsAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 T.ss("查看财富");
+                Intent intnet=new Intent(context,Rebate_Detail.class);
+//                intnet.putExtra("s",);//判断是代理还是分销
+                context.startActivity(intnet);
             }
         });
         return convertView;

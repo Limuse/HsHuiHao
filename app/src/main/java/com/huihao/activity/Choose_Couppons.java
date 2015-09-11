@@ -17,6 +17,7 @@ import com.huihao.R;
 import com.huihao.adapter.ChooseCouponsAdapter;
 import com.huihao.adapter.CouponsAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.CouponsEntity;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
@@ -88,7 +89,7 @@ public class Choose_Couppons extends LActivity {
         list = new ArrayList<CouponsEntity>();
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/coupon/1/sign/aggregation/?uuid=" + UsErId.uuid;
+                + "/huihao/orders/coupon/1/sign/aggregation/?uuid=" + Token.get(this);
         LReqEntity entity = new LReqEntity(url);
         //http://huihaowfx.huisou.com/uuid=6a35c1ed7255077d57d57be679048034
         // Fragment用FragmentHandler/Activity用ActivityHandler

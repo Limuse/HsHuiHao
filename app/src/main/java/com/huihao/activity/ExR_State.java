@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.huihao.R;
 import com.huihao.adapter.ExtraRecodeAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.custom.TagGroup;
 import com.huihao.entity.ExtraReEntity;
 import com.huihao.entity.UsErId;
@@ -113,14 +114,14 @@ public class ExR_State extends LActivity implements View.OnClickListener {
                 T.ss("确定提交");
                 String reson=et_reson.getText().toString();
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("uuid", UsErId.uuid);
+                map.put("uuid", Token.get(ExR_State.this));
                 map.put("t", "2");
                 map.put("id", "tid");
                 map.put("note",reson);
                 Resources res = getResources();
                 String url = res.getString(R.string.app_service_url) + "/huihao/member/confirmdetail/1/sign/aggregation/";
                 LReqEntity entity = new LReqEntity(url);
-                L.e(url);
+               // L.e(url);
                 ActivityHandler handler = new ActivityHandler(ExR_State.this);
                 handler.startLoadingData(entity, 3);
                 dialog.dismiss();
@@ -144,9 +145,9 @@ public class ExR_State extends LActivity implements View.OnClickListener {
     private void initData() {
          tid = getIntent().getStringExtra("state");
         Resources res = getResources();
-        String url = res.getString(R.string.app_service_url) + "/huihao/member/confirmdetail/1/sign/aggregation/?id=" + tid + "&uuid=" + UsErId.uuid;
+        String url = res.getString(R.string.app_service_url) + "/huihao/member/confirmdetail/1/sign/aggregation/?id=" + tid + "&uuid=" + Token.get(this);
         LReqEntity entity = new LReqEntity(url);
-        L.e(url);
+       // L.e(url);
         ActivityHandler handler = new ActivityHandler(ExR_State.this);
         handler.startLoadingData(entity, 1);
 
@@ -239,13 +240,13 @@ public class ExR_State extends LActivity implements View.OnClickListener {
         }
         if (id == R.id.btn_ok) {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("uuid", UsErId.uuid);
+            map.put("uuid", Token.get(this));
             map.put("t", "1");
             map.put("id", "tid");
             Resources res = getResources();
             String url = res.getString(R.string.app_service_url) + "/huihao/member/confirmproceeds/1/sign/aggregation/";
             LReqEntity entity = new LReqEntity(url,map);
-            L.e(url);
+            //L.e(url);
             ActivityHandler handler = new ActivityHandler(ExR_State.this);
             handler.startLoadingData(entity, 2);
 

@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.common.CircleBitmapDisplayer;
+import com.huihao.common.Token;
 import com.huihao.custom.CustomDialog;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.Need;
@@ -463,7 +464,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
                 HttpPost post = new HttpPost(url);
                 List<NameValuePair> par = new ArrayList<NameValuePair>();
 
-                par.add(new BasicNameValuePair("uuid", "6a35c1ed7255077d57d57be679048034"));
+                par.add(new BasicNameValuePair("uuid", Token.get(context)));
                 par.add(new BasicNameValuePair("id", ids));
 
                 HttpResponse httpResponse = null;

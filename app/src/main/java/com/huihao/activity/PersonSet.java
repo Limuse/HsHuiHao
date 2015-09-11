@@ -29,6 +29,7 @@ import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.common.HavaSdCard;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
@@ -238,9 +239,10 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                         photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] bytes = baos.toByteArray();
                         logoBase = Base64.encodeToString(bytes, Base64.DEFAULT);
-                       // my_imgs.setImageBitmap(photo);
+                        my_imgs.setImageBitmap(photo);
                         img = logoBase;//当上传时可以上传img
                         picloade();
+
                     }
                 }
                 dialog.cancel();
@@ -251,7 +253,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("pictures", img);// 头像
-        map.put("uuid", UsErId.uuid);
+        map.put("uuid", Token.get(this));
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/member/amendavatar/1/sign/aggregation/";

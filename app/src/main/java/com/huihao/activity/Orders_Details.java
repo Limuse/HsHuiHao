@@ -143,7 +143,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url) + "/huihao/orders/detail/1/sign/aggregation/?uuid=" + Token.get(this) + "&id=" + orderid;
 
         LReqEntity entitys = new LReqEntity(url);
-        L.e(entitys + "");
+       // L.e(entitys + "");
         ActivityHandler handler = new ActivityHandler(Orders_Details.this);
         handler.startLoadingData(entitys, 1);
     }

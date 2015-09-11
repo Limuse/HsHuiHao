@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.huihao.R;
 import com.huihao.adapter.MetailflowDerailAdapter;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.MetailflowEntity;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
@@ -83,7 +84,7 @@ public class MetailFlow_Detail extends LActivity {
         String ids = getIntent().getExtras().getString("id");
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/orders/courier/1/sign/aggregation/?uuid=" + UsErId.uuid + "&id=" + ids;//ids
+                + "/huihao/orders/courier/1/sign/aggregation/?uuid=" + Token.get(this) + "&id=" + ids;//ids
         LReqEntity entity = new LReqEntity(url);
        // L.e(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler

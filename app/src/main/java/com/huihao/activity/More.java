@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.custom.CustomDialog;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
@@ -189,7 +190,7 @@ public class More extends LActivity implements View.OnClickListener {
     private void loades() {
 
         Map<String, String> map = new HashMap<String, String>();
-        map.put("uuid", "6a35c1ed7255077d57d57be679048034");
+        map.put("uuid", Token.get(this));
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/member/logout/1/sign/aggregation/";

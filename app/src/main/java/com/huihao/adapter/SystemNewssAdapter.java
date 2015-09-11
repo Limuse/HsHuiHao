@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.activity.WebActivity;
 import com.huihao.entity.SystemNewsEntity;
 import com.huihao.entity.SystemNewssEntity;
 import com.leo.base.util.T;
@@ -65,7 +66,7 @@ public class SystemNewssAdapter extends BaseAdapter {
         } else {
             viewHolder2 = (ViewHolder2) convertView.getTag();
         }
-        SystemNewsEntity entity = list.get(position);
+        final SystemNewsEntity entity = list.get(position);
         viewHolder2.time2.setText(entity.getAdd_time());
         viewHolder2.title.setText(entity.getTitle());
         viewHolder2.desc.setText(entity.getContent());
@@ -94,8 +95,10 @@ public class SystemNewssAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 T.ss("查看原文");
-                Uri uri = Uri.parse(url);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+              //  Uri uri = Uri.parse(url);
+                Intent intent = new Intent(context, WebActivity.class);
+                intent.putExtra("url",entity.getLinkurl());
+                intent.putExtra("title","系统消息");
                 context.startActivity(intent);
             }
         });

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
@@ -86,12 +87,12 @@ public class Extract_Rebate extends LActivity implements View.OnClickListener {
         if (t.equals("1")) {
             url = res.getString(R.string.app_service_url)
                     + "/huihao/member/drawcommission/1/sign/aggregation/";
-            map.put("uuid", UsErId.uuid);
+            map.put("uuid", Token.get(this));
             map.put("Amount", mm);
         } else if (t.equals("2")) {
             url = res.getString(R.string.app_service_url)
                     + "/huihao/member/drawprofits/1/sign/aggregation/";
-            map.put("uuid", UsErId.uuid);
+            map.put("uuid", Token.get(this));
             map.put("amount", mm);
         }
         LReqEntity entity = new LReqEntity(url, map);

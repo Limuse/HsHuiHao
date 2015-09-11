@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
@@ -75,7 +76,7 @@ public class Update_Num extends LActivity {
     private void sumb() {
         String um = et_Upnum.getText().toString();
         Map<String, String> map = new HashMap<String, String>();
-        map.put("uuid", UsErId.uuid);
+        map.put("uuid", Token.get(this));
         map.put("promo_code", um);
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)

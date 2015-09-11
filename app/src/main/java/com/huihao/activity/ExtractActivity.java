@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
+import com.huihao.common.Token;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
@@ -86,7 +87,7 @@ public class ExtractActivity extends LActivity {
     private void getData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/member/useramount/1/sign/aggregation/?uuid="+ UsErId.uuid;
+                + "/huihao/member/useramount/1/sign/aggregation/?uuid="+ Token.get(this);
         LReqEntity entity = new LReqEntity(url);
         ActivityHandler handler = new ActivityHandler(ExtractActivity.this);
         handler.startLoadingData(entity, 2);
@@ -106,7 +107,7 @@ public class ExtractActivity extends LActivity {
             String url = res.getString(R.string.app_service_url)
                     + "/huihao/member/amount/1/sign/aggregation/";
             final Map<String, String> map = new HashMap<String, String>();
-            map.put("uuid", UsErId.uuid);
+            map.put("uuid", Token.get(this));
             map.put("amount", account);
             map.put("truename", name);
             map.put("phone", phone);
@@ -115,7 +116,7 @@ public class ExtractActivity extends LActivity {
             LSharePreference.getInstance(ExtractActivity.this)
                     .setString("accountname", name);
             LReqEntity entity = new LReqEntity(url, map);
-            L.e(entity + "");
+           // L.e(entity + "");
             ActivityHandler handler = new ActivityHandler(ExtractActivity.this);
             handler.startLoadingData(entity, 1);
 
