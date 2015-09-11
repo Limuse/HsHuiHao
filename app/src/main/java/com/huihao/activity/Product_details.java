@@ -26,6 +26,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.huihao.adapter.ProductGridAda;
+import com.huihao.common.Token;
 import com.huihao.common.UntilList;
 import com.huihao.custom.ImageCycleView;
 import com.huihao.custom.TagGroup;
@@ -354,6 +355,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     dialog.dismiss();
                     scrollView.invalidate();
                     imageAdd.startAnimation(animationSet);
+                    addForHttp();
                 }
             }
         });
@@ -365,6 +367,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         dialog.dismiss();
                         scrollView.invalidate();
                         imageAdd.startAnimation(animationSet);
+                        addForHttp();
                     }
                 } else if (OKSTATE.equals("BUY")) {
 
@@ -397,22 +400,35 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
 //                }
 //            }
 //        }).start();
-        if(content>10){
+        if (content > 10) {
             linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-            linearParams.height =    UntilList.getWindosW(this)*(content-1);
+            linearParams.height = UntilList.getWindosW(this) * (content - 1);
             viewPager.setLayoutParams(linearParams);
-        }else {
+        } else {
             linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-            linearParams.height =    UntilList.getWindosW(this)*(content);
+            linearParams.height = UntilList.getWindosW(this) * (content);
             viewPager.setLayoutParams(linearParams);
         }
     }
+
+    public void addForHttp() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("uuid", Token.get(this));
+        map.put("num", num + "");
+        map.put("id", productId);
+        String url = getResources().getString(R.string.app_service_url) + "/huihao/cart/add/1/sign/aggregation/";
+        LReqEntity entity = new LReqEntity(url, map);
+        ActivityHandler handler = new ActivityHandler(this);
+        handler.startLoadingData(entity, 2);
+    }
+
 
     private void initScroll() {
         scrollView.setScrollViewListener(this);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
+
             public void onPageSelected(int position) {
                 PageIndex = position;
                 if (position == 0) {
@@ -449,11 +465,25 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         if (msg != null) {
             if (requestId == 1) {
                 getSmJsonData(msg.getStr());
+            } else if (requestId == 2) {
+                getAddState(msg.getStr());
             } else {
                 T.ss("参数ID错误");
             }
         } else {
             T.ss("数据获取失败");
+        }
+    }
+
+    private void getAddState(String str) {
+        try {
+            JSONObject object = new JSONObject(str);
+            int status = object.optInt("status");
+            if (status == 1) {
+                T.ss("添加至购物车成功");
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -474,7 +504,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     if (infopic.length() > 0) {
                         for (int i = 0; i < infopic.length(); i++) {
                             String item = infopic.opt(i).toString();
-                            mImageName.add(i+"");
+                            mImageName.add(i + "");
                             mImageUrl.add(item);
                         }
                         mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
@@ -534,7 +564,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
 
                 if (!info.opt("content").equals("")) {
                     JSONArray content = info.optJSONArray("content");
-                    this.content=content.length();
+                    this.content = content.length();
                     setPageH();
                     for (int i = 0; i < content.length(); i++) {
                         Map<String, String> map = new HashMap<String, String>();
@@ -577,7 +607,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         }
     };
 
-    public void ImageDetails(int position, ArrayList<String> ImageUrl){
+    public void ImageDetails(int position, ArrayList<String> ImageUrl) {
         Intent intent = new Intent(Product_details.this, ImageDetail.class);
         intent.putExtra("ProjectImg", ImageUrl);
         intent.putExtra("index", position);

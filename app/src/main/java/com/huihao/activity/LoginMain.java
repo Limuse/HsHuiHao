@@ -111,7 +111,7 @@ public class LoginMain extends LActivity {
             int status=info.optInt("status");
             if(status==1){
                 T.ss("登录成功");
-                MyApplication.setIsLog(true);
+                LSharePreference.getInstance(this).setBoolean("login",true);
                 Token.set(this,info.opt("uuid").toString());
                 finish();
             }else {
