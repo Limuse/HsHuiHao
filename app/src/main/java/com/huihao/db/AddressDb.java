@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class AddressDb extends SQLiteOpenHelper {
     public final static String NAME = "pcc.db";//数据库名称
-    public final static int VERSIONS = 2;//版本号
+    public final static int VERSIONS = 16;//版本号
     //三张表、省、市区
     public final static String PROVINCE = "province";//省
     public final static String CITY = "city";//市
@@ -22,9 +22,9 @@ public class AddressDb extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String province = "create table " + PROVINCE + "( " + "_ID intrger primary key," + "parent intrger not null," + "name String not null" + ")";
-        String city = "create table " + CITY + "( " + "_ID intrger primary key," + "parent intrger not null," + "name String not null" + ")";
-        String country = "create table " + COUNTRY + "( " + "_ID intrger primary key," + "parent intrger not null," + "name String not null" + ")";
+        String province = "create table " + PROVINCE + "( " + "_ID intrger not null," + "parent intrger not null," + "name String not null" + ")";
+        String city = "create table " + CITY + "( " + "_ID intrger not null," + "parent intrger not null," + "name String not null" + ")";
+        String country = "create table " + COUNTRY + "( " + "_ID intrger not null," + "parent intrger not null," + "name String not null" + ")";
         db.execSQL(province);
         db.execSQL(city);
         db.execSQL(country);

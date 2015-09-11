@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class ExtractActivity extends LActivity {
     private EditText et_zaccount, et_zname, et_zphone;
-    private boolean flg = true;
+    private boolean flg = false;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_extarct_account);
@@ -63,18 +63,22 @@ public class ExtractActivity extends LActivity {
             }
         });
         toolbar.inflateMenu(R.menu.right_menu);
-        if (flg == false) {
             //右边图片点击事件
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == R.id.menu_messages) {
                         // T.ss("保存成功");
+                        if(flg==false){
+
                         submit();
+                        }else{
+                            T.ss("已有提现账号");
+                        }
+
                     }
                     return false;
                 }
             });
-        }
 
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
@@ -163,6 +167,9 @@ public class ExtractActivity extends LActivity {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONObject j = jsonObject.getJSONObject("list");
+                if(j.length()<1){
+                    flg = false;
+                }else{
                 String account = j.getString("amount");
                 String truename = j.getString("truename");
                 String phone = j.getString("phone");
@@ -171,7 +178,7 @@ public class ExtractActivity extends LActivity {
 
                     flg = false;
                 } else {
-
+                        flg=true;
                     et_zaccount.setText(account);
                     et_zname.setText(truename);
                     et_zphone.setText(phone);
@@ -186,7 +193,7 @@ public class ExtractActivity extends LActivity {
                 }
 
 
-            } else {
+            } }else {
 
                 T.ss(jsonObject.getString("info").toString());
             }

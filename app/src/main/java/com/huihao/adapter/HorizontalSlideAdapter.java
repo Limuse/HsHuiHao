@@ -8,6 +8,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 
 import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.activity.Product_details;
 import com.huihao.common.CircleBitmapDisplayer;
 import com.huihao.common.Token;
 import com.huihao.custom.CustomDialog;
@@ -210,6 +212,10 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 T.ss("跳到物品详情页面");
+                Intent intent=new Intent(context, Product_details.class);
+                intent.putExtra("id",datas.getProduct_id()+"");
+               // L.e("idddddd", datas.getProduct_id() + "");
+                context.startActivity(intent);
             }
         });
 

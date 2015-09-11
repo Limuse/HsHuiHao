@@ -150,6 +150,8 @@ public class Fragment_reserve extends LFragment {
             } } else {
 
                 T.ss(jsonObject.getString("info").toString());
+                rl_gssa.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.common.Token;
@@ -24,6 +25,7 @@ import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONException;
@@ -42,7 +44,7 @@ public class More extends LActivity implements View.OnClickListener {
     private TextView tv_web, tv_kp, tv_clear;
     private RelativeLayout rl_web, rl_kp, rl_ban, rl_advice, rl_p, rl_clear;
     private Button btn_outline;
-
+    private  Boolean tr;
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_more);
@@ -88,6 +90,9 @@ public class More extends LActivity implements View.OnClickListener {
         rl_p.setOnClickListener(this);
         rl_clear.setOnClickListener(this);
         btn_outline.setOnClickListener(this);
+
+        tr= LSharePreference.getInstance(this).getBoolean("login");
+
     }
 
     @TargetApi(19)
@@ -181,13 +186,23 @@ public class More extends LActivity implements View.OnClickListener {
         //退出登录
         if (mid == R.id.btn_outline) {
             T.ss("退出登录");
-           loades();
+            if(tr==false){
+                btn_outline.setText("登录");
+                if(MyApplication.isLogin(this)){
+                    T.ss("已登陆");
+                }
+            }else{
+                btn_outline.setText("退出登录");
+                loades();
+            }
+
         }
 
     }
 
 
     private void loades() {
+
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("uuid", Token.get(this));
@@ -218,7 +233,10 @@ public class More extends LActivity implements View.OnClickListener {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 T.ss("退出成功！");
-
+                LSharePreference.getInstance(this).setBoolean("login",false);
+                if(MyApplication.isLogin(this)){
+                    T.ss("已登陆");
+                }
             } else {
                 T.ss(jsonObject.getString("info"));
             }

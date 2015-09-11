@@ -157,73 +157,96 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         //消息
         if (id == R.id.person_emls) {
             // T.ss("跳到消息的页面");
-            Intent intent = new Intent(getActivity(), News.class);
-            getActivity().startActivity(intent);
-            img_n.setVisibility(View.GONE);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), News.class);
+                getActivity().startActivity(intent);
+                img_n.setVisibility(View.GONE);
+            }
+
         }
         //头像
         if (id == R.id.myself_image) {
-            Intent intent = new Intent(getActivity(), PersonSet.class);
-            intent.putExtra("img",img);
-            intent.putExtra("names", tv_name.getText());
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), PersonSet.class);
+                intent.putExtra("img", img);
+                intent.putExtra("names", tv_name.getText());
+                getActivity().startActivity(intent);
+            }
+
         }
 
         //待付款
         if (id == R.id.rl_tv1) {
             // T.ss("待付款");
             //tv_1.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(getActivity(), All_Orders.class);
-            intent.putExtra("gets", "1");
-            getActivity().startActivity(intent);
-            tv_1.setVisibility(View.GONE);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), All_Orders.class);
+                intent.putExtra("gets", "1");
+                getActivity().startActivity(intent);
+                tv_1.setVisibility(View.GONE);
+            }
+
         }
         //待发货
         if (id == R.id.rl_tv2) {
             //   T.ss("待发货");
             // tv_2.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(getActivity(), All_Orders.class);
-            intent.putExtra("gets", "2");
-            getActivity().startActivity(intent);
-            tv_2.setVisibility(View.GONE);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), All_Orders.class);
+                intent.putExtra("gets", "2");
+                getActivity().startActivity(intent);
+                tv_2.setVisibility(View.GONE);
+            }
         }
         //待收货
         if (id == R.id.rl_tv3) {
             //  T.ss("待收货");
             //  tv_3.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(getActivity(), All_Orders.class);
-            intent.putExtra("gets", "3");
-            getActivity().startActivity(intent);
-            tv_3.setVisibility(View.GONE);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), All_Orders.class);
+                intent.putExtra("gets", "3");
+                getActivity().startActivity(intent);
+                tv_3.setVisibility(View.GONE);
+            }
         }
         //全部订单
         if (id == R.id.orders) {
-            Intent intent = new Intent(getActivity(), All_Orders.class);
-            intent.putExtra("gets", "0");
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), All_Orders.class);
+                intent.putExtra("gets", "0");
+                getActivity().startActivity(intent);
+            }
         }
         //收货地址
         if (id == R.id.address) {
             // T.ss("收货地址");
-            Intent intent = new Intent(getActivity(), Address.class);
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), Address.class);
+                getActivity().startActivity(intent);
+            }
         }
         //我的优惠卷
         if (id == R.id.parper) {
             // T.ss("我的优惠卷");
-            Intent intent = new Intent(getActivity(), My_Coupons.class);
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), My_Coupons.class);
+                getActivity().startActivity(intent);
+            }
         }
         //提现账户
         if (id == R.id.account) {
             // T.ss("提现账户");
-            Intent intent = new Intent(getActivity(), ExtractActivity.class);
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), ExtractActivity.class);
+                getActivity().startActivity(intent);
+            }
         }
         //优惠码
         if (id == R.id.yaoqing) {
-            Intent intent = new Intent(getActivity(), Update_Num.class);
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), Update_Num.class);
+                getActivity().startActivity(intent);
+            }
         }
         //分享
         if (id == R.id.share) {
@@ -232,21 +255,33 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         //我的返利
         if (id == R.id.rebate) {
             //  T.ss("我的返利");
-            Intent intent = new Intent(getActivity(), Rebate.class);
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), Rebate.class);
+                getActivity().startActivity(intent);
+            }
         }
         //我的伙伴
         if (id == R.id.partner) {
             //T.ss("我的伙伴");
-            Intent intent = new Intent(getActivity(), My_Partner.class);
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), My_Partner.class);
+                getActivity().startActivity(intent);
+            }
         }
         //更多
         if (id == R.id.more) {
             // T.ss("更多");
-            Intent intent = new Intent(getActivity(), More.class);
-            getActivity().startActivity(intent);
+            if (MyApplication.isLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), More.class);
+                getActivity().startActivity(intent);
+            }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Data();
     }
 
     private void Data() {
@@ -273,16 +308,19 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     }
 
     private void getJsonData(String data) {
+        listEntities.clear();
         try {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONObject list = jsonObject.getJSONObject("list");
                 JSONArray array = list.getJSONArray("status_list");
+
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject jso = array.getJSONObject(i);
                     statusListEntity = new MyEntiy.StatusListEntity();
                     statusListEntity.setState(jso.getString("state"));
+
                     statusListEntity.setTotal_num(jso.getString("total_num"));
                     listEntities.add(statusListEntity);
                 }
@@ -330,19 +368,35 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
             } else {
                 num = listEntities.get(i).getTotal_num();
             }
+
+
             if (state.equals("0")) {
                 //待付款
-                tv_1.setVisibility(View.VISIBLE);
-                tv_1.setText(num);
+                if (num.equals("0")) {
+                    tv_1.setVisibility(View.GONE);
+                } else {
+                    tv_1.setVisibility(View.VISIBLE);
+
+                    tv_1.setText(num);
+                }
             } else if (state.equals("1")) {
                 //待发货
-                tv_2.setVisibility(View.VISIBLE);
-                tv_2.setText(num);
+                if (num.equals("0")) {
+                    tv_2.setVisibility(View.GONE);
+                } else {
+                    tv_2.setVisibility(View.VISIBLE);
+                    tv_2.setText(num);
+                }
             } else if (state.equals("2")) {
                 //待收货
-                tv_3.setVisibility(View.VISIBLE);
-                tv_3.setText(num);
+                if (num.equals("0")) {
+                    tv_3.setVisibility(View.GONE);
+                } else {
+                    tv_3.setVisibility(View.VISIBLE);
+                    tv_3.setText(num);
+                }
             }
+
         }
     }
 

@@ -97,8 +97,8 @@ public class BuysNumAdapter extends BaseAdapter {
         }
 
 
-        viewHolders.tv_moneys.setText(ient.getPreferential());
-        viewHolders.tv_oldmoney.setText("￥" + ient.getNprice());
+        viewHolders.tv_moneys.setText(ient.getNprice());
+        viewHolders.tv_oldmoney.setText("￥" + ient.getPreferential());
         viewHolders.tv_nums.setText("x" + ient.getBuynum());
         return convertView;
     }

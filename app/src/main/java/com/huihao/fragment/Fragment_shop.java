@@ -182,7 +182,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/cart/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-
+        //L.e(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler
         FragmentHandler handler = new FragmentHandler(this);
         handler.startLoadingData(entity, 1);
@@ -190,53 +190,54 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
     }
 
     private void getJsonData(String data) {
-
+        list.clear();
         try {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONObject result = jsonObject.getJSONObject("list");
-                if(result.length()<1){
+                if (result.length() < 1) {
                     rl_shops.setVisibility(View.GONE);
                     rl_gshops.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     rl_shops.setVisibility(View.VISIBLE);
                     rl_gshops.setVisibility(View.GONE);
-                JSONArray jsonArray = result.getJSONArray("cart_list");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    ShopItemEntity entity = new ShopItemEntity();
-                    entity.setId(object.getString("id"));
-                    entity.setTitle(object.getString("title"));
-                    entity.setPic(object.getString("picurl"));
-                    entity.setNum(Integer.parseInt(object.getString("bnum")));
-                    entity.setIsCheck(false);
-                    entity.setSpecid(object.getString("spec_id"));
-                    if (object.getString("nprice").equals(null) || object.getString("nprice").equals("") || object.getString("nprice").equals("null")) {
-                        entity.setDanjia(0.00f);
-                    } else {
-                        entity.setDanjia(Float.parseFloat(object.getString("nprice")));
-                    }
-                    if (object.getString("oprice").equals(null) || object.getString("oprice").equals("") || object.getString("oprice").equals("null")) {
-                        entity.setSale(0.00f);
-                    } else {
-                        entity.setSale(Float.parseFloat(object.getString("oprice")));
-                    }
-                    String spec1 = object.getString("title_1") + ":" + object.getString("spec_1");
-                    if (spec1.length() > 2) {
-                        entity.setColor(spec1);
-                    }
+                    JSONArray jsonArray = result.getJSONArray("cart_list");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        ShopItemEntity entity = new ShopItemEntity();
+                        entity.setId(object.getString("id"));
+                        entity.setTitle(object.getString("title"));
+                        entity.setPic(object.getString("picurl"));
+                        entity.setNum(Integer.parseInt(object.getString("bnum")));
+                        entity.setIsCheck(false);
+                        entity.setSpecid(object.getString("spec_id"));
+                        if (object.getString("nprice").equals(null) || object.getString("nprice").equals("") || object.getString("nprice").equals("null")) {
+                            entity.setDanjia(0.00f);
+                        } else {
+                            entity.setDanjia(Float.parseFloat(object.getString("nprice")));
+                        }
+                        if (object.getString("oprice").equals(null) || object.getString("oprice").equals("") || object.getString("oprice").equals("null")) {
+                            entity.setSale(0.00f);
+                        } else {
+                            entity.setSale(Float.parseFloat(object.getString("oprice")));
+                        }
+                        String spec1 = object.getString("title_1") + ":" + object.getString("spec_1");
+                        if (spec1.length() > 2) {
+                            entity.setColor(spec1);
+                        }
 
-                    String spec2 = object.getString("title_2") + ":" + object.getString("spec_2");
-                    if (spec2.length() > 2) {
-                        entity.setSize(spec2);
+                        String spec2 = object.getString("title_2") + ":" + object.getString("spec_2");
+                        if (spec2.length() > 2) {
+                            entity.setSize(spec2);
+                        }
+                            entity.setProduct_id(object.getString("product_id"));
+                        list.add(entity);
                     }
+                    Tsum();
 
-                    list.add(entity);
                 }
-                Tsum();
-
-            } }else {
+            } else {
                 T.ss(jsonObject.getString("info").toString());
 
             }
@@ -260,6 +261,11 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
 
     @Override
     public void onClick(View v) {
@@ -306,7 +312,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
 //                tv_all_choose.setText("全选");
 //            }
 //        }
-        if (v ==btn_go) {
+        if (v == btn_go) {
             Intent intent = new Intent(getActivity(), HomeMain.class);
             startActivity(intent);
             getActivity().finish();

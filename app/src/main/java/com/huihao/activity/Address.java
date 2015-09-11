@@ -138,6 +138,8 @@ public class Address extends LActivity implements View.OnClickListener {
             }
             }else {
                 T.ss(jsonObject.getString("info").toString());
+                rl_gaddr.setVisibility(View.VISIBLE);
+                rl_all.setVisibility(View.GONE);
             }
         } catch (JSONException e) {
             e.printStackTrace();

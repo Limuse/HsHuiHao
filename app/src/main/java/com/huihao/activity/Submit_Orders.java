@@ -507,7 +507,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                 if (total_preferential.equals(null) || total_preferential.equals("")) {
                     tv_fj.setText("");
                 } else {
-                    tv_fj.setText("-" + total_preferential + "元");
+                    tv_fj.setText(total_preferential + "元");
                 }
                 JSONArray ja = jsb.getJSONArray("exress_list");
 

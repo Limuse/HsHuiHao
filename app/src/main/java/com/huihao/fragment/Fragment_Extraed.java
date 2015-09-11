@@ -26,6 +26,7 @@ import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -86,6 +87,7 @@ public class Fragment_Extraed extends LFragment implements AdapterView.OnItemCli
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url) + "/huihao/member/commissionapply/1/sign/aggregation/?t=1&uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
+        //L.e(url);
         FragmentHandler handler = new FragmentHandler(Fragment_Extraed.this);
         handler.startLoadingData(entity, 1);
 
