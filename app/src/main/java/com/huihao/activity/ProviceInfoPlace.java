@@ -14,6 +14,7 @@ import com.huihao.adapter.ExpandableLvAdapter;
 import com.huihao.adapter.ThreeStageAdapter;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.db.AddressDb;
+import com.huihao.db.PccDb;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
@@ -47,10 +48,10 @@ public class ProviceInfoPlace extends LActivity {
     private ExpandableLvAdapter adapter;
     private ThreeStageAdapter adapter_lv;
     private ArrayList<Map<String, Object>> nomalList = new ArrayList<>();
-    //private String parentId;
+    private String parentId;
     private int gPosition, cPosition;
-    AddressDb DBADDR = new AddressDb(this, null, null, 16);
-    SQLiteDatabase db = null;//= DBADDR.getWritableDatabase();
+    SQLiteDatabase database;
+    private PccDb db = new PccDb();
 
     protected void onLCreate(Bundle arg0) {
         setContentView(R.layout.activity_position_direction_filter);
@@ -62,7 +63,7 @@ public class ProviceInfoPlace extends LActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
-        db = DBADDR.getWritableDatabase();
+        database = db.openDatabase(this);
         InitView();
         InitDate();
         initClick();
@@ -90,7 +91,6 @@ public class ProviceInfoPlace extends LActivity {
         //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                db.close();
 
                 finish();
             }
@@ -102,16 +102,6 @@ public class ProviceInfoPlace extends LActivity {
         exp_lv_dierction = (ExpandableListView) findViewById(R.id.exp_lv);
         exp_lv_dierction.setGroupIndicator(null);
         lv_direction = (ListView) findViewById(R.id.lv_direction_three);
-    }
-
-    private void InitDate() {
-        groupArray.clear();
-        childArray.clear();
-        String url = getResources().getString(R.string.app_service_url)
-                + "/huihao/register/regions/1/sign/aggregation/";
-        LReqEntity entity = new LReqEntity(url);
-        ActivityHandler handler = new ActivityHandler(this);
-        handler.startLoadingData(entity, 1);
     }
 
     private void initClick() {
@@ -133,6 +123,14 @@ public class ProviceInfoPlace extends LActivity {
         });
     }
 
+
+    private void InitDate() {
+        groupArray.clear();
+        childArray.clear();
+
+    }
+
+
     @Override
     public void onResultHandler(LMessage msg, int requestId) {
         super.onResultHandler(msg, requestId);
@@ -140,67 +138,185 @@ public class ProviceInfoPlace extends LActivity {
             if (requestId == 1) {
                 getOneStageData(msg.getStr());
             }
+            if (requestId == 2) {
+                getTwoStageData(msg.getStr());
+            }
+            if (requestId == 3) {
+                getThreeStageData(msg.getStr());
+            }
         } else {
             T.ss("获取数据失败");
         }
     }
 
-
+    //省
     private void getOneStageData(String data) {
+
+        String sql="select * from province where _ID=0";
+        Cursor cursor=database.rawQuery("sql",null);
         try {
             JSONObject jsonObject = new JSONObject(data);
-            int code = jsonObject.getInt("status");
-            if (code == 1) {
-                JSONArray categoryList = jsonObject.getJSONArray("list");
+            int code = jsonObject.getInt("code");
+            if (code == 0) {
+                JSONObject result = jsonObject.getJSONObject("result");
+                JSONArray categoryList = result.getJSONArray("regionList");
                 for (int i = 0; i < categoryList.length(); i++) {
+                    List<Map<String, Object>> tempArray = new ArrayList<Map<String, Object>>();
+                    Map<String, Object> oneStageMap = new HashMap<String, Object>();
                     JSONObject item = categoryList.getJSONObject(i);
                     String name = item.getString("name");
                     int id = item.getInt("id");
-                    int parent = item.getInt("parent");
-                    if (parent == 0) {
-                        db.execSQL("INSERT INTO " + DBADDR.PROVINCE + " (_ID,parent,name) VALUES (" + id + "," + parent + "," + "'" + name + "'" + ")");
-                    }
+                    parentId = item.getInt("id") + "";
+                    oneStageMap.put("id", id);
+                    oneStageMap.put("name", name);
+                    oneStageMap.put("parentId", parentId);
+                    groupArray.add(oneStageMap);
+                    Map<String, Object> twoStageMap = new HashMap<String, Object>();
+                    // JSONObject jo = ja.getJSONObject(j);
+                    // String chidName = jo.getString("name");
+                    // int chidId = jo.getInt("id");
+                    // int chid_parentId = jo.getInt("parentId");
+                    // twoStageMap.put("childId", chidId);
+                    // twoStageMap.put("childName", chidName);
+                    // twoStageMap.put("child_parentId", chid_parentId);
+                    tempArray.add(twoStageMap);
+                    childArray.add(tempArray);
                 }
-
-                for (int i = 0; i < categoryList.length(); i++) {
-                    JSONObject item = categoryList.getJSONObject(i);
-                    String name = item.getString("name");
-                    int id = item.getInt("id");
-                    int parent = item.getInt("parent");
-                    Cursor cursor = db.rawQuery("select * from " + DBADDR.PROVINCE
-                            + " where _ID=?", new String[]{parent + ""});
-                    if (cursor != null) {
-                        db.execSQL("INSERT INTO " + DBADDR.CITY + " (_ID,parent,name) VALUES (" + id + "," + parent + "," + "'" + name + "'" + ")");
-                    }
-                    cursor.close();
-                }
-
-                for (int i = 0; i < categoryList.length(); i++) {
-                    JSONObject item = categoryList.getJSONObject(i);
-                    String name = item.getString("name");
-                    int id = item.getInt("id");
-                    int parent = item.getInt("parent");
-                    Cursor cursor = db.rawQuery("select * from " + DBADDR.CITY
-                            + " where _ID=?", new String[]{parent + ""});
-                    if (cursor != null) {
-                        db.execSQL("INSERT INTO " + DBADDR.COUNTRY + " (_ID,parent,name) VALUES (" + id + "," + parent + "," + "'" + name + "'" + ")");
-                    }
-                    cursor.close();
-                }
-                T.ss("数据已装完");
+                InitClick();
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void setData() {
-        Cursor cursor = db.rawQuery("select * from " + DBADDR.PROVINCE
-                + " where parent=?", new String[]{0 + ""});
-        int s = cursor.getCount();
-        if (cursor.moveToNext()) {
-            T.ss(cursor.getInt(0));
+    //市
+    private void getTwoStageData(String str) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            int code = jsonObject.getInt("code");
+            if (code == 0) {
+                JSONObject result = jsonObject.getJSONObject("result");
+                JSONArray categoryList = result.getJSONArray("regionList");
+                List<Map<String, Object>> tempArray = new ArrayList<Map<String, Object>>();
+
+                for (int j = 0; j < categoryList.length(); j++) {
+                    Map<String, Object> twoStageMap = new HashMap<String, Object>();
+                    JSONObject jo = categoryList.getJSONObject(j);
+                    String chidName = jo.getString("name");
+                    int chidId = jo.getInt("id");
+                    int chid_parentId = jo.getInt("parentId");
+                    twoStageMap.put("childId", chidId);
+                    twoStageMap.put("childName", chidName);
+                    twoStageMap.put("child_parentId", chid_parentId);
+                    tempArray.add(twoStageMap);
+                }
+                childArray.add(gPosition, tempArray);
+                exp_lv_dierction.expandGroup(gPosition);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
+    private void InitClick() {
+        adapter = new ExpandableLvAdapter(groupArray, childArray,
+                ProviceInfoPlace.this);
+        adapter.notifyDataSetChanged();
+        exp_lv_dierction.setAdapter(adapter);
+        exp_lv_dierction.setSelectedGroup(gPosition);
+        exp_lv_dierction.setOnGroupClickListener(new OnGroupClickListener() {
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                boolean expanded = parent.isGroupExpanded(groupPosition);
+                gPosition = groupPosition;
+                exp_lv_dierction.setSelectedGroup(gPosition);
+                if (!expanded) {
+                    parentId = groupArray.get(groupPosition).get("parentId")
+                            + "";
+
+////                    String url = "http://jjzapi.huisou.com/base/regions.do?parentId="
+////                            + parentId+"&token="+Token.get(mContext);
+////                    LReqEntity entity = new LReqEntity(url);
+//                    // Fragment用FragmentHandler
+//                    ActivityHandler handler = new ActivityHandler(
+//                            ProviceInfoPlace.this);
+//                    handler.startLoadingData(entity, 2);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        exp_lv_dierction.setOnChildClickListener(new OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                cPosition = childPosition;
+
+                nomalList.clear();
+
+//                int chidId = (int) childArray.get(groupPosition)
+//                        .get(childPosition).get("childId");
+//                String url = "http://jjzapi.huisou.com/base/regions.do?parentId="
+//                        + chidId+"&token="+Token.get(mContext);
+//
+//                LReqEntity entity = new LReqEntity(url);
+//                // Fragment用FragmentHandler
+//                ActivityHandler handler = new ActivityHandler(
+//                        ProviceInfoPlace.this);
+//                handler.startLoadingData(entity, 3);
+                return true;
+            }
+        });
+
+    }
+
+    //区
+    private void getThreeStageData(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("code");
+            if (code == 0) {
+                JSONObject result = jsonObject.getJSONObject("result");
+                JSONArray categoryList = result.getJSONArray("regionList");
+                if (categoryList.length() > 0) {
+                    for (int i = 0; i < categoryList.length(); i++) {
+                        JSONObject jo = categoryList.getJSONObject(i);
+                        Map<String, Object> map = new HashMap<>();
+                        int id = jo.getInt("id");
+                        int parentId = jo.getInt("parentId");
+                        String name = jo.getString("name");
+                        map.put("id", id);
+                        map.put("parentId", parentId);
+                        map.put("name", name);
+                        nomalList.add(map);
+                    }
+                    adapter_lv = new ThreeStageAdapter(nomalList,
+                            ProviceInfoPlace.this);
+                    lv_direction.setAdapter(adapter_lv);
+                } else {
+                    Intent intent = new Intent();
+                    intent.putExtra(
+                            "name",
+                            childArray.get(gPosition).get(cPosition)
+                                    .get("childName")
+                                    + "");
+                    intent.putExtra(
+                            "id",
+                            childArray.get(gPosition).get(cPosition)
+                                    .get("childId")
+                                    + "");
+                    setResult(1, intent);
+                    finish();
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
