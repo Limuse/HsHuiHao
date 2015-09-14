@@ -74,8 +74,9 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     private String img;
     private MyEntiy.StatusListEntity statusListEntity;
     public static Fragment_my instance = null;
-    private List<MyEntiy.StatusListEntity> listEntities = new ArrayList<MyEntiy.StatusListEntity>();
+    private List<MyEntiy.StatusListEntity> listEntities = new ArrayList<>();
     private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -259,8 +260,11 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         }
         //分享
         if (id == R.id.share) {
-            T.ss("分享");
-            share();
+            //  T.ss("分享");
+            if (MyApplication.isLogin(getActivity())) {
+                share();
+            }
+
         }
         //我的返利
         if (id == R.id.rebate) {
@@ -287,6 +291,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
             }
         }
     }
+
     public void share() {
 // 设置分享内容
         mController.setShareContent("汇好，汇聚天下好产品");
@@ -317,8 +322,6 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         mController.getConfig().removePlatform(SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
         mController.openShare(getActivity(), false);
     }
-
-
 
 
     @Override
@@ -377,13 +380,14 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                     img = m;
                 }
                 entitys.setMeassage(jt.getString("meassage"));
-                String n = jt.getString("meassage").toString();
+                String n =jt.getString("meassage").toString();
+
                 if (n.equals("0") || n.equals(null)) {
                     img_n.setVisibility(View.GONE);
 
                 } else {
                     img_n.setVisibility(View.VISIBLE);
-                    img_n.setText(m);
+                    img_n.setText(n);
                 }
                 entitys.setUsername(jt.getString("username"));
                 if (entitys.getUsername().equals(null)) {

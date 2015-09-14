@@ -15,8 +15,8 @@
 
         <RelativeLayout
             android:id="@+id/person_emls"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_alignParentRight="true"
             android:background="@null"
             android:clickable="true"
@@ -27,21 +27,22 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
                 android:background="@mipmap/emils" />
 
             <TextView
                 android:id="@+id/img_n"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_marginLeft="-10dp"
+                android:layout_marginLeft="-20dp"
                 android:layout_marginTop="-3dp"
                 android:layout_toEndOf="@+id/person_emlss"
                 android:background="@drawable/clicer"
                 android:gravity="center"
-                android:text=""
                 android:paddingBottom="2dp"
-                android:textSize="11sp"
+                android:text=""
                 android:textColor="@color/app_white"
+                android:textSize="11sp"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -115,12 +116,11 @@
                     android:layout_toEndOf="@+id/person_no_pay"
                     android:background="@drawable/clicer"
                     android:gravity="center"
+                    android:paddingBottom="2dp"
                     android:text=""
                     android:textColor="@color/app_white"
-                    android:paddingBottom="2dp"
-                   android:textSize="11sp"
-                    android:visibility="gone"
-                    />
+                    android:textSize="11sp"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -152,10 +152,10 @@
                     android:layout_toEndOf="@+id/person_rec"
                     android:background="@drawable/clicer"
                     android:gravity="center"
-                    android:text=""
                     android:paddingBottom="2dp"
-                    android:textSize="11sp"
+                    android:text=""
                     android:textColor="@color/app_white"
+                    android:textSize="11sp"
                     android:visibility="gone" />
             </RelativeLayout>
 
@@ -187,10 +187,10 @@
                     android:layout_toEndOf="@+id/person_back_money"
                     android:background="@drawable/clicer"
                     android:gravity="center"
-                    android:text=""
                     android:paddingBottom="2dp"
-                    android:textSize="11sp"
+                    android:text=""
                     android:textColor="@color/app_white"
+                    android:textSize="11sp"
                     android:visibility="gone" />
             </RelativeLayout>
         </LinearLayout>
@@ -323,11 +323,13 @@
                     android:layout_marginRight="@dimen/app_myself_left_mar"
                     android:src="@mipmap/right_to" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="35dp"
                 android:background="@color/app_background" />
+
             <RelativeLayout
                 android:id="@+id/yaoqing"
                 android:layout_width="match_parent"
@@ -367,6 +369,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="35dp"
                 android:background="@color/app_background" />
+
             <RelativeLayout
                 android:id="@+id/share"
                 android:layout_width="match_parent"
