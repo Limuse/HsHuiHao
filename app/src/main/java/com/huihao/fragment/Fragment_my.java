@@ -37,6 +37,15 @@ import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +75,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     private MyEntiy.StatusListEntity statusListEntity;
     public static Fragment_my instance = null;
     private List<MyEntiy.StatusListEntity> listEntities = new ArrayList<MyEntiy.StatusListEntity>();
-
+    private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -251,6 +260,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         //分享
         if (id == R.id.share) {
             T.ss("分享");
+            share();
         }
         //我的返利
         if (id == R.id.rebate) {
@@ -277,6 +287,39 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
             }
         }
     }
+    public void share() {
+// 设置分享内容
+        mController.setShareContent("汇好，汇聚天下好产品");
+// 设置分享图片, 参数2为图片的url地址
+        mController.setShareMedia(new UMImage(getActivity(),
+                "http://tb.himg.baidu.com/sys/portrait/item/94edd7eed6d5c5c7bbb22924"));
+
+        String appID = "wx967daebe835fbeac";
+        String appSecret = "5fa9e68ca3970e87a1f83e563c8dcbce";
+// 添加微信平台
+        UMWXHandler wxHandler = new UMWXHandler(getActivity(), appID, appSecret);
+        wxHandler.addToSocialSDK();
+// 添加微信朋友圈
+        UMWXHandler wxCircleHandler = new UMWXHandler(getActivity(), appID, appSecret);
+        wxCircleHandler.setToCircle(true);
+        wxCircleHandler.addToSocialSDK();
+
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(getActivity(), "100424468",
+                "c7394704798a158208a74ab60104f0ba");
+        qqSsoHandler.addToSocialSDK();
+
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(getActivity(), "100424468",
+                "c7394704798a158208a74ab60104f0ba");
+        qZoneSsoHandler.addToSocialSDK();
+
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+
+        mController.getConfig().removePlatform(SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
+        mController.openShare(getActivity(), false);
+    }
+
+
+
 
     @Override
     public void onResume() {

@@ -67,6 +67,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
     private static final String IMAGE_FILE_NAME_TEMP = "hh_image.jpg";
     private DisplayImageOptions options;
     private ImageLoader imageLoader;
+
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_person_set);
@@ -116,12 +117,13 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         rl_name.setOnClickListener(this);
 
         rl_pwd.setOnClickListener(this);
-        String ims=getIntent().getExtras().getString("img");
-        img=ims;
-        String names=getIntent().getExtras().getString("names");
+        String ims = getIntent().getExtras().getString("img");
+        img = ims;
+        String names = getIntent().getExtras().getString("names");
         tv_name.setText(names);
         img();
     }
+
     private void img() {
         // 图片
         if (imageLoader == null) {
@@ -139,6 +141,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                 .build();
         imageLoader.displayImage(img, my_imgs, options);
     }
+
     private void initDialog(View view) {
         Button btn_play = (Button) view.findViewById(R.id.btn_play);
         Button btn_pics = (Button) view.findViewById(R.id.btn_pics);
@@ -246,6 +249,16 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                     }
                 }
                 dialog.cancel();
+                break;
+            case 5:
+                String name = data.getExtras().getString("name");
+                if (name.equals("1")) {
+                    String names = getIntent().getExtras().getString("names");
+                    tv_name.setText(names);
+                } else {
+                    tv_name.setText(name);
+                }
+                break;
         }
     }
 
@@ -315,7 +328,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         //修改昵称
         if (id == R.id.rl_name) {
             Intent intent = new Intent(this, Update_Name.class);
-            startActivity(intent);
+            startActivityForResult(intent, 5);
         }
 
         //修改密码

@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/app_myself_left_mar"
-                    android:text="等待卖家发货"
+                    android:text=""
                     android:textColor="@color/app_white"
                     android:textSize="@dimen/app_text_big" />
 
@@ -489,7 +489,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="5dp"
-                    android:text="123486410156"
+                    android:text=""
                     android:textColor="@color/app_text_light"
                     android:textSize="@dimen/app_text_big" />
 
@@ -518,7 +518,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="5dp"
-                    android:text="123486410156"
+                    android:text=""
                     android:textColor="@color/app_text_light"
                     android:textSize="@dimen/app_text_big" />
 
@@ -547,7 +547,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="5dp"
-                    android:text="123486410156"
+                    android:text=""
                     android:textColor="@color/app_text_light"
                     android:textSize="@dimen/app_text_big" />
 

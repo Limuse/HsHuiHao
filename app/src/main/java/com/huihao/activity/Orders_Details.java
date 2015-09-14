@@ -7,7 +7,10 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,8 +22,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.huihao.R;
 import com.huihao.adapter.BuysNumAdapter;
+import com.huihao.common.PayResult;
+import com.huihao.common.SignUtils;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.common.Token;
 import com.huihao.custom.CustomDialog;
@@ -38,10 +44,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by huisou on 2015/8/10.
@@ -61,6 +73,8 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
 
     private BuysNumAdapter adapter;
     private List<AllOrderItemEntity> itemlist = null;
+    private String orderid = null;
+    private int at = 1;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -95,7 +109,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
         ly_wl = (LinearLayout) findViewById(R.id.ll_wl);//物流状态
         ly_wl.setOnClickListener(this);
         tv_state = (TextView) findViewById(R.id.tv_qqs);
-     //   tv_stime = (TextView) findViewById(R.id.tv_qqt);
+        //   tv_stime = (TextView) findViewById(R.id.tv_qqt);
 
         tv_waite = (TextView) findViewById(R.id.tv_waite);
         /**
@@ -137,13 +151,13 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        String orderid = getIntent().getExtras().getString("orderid");
+        orderid = getIntent().getExtras().getString("orderid");
         itemlist = new ArrayList<AllOrderItemEntity>();
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url) + "/huihao/orders/detail/1/sign/aggregation/?uuid=" + Token.get(this) + "&id=" + orderid;
 
         LReqEntity entitys = new LReqEntity(url);
-       // L.e(entitys + "");
+        L.e(url + "");
         ActivityHandler handler = new ActivityHandler(Orders_Details.this);
         handler.startLoadingData(entitys, 1);
     }
@@ -179,6 +193,34 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
                     rl_bm.setVisibility(View.GONE);
                     ll_send.setVisibility(View.VISIBLE);
                     tv_desc.setVisibility(View.VISIBLE);
+                } else if (state.equals("0")) {
+                    //待付款
+                    tv_waite.setText("等待买家付款");
+                    ly_wl.setVisibility(View.GONE);
+                    rl_bm.setVisibility(View.VISIBLE);
+                    ll_send.setVisibility(View.GONE);
+                    tv_desc.setVisibility(View.GONE);
+                    tv_opent.setVisibility(View.GONE);
+                    btn_suok.setText("付款");
+                    at = 2;
+                } else if (state.equals("4")) {
+                    //退款中
+                    tv_waite.setText("等待卖家退款");
+                    ly_wl.setVisibility(View.GONE);
+                    rl_bm.setVisibility(View.GONE);
+                } else if (state.equals("5")) {
+                    //已退款
+                    tv_waite.setText("卖家已退款");
+                    ly_wl.setVisibility(View.GONE);
+                    rl_bm.setVisibility(View.GONE);
+                } else if (state.equals("6")) {
+                    tv_waite.setText("等待卖家换货");
+                    ly_wl.setVisibility(View.GONE);
+                    rl_bm.setVisibility(View.GONE);
+                } else if (state.equals("7")) {
+                    tv_waite.setText("卖家已换货");
+                    ly_wl.setVisibility(View.GONE);
+                    rl_bm.setVisibility(View.GONE);
                 }
                 String statename = jsd.getString("statename");//状态
                 tv_stateo.setText(statename);
@@ -202,18 +244,16 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
                 tv_opent.setText(sendtime);
                 String receivetime = jsd.getString("receivetime");      //   收货时间
                 String payname = jsd.getString("payname");      //  付款方式
-                String suretime = jsd.getString("您的订单已经发货，请在"+"suretime"+"前确认收货，超时订单将自动确认。");      //   确定收货时间
+                String suretime = jsd.getString("suretime");      //   确定收货时间
                 String exressinfo = jsd.getString("exressinfo");       //  物流信息
                 tv_state.setText(exressinfo);
-                tv_desc.setText(suretime);
+                tv_desc.setText("您的订单已经发货，请在" + "suretime" + "前确认收货，超时订单将自动确认。");
                 JSONArray array = josno.getJSONArray("order_detail");
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject jo = array.getJSONObject(i);
                     AllOrderItemEntity iee = new AllOrderItemEntity();
                     iee.setId(jo.getString("id"));
                     iee.setTitle(jo.getString("title"));
-
-
                     iee.setSpec_1(jo.getString("spec_1"));
                     iee.setSpec_2(jo.getString("spec_2"));
                     if (jo.getString("spec_1").equals(null) || jo.getString("spec_1").equals("") || jo.getString("spec_1").equals("null")) {
@@ -262,6 +302,10 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
                     break;
                 case 2:
                     getReData(msg.getStr());
+                    break;
+                case 3:
+                    getPayData(msg.getStr());
+                    break;
                 default:
 
                     break;
@@ -322,7 +366,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
                                     Toast.LENGTH_LONG)
                                     .show();
                             Uri uri = Uri.parse("tel:"
-                                    +"400-123-123");
+                                    + "400-123-123");
                             Intent intent = new Intent(
                                     Intent.ACTION_CALL, uri);
                             startActivity(intent);
@@ -339,16 +383,256 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
 
 
         }
-        //确认收货
+
         if (id == R.id.btn_quer) {
             Resources res = getResources();
-            String url = res.getString(R.string.app_service_url) + "/huihao/orders/receivegoods/1/sign/aggregation/";
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("uuid", Token.get(this));
-            map.put("id", oids);
-            LReqEntity entitys = new LReqEntity(url);
-            ActivityHandler handler = new ActivityHandler(Orders_Details.this);
-            handler.startLoadingData(entitys, 2);
+            String url = null;
+            if (at == 1) {
+                //确认收货
+                url = res.getString(R.string.app_service_url) + "/huihao/orders/receivegoods/1/sign/aggregation/";
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("uuid", Token.get(this));
+                map.put("id", oids);
+                LReqEntity entitys = new LReqEntity(url, map);
+                ActivityHandler handler = new ActivityHandler(Orders_Details.this);
+                handler.startLoadingData(entitys, 2);
+            } else if (at == 2) {
+                //确认付款
+                url = res.getString(R.string.app_service_url)
+                        + "/huihao/orders/orderpay/1/sign/aggregation/";
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("uuid", Token.get(this));
+                map.put("id", orderid);
+                LReqEntity entity = new LReqEntity(url, map);
+                ActivityHandler handler = new ActivityHandler(Orders_Details.this);
+                handler.startLoadingData(entity, 3);
+            }
         }
     }
+
+    private void getPayData(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                JSONObject list = jsonObject.getJSONObject("list");
+
+                if (list.length() > 0 || !list.equals(null)) {
+                    String title = list.getString("title");
+                    String orderids = list.getString("orderid");
+                    String price = list.getString("price");
+                    /**
+                     * 服务端返回支付宝的数据，然后支付成功后跳转-----支付成功界面
+                     */
+                    String orderInfo = getOrderInfo(title, orderids, price);
+                    // 对订单做RSA 签名
+                    String sign = sign(orderInfo);
+                    try {
+                        // 仅需对sign 做URL编码
+                        sign = URLEncoder.encode(sign, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                    // 完整的符合支付宝参数规范的订单信息
+                    final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
+                            + getSignType();
+
+                    Runnable payRunnable = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // 构造PayTask 对象
+                            PayTask alipay = new PayTask(Orders_Details.this);
+                            // 调用支付接口，获取支付结果
+                            String result = alipay.pay(payInfo);
+
+                            Message msg = new Message();
+                            msg.what = SDK_PAY_FLAG;
+                            msg.obj = result;
+                            mHandler.sendMessage(msg);
+                        }
+                    };
+
+                    // 必须异步调用
+                    Thread payThread = new Thread(payRunnable);
+                    payThread.start();
+                }
+            } else {
+                T.ss("操作失败");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 支付宝相关
+     *
+     * @param bundle
+     */
+
+    //商户PID
+    public static final String PARTNER = "2088911763752854";
+    //商户收款账号
+    public static final String SELLER = "huihao@huisou.com";
+    //商户私钥，pkcs8格式
+    public static final String RSA_PRIVATE = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBANjoFNM9Yo96VglpBSKi5Vb70Xn8WoiUJvsNRb4ehrnphdCECv8W6zltohFFsexbix37eb+6e/truaFBCmw0lsdVe0KNrN2XmGdfFBZlDyJ7X44RYw9kl1WE7v9J4eVl3Wif6jzRWq33PHZ6TFUzUDvWE3houC3hYGYAnbmsWsibAgMBAAECgYEAmP5KAh2gMXemzAhpeN7RSSNhw9s9uGxXemkIMmuxt9yBaGxanUb7L4ym7evs7bw8Si+g1p2g6dw4GQeZZG1Lk40dJRYZaJxBiaQ7LE/lFV1kmWNmtrllXLV54OfwphXbw/1EDcLaw4yiMZMO0CnphrYzimYeVWNvaGejdQ4lnBECQQD7HWysSOfs5W9qFqaUHvX1hwhCTJnPXPaOsgHeUJq5GF4Qs0xNRn/ZCSARRCL/7XDmoMeEQrQURsDwi+292ktNAkEA3SBLxxq1wpEtHLFocdfEN6Ni/zwPyzCcxcFYodet/aAdWYdmrlHh5WpLq7JIowArHCNqpnOHdY0JHiMG7LnfhwJBANEW4greNccKD2gNbix9Tx1ejyDtOVDxPhb43xdmlD40rPZI5OqfHgrwTzQxQNdKtKxECXz2MY2EkFh6mr1vSy0CQECmhaFD3Opy+aaO9AN82yCNQ49uJwv4PY3P9rLy1Sr3Gj2nycyjohEqH8+mQ3hsvy3t6OubkXo77vOBuC+UNJcCQQCeOtmGyUDkVyzFuMfbbjjdP9CatTvaGb3MvfRMZWtLE8At2A6Jk+Nxc9oA7hHijVgsbD2rS8anGRsqnZ5SiMc4";
+    //支付宝公钥
+    public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDY6BTTPWKPelYJaQUiouVW+9F5/FqIlCb7DUW+Hoa56YXQhAr/Fus5baIRRbHsW4sd+3m/unv7a7mhQQpsNJbHVXtCjazdl5hnXxQWZQ8ie1+OEWMPZJdVhO7/SeHlZd1on+o80Vqt9zx2ekxVM1A71hN4aLgt4WBmAJ25rFrImwIDAQAB";
+
+
+    private static final int SDK_PAY_FLAG = 1;
+
+    private static final int SDK_CHECK_FLAG = 2;
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    PayResult payResult = new PayResult((String) msg.obj);
+
+                    // 支付宝返回此次支付结果及加签，建议对支付宝签名信息拿签约时支付宝提供的公钥做验签
+                    String resultInfo = payResult.getResult();
+
+                    String resultStatus = payResult.getResultStatus();
+
+                    // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        Toast.makeText(Orders_Details.this, "支付成功",
+                                Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(Submit_Orders.this, Pay_Successed.class);
+//                        intent.putExtra("price", price);
+//                        intent.putExtra("orderid", orderid);
+//                        intent.putExtra("addrname", adrname);
+//                        intent.putExtra("addrphone", adrphone);
+//                        intent.putExtra("addrs", adraddr);
+//                        intent.putExtra("price", price);
+//                        intent.putExtra("orderid",orderid);
+//                        startActivity(intent);
+
+                    } else {
+                        // 判断resultStatus 为非“9000”则代表可能支付失败
+                        // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+                        if (TextUtils.equals(resultStatus, "8000")) {
+                            Toast.makeText(Orders_Details.this, "支付结果确认中",
+                                    Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+                            Toast.makeText(Orders_Details.this, "支付失败",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                    break;
+                }
+                case SDK_CHECK_FLAG: {
+                    Toast.makeText(Orders_Details.this, "检查结果为：" + msg.obj,
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+
+        ;
+    };
+
+
+    /**
+     * get the sdk version. 获取SDK版本号
+     */
+    public void getSDKVersion() {
+        PayTask payTask = new PayTask(Orders_Details.this);
+        String version = payTask.getVersion();
+        Toast.makeText(Orders_Details.this, version, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * create the order info. 创建订单信息
+     */
+    public String getOrderInfo(String subject, String body, String price) {
+        // 签约合作者身份ID
+        String orderInfo = "partner=" + "\"" + PARTNER + "\"";
+
+        // 签约卖家支付宝账号
+        orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
+
+        // 商户网站唯一订单号
+        orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+
+        // 商品名称
+        orderInfo += "&subject=" + "\"" + subject + "\"";
+
+        // 商品详情
+        orderInfo += "&body=" + "\"" + body + "\"";
+
+        // 商品金额
+        orderInfo += "&total_fee=" + "\"" + price + "\"";
+
+        // 服务器异步通知页面路径
+        orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
+                + "\"";
+
+        // 服务接口名称， 固定值
+        orderInfo += "&service=\"mobile.securitypay.pay\"";
+
+        // 支付类型， 固定值
+        orderInfo += "&payment_type=\"1\"";
+
+        // 参数编码， 固定值
+        orderInfo += "&_input_charset=\"utf-8\"";
+
+        // 设置未付款交易的超时时间
+        // 默认30分钟，一旦超时，该笔交易就会自动被关闭。
+        // 取值范围：1m～15d。
+        // m-分钟，h-小时，d-天，1c-当天（无论交易何时创建，都在0点关闭）。
+        // 该参数数值不接受小数点，如1.5h，可转换为90m。
+        orderInfo += "&it_b_pay=\"30m\"";
+
+        // extern_token为经过快登授权获取到的alipay_open_id,带上此参数用户将使用授权的账户进行支付
+        // orderInfo += "&extern_token=" + "\"" + extern_token + "\"";
+
+        // 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
+        orderInfo += "&return_url=\"m.alipay.com\"";
+
+        // 调用银行卡支付，需配置此参数，参与签名， 固定值 （需要签约《无线银行卡快捷支付》才能使用）
+        // orderInfo += "&paymethod=\"expressGateway\"";
+
+        return orderInfo;
+    }
+
+    /**
+     * get the out_trade_no for an order. 生成商户订单号，该值在商户端应保持唯一（可自定义格式规范）
+     */
+    public String getOutTradeNo() {
+        SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
+                Locale.getDefault());
+        Date date = new Date();
+        String key = format.format(date);
+
+        Random r = new Random();
+        key = key + r.nextInt();
+        key = key.substring(0, 15);
+        return key;
+    }
+
+    /**
+     * sign the order info. 对订单信息进行签名
+     *
+     * @param content 待签名订单信息
+     */
+    public String sign(String content) {
+        return SignUtils.sign(content, RSA_PRIVATE);
+    }
+
+    /**
+     * get the sign type we use. 获取签名方式
+     */
+    public String getSignType() {
+        return "sign_type=\"RSA\"";
+    }
+    //
 }

@@ -9,7 +9,7 @@
         android:id="@+id/menu_messages"
         android:orderInCategory="90"
         app:showAsAction="ifRoom|withText"
-        android:icon="@mipmap/save"
+        android:icon="@mipmap/rightgl"
         android:actionLayout="@style/AppTheme.Base."
        />
 

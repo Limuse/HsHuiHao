@@ -1,6 +1,7 @@
 package com.huihao.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -21,6 +22,7 @@ import com.alipay.sdk.app.PayTask;
 import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.activity.MetailFlow_Detail;
+import com.huihao.activity.Orders_Details;
 import com.huihao.common.PayResult;
 import com.huihao.common.SignUtils;
 import com.huihao.common.Token;
@@ -320,7 +322,8 @@ public class AllOrderAdapter extends BaseAdapter {
             } else {
                 viewHolders = (ViewItemHolder) convertView.getTag();
             }
-            AllOrderEntity.ChildEntity ient = lists.get(position);
+            final AllOrderEntity.ChildEntity ient = lists.get(position);
+
 
             /**
              * 图片需要处理
@@ -357,7 +360,14 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolders.tv_moneys.setText(ient.getNewprice());
             viewHolders.tv_oldmoney.setText("￥" + ient.getPrice());
             viewHolders.tv_nums.setText("x" + ient.getNum());
-
+            viewHolders.tv_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context.getActivity(), Orders_Details.class);
+                    intent.putExtra("orderid", ient.getOrderid());
+                    context.startActivity(intent);
+                }
+            });
             return convertView;
         }
     }
@@ -396,7 +406,7 @@ public class AllOrderAdapter extends BaseAdapter {
                     break;
                 case 1:
                     //完成退款
-                    url=res.getString(R.string.app_service_url)+"/huihao/orders/ confirmrefund/1/sign/aggregation/";
+                    url = res.getString(R.string.app_service_url) + "/huihao/orders/ confirmrefund/1/sign/aggregation/";
                     break;
                 case 2:
                     //取消退款

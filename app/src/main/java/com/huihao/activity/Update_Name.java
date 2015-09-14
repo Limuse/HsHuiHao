@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
@@ -58,6 +59,13 @@ public class Update_Name extends LActivity {
         //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent intent=new Intent();
+                String name=et_Upname.getText().toString();
+                if(name.equals(null)){
+                    intent.putExtra("name","1");
+                }
+                intent.putExtra("name",et_Upname.getText().toString());
+                setResult(5, intent);
                 finish();
             }
         });

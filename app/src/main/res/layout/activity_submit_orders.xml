@@ -268,7 +268,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="40dp"
-                    android:text="20.00元"
+                    android:text="元"
                     android:textColor="@color/app_text_dark"
                     android:textSize="@dimen/app_myself_tex" />
 
@@ -416,7 +416,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/tv_snuss"
-                    android:text="1"
+                    android:text=""
                     android:textColor="@color/app_text_dark"
                     android:textSize="@dimen/app_myself_tex" />
 
@@ -447,7 +447,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="40dp"
-                    android:text="￥79.80"
+                    android:text="￥"
                     android:textColor="@color/app_orange"
                     android:textSize="@dimen/app_myself_tex" />
 
@@ -484,7 +484,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/tv_dd"
-                    android:text="￥79.80"
+                    android:text="￥"
                     android:textColor="@color/app_orange"
                     android:textSize="18sp" />
 
