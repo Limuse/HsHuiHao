@@ -390,14 +390,20 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     adrphone = data.getExtras().getString("phone");
                     adraddr = data.getExtras().getString("addr");
                     addridss = data.getExtras().getString("ids");
-                    rl_ano.setVisibility(View.GONE);
-                    ly_alladdr.setVisibility(View.VISIBLE);
-                    provinces = data.getExtras().getString("province");
-                    citys = data.getExtras().getString("city");
-                    countrys = data.getExtras().getString("country");
-                    tv_name.setText(adrname);
-                    tv_phone.setText(adrphone);
-                    tv_addrs.setText(adraddr);
+                    if(addridss!=null){
+                        rl_ano.setVisibility(View.GONE);
+                        ly_alladdr.setVisibility(View.VISIBLE);
+                        provinces = data.getExtras().getString("province");
+                        citys = data.getExtras().getString("city");
+                        countrys = data.getExtras().getString("country");
+                        tv_name.setText(adrname);
+                        tv_phone.setText(adrphone);
+                        tv_addrs.setText(adraddr);
+                    }else{
+                        rl_ano.setVisibility(View.VISIBLE);
+                        ly_alladdr.setVisibility(View.GONE);
+                    }
+
                 }
 
                 break;

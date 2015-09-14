@@ -19,6 +19,7 @@ import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import android.annotation.TargetApi;
@@ -40,7 +41,6 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
 public class ProviceInfoPlace extends LActivity {
-    private Toolbar toolbar;
     private ExpandableListView exp_lv_dierction;
     private ListView lv_direction;
     private List<Map<String, Object>> groupArray = new ArrayList<Map<String, Object>>();
@@ -50,6 +50,7 @@ public class ProviceInfoPlace extends LActivity {
     private ArrayList<Map<String, Object>> nomalList = new ArrayList<>();
     private String parentId;
     private int gPosition, cPosition;
+    private String pPid, pPname;
     SQLiteDatabase database;
     private PccDb db = new PccDb();
 
@@ -66,7 +67,7 @@ public class ProviceInfoPlace extends LActivity {
         database = db.openDatabase(this);
         InitView();
         InitDate();
-        initClick();
+        initClicks();
 
     }
 
@@ -104,7 +105,7 @@ public class ProviceInfoPlace extends LActivity {
         lv_direction = (ListView) findViewById(R.id.lv_direction_three);
     }
 
-    private void initClick() {
+    private void initClicks() {
         lv_direction.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -112,11 +113,12 @@ public class ProviceInfoPlace extends LActivity {
                                     int position, long id) {
                 Map<String, Object> map = nomalList.get(position);
                 Intent intent = new Intent();
-                intent.putExtra("name", childArray.get(gPosition)
+                intent.putExtra("name", pPname + "-" + childArray.get(gPosition)
                         .get(cPosition).get("childName")
-                        + "" + map.get("name") + "");
-                intent.putExtra("id", map.get("id") + "");
-                intent.putExtra("parentId", map.get("parentId") + "");
+                        + "-" + map.get("name") + "");
+                intent.putExtra("pid", pPid);
+                intent.putExtra("cityid", map.get("parentId") + "");
+                intent.putExtra("countryid", map.get("id") + "");
                 setResult(1, intent);
                 finish();
             }
@@ -127,93 +129,58 @@ public class ProviceInfoPlace extends LActivity {
     private void InitDate() {
         groupArray.clear();
         childArray.clear();
+        getOneStageData();
 
     }
 
-
-    @Override
-    public void onResultHandler(LMessage msg, int requestId) {
-        super.onResultHandler(msg, requestId);
-        if (msg != null) {
-            if (requestId == 1) {
-                getOneStageData(msg.getStr());
-            }
-            if (requestId == 2) {
-                getTwoStageData(msg.getStr());
-            }
-            if (requestId == 3) {
-                getThreeStageData(msg.getStr());
-            }
-        } else {
-            T.ss("获取数据失败");
-        }
-    }
 
     //省
-    private void getOneStageData(String data) {
-
-        String sql="select * from province where _ID=0";
-        Cursor cursor=database.rawQuery("sql",null);
+    private void getOneStageData() {
         try {
-            JSONObject jsonObject = new JSONObject(data);
-            int code = jsonObject.getInt("code");
-            if (code == 0) {
-                JSONObject result = jsonObject.getJSONObject("result");
-                JSONArray categoryList = result.getJSONArray("regionList");
-                for (int i = 0; i < categoryList.length(); i++) {
-                    List<Map<String, Object>> tempArray = new ArrayList<Map<String, Object>>();
-                    Map<String, Object> oneStageMap = new HashMap<String, Object>();
-                    JSONObject item = categoryList.getJSONObject(i);
-                    String name = item.getString("name");
-                    int id = item.getInt("id");
-                    parentId = item.getInt("id") + "";
-                    oneStageMap.put("id", id);
-                    oneStageMap.put("name", name);
-                    oneStageMap.put("parentId", parentId);
-                    groupArray.add(oneStageMap);
-                    Map<String, Object> twoStageMap = new HashMap<String, Object>();
-                    // JSONObject jo = ja.getJSONObject(j);
-                    // String chidName = jo.getString("name");
-                    // int chidId = jo.getInt("id");
-                    // int chid_parentId = jo.getInt("parentId");
-                    // twoStageMap.put("childId", chidId);
-                    // twoStageMap.put("childName", chidName);
-                    // twoStageMap.put("child_parentId", chid_parentId);
-                    tempArray.add(twoStageMap);
-                    childArray.add(tempArray);
-                }
-                InitClick();
+            String sql = "select * from province where parent=?";
+            Cursor cursor = database.rawQuery(sql, new String[]{0 + ""});
+            while (cursor.moveToNext()) {
+                List<Map<String, Object>> tempArray = new ArrayList<Map<String, Object>>();
+                Map<String, Object> oneStageMap = new HashMap<String, Object>();
+                Map<String, Object> twoStageMap = new HashMap<String, Object>();
+                parentId = cursor.getString(0);
+                String parent = cursor.getString(1);
+                String name = cursor.getString(2);
+                oneStageMap.put("parentId", parentId);
+                oneStageMap.put("name", name);
+                oneStageMap.put("id", parent);
+                groupArray.add(oneStageMap);
+                tempArray.add(twoStageMap);
+                childArray.add(tempArray);
             }
-        } catch (JSONException e) {
+            cursor.close();
+            InitClick();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     //市
-    private void getTwoStageData(String str) {
-
+    private void getTwoStageData(String data) {
         try {
-            JSONObject jsonObject = new JSONObject(str);
-            int code = jsonObject.getInt("code");
-            if (code == 0) {
-                JSONObject result = jsonObject.getJSONObject("result");
-                JSONArray categoryList = result.getJSONArray("regionList");
-                List<Map<String, Object>> tempArray = new ArrayList<Map<String, Object>>();
-
-                for (int j = 0; j < categoryList.length(); j++) {
-                    Map<String, Object> twoStageMap = new HashMap<String, Object>();
-                    JSONObject jo = categoryList.getJSONObject(j);
-                    String chidName = jo.getString("name");
-                    int chidId = jo.getInt("id");
-                    int chid_parentId = jo.getInt("parentId");
-                    twoStageMap.put("childId", chidId);
-                    twoStageMap.put("childName", chidName);
-                    twoStageMap.put("child_parentId", chid_parentId);
-                    tempArray.add(twoStageMap);
-                }
-                childArray.add(gPosition, tempArray);
-                exp_lv_dierction.expandGroup(gPosition);
+            String sql = "select * from city where parent=?";
+            Cursor cursor = database.rawQuery(sql, new String[]{data});
+            List<Map<String, Object>> tempArray = new ArrayList<Map<String, Object>>();
+            while (cursor.moveToNext()) {
+                Map<String, Object> twoStageMap = new HashMap<String, Object>();
+                parentId = cursor.getString(0);
+                String parent = cursor.getString(1);
+                String name = cursor.getString(2);
+                twoStageMap.put("childId", parentId);
+                twoStageMap.put("childName", name);
+                twoStageMap.put("child_parentId", parent);
+                tempArray.add(twoStageMap);
             }
+            childArray.add(gPosition, tempArray);
+            exp_lv_dierction.expandGroup(gPosition);
+            cursor.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -235,14 +202,9 @@ public class ProviceInfoPlace extends LActivity {
                 if (!expanded) {
                     parentId = groupArray.get(groupPosition).get("parentId")
                             + "";
-
-////                    String url = "http://jjzapi.huisou.com/base/regions.do?parentId="
-////                            + parentId+"&token="+Token.get(mContext);
-////                    LReqEntity entity = new LReqEntity(url);
-//                    // Fragment用FragmentHandler
-//                    ActivityHandler handler = new ActivityHandler(
-//                            ProviceInfoPlace.this);
-//                    handler.startLoadingData(entity, 2);
+                    pPid = parentId;
+                    pPname = groupArray.get(groupPosition).get("name") + "";
+                    getTwoStageData(parentId);
                     return true;
                 }
                 return false;
@@ -256,19 +218,11 @@ public class ProviceInfoPlace extends LActivity {
                                         int groupPosition, int childPosition, long id) {
 
                 cPosition = childPosition;
-
                 nomalList.clear();
+                String chidId = childArray.get(groupPosition)
+                        .get(childPosition).get("childId").toString();
 
-//                int chidId = (int) childArray.get(groupPosition)
-//                        .get(childPosition).get("childId");
-//                String url = "http://jjzapi.huisou.com/base/regions.do?parentId="
-//                        + chidId+"&token="+Token.get(mContext);
-//
-//                LReqEntity entity = new LReqEntity(url);
-//                // Fragment用FragmentHandler
-//                ActivityHandler handler = new ActivityHandler(
-//                        ProviceInfoPlace.this);
-//                handler.startLoadingData(entity, 3);
+                getThreeStageData(chidId + "");
                 return true;
             }
         });
@@ -278,45 +232,42 @@ public class ProviceInfoPlace extends LActivity {
     //区
     private void getThreeStageData(String data) {
         try {
-            JSONObject jsonObject = new JSONObject(data);
-            int code = jsonObject.getInt("code");
-            if (code == 0) {
-                JSONObject result = jsonObject.getJSONObject("result");
-                JSONArray categoryList = result.getJSONArray("regionList");
-                if (categoryList.length() > 0) {
-                    for (int i = 0; i < categoryList.length(); i++) {
-                        JSONObject jo = categoryList.getJSONObject(i);
-                        Map<String, Object> map = new HashMap<>();
-                        int id = jo.getInt("id");
-                        int parentId = jo.getInt("parentId");
-                        String name = jo.getString("name");
-                        map.put("id", id);
-                        map.put("parentId", parentId);
-                        map.put("name", name);
-                        nomalList.add(map);
-                    }
-                    adapter_lv = new ThreeStageAdapter(nomalList,
-                            ProviceInfoPlace.this);
-                    lv_direction.setAdapter(adapter_lv);
-                } else {
-                    Intent intent = new Intent();
-                    intent.putExtra(
-                            "name",
-                            childArray.get(gPosition).get(cPosition)
-                                    .get("childName")
-                                    + "");
-                    intent.putExtra(
-                            "id",
-                            childArray.get(gPosition).get(cPosition)
-                                    .get("childId")
-                                    + "");
-                    setResult(1, intent);
-                    finish();
+            String sql = "select * from country where parent=?";
+            Cursor cursor = database.rawQuery(sql, new String[]{data});
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    Map<String, Object> map = new HashMap<>();
+                    Map<String, Object> twoStageMap = new HashMap<String, Object>();
+                    String id = cursor.getString(0);
+                    parentId = cursor.getString(1);
+                    String name = cursor.getString(2);
+                    map.put("id", id);
+                    map.put("parentId", parentId);
+                    map.put("name", name);
+                    nomalList.add(map);
                 }
+
+                adapter_lv = new ThreeStageAdapter(nomalList,
+                        ProviceInfoPlace.this);
+                lv_direction.setAdapter(adapter_lv);
+                cursor.close();
+            } else {
+                Intent intent = new Intent();
+                intent.putExtra("name", pPname + "-" + childArray.get(gPosition)
+                                .get(cPosition).get("childName")
+                );
+                intent.putExtra("pid", pPid);
+                intent.putExtra("cityid", childArray.get(gPosition).get(cPosition)
+                        .get("childId")
+                        + "");
+                setResult(1, intent);
+                finish();
             }
-        } catch (JSONException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }
 

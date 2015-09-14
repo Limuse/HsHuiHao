@@ -1,7 +1,10 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +18,7 @@ import android.widget.ImageView;
 import com.huihao.R;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.common.Token;
+import com.huihao.db.PccDb;
 import com.huihao.entity.AddressItemEntity;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
@@ -39,17 +43,20 @@ public class Update_Address extends LActivity {
     private String province;//省
     private String city;//市
     private String country;//区
-    private int provinceID;// 省ID
-    private int cityID;   //  市ID
-    private int countryID; // 区ID
-    private  String itmid;
+    private String provinceID;// 省ID
+    private String cityID;   //  市ID
+    private String countryID; // 区ID
+    private String itmid;
+    SQLiteDatabase database;
+    private PccDb db = new PccDb();
+
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_update_address);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
-
+        database = db.openDatabase(this);
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
@@ -76,7 +83,7 @@ public class Update_Address extends LActivity {
 
                     if (et_name.equals(null) || et_phone.equals(null) || et_shen.equals(null) || et_xiang.equals(null)) {
                         T.ss("信息不能为空！");
-                    } else{
+                    } else {
                         subm();
                     }
                 }
@@ -94,6 +101,14 @@ public class Update_Address extends LActivity {
         /**
          *省市区需要弹框
          */
+        et_shen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Update_Address.this, ProviceInfoPlace.class);
+                startActivityForResult(intent, 1);
+            }
+
+        });
 
         iv_del.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,11 +119,33 @@ public class Update_Address extends LActivity {
 
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+
+            case 1:
+                if (data != null) {
+                    String name = data.getExtras().getString("name");
+                    et_shen.setText(name);
+                    provinceID = data.getExtras().getString("pid"); // 省ID
+                    cityID = data.getExtras().getString("cityid");   //  市ID
+                    if (data.getExtras().getString("countryid") == null) {
+                        countryID = null;
+                    } else {
+                        countryID = data.getExtras().getString("countryid"); // 区ID
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     private void initData() {
-         itmid = getIntent().getExtras().getString("itmid");
+        itmid = getIntent().getExtras().getString("itmid");
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/myaddress/getinfo/1/sign/aggregation/?uuid="+ Token.get(this)+"&id=" + itmid;
+                + "/huihao/myaddress/getinfo/1/sign/aggregation/?uuid=" + Token.get(this) + "&id=" + itmid;
         LReqEntity entity = new LReqEntity(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(this);
@@ -122,7 +159,7 @@ public class Update_Address extends LActivity {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONObject object = jsonObject.getJSONObject("list");
-                if(object.length()>0){
+                if (object.length() > 0) {
                     AddressItemEntity itementity = new AddressItemEntity();
                     itementity.setId(object.getString("id"));
                     itementity.setUname(object.getString("uname"));
@@ -131,11 +168,32 @@ public class Update_Address extends LActivity {
                     itementity.setCity(object.getString("city"));
                     itementity.setCountry(object.getString("country"));
                     itementity.setAddress(object.getString("address"));
+                    cityID = itementity.getCity();
+                    provinceID = itementity.getProvince();
+                    countryID = itementity.getCountry();
+
+                    String sql = "select * from province where _ID=?";
+                    String sql2 = "select * from city where _ID=?";
+                    String sql3 = "select * from country where _ID=?";
+                    Cursor cursor = database.rawQuery(sql, new String[]{provinceID + ""});
+                    Cursor cursor1 = database.rawQuery(sql2, new String[]{cityID + ""});
+                    Cursor cursor2 = database.rawQuery(sql3, new String[]{countryID + ""});
+                    String name0 = null, name1 = null, name2 = null;
+                    while (cursor.moveToNext() & cursor1.moveToNext() & cursor2.moveToNext()) {
+                        name0 = cursor.getString(2);
+                        name1 = cursor1.getString(2);
+                        name2 = cursor2.getString(2);
+                        String name = name0 + "-" + name1 + "-" + name2;
+                        et_shen.setText(name);
+                    }
+                    cursor.close();
+                    cursor1.close();
+                    cursor2.close();
 
                     et_name.setText(itementity.getUname());
                     et_phone.setText(itementity.getUphone());
                     et_xiang.setText(itementity.getAddress());
-                }else {
+                } else {
                     T.ss("没有数据");
                 }
             } else {
@@ -152,27 +210,28 @@ public class Update_Address extends LActivity {
         if (msg != null) {
             if (requestId == 1) {
                 getJsonData(msg.getStr());
-            }else if(requestId==2){
+            } else if (requestId == 2) {
                 getJsonSubmit(msg.getStr());
             } else {
                 T.ss("获取数据失败");
             }
         }
     }
+
     private void subm() {
         String name = et_name.getText().toString();
         String phone = et_phone.getText().toString();
         String shen = et_shen.getText().toString();
         String addr = et_xiang.getText().toString();
-        provinceID = 1;// 省ID
-        cityID = 1;   //  市ID
-        countryID = 1;//
+//        provinceID = 1;// 省ID
+//        cityID = 1;   //  市ID
+//        countryID = 1;//
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/myaddress/edit/1/sign/aggregation/";
         final Map<String, String> map = new HashMap<String, String>();
         map.put("uuid", Token.get(this));
-        map.put("id", itmid );//地址id
+        map.put("id", itmid);//地址id
         map.put("uname", name);//收货人名
         map.put("uphone", phone);// 收货人联系号码
         map.put("province", provinceID + "");// 省ID
@@ -184,6 +243,7 @@ public class Update_Address extends LActivity {
         ActivityHandler handler = new ActivityHandler(Update_Address.this);
         handler.startLoadingData(entity, 2);
     }
+
     private void getJsonSubmit(String data) {
 
         try {

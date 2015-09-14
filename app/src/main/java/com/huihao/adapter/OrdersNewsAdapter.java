@@ -74,16 +74,16 @@ public class OrdersNewsAdapter extends BaseAdapter {
         viewHolder.tv_khinfo.setText(entity.getUser_info());
         viewHolder.tv_ordermoney.setText(entity.getTotal_price());
         viewHolder.tv_hmoney.setText(entity.getOverdue());
-        viewHolder.rl_see.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                T.ss("查看详情");
-//               Intent intent=new Intent(context, WebActivity.class);
+//        viewHolder.rl_see.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                T.ss("查看详情");
+////               Intent intent=new Intent(context, WebActivity.class);
+////
+////                context.startActivity(intent);
 //
-//                context.startActivity(intent);
-
-            }
-        });
+//            }
+//        });
         return convertView;
     }
 

@@ -114,17 +114,24 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
         btn_addr.setOnClickListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
 
     private void initData() {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/myaddress/1/sign/aggregation/?uuid="+ Token.get(this);
         LReqEntity entity = new LReqEntity(url);
+
         //http://huihaowfx.huisou.com//huihao/myaddress/1/sign/aggregation/?uuid=6a35c1ed7255077d57d57be679048034
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(this);
         handler.startLoadingData(entity, 1);
     }
+
 
     private void getJsonData(String data) {
         list.clear();
@@ -185,11 +192,7 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
         win.setAttributes(winParams);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//      //  initData();
-//    }
+
 
     @Override
     public void onClick(View v) {

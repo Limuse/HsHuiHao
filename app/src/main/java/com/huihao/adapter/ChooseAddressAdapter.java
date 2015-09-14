@@ -25,7 +25,7 @@ import java.util.Map;
 public class ChooseAddressAdapter extends LBaseAdapter {
     private Context context;
     private List<AddressItemEntity> list = null;
-    private boolean fal=false;
+    private boolean fal;
     private AddressItemEntity items = new AddressItemEntity();
     Map<Integer, Boolean> isCheckMap = new HashMap<Integer, Boolean>();
 
@@ -74,7 +74,7 @@ public class ChooseAddressAdapter extends LBaseAdapter {
 
         if (isCheckMap != null && isCheckMap.containsKey(position)) {
             viewHolder.cb_check.setChecked(isCheckMap.get(position));
-            int t = Integer.parseInt(viewHolder.cb_check.getTag().toString());
+            int t =position ;Integer.parseInt(viewHolder.cb_check.getTag().toString());
             items = null;
             items = list.get(t);
             fal=true;
@@ -105,7 +105,7 @@ public class ChooseAddressAdapter extends LBaseAdapter {
     }
 
     public AddressItemEntity BaReturn() {
-        if (fal==false) {
+        if (items==null) {
             return null;
         } else {
             return items;

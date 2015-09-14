@@ -37,9 +37,9 @@ import java.util.Map;
 public class Add_Address extends LActivity implements View.OnClickListener {
     private EditText et_name, et_phone, et_shen, et_xiang;
     private ImageView iv_del;
-    private int provinceID;// 省ID
-    private int cityID;   //  市ID
-    private int countryID; // 区ID
+    private String provinceID;// 省ID
+    private String cityID;   //  市ID
+    private String countryID; // 区ID
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -97,9 +97,9 @@ public class Add_Address extends LActivity implements View.OnClickListener {
         String phone = et_phone.getText().toString();
         String shen = et_shen.getText().toString();
         String addr = et_xiang.getText().toString();
-        provinceID = 1;// 省ID
-        cityID = 1;   //  市ID
-        countryID = 1;//
+//        provinceID = 1;// 省ID
+//        cityID = 1;   //  市ID
+//        countryID = 1;//
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/myaddress/add/1/sign/aggregation/";
@@ -170,14 +170,27 @@ public class Add_Address extends LActivity implements View.OnClickListener {
         }
         if (id == R.id.et_shen) {
             Intent intent = new Intent(this, ProviceInfoPlace.class);
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, 1);
         }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 0:
+
+            case 1:
+                if (data != null) {
+                    String name = data.getExtras().getString("name");
+                    et_shen.setText(name);
+                    provinceID = data.getExtras().getString("pid"); // 省ID
+                    cityID = data.getExtras().getString("cityid");   //  市ID
+                    if(data.getExtras().getString("countryid")==null){
+                        countryID=null;
+                    }else {
+                        countryID = data.getExtras().getString("countryid"); // 区ID
+                    }
+                }
+                L.e("dddsss",provinceID+cityID+countryID);
                 break;
             default:
                 break;

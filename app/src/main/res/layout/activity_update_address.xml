@@ -105,6 +105,7 @@
             android:layout_marginLeft="@dimen/app_myself_left_mar"
             android:background="@android:color/transparent"
             android:ellipsize="end"
+            android:editable="false"
             android:hint="请选择所在的省市区"
             android:maxEms="12"
             android:textColor="@color/app_text_dark"

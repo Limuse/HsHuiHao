@@ -67,15 +67,15 @@ public class MoneyNewsAdapter extends BaseAdapter {
         }else{
             viewHolder.imgv.setVisibility(View.GONE);
         }
-        viewHolder.rl_ssee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                T.ss("查看财富");
-                Intent intnet=new Intent(context,Rebate_Detail.class);
-//                intnet.putExtra("s",);//判断是代理还是分销
-                context.startActivity(intnet);
-            }
-        });
+//        viewHolder.rl_ssee.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                T.ss("查看财富");
+//                Intent intnet=new Intent(context,Rebate_Detail.class);
+////                intnet.putExtra("s",);//判断是代理还是分销
+//                context.startActivity(intnet);
+//            }
+//        });
         return convertView;
     }
 

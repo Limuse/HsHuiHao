@@ -18,9 +18,9 @@ import java.io.InputStream;
  */
 public class PccDb {
     //数据库存储路径
-    String filePath="data/data/com.android.hshuihoa/database/pcc.db";
+    String filePath="data/data/com.android.hshuihao/database/pcc.db";
     //数据库存放的文件夹data/data/com.android.hshuihoa/database/下面
-    String pathStr="data/data/com.android.hshuihoa/database/";
+    String pathStr="data/data/com.android.hshuihao/database/";
     SQLiteDatabase database;
     public SQLiteDatabase openDatabase(Context context){
         System.out.println("filePath:"+filePath);
