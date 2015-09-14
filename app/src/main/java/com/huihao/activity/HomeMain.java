@@ -1,7 +1,9 @@
 package com.huihao.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,7 @@ import com.huihao.common.Bar;
 import com.huihao.common.Log;
 import com.huihao.fragment.Fragment_my;
 import com.leo.base.activity.LActivity;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -51,6 +54,8 @@ import cn.jpush.android.api.JPushInterface;
  * Tag
  */
 public class HomeMain extends LActivity {
+
+    public static HomeMain context;
 
     private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
@@ -91,15 +96,48 @@ public class HomeMain extends LActivity {
 
     private String hideTag;
 
+
     protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home);
-
+        context=this;
         JPushInterface.init(getApplicationContext());
 
         ButterKnife.inject(this);
         Bar.setWhite(this);
         Log.e(UntilList.getAppInfo(this));
         initView();
+    }
+
+    public void toShop(){
+        if (hideTag.equals(SHOP))
+            return;
+        if (fragment_shop == null) {
+            fragment_shop = new Fragment_shop();
+        }
+        setBg();
+
+
+        shop.setBackgroundResource(R.mipmap.shopp);
+
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+
+        Fragment tagFragment = mFragmentManager.findFragmentByTag(SHOP);
+
+//        if (tagFragment == null) {
+//            mFragmentTransaction.add(R.id.tabcontent, fragment_shop, SHOP);
+//        } else {
+//            mFragmentTransaction.show(tagFragment);
+//        }
+
+        tagFragment = mFragmentManager.findFragmentByTag(hideTag);
+
+        if (tagFragment != null) {
+            mFragmentTransaction.hide(tagFragment);
+        }
+
+        hideTag = SHOP;
+        mFragmentTransaction.commit();
     }
 
     @Override
@@ -116,10 +154,8 @@ public class HomeMain extends LActivity {
         }
         setBg();
 
-
         main.setBackgroundResource(R.mipmap.mainp);
         switchFragment(fragment_main, MAIN);
-
     }
 
     @OnClick(R.id.relstory)
@@ -182,7 +218,7 @@ public class HomeMain extends LActivity {
             }
         }).setNegativeButton("现在就去", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                share();
+//                share();
                 dialog.dismiss();
 
             }
@@ -242,7 +278,8 @@ public class HomeMain extends LActivity {
             System.exit(0);
         }
     }
-    public void share(){
+
+    public void share() {
 // 设置分享内容
         mController.setShareContent("汇好，汇聚天下好产品");
 // 设置分享图片, 参数2为图片的url地址
@@ -252,10 +289,10 @@ public class HomeMain extends LActivity {
         String appID = "wx967daebe835fbeac";
         String appSecret = "5fa9e68ca3970e87a1f83e563c8dcbce";
 // 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(HomeMain.this,appID,appSecret);
+        UMWXHandler wxHandler = new UMWXHandler(HomeMain.this, appID, appSecret);
         wxHandler.addToSocialSDK();
 // 添加微信朋友圈
-        UMWXHandler wxCircleHandler = new UMWXHandler(HomeMain.this,appID,appSecret);
+        UMWXHandler wxCircleHandler = new UMWXHandler(HomeMain.this, appID, appSecret);
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.addToSocialSDK();
 
@@ -278,9 +315,10 @@ public class HomeMain extends LActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         /**使用SSO授权必须添加如下代码 */
-        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
-        if(ssoHandler != null){
+        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
     }
+
 }

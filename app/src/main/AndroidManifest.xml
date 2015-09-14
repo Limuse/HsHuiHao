@@ -75,6 +75,11 @@
             android:name=".activity.FindPwd"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--购物车activiyu-->
+        <activity
+            android:name=".activity.ShopActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
         <!--邀请码-->
         <activity
             android:name=".activity.InvitationCode"

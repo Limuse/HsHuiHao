@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.app.Dialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
@@ -32,6 +33,7 @@ import com.huihao.common.UntilList;
 import com.huihao.custom.ImageCycleView;
 import com.huihao.custom.TagGroup;
 import com.huihao.fragment.Fragment_Product_info;
+import com.huihao.fragment.Fragment_shop;
 import com.huihao.handle.ActivityHandler;
 import com.huihao.MyApplication;
 import com.huihao.R;
@@ -182,7 +184,10 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     }
 
     public void shopcart(View v) {
-
+        if(MyApplication.isLogin(Product_details.this)) {
+            Intent intent = new Intent(Product_details.this, ShopActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void choose(View v) {
@@ -349,8 +354,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             public void onClick(View v) {
                 if (MyApplication.isLogin(Product_details.this)) {
                     Intent intent = new Intent(Product_details.this, Submit_Orders.class);
-                    intent.putExtra("spec_id", spec_id+"");
-                    intent.putExtra("spec_num", choose_num+"");
+                    intent.putExtra("spec_id", spec_id + "");
+                    intent.putExtra("spec_num", choose_num + "");
                     startActivity(intent);
                 }
             }
@@ -381,8 +386,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         }
                     } else if (OKSTATE.equals("BUY")) {
                         Intent intent = new Intent(Product_details.this, Submit_Orders.class);
-                        intent.putExtra("spec_id", spec_id+"");
-                        intent.putExtra("spec_num", choose_num+"");
+                        intent.putExtra("spec_id", spec_id + "");
+                        intent.putExtra("spec_num", choose_num + "");
                         startActivity(intent);
                     } else {
                     }

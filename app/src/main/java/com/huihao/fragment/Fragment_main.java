@@ -97,14 +97,14 @@ public class Fragment_main extends LFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
                 intent.putExtra("id",mainProductList.get(0).get("id"));
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
         r2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
                 intent.putExtra("id",mainProductList.get(1).get("id"));
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
         r3.setOnClickListener(new View.OnClickListener() {
@@ -112,21 +112,21 @@ public class Fragment_main extends LFragment {
                 Intent intent = new Intent(getActivity(), Product_details.class);
                 T.ss(mainProductList.get(2).get("id"));
                 intent.putExtra("id",mainProductList.get(2).get("id"));
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
         r4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
                 intent.putExtra("id",mainProductList.get(3).get("id"));
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
         r5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
                 intent.putExtra("id",mainProductList.get(4).get("id"));
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -155,7 +155,7 @@ public class Fragment_main extends LFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
                 intent.putExtra("id",gridList.get(0).get("id"));
-                startActivity(intent);
+                startActivityForResult(intent,0);
             }
         });
     }
