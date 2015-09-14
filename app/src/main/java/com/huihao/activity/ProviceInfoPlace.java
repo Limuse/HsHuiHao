@@ -68,7 +68,6 @@ public class ProviceInfoPlace extends LActivity {
         InitView();
         InitDate();
         initClicks();
-
     }
 
     @TargetApi(19)
@@ -196,18 +195,26 @@ public class ProviceInfoPlace extends LActivity {
         exp_lv_dierction.setOnGroupClickListener(new OnGroupClickListener() {
             public boolean onGroupClick(ExpandableListView parent, View v,
                                         int groupPosition, long id) {
+                exp_lv_dierction.setSelectedGroup(groupPosition);
                 boolean expanded = parent.isGroupExpanded(groupPosition);
                 gPosition = groupPosition;
-                exp_lv_dierction.setSelectedGroup(gPosition);
+                for (int i = 0, count = exp_lv_dierction
+                        .getExpandableListAdapter().getGroupCount(); i < count; i++) {
+                    if (groupPosition != i) {
+                        exp_lv_dierction.collapseGroup(i);
+                    }
+                }
                 if (!expanded) {
                     parentId = groupArray.get(groupPosition).get("parentId")
                             + "";
                     pPid = parentId;
                     pPname = groupArray.get(groupPosition).get("name") + "";
                     getTwoStageData(parentId);
-                    return true;
+                    exp_lv_dierction.setSelectedGroup(groupPosition);
+                }else {
+                    exp_lv_dierction.collapseGroup(groupPosition);
                 }
-                return false;
+                return true;
             }
         });
 
