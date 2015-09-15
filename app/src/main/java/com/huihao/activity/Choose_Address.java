@@ -95,7 +95,7 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
             }
         });
         //右边图片点击事件
-        toolbar.inflateMenu(R.menu.right_menu);
+        toolbar.inflateMenu(R.menu.choose_addr);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_messages) {
