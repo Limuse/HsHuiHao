@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.huihao.common.DepthPageTransformer;
 import com.huihao.R;
+import com.leo.base.activity.LActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,7 +24,7 @@ import android.widget.ImageView.ScaleType;
 
 import cn.jpush.android.api.JPushInterface;
 
-public class GuideLoading extends Activity {
+public class GuideLoading extends LActivity {
     private Button start_future;
     private ViewPager viewPager;
     private int[] imageIds = new int[]{R.mipmap.guide_one,
@@ -35,8 +36,7 @@ public class GuideLoading extends Activity {
     private ImageView load;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_guide_loading);
 
         InitView();

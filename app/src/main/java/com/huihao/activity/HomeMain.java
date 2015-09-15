@@ -108,38 +108,6 @@ public class HomeMain extends LActivity {
         initView();
     }
 
-    public void toShop(){
-        if (hideTag.equals(SHOP))
-            return;
-        if (fragment_shop == null) {
-            fragment_shop = new Fragment_shop();
-        }
-        setBg();
-
-
-        shop.setBackgroundResource(R.mipmap.shopp);
-
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-
-        Fragment tagFragment = mFragmentManager.findFragmentByTag(SHOP);
-
-//        if (tagFragment == null) {
-//            mFragmentTransaction.add(R.id.tabcontent, fragment_shop, SHOP);
-//        } else {
-//            mFragmentTransaction.show(tagFragment);
-//        }
-
-        tagFragment = mFragmentManager.findFragmentByTag(hideTag);
-
-        if (tagFragment != null) {
-            mFragmentTransaction.hide(tagFragment);
-        }
-
-        hideTag = SHOP;
-        mFragmentTransaction.commit();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -218,7 +186,7 @@ public class HomeMain extends LActivity {
             }
         }).setNegativeButton("现在就去", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-//                share();
+                share();
                 dialog.dismiss();
 
             }
@@ -286,8 +254,8 @@ public class HomeMain extends LActivity {
         mController.setShareMedia(new UMImage(HomeMain.this,
                 "http://tb.himg.baidu.com/sys/portrait/item/94edd7eed6d5c5c7bbb22924"));
 
-        String appID = "wx967daebe835fbeac";
-        String appSecret = "5fa9e68ca3970e87a1f83e563c8dcbce";
+        String appID = "wxe5749e0e8d40f5aa";
+        String appSecret = "47eb904d7b88e62ad66287cbc6924daf";
 // 添加微信平台
         UMWXHandler wxHandler = new UMWXHandler(HomeMain.this, appID, appSecret);
         wxHandler.addToSocialSDK();

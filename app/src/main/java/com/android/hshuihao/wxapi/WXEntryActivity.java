@@ -1,5 +1,5 @@
 
-package com.huihao.wxapi;
+package com.android.hshuihao.wxapi;
 
 import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
