@@ -33,6 +33,8 @@ import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -395,6 +397,12 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                 } else {
                     tv_name.setText(jt.getString("username"));
                 }
+                String account=jt.getString("amount");
+                String names=jt.getString("name");
+                LSharePreference.getInstance(getActivity())
+                        .setString("account", account);
+                LSharePreference.getInstance(getActivity())
+                        .setString("accountname", names);
 
                 img();//头像设置
                 setDa();//所有消息的条数

@@ -106,7 +106,7 @@ public class AllOrderAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        pid = position;
+
         List<AllOrderEntity.ChildEntity> itemlist = null;
         viewHolder.btn_see.setVisibility(View.GONE);
         viewHolder.btn_del.setVisibility(View.GONE);
@@ -129,6 +129,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    pid = position;
                     tag = 3;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
@@ -147,6 +148,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent intent = new Intent(context.getActivity(), MetailFlow_Detail.class);
                     intent.putExtra("id", entity.getId().toString());
                     // L.e(entity.getId().toString());
@@ -190,6 +192,7 @@ public class AllOrderAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     T.ss("删除订单");
+                    pid = position;
                     tag = 3;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
@@ -218,6 +221,7 @@ public class AllOrderAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     T.ss("取消订单");
+                    pid = position;
                     tag = 3;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();

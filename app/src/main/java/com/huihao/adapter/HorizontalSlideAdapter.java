@@ -34,16 +34,10 @@ import com.huihao.custom.CustomDialog;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.Need;
 import com.huihao.entity.ShopItemEntity;
-import com.huihao.fragment.Fragment_shop;
-import com.huihao.handle.ActivityHandler;
-import com.huihao.handle.FragmentHandler;
-import com.leo.base.net.LReqEntity;
-import com.leo.base.util.L;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -55,7 +49,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class HorizontalSlideAdapter extends BaseAdapter {
     /**
@@ -88,8 +81,8 @@ public class HorizontalSlideAdapter extends BaseAdapter {
     private View view = null;
     private float Danjia;
 
-    private List<String> listName = new ArrayList<String>();
-    private List<String> listNum = new ArrayList<String>();
+    private List<String> listName = new ArrayList<>();
+    private List<String> listNum = new ArrayList<>();
 
     public void setOnNumChangeListener(OnNumChangeListener onNumChangeListener) {
         this.onNumChangeListener = onNumChangeListener;
@@ -115,12 +108,10 @@ public class HorizontalSlideAdapter extends BaseAdapter {
     }
 
     public void updateData(List<ShopItemEntity> list) {
-//        listName.clear();
-//        listNum.clear();
         this.entity = list;
-        for(int i=0;i<list.size();i++){
-        listName.add(list.get(i).getSpecid());
-        listNum.add(list.get(i).getNum()+"");
+        for (int i = 0; i < list.size(); i++) {
+            listName.add(list.get(i).getSpecid());
+            listNum.add(list.get(i).getNum() + "");
         }
         notifyDataSetChanged();
     }
@@ -212,9 +203,9 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 T.ss("跳到物品详情页面");
-                Intent intent=new Intent(context, Product_details.class);
-                intent.putExtra("id",datas.getProduct_id()+"");
-               // L.e("idddddd", datas.getProduct_id() + "");
+                Intent intent = new Intent(context, Product_details.class);
+                intent.putExtra("id", datas.getProduct_id() + "");
+                // L.e("idddddd", datas.getProduct_id() + "");
                 context.startActivity(intent);
             }
         });

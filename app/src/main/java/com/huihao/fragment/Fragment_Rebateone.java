@@ -161,7 +161,7 @@ public class Fragment_Rebateone extends LFragment implements View.OnClickListene
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.login_cancel) {
-            T.ss("提现");
+            //T.ss("提现");
             Intent intent = new Intent(getActivity(), Extract_Rebate.class);
             intent.putExtra("t", "1");
             startActivity(intent);
