@@ -22,8 +22,8 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_alignParentRight="true"
                 android:background="@mipmap/message" />
         </RelativeLayout>
@@ -61,10 +61,10 @@
             android:background="@null">
 
             <com.huihao.custom.ImageCycleView
-                android:background="@color/app_white"
                 android:id="@+id/ImageCycleView"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"></com.huihao.custom.ImageCycleView>
+                android:layout_height="240dp"
+                android:background="@color/app_white"></com.huihao.custom.ImageCycleView>
 
 
             <RelativeLayout
@@ -85,7 +85,7 @@
 
                     <TextView
                         android:id="@+id/tv_title1"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="16dp"
@@ -94,7 +94,7 @@
 
                     <TextView
                         android:id="@+id/tv_price1"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="25dp"
                         android:layout_below="@+id/tv_title1"
                         android:layout_marginLeft="15dp"
@@ -109,6 +109,7 @@
                         android:layout_marginLeft="15dp"
                         android:background="@drawable/buy_press"
                         android:text="立即购买"
+                        android:visibility="gone"
                         android:textColor="@color/app_white"
                         android:textSize="10sp" />
 
@@ -138,7 +139,7 @@
 
                     <TextView
                         android:id="@+id/tv_title2"
-                        android:layout_width="80dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="16dp"
@@ -162,6 +163,7 @@
                         android:layout_marginLeft="15dp"
                         android:background="@drawable/buy_press"
                         android:text="立即购买"
+                        android:visibility="gone"
                         android:textColor="@color/app_white"
                         android:textSize="10sp" />
 
@@ -214,7 +216,7 @@
                         android:id="@+id/tv_title3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginTop="16dp"
                         android:textColor="@color/app_text_dark"
                         android:textSize="@dimen/app_text_big" />
@@ -234,7 +236,6 @@
                         android:layout_height="25dp"
                         android:layout_below="@+id/tv_info3"
                         android:layout_marginLeft="15dp"
-                        android:text="￥998"
                         android:textColor="@color/app_orange"
                         android:textSize="@dimen/app_text_normal" />
 
@@ -281,19 +282,20 @@
 
                         <TextView
                             android:id="@+id/tv_title5"
-                            android:layout_width="80dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginTop="24dp"
+                            android:layout_marginTop="16dp"
                             android:textColor="@color/app_text_dark"
                             android:textSize="@dimen/app_text_normal" />
 
                         <TextView
                             android:id="@+id/tv_price5"
-                            android:layout_width="80dp"
+                            android:layout_width="100dp"
                             android:layout_height="25dp"
                             android:layout_below="@+id/tv_title5"
                             android:layout_marginLeft="15dp"
+                            android:layout_marginTop="4dp"
                             android:textColor="@color/app_orange"
                             android:textSize="@dimen/app_text_normal" />
 
@@ -316,19 +318,20 @@
 
                         <TextView
                             android:id="@+id/tv_title4"
-                            android:layout_width="80dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginTop="24dp"
+                            android:layout_marginTop="16dp"
                             android:textColor="@color/app_text_dark"
                             android:textSize="@dimen/app_text_normal" />
 
                         <TextView
                             android:id="@+id/tv_price4"
-                            android:layout_width="80dp"
+                            android:layout_width="100dp"
                             android:layout_height="25dp"
                             android:layout_below="@+id/tv_title4"
                             android:layout_marginLeft="15dp"
+                            android:layout_marginTop="4dp"
                             android:textColor="@color/app_orange"
                             android:textSize="@dimen/app_text_normal" />
 

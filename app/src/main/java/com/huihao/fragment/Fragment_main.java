@@ -48,14 +48,14 @@ public class Fragment_main extends LFragment {
     private ScrollView scrollView;
     private ImageCycleView mAdView;
     private ArrayList<String> pageImageList = new ArrayList<String>();
-    private ArrayList<String> pageImageId=  new ArrayList<String>();
+    private ArrayList<String> pageImageId = new ArrayList<String>();
     private NoScrollGridView gridView;
 
     private List<Map<String, String>> mainProductList = new ArrayList<Map<String, String>>();
     private List<Map<String, String>> gridList = new ArrayList<Map<String, String>>();
     private MainGridAda myGridAda;
-    private RelativeLayout r1, r2, r3, r4, r5,msg;
-    private Button btn1,btn2;
+    private RelativeLayout r1, r2, r3, r4, r5, msg;
+    private Button btn1, btn2;
     private TextView name1, name2, name3, name4, name5;
     private TextView price1, price2, price3, price4, price5;
     private ImageView image1, image2, image3, image4, image5;
@@ -96,14 +96,14 @@ public class Fragment_main extends LFragment {
         r1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
-                intent.putExtra("id",mainProductList.get(0).get("id"));
+                intent.putExtra("id", mainProductList.get(0).get("id"));
                 startActivityForResult(intent, 0);
             }
         });
         r2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
-                intent.putExtra("id",mainProductList.get(1).get("id"));
+                intent.putExtra("id", mainProductList.get(1).get("id"));
                 startActivityForResult(intent, 0);
             }
         });
@@ -111,41 +111,47 @@ public class Fragment_main extends LFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
                 T.ss(mainProductList.get(2).get("id"));
-                intent.putExtra("id",mainProductList.get(2).get("id"));
+                intent.putExtra("id", mainProductList.get(2).get("id"));
                 startActivityForResult(intent, 0);
             }
         });
         r4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
-                intent.putExtra("id",mainProductList.get(3).get("id"));
+                intent.putExtra("id", mainProductList.get(3).get("id"));
                 startActivityForResult(intent, 0);
             }
         });
         r5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
-                intent.putExtra("id",mainProductList.get(4).get("id"));
+                intent.putExtra("id", mainProductList.get(4).get("id"));
                 startActivityForResult(intent, 0);
             }
         });
 
         btn1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), Product_details.class);
+                intent.putExtra("id", mainProductList.get(0).get("id"));
+                intent.putExtra("isBuy", true);
+                startActivity(intent);
             }
         });
 
-        btn1.setOnClickListener(new View.OnClickListener() {
+        btn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), Product_details.class);
+                intent.putExtra("id", mainProductList.get(1).get("id"));
+                intent.putExtra("isBuy", true);
+                startActivity(intent);
             }
         });
 
         msg.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(MyApplication.isLogin(getActivity())){
-                    Intent intent=new Intent(getActivity(), News.class);
+                if (MyApplication.isLogin(getActivity())) {
+                    Intent intent = new Intent(getActivity(), News.class);
                     startActivity(intent);
                 }
             }
@@ -154,26 +160,26 @@ public class Fragment_main extends LFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
-                intent.putExtra("id",gridList.get(0).get("id"));
-                startActivityForResult(intent,0);
+                intent.putExtra("id", gridList.get(0).get("id"));
+                startActivityForResult(intent, 0);
             }
         });
     }
 
 
     private void initView() {
-        scrollView=(ScrollView)parentView.findViewById(R.id.scrollView);
-        scrollView.scrollTo(0,0);
+        scrollView = (ScrollView) parentView.findViewById(R.id.scrollView);
+        scrollView.scrollTo(0, 0);
 
         r1 = (RelativeLayout) parentView.findViewById(R.id.product1);
         r2 = (RelativeLayout) parentView.findViewById(R.id.product2);
         r3 = (RelativeLayout) parentView.findViewById(R.id.product3);
         r4 = (RelativeLayout) parentView.findViewById(R.id.product4);
         r5 = (RelativeLayout) parentView.findViewById(R.id.product5);
-        msg=(RelativeLayout) parentView.findViewById(R.id.btn_mess);
+        msg = (RelativeLayout) parentView.findViewById(R.id.btn_mess);
 
-        btn1=(Button) parentView.findViewById(R.id.tv_buy2);
-        btn2=(Button) parentView.findViewById(R.id.tv_buy1);
+        btn1 = (Button) parentView.findViewById(R.id.tv_buy2);
+        btn2 = (Button) parentView.findViewById(R.id.tv_buy1);
 
         name1 = (TextView) parentView.findViewById(R.id.tv_title2);
         name2 = (TextView) parentView.findViewById(R.id.tv_title1);
@@ -245,21 +251,21 @@ public class Fragment_main extends LFragment {
                     map.put("picurl", picurl);
                     if (i <= 4) {
                         names[i].setText(title);
-                        prices[i].setText(nprice);
-                        if(i!=3) {
-                            imageLoader.displayImage(picurl, images[i], options);
-                        }
+                        prices[i].setText("￥" + nprice);
+                        imageLoader.displayImage(picurl, images[i], options);
                         mainProductList.add(map);
                     } else {
                         gridList.add(map);
                     }
-                    if(!pic_homepage.equals("")){
+                    if (!pic_homepage.equals("")) {
                         pageImageList.add(pic_homepage);
                         pageImageId.add(id);
                     }
                 }
+                btn1.setVisibility(View.VISIBLE);
+                btn2.setVisibility(View.VISIBLE);
             } else {
-                 T.ss("数据获取失败");
+                T.ss("数据获取失败");
             }
         } catch (Exception e) {
             T.ss("数据解析失败");
@@ -268,7 +274,7 @@ public class Fragment_main extends LFragment {
     }
 
     private void initAda() {
-        if(pageImageList.size()>0&&pageImageList.size()>0){
+        if (pageImageList.size() > 0 && pageImageList.size() > 0) {
             mAdView.setImageResources(pageImageList, pageImageId, mAdCycleViewListener);
         }
         myGridAda = new MainGridAda(getActivity(), gridList);
@@ -279,7 +285,7 @@ public class Fragment_main extends LFragment {
     private ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
         public void onImageClick(int position, View imageView) {
             Intent intent = new Intent(getActivity(), Product_details.class);
-            intent.putExtra("id",pageImageId.get(position));
+            intent.putExtra("id", pageImageId.get(position));
             startActivity(intent);
         }
     };

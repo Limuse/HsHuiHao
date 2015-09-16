@@ -3,6 +3,7 @@ package com.huihao.activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -152,14 +153,21 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
         options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .showImageOnLoading(R.mipmap.ic_stub)
-                .cacheOnDisc(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-                .considerExifParams(true).resetViewBeforeLoading(true)
-                .displayer(new FadeInBitmapDisplayer(200))
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
 
 
         initView();
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("isBuy")) {
+            lin_ok.setVisibility(View.VISIBLE);
+            lin_choose.setVisibility(View.GONE);
+            OKSTATE = "BUY";
+            showBuyDialog();
+        }
+
         initData();
         initAda();
         initScroll();
@@ -184,7 +192,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     }
 
     public void shopcart(View v) {
-        if(MyApplication.isLogin(Product_details.this)) {
+        if (MyApplication.isLogin(Product_details.this)) {
             Intent intent = new Intent(Product_details.this, ShopActivity.class);
             startActivity(intent);
         }
@@ -277,6 +285,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         et_num.setText(choose_num + "");
         image_product = (ImageView) view.findViewById(R.id.image);
         tagGroup = (TagGroup) view.findViewById(R.id.tag_group);
+        tagGroup.setVisibility(View.GONE);
         tagScroll = (ScrollView) view.findViewById(R.id.tag_scroll);
         InitAnima();
 
@@ -559,6 +568,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     tagGroup.setTags(specList);
                     tagGroup.getTagViewAt(0).setChecked(true);
                     setTagInfo(0);
+                    tagGroup.setVisibility(View.VISIBLE);
                 }
 
                 if (!info.opt("parameter").equals("")) {

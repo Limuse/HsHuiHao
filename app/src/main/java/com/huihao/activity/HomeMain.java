@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 
+import com.huihao.MyApplication;
 import com.huihao.common.UntilList;
 import com.huihao.custom.ImageDialog;
 import com.huihao.fragment.Fragment_main;
@@ -99,7 +101,7 @@ public class HomeMain extends LActivity {
 
     protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home);
-        context=this;
+        context = this;
         JPushInterface.init(getApplicationContext());
 
         ButterKnife.inject(this);
@@ -143,19 +145,34 @@ public class HomeMain extends LActivity {
 
     @OnClick(R.id.relshop)
     void shop() {
-        if (hideTag.equals(SHOP))
-            return;
-        if (fragment_shop == null) {
-            fragment_shop = new Fragment_shop();
+        if (MyApplication.isLogin(HomeMain.this)) {
+            if (hideTag.equals(SHOP))
+                return;
+            if (fragment_shop == null) {
+                fragment_shop = new Fragment_shop();
+            }
+            setBg();
+            shop.setBackgroundResource(R.mipmap.shopp);
+            switchFragment(fragment_shop, SHOP);
         }
-        setBg();
-
-        shop.setBackgroundResource(R.mipmap.shopp);
-        switchFragment(fragment_shop, SHOP);
-
     }
 
 
+    private class AscTest extends AsyncTask<String,Intent,String>{
+        protected String doInBackground(String... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+        @Override
+        protected void onProgressUpdate(Intent... values) {
+            super.onProgressUpdate(values);
+        }
+    }
 
     @OnClick(R.id.relmy)
     void my() {
@@ -264,6 +281,7 @@ public class HomeMain extends LActivity {
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.addToSocialSDK();
 
+        // 添加QQ
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(HomeMain.this, "100424468",
                 "c7394704798a158208a74ab60104f0ba");
         qqSsoHandler.addToSocialSDK();
