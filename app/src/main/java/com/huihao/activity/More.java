@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.common.CacheUtill;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.common.Token;
 import com.huihao.custom.CustomDialog;
@@ -52,6 +53,8 @@ public class More extends LActivity implements View.OnClickListener {
     private Boolean tr;
     private String fils = Environment.getExternalStorageDirectory()
             + "/Android/data/com.android.hshuihao/cache";
+    private File file1, file2;
+    private boolean cleanFlag = false;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -173,29 +176,48 @@ public class More extends LActivity implements View.OnClickListener {
         //清除缓存
         if (mid == R.id.rl_clear) {
             // T.ss("清除缓存");
-            final CustomDialog alertDialog = new CustomDialog.Builder(this).
-                    setMessage("清除缓存吗？").
-                    setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            if (cleanFlag) {
+                T.ss("已经很干净啦！");
+            } else {
+                final CustomDialog alertDialog = new CustomDialog.Builder(this).
+                        setMessage("清除缓存吗？").
+                        setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                            getcache();
-                            Boolean cacheSize = DiskCacheUtils.removeFromCache(fils, ImageLoader.getInstance().getDiskCache());
-                            if (cacheSize == true) {
-                                tv_clear.setText("0M");
+                                try {
+                                    if (tv_clear.getText().toString().trim()
+                                            .equals("0.0Byte")) {
+
+                                        T.ss("暂无缓存");
+                                    } else {
+                                        boolean flag1 = CacheUtill.deleteFolderFile(file1.getPath(), true);
+                                        boolean flag2 = CacheUtill.deleteFolderFile(file2.getPath(), true);
+                                        if (flag1 && flag2) {
+                                            getcache();
+                                            T.ss("清除成功");
+                                            cleanFlag = true;
+                                        } else {
+                                            T.ss("清除失败");
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                dialog.dismiss();
                             }
-                            dialog.dismiss();
-                        }
-                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).create();
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
 
 
-            alertDialog.show();
+                alertDialog.show();
+            }
 
         }
         //退出登录
@@ -216,25 +238,27 @@ public class More extends LActivity implements View.OnClickListener {
     }
 
     private void getcache() {
-
-
         try {
-            File imageFile = ImageLoader.getInstance().getDiscCache().get(fils);
-            if (imageFile.exists()) {
-                imageFile.delete();
+            file1 = new File(Environment.getExternalStorageDirectory(), "cache");
+            if (!file1.exists()) {
+                file1.mkdirs();
             }
+            long folderSize = CacheUtill.getFolderSize(file1);
 
-            File folderSize = DiskCacheUtils.findInCache(fils, ImageLoader.getInstance().getDiskCache());
-            if (!folderSize.exists()) {
-//                folderSize.mkdirs();
-                folderSize.delete();
+            file2 = new File(Environment.getExternalStorageDirectory()
+                    + "/Android/data/com.android.hshuihao/");
+            if (!file2.exists()) {
+                file2.mkdirs();
             }
+            long folderSize2 = CacheUtill.getFolderSize(file2);
 
-            L.e("folder", fils + "");
-            if (imageFile.equals(null)) {
+            String cacheSize = CacheUtill
+                    .getFormatSize((folderSize + folderSize2));
+
+            if (cacheSize.equals("0.0B")) {
                 tv_clear.setText("无缓存");
             } else {
-                tv_clear.setText(folderSize.toString() + "");
+                tv_clear.setText(cacheSize);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -242,9 +266,7 @@ public class More extends LActivity implements View.OnClickListener {
     }
 
     private void loades() {
-
-
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("uuid", Token.get(this));
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)

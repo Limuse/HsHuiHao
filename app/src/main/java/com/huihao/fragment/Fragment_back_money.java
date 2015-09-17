@@ -41,7 +41,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Fragment_back_money extends LFragment {
     private ListView listview;
-    private List<AllOrderEntity> list = new ArrayList<AllOrderEntity>();
+    private List<AllOrderEntity> list = new ArrayList<>();
     private AllOrderAdapter adapter;
     private List<AllOrderEntity.ChildEntity> itemlist = null;//new ArrayList<AllOrderEntity.ChildEntity>();
     private RelativeLayout rl_gssat;
@@ -84,6 +84,8 @@ public class Fragment_back_money extends LFragment {
 
     private void initData() {
 //t 订单状态（1未付款2待发货3待收货，不传则表示全部订单）
+        list.clear();
+
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/orders/1/sign/aggregation/?t=3&uuid=" + Token.get(getActivity());
@@ -113,7 +115,7 @@ public class Fragment_back_money extends LFragment {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONObject o = jsonObject.getJSONObject("list");
-                if (o.equals("")||o.equals(null)||o.length() < 1) {
+                if (o.equals("") || o.equals(null) || o.equals("null") || o.length() < 1) {
                     rl_gssat.setVisibility(View.VISIBLE);
                     listview.setVisibility(View.GONE);
                 } else {
@@ -129,7 +131,7 @@ public class Fragment_back_money extends LFragment {
                         ee.setTotal_price(ob.getString("total_price"));
                         ee.setPay_price(ob.getString("pay_price"));
                         JSONArray ja = ob.getJSONArray("_child");
-                        itemlist = new ArrayList<AllOrderEntity.ChildEntity>();
+                        itemlist = new ArrayList<>();
                         for (int j = 0; j < ja.length(); j++) {
                             JSONObject jt = ja.getJSONObject(j);
                             AllOrderEntity.ChildEntity ce = new AllOrderEntity.ChildEntity();
