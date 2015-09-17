@@ -53,6 +53,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -152,7 +153,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         if (imageLoader == null) {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
-        options = new DisplayImageOptions.Builder().cacheInMemory(true)
+        options = new DisplayImageOptions.Builder().cacheInMemory(false)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();

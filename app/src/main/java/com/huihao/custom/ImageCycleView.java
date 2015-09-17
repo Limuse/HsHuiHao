@@ -3,6 +3,7 @@ package com.huihao.custom;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -24,6 +25,7 @@ import com.huihao.common.Log;
 import com.leo.base.application.LApplication;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 /**
@@ -115,14 +117,9 @@ public class ImageCycleView extends LinearLayout {
         // 滚动图片右下指示器视
         mGroup = (ViewGroup) findViewById(R.id.viewGroup);
         imageName = (TextView) findViewById(R.id.viewGroup2);
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.ic_stub)
-                .showImageForEmptyUri(R.mipmap.ic_empty)
-                .showImageOnFail(R.mipmap.ic_error).cacheInMemory(true)
-                .cacheOnDisc(true)
-                .considerExifParams(true)
-                .displayer(new FadeInBitmapDisplayer(200))
-//                .displayer(new CircleBitmapDisplayer())//切圆
+        options = new DisplayImageOptions.Builder().cacheInMemory(false)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheOnDisk(false).imageScaleType(ImageScaleType.EXACTLY)
                 .build();
 
     }

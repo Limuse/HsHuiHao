@@ -18,6 +18,7 @@ import com.leo.base.activity.fragment.LFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,8 +59,7 @@ public class Fragment_story_details_page extends LFragment {
         if (imageLoader == null) {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
-        options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
+        options = new DisplayImageOptions.Builder().cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
 
@@ -72,7 +72,7 @@ public class Fragment_story_details_page extends LFragment {
     }
 
     public void initData() {
-            imageLoader.displayImage(imageInfo.get("image"), image, options);
+        imageLoader.displayImage(imageInfo.get("image"), image, options);
     }
 
     public static void getData(Map<String, String> map) {

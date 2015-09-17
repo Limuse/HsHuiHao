@@ -43,7 +43,7 @@ public class ProductInfoImageAda extends BaseAdapter {
         if (imageLoader == null) {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
-        options = new DisplayImageOptions.Builder().cacheInMemory(true)
+        options = new DisplayImageOptions.Builder()
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();

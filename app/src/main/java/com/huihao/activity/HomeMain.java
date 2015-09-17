@@ -29,6 +29,9 @@ import com.huihao.fragment.Fragment_my;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
+import com.nostra13.universalimageloader.cache.disc.DiskCache;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
@@ -158,7 +161,7 @@ public class HomeMain extends LActivity {
     }
 
 
-    private class AscTest extends AsyncTask<String,Intent,String>{
+    private class AscTest extends AsyncTask<String, Intent, String> {
         protected String doInBackground(String... params) {
             return null;
         }
@@ -196,21 +199,6 @@ public class HomeMain extends LActivity {
     }
 
     private void initView() {
-
-        ImageDialog dialog = new ImageDialog.Builder(this).setImage(R.mipmap.dialog_logo).setMessage("30").setInfo("20", "10").setPositiveButton("暂不分享", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).setNegativeButton("现在就去", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                share();
-                dialog.dismiss();
-
-            }
-        }).create();
-        dialog.show();
-
-
         fragment_main = new Fragment_main();
         main.setBackgroundResource(R.mipmap.mainp);
         switchFragment(fragment_main, MAIN);
@@ -263,48 +251,4 @@ public class HomeMain extends LActivity {
             System.exit(0);
         }
     }
-
-    public void share() {
-// 设置分享内容
-        mController.setShareContent("汇好，汇聚天下好产品");
-// 设置分享图片, 参数2为图片的url地址
-        mController.setShareMedia(new UMImage(HomeMain.this,
-                "http://tb.himg.baidu.com/sys/portrait/item/94edd7eed6d5c5c7bbb22924"));
-
-        String appID = "wxe5749e0e8d40f5aa";
-        String appSecret = "47eb904d7b88e62ad66287cbc6924daf";
-// 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(HomeMain.this, appID, appSecret);
-        wxHandler.addToSocialSDK();
-// 添加微信朋友圈
-        UMWXHandler wxCircleHandler = new UMWXHandler(HomeMain.this, appID, appSecret);
-        wxCircleHandler.setToCircle(true);
-        wxCircleHandler.addToSocialSDK();
-
-        // 添加QQ
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(HomeMain.this, "100424468",
-                "c7394704798a158208a74ab60104f0ba");
-        qqSsoHandler.addToSocialSDK();
-
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(HomeMain.this, "100424468",
-                "c7394704798a158208a74ab60104f0ba");
-        qZoneSsoHandler.addToSocialSDK();
-
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
-
-        mController.getConfig().removePlatform(SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
-        mController.openShare(HomeMain.this, false);
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        /**使用SSO授权必须添加如下代码 */
-        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode);
-        if (ssoHandler != null) {
-            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
-    }
-
 }

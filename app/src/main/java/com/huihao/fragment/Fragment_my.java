@@ -301,8 +301,8 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         mController.setShareMedia(new UMImage(getActivity(),
                 "http://tb.himg.baidu.com/sys/portrait/item/94edd7eed6d5c5c7bbb22924"));
 
-        String appID = "wx967daebe835fbeac";
-        String appSecret = "5fa9e68ca3970e87a1f83e563c8dcbce";
+        String appID = "wxe5749e0e8d40f5aa";
+        String appSecret = "47eb904d7b88e62ad66287cbc6924daf";
 // 添加微信平台
         UMWXHandler wxHandler = new UMWXHandler(getActivity(), appID, appSecret);
         wxHandler.addToSocialSDK();
