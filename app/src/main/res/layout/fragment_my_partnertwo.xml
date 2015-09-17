@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/app_myself_left_mar"
                 android:layout_marginTop="60dp"
-                android:text="1,000.29"
+                android:text=""
                 android:textColor="@color/app_white"
                 android:textSize="50sp" />
 
@@ -59,7 +59,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/app_myself_left_mar"
-                    android:text="128"
+                    android:text=""
                     android:textColor="@color/app_white"
                     android:textSize="@dimen/app_text_big" />
             </RelativeLayout>

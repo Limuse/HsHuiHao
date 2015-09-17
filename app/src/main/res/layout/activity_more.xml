@@ -201,7 +201,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/iv_cl"
-                    android:text="0M"
+                    android:text=""
                     android:textColor="@color/app_text_light"
                     android:textSize="@dimen/app_text_big" />
 

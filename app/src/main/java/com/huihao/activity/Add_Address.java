@@ -113,7 +113,7 @@ public class Add_Address extends LActivity implements View.OnClickListener {
         map.put("country", countryID + "");//  区ID
         map.put("address", addr);//
         LReqEntity entitys = new LReqEntity(url, map);
-        L.e(entitys + "");
+       // L.e(entitys + "");
         ActivityHandler handler = new ActivityHandler(Add_Address.this);
         handler.startLoadingData(entitys, 1);
     }
@@ -190,7 +190,6 @@ public class Add_Address extends LActivity implements View.OnClickListener {
                         countryID = data.getExtras().getString("countryid"); // 区ID
                     }
                 }
-                L.e("dddsss",provinceID+cityID+countryID);
                 break;
             default:
                 break;

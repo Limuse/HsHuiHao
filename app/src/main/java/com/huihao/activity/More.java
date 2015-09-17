@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
@@ -25,12 +26,16 @@ import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +49,10 @@ public class More extends LActivity implements View.OnClickListener {
     private TextView tv_web, tv_kp, tv_clear;
     private RelativeLayout rl_web, rl_kp, rl_ban, rl_advice, rl_p, rl_clear;
     private Button btn_outline;
-    private  Boolean tr;
+    private Boolean tr;
+    private String fils = Environment.getExternalStorageDirectory()
+            + "/Android/data/com.android.hshuihao/cache";
+
     @Override
     protected void onLCreate(Bundle bundle) {
         setContentView(R.layout.activity_more);
@@ -57,6 +65,7 @@ public class More extends LActivity implements View.OnClickListener {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
+        getcache();
     }
 
     private void initView() {
@@ -91,7 +100,7 @@ public class More extends LActivity implements View.OnClickListener {
         rl_clear.setOnClickListener(this);
         btn_outline.setOnClickListener(this);
 
-        tr= LSharePreference.getInstance(this).getBoolean("login");
+        tr = LSharePreference.getInstance(this).getBoolean("login");
 
     }
 
@@ -129,7 +138,7 @@ public class More extends LActivity implements View.OnClickListener {
                                     Toast.LENGTH_LONG)
                                     .show();
                             Uri uri = Uri.parse("tel:"
-                                    +"400-123-123");
+                                    + "400-123-123");
                             Intent intent = new Intent(
                                     Intent.ACTION_CALL, uri);
                             startActivity(intent);
@@ -170,7 +179,13 @@ public class More extends LActivity implements View.OnClickListener {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tv_clear.setText("0M");
+
+                            getcache();
+                            Boolean cacheSize = DiskCacheUtils.removeFromCache(fils, ImageLoader.getInstance().getDiskCache());
+                            if (cacheSize == true) {
+                                tv_clear.setText("0M");
+                            }
+                            dialog.dismiss();
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                 @Override
@@ -186,12 +201,12 @@ public class More extends LActivity implements View.OnClickListener {
         //退出登录
         if (mid == R.id.btn_outline) {
             T.ss("退出登录");
-            if(tr==false){
+            if (tr == false) {
                 btn_outline.setText("登录");
-                if(MyApplication.isLogin(this)){
+                if (MyApplication.isLogin(this)) {
                     T.ss("已登陆");
                 }
-            }else{
+            } else {
                 btn_outline.setText("退出登录");
                 loades();
             }
@@ -200,6 +215,31 @@ public class More extends LActivity implements View.OnClickListener {
 
     }
 
+    private void getcache() {
+
+
+        try {
+            File imageFile = ImageLoader.getInstance().getDiscCache().get(fils);
+            if (imageFile.exists()) {
+                imageFile.delete();
+            }
+
+            File folderSize = DiskCacheUtils.findInCache(fils, ImageLoader.getInstance().getDiskCache());
+            if (!folderSize.exists()) {
+//                folderSize.mkdirs();
+                folderSize.delete();
+            }
+
+            L.e("folder", fils + "");
+            if (imageFile.equals(null)) {
+                tv_clear.setText("无缓存");
+            } else {
+                tv_clear.setText(folderSize.toString() + "");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void loades() {
 
@@ -233,8 +273,8 @@ public class More extends LActivity implements View.OnClickListener {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 T.ss("退出成功！");
-                LSharePreference.getInstance(this).setBoolean("login",false);
-                if(MyApplication.isLogin(this)){
+                LSharePreference.getInstance(this).setBoolean("login", false);
+                if (MyApplication.isLogin(this)) {
                     T.ss("已登陆");
                 }
             } else {
