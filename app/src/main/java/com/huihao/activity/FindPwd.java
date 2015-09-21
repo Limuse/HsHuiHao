@@ -1,5 +1,6 @@
 package com.huihao.activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,21 +30,25 @@ import java.util.Map;
 public class FindPwd extends LActivity {
     private int isEye = 0;
     private EditText et_user, et_pwd;
-    private Button btn_look, btn_send1, btn_send2,btn_ok;
+    private Button btn_look, btn_send1, btn_send2, btn_ok;
     private boolean flag = true;
     private int time = 60;
+    public static Context context;
+
     protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_registered);
+        context = FindPwd.this;
         initBar();
         initView();
     }
+
     private void initView() {
         et_user = (EditText) findViewById(R.id.et_user);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
         btn_look = (Button) findViewById(R.id.btn_look);
-        btn_send1=(Button)findViewById(R.id.btn_send1);
-        btn_send2=(Button)findViewById(R.id.btn_send2);
-        btn_ok=(Button)findViewById(R.id.btn_ok);
+        btn_send1 = (Button) findViewById(R.id.btn_send1);
+        btn_send2 = (Button) findViewById(R.id.btn_send2);
+        btn_ok = (Button) findViewById(R.id.btn_ok);
         btn_ok.setText("修改密码");
     }
 
@@ -82,7 +87,7 @@ public class FindPwd extends LActivity {
             ActivityHandler handler = new ActivityHandler(this);
             Map<String, String> map = new HashMap<String, String>();
             map.put("mobile", et_user.getText().toString().trim());
-            LReqEntity entity = new LReqEntity(url,map);
+            LReqEntity entity = new LReqEntity(url, map);
             handler.startLoadingData(entity, 1);
         } else {
             T.ss("请输入正确的手机号码");
@@ -112,17 +117,16 @@ public class FindPwd extends LActivity {
         finish();
     }
 
-    public void getTime(){
+    public void getTime() {
         new Thread(new Runnable() {
             public void run() {
                 while (flag) {
                     handler.sendEmptyMessage(1);
                     try {
                         Thread.sleep(1000);
-                        if (time > 1){
+                        if (time > 1) {
                             time--;
-                        }
-                        else {
+                        } else {
                             handler.sendEmptyMessage(2);
                         }
                     } catch (InterruptedException e) {
@@ -133,6 +137,7 @@ public class FindPwd extends LActivity {
             }
         }).start();
     }
+
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
