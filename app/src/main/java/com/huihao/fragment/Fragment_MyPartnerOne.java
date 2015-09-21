@@ -23,6 +23,7 @@ import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -41,9 +42,10 @@ public class Fragment_MyPartnerOne extends LFragment {
     private TextView tv_money, tv_nums;
     private ListView listView;
     private MyPartnerAdapter adapter;
-    private List<MyPartnerEntity.ChildList> list =new ArrayList<MyPartnerEntity.ChildList>();
+    private List<MyPartnerEntity.ChildList> list = new ArrayList<MyPartnerEntity.ChildList>();
     private LinearLayout lyms;
     private ScrollView scrollView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +74,11 @@ public class Fragment_MyPartnerOne extends LFragment {
     }
 
 
-
     private void initData() {
 
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
-                + "/huihao/member/teamdetail/1/sign/aggregation/?uuid="+ Token.get(getActivity());
+                + "/huihao/member/teamdetail/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(this);
         handler.startLoadingData(entity, 1);
@@ -101,20 +102,25 @@ public class Fragment_MyPartnerOne extends LFragment {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
             if (code == 1) {
-                JSONObject obejc=jsonObject.getJSONObject("list");
-                JSONArray array=obejc.getJSONArray("first_list");
-                for(int i=0;i<array.length();i++){
-                    JSONObject o=array.getJSONObject(i);
-                    MyPartnerEntity.ChildList cl=new MyPartnerEntity.ChildList();
-                    cl.setUsername(o.getString("username"));
-                    cl.setAmount(o.getString("total_amount"));
-                    list.add(cl);
+                JSONObject obejc = jsonObject.getJSONObject("list");
+                if (obejc.getString("first_list").length() < 1) {
+                    T.ss("您暂时没有伙伴！");
+                } else {
+                    JSONArray array = obejc.getJSONArray("first_list");
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject o = array.getJSONObject(i);
+                        MyPartnerEntity.ChildList cl = new MyPartnerEntity.ChildList();
+                        cl.setUsername(o.getString("username"));
+                        cl.setAmount(o.getString("total_amount"));
+                        list.add(cl);
+                    }
                 }
                 tv_money.setText(obejc.getString("first_total"));
                 tv_nums.setText(obejc.getString("first_child"));
                 adapter = new MyPartnerAdapter(getActivity(), list);
                 listView.setAdapter(adapter);
                 Scrollto();
+
             } else {
                 T.ss(jsonObject.getString("info"));
             }
