@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.huihao.activity.News;
 import com.huihao.activity.Product_details;
+import com.huihao.common.Log;
 import com.huihao.custom.ImageCycleView;
+import com.huihao.custom.ImageCycleViewMain;
 import com.huihao.custom.NoScrollGridView;
 import com.huihao.MyApplication;
 import com.huihao.R;
@@ -46,7 +48,7 @@ import java.util.Map;
 public class Fragment_main extends LFragment {
     private View parentView;
     private ScrollView scrollView;
-    private ImageCycleView mAdView;
+    private ImageCycleViewMain mAdView;
     private ArrayList<String> pageImageList = new ArrayList<String>();
     private ArrayList<String> pageImageId = new ArrayList<String>();
     private NoScrollGridView gridView;
@@ -62,8 +64,8 @@ public class Fragment_main extends LFragment {
     private TextView[] names, prices;
     private ImageView[] images;
 
-    private DisplayImageOptions options;
-    private ImageLoader imageLoader;
+    public static DisplayImageOptions options;
+    public static ImageLoader imageLoader;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +162,7 @@ public class Fragment_main extends LFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
-                intent.putExtra("id", gridList.get(0).get("id"));
+                intent.putExtra("id", gridList.get(position).get("id"));
                 startActivityForResult(intent, 0);
             }
         });
@@ -203,7 +205,7 @@ public class Fragment_main extends LFragment {
         prices = new TextView[]{price1, price2, price3, price4, price5};
         images = new ImageView[]{image1, image2, image3, image4, image5};
 
-        mAdView = (ImageCycleView) parentView.findViewById(R.id.ImageCycleView);
+        mAdView = (ImageCycleViewMain) parentView.findViewById(R.id.ImageCycleView);
         gridView = (NoScrollGridView) parentView.findViewById(R.id.gridView);
     }
 
@@ -282,10 +284,10 @@ public class Fragment_main extends LFragment {
         gridView.setAdapter(myGridAda);
     }
 
-    private ImageCycleView.ImageCycleViewListener mAdCycleViewListener = new ImageCycleView.ImageCycleViewListener() {
+    private ImageCycleViewMain.ImageCycleViewListener mAdCycleViewListener = new ImageCycleViewMain.ImageCycleViewListener() {
         public void onImageClick(int position, View imageView) {
             Intent intent = new Intent(getActivity(), Product_details.class);
-            intent.putExtra("id", pageImageId.get(position));
+            intent.putExtra("id", pageImageId.get( ImageCycleViewMain.mImageIndex));
             startActivity(intent);
         }
     };

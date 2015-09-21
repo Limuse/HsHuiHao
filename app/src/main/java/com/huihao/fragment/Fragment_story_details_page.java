@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.activity.Story_details;
+import com.huihao.common.Log;
 import com.leo.base.activity.fragment.LFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -31,7 +32,7 @@ import java.util.Map;
 public class Fragment_story_details_page extends LFragment {
     private ViewPager viewPager;
     private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-    public static Map<String, String> imageInfo = new HashMap<String, String>();
+    private  Map<String, String> imageInfo = new HashMap<String, String>();
     private String info;
     private View total;
     public static ImageView image;
@@ -59,7 +60,7 @@ public class Fragment_story_details_page extends LFragment {
         if (imageLoader == null) {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
-        options = new DisplayImageOptions.Builder().cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
+        options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
 
@@ -75,7 +76,7 @@ public class Fragment_story_details_page extends LFragment {
         imageLoader.displayImage(imageInfo.get("image"), image, options);
     }
 
-    public static void getData(Map<String, String> map) {
-        imageInfo = map;
+    public  void getData(Map<String, String> map) {
+       this.imageInfo = map;
     }
 }

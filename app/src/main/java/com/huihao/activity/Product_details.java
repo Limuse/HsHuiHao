@@ -138,11 +138,13 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     private List<Map<String, String>> imageList = new ArrayList<Map<String, String>>();
     private List<Map<String, String>> contentList = new ArrayList<Map<String, String>>();
 
-    private DisplayImageOptions options;
-    private ImageLoader imageLoader;
+    public static DisplayImageOptions options;
+    public static ImageLoader imageLoader;
     private ImageView image_product;
 
     private int content;
+
+    public static int WcH = 640 / 600;
 
     protected void onLCreate(Bundle bundle) {
         parentView = getLayoutInflater().inflate(R.layout.activity_product_details, null);
@@ -153,7 +155,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         if (imageLoader == null) {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
-        options = new DisplayImageOptions.Builder().cacheInMemory(false)
+        options = new DisplayImageOptions.Builder().cacheInMemory(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
@@ -430,15 +432,15 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
 //                }
 //            }
 //        }).start();
-        if (content > 10) {
-            linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-            linearParams.height = UntilList.getWindosW(this) * (content - 1);
-            viewPager.setLayoutParams(linearParams);
-        } else {
-            linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-            linearParams.height = UntilList.getWindosW(this) * (content);
-            viewPager.setLayoutParams(linearParams);
-        }
+//        if (content > 10) {
+//            linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
+//            linearParams.height = UntilList.getWindosW(this)/WcH*(content-content/10);
+//            viewPager.setLayoutParams(linearParams);
+//        } else {
+        linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
+        linearParams.height = UntilList.getWindosW(this) / WcH * content;
+        viewPager.setLayoutParams(linearParams);
+//        }
     }
 
     public void addForHttp() {
@@ -525,8 +527,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                 JSONObject list = object.optJSONObject("list");
                 JSONObject info = list.optJSONObject("info");
                 name.setText(info.optString("title"));
-                nprice.setText(info.optString("nprice"));
-                oprice.setText(info.optString("oprice"));
+                nprice.setText("￥" + info.optString("nprice"));
+                oprice.setText("￥" + info.optString("oprice"));
                 realsalenum.setText(info.optString("preferential"));
 
                 if (!info.opt("infopic").equals("")) {
@@ -538,6 +540,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                             mImageUrl.add(item);
                         }
                         mAdView.setImageResources(mImageUrl, mImageName, mAdCycleViewListener);
+                        mAdView.stopImageTimerTask();
                     }
                 }
 
@@ -577,14 +580,15 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     for (int i = 0; i < parameter.length(); i++) {
                         Map<String, String> map = new HashMap<String, String>();
                         String para = parameter.get(i).toString();
-                        if (para.length() > 3) {
-                            String[] sp = parameter.get(i).toString().split("：");
-                            map.put("title", sp[0]);
-                            map.put("info", sp[1]);
-                        } else {
-                            map.put("title", para);
-                            map.put("info", "");
+                        if (para.length() > 0) {
+//                            String[] sp = parameter.get(i).toString().split("：");
+                            map.put("title", parameter.get(i).toString());
+//                            map.put("info", sp[1]);
                         }
+//                        else {
+//                            map.put("title", para);
+//                            map.put("info", "");
+//                        }
                         contentList.add(map);
                     }
                     if (contentList.size() > 0) {

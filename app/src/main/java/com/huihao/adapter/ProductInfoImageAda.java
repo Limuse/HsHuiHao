@@ -87,7 +87,7 @@ public class ProductInfoImageAda extends BaseAdapter {
 //                    Product_details.context.ImageDetails(position, imageList);
 //                }
 //            });
-        imageLoader.displayImage(gridList.get(position).get("image"), viewHolder.image, options);
+        Product_details.imageLoader.displayImage(gridList.get(position).get("image"), viewHolder.image, Product_details.options);
         return convertView;
     }
 

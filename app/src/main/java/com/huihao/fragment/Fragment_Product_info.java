@@ -9,6 +9,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.huihao.R;
+import com.huihao.activity.Product_details;
 import com.huihao.adapter.ProductInfoImageAda;
 import com.huihao.common.UntilList;
 import com.huihao.custom.NoScrollListview;
@@ -53,7 +54,7 @@ public class Fragment_Product_info extends LFragment {
         this.mlist = list;
         imageAda = new ProductInfoImageAda(getActivity(), mlist);
         LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) listView.getLayoutParams();
-        linearParams.height =    UntilList.getWindosW(getActivity())*list.size();
+//        linearParams.height =  UntilList.getWindosW(getActivity())/ Product_details.WcH*mlist.size();
         listView.setLayoutParams(linearParams);
         listView.setFocusable(false);
         listView.setAdapter(imageAda);

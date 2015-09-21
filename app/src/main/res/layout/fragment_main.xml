@@ -60,11 +60,11 @@
             android:layout_height="match_parent"
             android:background="@null">
 
-            <com.huihao.custom.ImageCycleView
+            <com.huihao.custom.ImageCycleViewMain
                 android:id="@+id/ImageCycleView"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:background="@color/app_white"></com.huihao.custom.ImageCycleView>
+                android:background="@color/app_white"></com.huihao.custom.ImageCycleViewMain>
 
 
             <RelativeLayout

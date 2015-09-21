@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.activity.Product_details;
 import com.huihao.common.CircleBitmapDisplayer;
 import com.huihao.common.Log;
 import com.leo.base.application.LApplication;
@@ -117,9 +118,9 @@ public class ImageCycleView extends LinearLayout {
         // 滚动图片右下指示器视
         mGroup = (ViewGroup) findViewById(R.id.viewGroup);
         imageName = (TextView) findViewById(R.id.viewGroup2);
-        options = new DisplayImageOptions.Builder().cacheInMemory(false)
+        options = new DisplayImageOptions.Builder().cacheInMemory(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .cacheOnDisk(false).imageScaleType(ImageScaleType.EXACTLY)
+                .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY)
                 .build();
 
     }
@@ -302,7 +303,7 @@ public class ImageCycleView extends LinearLayout {
             }
             imageView.setTag(imageUrl);
             container.addView(imageView);
-            imageLoader.displayImage(imageUrl, imageView, options);
+           Product_details. imageLoader.displayImage(imageUrl, imageView, Product_details.options);
             return imageView;
         }
 

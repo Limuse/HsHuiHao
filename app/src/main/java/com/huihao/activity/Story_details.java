@@ -151,7 +151,7 @@ public class Story_details extends LActivity {
     private void initPage() {
         for (int i = 0; i < imageInfo.size(); i++) {
             Fragment_story_details_page fragmentStoryPage = new Fragment_story_details_page();
-            Fragment_story_details_page.getData(imageInfo.get(i));
+            fragmentStoryPage.getData(imageInfo.get(i));
             fragmentList.add(fragmentStoryPage);
         }
 
