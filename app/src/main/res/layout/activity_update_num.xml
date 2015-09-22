@@ -32,7 +32,7 @@
             android:layout_height="@dimen/app_toolbar"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
             android:background="@android:color/transparent"
-            android:hint="请输入邀请码"
+            android:hint="请输入优惠码"
             android:maxLength="10"
             android:textSize="@dimen/app_text_normal" />
 

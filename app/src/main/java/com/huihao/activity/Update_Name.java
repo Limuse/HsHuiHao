@@ -51,6 +51,7 @@ public class Update_Name extends LActivity {
         tintManager.setStatusBarTintResource(R.color.app_white);
         initView();
     }
+
     private void initView() {
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("昵称设置");
@@ -59,13 +60,6 @@ public class Update_Name extends LActivity {
         //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent=new Intent();
-                String name=et_Upname.getText().toString();
-                if(name.equals(null)){
-                    intent.putExtra("name","1");
-                }
-                intent.putExtra("name",et_Upname.getText().toString());
-                setResult(5, intent);
                 finish();
             }
         });
@@ -75,7 +69,6 @@ public class Update_Name extends LActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_messages) {
                     upname();
-
                 }
                 return false;
             }
@@ -86,11 +79,10 @@ public class Update_Name extends LActivity {
     }
 
     private void upname() {
-        String name =et_Upname.getText().toString();
-        if(name.equals(null)){
+        String name = et_Upname.getText().toString();
+        if (name.equals(null)) {
             T.ss("昵称不能为空！");
-        }
-       else {
+        } else {
             Map<String, String> map = new HashMap<String, String>();
             map.put("name", name);// 昵称
             map.put("uuid", Token.get(this));
@@ -121,6 +113,14 @@ public class Update_Name extends LActivity {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 T.ss("保存成功！");
+                Intent intent = new Intent();
+                String name = et_Upname.getText().toString();
+                if (name.equals(null)) {
+                    intent.putExtra("name", "1");
+                }
+                intent.putExtra("name", et_Upname.getText().toString());
+                setResult(5, intent);
+                finish();
             } else {
                 T.ss(jsonObject.getString("info"));
             }

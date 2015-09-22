@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -154,6 +155,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             holder.tv_color = (TextView) convertView.findViewById(R.id.tv_color);
             holder.tv_size = (TextView) convertView.findViewById(R.id.tv_sizes);
             holder.tv_material = (TextView) convertView.findViewById(R.id.tv_res);
+            holder.ly_match=(LinearLayout)convertView.findViewById(R.id.ly_match);
             //  holder.tv_money = (TextView) convertView.findViewById(R.id.tv_money);
             // holder.btn_add = (Button) convertView.findViewById(R.id.btn_jia);
             // holder.btn_Redc = (Button) convertView.findViewById(R.id.btn_jian);
@@ -377,7 +379,37 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
             }
         });
-
+//        holder.ly_match.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(final View vs) {
+//
+//                final CustomDialog alertDialog = new CustomDialog.Builder(context).
+//                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
+//                        new DialogInterface.OnClickListener() {
+//
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                view = vs;
+//                                ids = datas.getId();
+//                                Danjia = datas.getDanjia();
+//                                task = new TakeAsyncTask();
+//                                task.execute();
+//                                notifyDataSetChanged();
+//                                dialog.dismiss();
+//                            }
+//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                }).
+//                        create();
+//
+//
+//                alertDialog.show();
+//                return true;
+//            }
+//        });
 
         return convertView;
     }
@@ -421,7 +453,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
         private ImageView img_pic;
         private Button deleteButton;
         private LinearLayout lym;
-        private LinearLayout llm;
+        private LinearLayout llm,ly_match;
         private int position;
 
         public ViewHolder(View view) {

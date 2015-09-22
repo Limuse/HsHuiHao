@@ -23,7 +23,8 @@ import java.util.List;
 public class ChooseCouponsAdapter extends BaseAdapter {
     private Context context;
     private List<CouponsEntity> list = null;
-    private List<String> listid = new ArrayList<String>();
+    private List<String> listid = new ArrayList<>();
+    private List<String> limoney = new ArrayList<>();
 
     public ChooseCouponsAdapter(Context context, List<CouponsEntity> list) {
         this.context = context;
@@ -76,9 +77,11 @@ public class ChooseCouponsAdapter extends BaseAdapter {
                     notifyDataSetChanged();
                     // 将选中的放入hashmap中
                     listid.add(ce.cpid);
+                    limoney.add(ce.cpmoney);
                 } else {
                     //取消选中的则剔除
                     listid.remove(ce.cpid);
+                    limoney.remove(ce.cpmoney);
                 }
                 notifyDataSetChanged();
 
@@ -90,16 +93,31 @@ public class ChooseCouponsAdapter extends BaseAdapter {
 
     public String rCid() {
         String cid = "";
-        if (listid.size() < 1) {
+        int money = 0;
+        if (list.size() < 1 || listid.size() < 1) {
             cid = null;
             return cid;
         } else {
             for (int i = 0; i < listid.size(); i++) {
                 cid = cid + listid.get(i) + ",";
+                money = money+Integer.parseInt(limoney.get(i).toString());
             }
             cid = cid.substring(0, cid.lastIndexOf(','));
             return cid;
         }
+    }
+    public int rMoneys(){
+        int money = 0;
+        if (list.size() < 1 || listid.size() < 1) {
+            money = 0;
+
+        } else {
+            for (int i = 0; i < listid.size(); i++) {
+                money = money+Integer.parseInt(limoney.get(i).toString());
+            }
+            return money;
+        }
+        return money;
     }
 
     private class ViewHolder {

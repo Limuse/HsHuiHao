@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -64,17 +65,30 @@ public class Choose_Couppons extends LActivity {
         //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String cids = adapter.rCid();
-                if (cids == null) {
-                    T.ss("请选择优惠卷");
 
-                    setResult(1, null);
-                } else {
-                    Intent intent = new Intent();
-                    intent.putExtra("cids", cids);
-                    setResult(1, intent);
-                }
                 finish();
+            }
+        });
+        //右边图片点击事件
+        toolbar.inflateMenu(R.menu.right_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.menu_messages) {
+                    String cids = adapter.rCid();
+                    int mon = adapter.rMoneys();
+                    if (cids == null) {
+                        T.ss("请选择优惠卷");
+                        setResult(1, null);
+                        finish();
+                    } else {
+                        Intent intent = new Intent();
+                        intent.putExtra("cids", cids);
+                        intent.putExtra("money", mon + "");
+                        setResult(1, intent);
+                        finish();
+                    }
+                }
+                return false;
             }
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
@@ -107,25 +121,26 @@ public class Choose_Couppons extends LActivity {
                     T.ss("没有数据");
 
                 } else {
-                JSONArray array = jsonObject.getJSONArray("list");
+                    JSONArray array = jsonObject.getJSONArray("list");
 
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject object = array.getJSONObject(i);
-                    CouponsEntity entity = new CouponsEntity();
-                    entity.cpmoney = object.getString("money");
-                    entity.cptitile = "汇好商城优惠卷";
-                    String tme = object.getString("end_time").substring(0, 10);
-                    entity.cptime = "使用期限" + tme + "前";
-                    // entity.cpuse = "满800可用";
-                    entity.cpid = object.getString("id");
-                    entity.t = -1;
-                    list.add(entity);
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject object = array.getJSONObject(i);
+                        CouponsEntity entity = new CouponsEntity();
+                        entity.cpmoney = object.getString("money");
+                        entity.cptitile = "汇好商城优惠卷";
+                        String tme = object.getString("end_time").substring(0, 10);
+                        entity.cptime = "使用期限" + tme + "前";
+                        // entity.cpuse = "满800可用";
+                        entity.cpid = object.getString("id");
+                        entity.t = -1;
+                        list.add(entity);
+                    }
+                    adapter = new ChooseCouponsAdapter(this, list);
+                    listview.setAdapter(adapter);
+
                 }
-                adapter = new ChooseCouponsAdapter(this, list);
-                listview.setAdapter(adapter);
-
-            } }else {
-                T.ss("获取数据失败");
+            } else {
+                T.ss(jsonObject.getString("info").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();

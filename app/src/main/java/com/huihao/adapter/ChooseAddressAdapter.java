@@ -1,15 +1,19 @@
 package com.huihao.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huihao.R;
+import com.huihao.activity.Choose_Address;
 import com.huihao.entity.AddressItemEntity;
 import com.leo.base.adapter.LBaseAdapter;
 import com.leo.base.util.L;
@@ -22,17 +26,19 @@ import java.util.Map;
 /**
  * Created by huisou on 2015/8/7.
  */
-public class ChooseAddressAdapter extends LBaseAdapter {
-    private Context context;
+public class ChooseAddressAdapter extends LBaseAdapter implements AdapterView.OnItemClickListener {
+    private Choose_Address context;
     private List<AddressItemEntity> list = null;
     private boolean fal;
     private AddressItemEntity items = new AddressItemEntity();
-    Map<Integer, Boolean> isCheckMap = new HashMap<Integer, Boolean>();
+    private Map<Integer, Boolean> isCheckMap = new HashMap<>();
+    private ListView listView;
 
-    public ChooseAddressAdapter(Context context, List<AddressItemEntity> list) {
+    public ChooseAddressAdapter(Choose_Address context, List<AddressItemEntity> list, ListView listView) {
         super(context, list, true);
         this.context = context;
         this.list = list;
+        this.listView = listView;
     }
 
 
@@ -74,14 +80,33 @@ public class ChooseAddressAdapter extends LBaseAdapter {
 
         if (isCheckMap != null && isCheckMap.containsKey(position)) {
             viewHolder.cb_check.setChecked(isCheckMap.get(position));
-            int t =position ;Integer.parseInt(viewHolder.cb_check.getTag().toString());
+            int t = position;
+            Integer.parseInt(viewHolder.cb_check.getTag().toString());
             items = null;
             items = list.get(t);
-            fal=true;
+            String name = items.getUname();
+            String phone = items.getUphone();
+            String addd = items.getAddress();
+            String province = items.getProvince();
+            String city = items.getCity();
+            String country = items.getCountry();
+            String ids = items.getId();
+            Intent intent = new Intent();
+            intent.putExtra("name", name);
+            intent.putExtra("ids", ids);
+            intent.putExtra("phone", phone);
+            intent.putExtra("addr", addd);
+            intent.putExtra("province", province);
+            intent.putExtra("city", city);
+            intent.putExtra("counrty", country);
+            context.setResult(0, intent);
+            context.finish();
+
+            fal = true;
 
         } else {
             viewHolder.cb_check.setChecked(false);
-            fal=false;
+            fal = false;
         }
         viewHolder.cb_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,12 +125,13 @@ public class ChooseAddressAdapter extends LBaseAdapter {
 
             }
         });
+        listView.setOnItemClickListener(this);
 
         return convertView;
     }
 
     public AddressItemEntity BaReturn() {
-        if (items==null) {
+        if (items == null) {
             return null;
         } else {
             return items;
@@ -113,8 +139,38 @@ public class ChooseAddressAdapter extends LBaseAdapter {
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int positions, long id) {
+        AddressItemEntity entitys = list.get(positions-1);
+        if (entitys == null) {
+            context.setResult(0, null);
+        } else {
+
+            CheckBox c=(CheckBox)view.findViewById(R.id.cb_check);
+            c.setChecked(true);
+            String name = entitys.getUname();
+            String phone = entitys.getUphone();
+            String addd = entitys.getAddress();
+            String province = entitys.getProvince();
+            String city = entitys.getCity();
+            String country = entitys.getCountry();
+            String ids = entitys.getId();
+            Intent intent = new Intent();
+            intent.putExtra("name", name);
+            intent.putExtra("ids", ids);
+            intent.putExtra("phone", phone);
+            intent.putExtra("addr", addd);
+            intent.putExtra("province", province);
+            intent.putExtra("city", city);
+            intent.putExtra("counrty", country);
+           context.setResult(0, intent);
+            context.finish();
+        }
+    }
+
     private class ViewHolder {
         private TextView tv_nanea, tv_phonea, tv_addra;
         private CheckBox cb_check;
     }
+
 }

@@ -69,28 +69,28 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
         //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                adapter.notifyDataSetChanged();
-                AddressItemEntity iii = adapter.BaReturn();
-                if (iii==null) {
-                    setResult(0, null);
-                } else {
-                    String name = iii.getUname();
-                    String phone = iii.getUphone();
-                    String addd = iii.getAddress();
-                    String province = iii.getProvince();
-                    String city = iii.getCity();
-                    String country = iii.getCountry();
-                    String ids = iii.getId();
-                    Intent intent = new Intent();
-                    intent.putExtra("name", name);
-                    intent.putExtra("ids", ids);
-                    intent.putExtra("phone", phone);
-                    intent.putExtra("addr", addd);
-                    intent.putExtra("province", province);
-                    intent.putExtra("city", city);
-                    intent.putExtra("counrty", country);
-                    setResult(0, intent);
-                }
+//                adapter.notifyDataSetChanged();
+//                AddressItemEntity iii = adapter.BaReturn();
+//                if (iii==null) {
+//                    setResult(0, null);
+//                } else {
+//                    String name = iii.getUname();
+//                    String phone = iii.getUphone();
+//                    String addd = iii.getAddress();
+//                    String province = iii.getProvince();
+//                    String city = iii.getCity();
+//                    String country = iii.getCountry();
+//                    String ids = iii.getId();
+//                    Intent intent = new Intent();
+//                    intent.putExtra("name", name);
+//                    intent.putExtra("ids", ids);
+//                    intent.putExtra("phone", phone);
+//                    intent.putExtra("addr", addd);
+//                    intent.putExtra("province", province);
+//                    intent.putExtra("city", city);
+//                    intent.putExtra("counrty", country);
+//                    setResult(0, intent);
+//                }
                 finish();
             }
         });
@@ -153,12 +153,12 @@ public class Choose_Address extends LActivity implements View.OnClickListener {
                     itementity.setAddress(object.getString("address"));
                     list.add(itementity);
                 }
-                adapter = new ChooseAddressAdapter(Choose_Address.this, list);
+                adapter = new ChooseAddressAdapter(Choose_Address.this, list,listView);
                 listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
                 listView.setAdapter(adapter);
 
             } else {
-                T.ss("获取数据失败");
+                T.ss(jsonObject.getString("info").toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();

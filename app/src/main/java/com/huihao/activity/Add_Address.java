@@ -125,6 +125,7 @@ public class Add_Address extends LActivity implements View.OnClickListener {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 T.ss("保存成功！");
+                finish();
             } else {
                 T.ss(jsonObject.getString("info").toString());
             }

@@ -412,6 +412,11 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     cids = null;
                 } else {
                     cids = data.getExtras().getString("cids");
+                    int money=Integer.parseInt(data.getExtras().getString("money"));
+                    int allmoney=Integer.parseInt(tv_js.getText().toString());
+                    tv_js.setText("￥" + (allmoney-money)+"");
+                    tv_azf.setText("￥" + (allmoney-money)+"");
+                    tv_yh.setText(money+"");
                 }
                 break;
         }
@@ -493,7 +498,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         map.put("spec_num", spec_num);
 
         LReqEntity entity = new LReqEntity(url, map);
-       // L.e(entity.toString());
+        // L.e(entity.toString());
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
         handler.startLoadingData(entity, 2);

@@ -267,6 +267,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         initData();
         cb_all_cbx.setChecked(false);
         tv_all_choose.setText("全选");
+        tv_all_money.setText("0.00");
     }
 
     @Override
