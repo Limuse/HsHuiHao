@@ -74,7 +74,6 @@ public class Fragment_story_page extends LFragment {
     }
 
     private void initData() {
-        if (!imageInfo.get("image").equals("")) {
             imageLoader.displayImage(imageInfo.get("image"), image, options);
             image.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -85,13 +84,6 @@ public class Fragment_story_page extends LFragment {
                     }
                 }
             });
-        } else {
-            image.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    T.ss("加载中，请稍后");
-                }
-            });
-        }
     }
 
     public void getData(Map<String, String> map) {

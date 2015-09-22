@@ -83,7 +83,7 @@ public class Fragment_main extends LFragment {
         super.onActivityCreated(savedInstanceState);
 
         imageLoader = ImageLoader.getInstance();
-        options = new DisplayImageOptions.Builder().cacheInMemory(true)
+        options = new DisplayImageOptions.Builder().cacheInMemory(false)
                 .cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
@@ -112,7 +112,6 @@ public class Fragment_main extends LFragment {
         r3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Product_details.class);
-                T.ss(mainProductList.get(2).get("id"));
                 intent.putExtra("id", mainProductList.get(2).get("id"));
                 startActivityForResult(intent, 0);
             }

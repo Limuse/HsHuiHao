@@ -48,7 +48,7 @@ public class Fragment_story_details_page extends LFragment {
                              Bundle savedInstanceState) {
         container = (ViewGroup) inflater.inflate(
                 R.layout.fragment_story_page_view, null);
-        total = inflater.inflate(R.layout.fragment_story_page, null);
+        total = inflater.inflate(R.layout.fragment_story_details_page, null);
         container.addView(total);
         return container;
     }
@@ -60,7 +60,7 @@ public class Fragment_story_details_page extends LFragment {
         if (imageLoader == null) {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
-        options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
+        options = new DisplayImageOptions.Builder().cacheInMemory(false).cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
 

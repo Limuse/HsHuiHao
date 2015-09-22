@@ -40,15 +40,6 @@ public class ProductInfoImageAda extends BaseAdapter {
     public ProductInfoImageAda(Context context, List<Map<String, String>> list) {
         this.context = context;
         this.gridList = list;
-        if (imageLoader == null) {
-            imageLoader = MyApplication.getInstance().getImageLoader();
-        }
-        options = new DisplayImageOptions.Builder()
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-                .build();
-
-
         for (int i = 0; i < gridList.size(); i++) {
             imageList.add(gridList.get(i).get("image"));
         }
@@ -82,11 +73,6 @@ public class ProductInfoImageAda extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//            viewHolder.image.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-//                    Product_details.context.ImageDetails(position, imageList);
-//                }
-//            });
         Product_details.imageLoader.displayImage(gridList.get(position).get("image"), viewHolder.image, Product_details.options);
         return convertView;
     }

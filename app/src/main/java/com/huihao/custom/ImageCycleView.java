@@ -91,9 +91,6 @@ public class ImageCycleView extends LinearLayout {
      */
     public ImageCycleView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        if (imageLoader == null) {
-            imageLoader = MyApplication.getInstance().getImageLoader();
-        }
         mContext = context;
         mScale = context.getResources().getDisplayMetrics().density;
         LayoutInflater.from(context).inflate(R.layout.ad_cycle_view, this);
@@ -118,11 +115,6 @@ public class ImageCycleView extends LinearLayout {
         // 滚动图片右下指示器视
         mGroup = (ViewGroup) findViewById(R.id.viewGroup);
         imageName = (TextView) findViewById(R.id.viewGroup2);
-        options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY)
-                .build();
-
     }
 
     /**
