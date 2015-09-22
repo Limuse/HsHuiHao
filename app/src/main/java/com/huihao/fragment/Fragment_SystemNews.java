@@ -75,7 +75,7 @@ public class Fragment_SystemNews extends LFragment {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url) + "/huihao/member/usermsg/1/sign/aggregation/?t=1&uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-       // L.e(url);
+        //L.e(url);
         FragmentHandler handler = new FragmentHandler(Fragment_SystemNews.this);
         handler.startLoadingData(entity, 1);
 
@@ -112,7 +112,7 @@ public class Fragment_SystemNews extends LFragment {
                     entity.setIds(jsb.getString("id"));
                     entity.setTitle(jsb.getString("title"));
                     entity.setPicture(jsb.getString("picture"));
-                    entity.setContent(jsb.getString("content"));
+                    entity.setContent(jsb.getString("introduction"));
                     entity.setLinkurl(jsb.getString("linkurl"));
                     entity.setAdd_time(jsb.getString("add_time"));
                     entity.setUpdate_time(jsb.getString("update_time"));
