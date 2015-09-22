@@ -99,29 +99,30 @@ public class Fragment_SystemNews extends LFragment {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 JSONArray json = jsonObject.getJSONArray("list");
-                if(json.equals("")||json.equals(null)||json.length()<1){
+                if (json.equals("") || json.equals(null) || json.length() < 1) {
                     rl_nal.setVisibility(View.GONE);
                     rl_neww.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     rl_nal.setVisibility(View.VISIBLE);
                     rl_neww.setVisibility(View.GONE);
 
-                for (int i = 0; i < json.length(); i++) {
-                    JSONObject jsb = json.getJSONObject(i);
-                    SystemNewsEntity entity = new SystemNewsEntity();
-                    entity.setIds(jsb.getString("id"));
-                    entity.setTitle(jsb.getString("title"));
-                    entity.setPicture(jsb.getString("picture"));
-                    entity.setContent(jsb.getString("introduction"));
-                    entity.setLinkurl(jsb.getString("linkurl"));
-                    entity.setAdd_time(jsb.getString("add_time"));
-                    entity.setUpdate_time(jsb.getString("update_time"));
-                    entity.setStatus(jsb.getString("status"));
-                    list.add(entity);
+                    for (int i = 0; i < json.length(); i++) {
+                        JSONObject jsb = json.getJSONObject(i);
+                        SystemNewsEntity entity = new SystemNewsEntity();
+                        entity.setIds(jsb.getString("id"));
+                        entity.setTitle(jsb.getString("title"));
+                        entity.setPicture(jsb.getString("picture"));
+                        entity.setContent(jsb.getString("introduction"));
+                        entity.setLinkurl(jsb.getString("linkurl"));
+                        entity.setAdd_time(jsb.getString("add_time"));
+                        entity.setUpdate_time(jsb.getString("update_time"));
+                        entity.setStatus(jsb.getString("status"));
+                        list.add(entity);
+                    }
+                    adapter = new SystemNewssAdapter(getActivity(), list);
+                    listView.setAdapter(adapter);
                 }
-                adapter = new SystemNewssAdapter(getActivity(), list);
-                listView.setAdapter(adapter);
-            } }else {
+            } else {
                 T.ss(jsonObject.getString("info"));
             }
         } catch (JSONException e) {

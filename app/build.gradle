@@ -65,4 +65,5 @@ dependencies {
     compile files('D:/androidWork/HsHuiHao/libs/SocialSDK_WeiXin_2.jar')
     compile files('D:/androidWork/HsHuiHao/libs/umeng_social_sdk.jar')
     compile files('D:/androidWork/HsHuiHao/libs/universal-image-loader-1.9.2.jar')
+    compile files('D:/androidWork/HsHuiHao/libs/universal-image-loader-1.9.4.jar')
 }
