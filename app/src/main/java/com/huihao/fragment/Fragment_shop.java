@@ -265,6 +265,8 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         initData();
+        cb_all_cbx.setChecked(false);
+        tv_all_choose.setText("全选");
     }
 
     @Override

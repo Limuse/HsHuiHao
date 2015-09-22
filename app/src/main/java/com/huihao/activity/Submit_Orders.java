@@ -127,7 +127,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                         intent.putExtra("addrphone", adrphone);
                         intent.putExtra("addrs", adraddr);
                         intent.putExtra("price", price);
-                       intent.putExtra("orderid",orderid);
+                        intent.putExtra("orderid", orderid);
                         startActivity(intent);
 
                     } else {
@@ -353,7 +353,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         //结算
         if (id == R.id.btn_alljs) {
 //             http://huihaowfx.huisou.com/huihao/orders/addorder/1/sign/aggregation/uuid=6a35c1ed7255077d57d57be679048034&spec_id=463&spec_num=4&payment_id=3&address_id=3&exress_id=3
-            if (addridss==null) {
+            if (addridss == null) {
                 T.ss("请选择收货地址");
             } else {
                 Map<String, String> map = new HashMap<String, String>();
@@ -390,7 +390,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     adrphone = data.getExtras().getString("phone");
                     adraddr = data.getExtras().getString("addr");
                     addridss = data.getExtras().getString("ids");
-                    if(addridss!=null){
+                    if (addridss != null) {
                         rl_ano.setVisibility(View.GONE);
                         ly_alladdr.setVisibility(View.VISIBLE);
                         provinces = data.getExtras().getString("province");
@@ -399,7 +399,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                         tv_name.setText(adrname);
                         tv_phone.setText(adrphone);
                         tv_addrs.setText(adraddr);
-                    }else{
+                    } else {
                         rl_ano.setVisibility(View.VISIBLE);
                         ly_alladdr.setVisibility(View.GONE);
                     }
@@ -493,7 +493,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         map.put("spec_num", spec_num);
 
         LReqEntity entity = new LReqEntity(url, map);
-
+       // L.e(entity.toString());
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
         handler.startLoadingData(entity, 2);
@@ -554,7 +554,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                 adapter = new BuysNumAdapter(this, itemlist);
                 listView.setAdapter(adapter);
             } else {
-                T.ss("获取数据失败");
+                T.ss(jsonObject.getString("info"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
