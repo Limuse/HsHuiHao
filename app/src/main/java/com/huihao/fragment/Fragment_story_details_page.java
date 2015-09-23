@@ -38,7 +38,7 @@ public class Fragment_story_details_page extends LFragment {
     public static ImageView image;
 
     private DisplayImageOptions options;
-    private ImageLoader imageLoader;
+    public static ImageLoader imageLoader;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

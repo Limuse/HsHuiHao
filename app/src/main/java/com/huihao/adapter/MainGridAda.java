@@ -72,7 +72,7 @@ public class MainGridAda extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tv_name.setText(gridList.get(position).get("title"));
-        viewHolder.tv_price.setText(gridList.get(position).get("nprice"));
+        viewHolder.tv_price.setText("￥"+gridList.get(position).get("nprice"));
         if(!gridList.get(position).get("picurl").equals("")){
             imageLoader.displayImage(gridList.get(position).get("picurl"), viewHolder.image, options);
         }

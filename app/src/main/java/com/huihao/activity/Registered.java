@@ -25,12 +25,16 @@ import com.leo.base.util.T;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.QQShareContent;
+import com.umeng.socialize.media.QZoneShareContent;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 import org.json.JSONObject;
 
@@ -129,6 +133,7 @@ public class Registered extends LActivity {
                 ImageDialog dialog = new ImageDialog.Builder(this).setImage(R.mipmap.dialog_logo).setMessage("30").setInfo("20", "10").setPositiveButton("暂不分享", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        finish();
                     }
                 }).setNegativeButton("现在就去", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -224,36 +229,58 @@ public class Registered extends LActivity {
 
 
     public void share() {
-// 设置分享内容
-        mController.setShareContent("汇好，汇聚天下好产品");
-// 设置分享图片, 参数2为图片的url地址
-        mController.setShareMedia(new UMImage(Registered.this,
-                "http://tb.himg.baidu.com/sys/portrait/item/94edd7eed6d5c5c7bbb22924"));
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
         String appID = "wxe5749e0e8d40f5aa";
-        String appSecret = "47eb904d7b88e62ad66287cbc6924daf ";
-// 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(Registered.this, appID, appSecret);
-        wxHandler.addToSocialSDK();
-// 添加微信朋友圈
-        UMWXHandler wxCircleHandler = new UMWXHandler(Registered.this, appID, appSecret);
+        String appSecret = "47eb904d7b88e62ad66287cbc6924daf";
+        UMWXHandler umwxHandler = new UMWXHandler(this, appID,
+                appSecret);
+        umwxHandler.addToSocialSDK();
+
+        UMWXHandler wxCircleHandler = new UMWXHandler(this, appID,
+                appSecret);
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.addToSocialSDK();
-
-        // 添加QQ
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(Registered.this, "100424468",
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "100424468",
                 "c7394704798a158208a74ab60104f0ba");
         qqSsoHandler.addToSocialSDK();
 
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(Registered.this, "100424468",
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
                 "c7394704798a158208a74ab60104f0ba");
         qZoneSsoHandler.addToSocialSDK();
 
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+        WeiXinShareContent weixinContent = new WeiXinShareContent();
 
-        mController.getConfig().removePlatform(SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
-        mController.openShare(Registered.this, false);
+        weixinContent.setShareContent("汇好");
+        weixinContent.setTitle("汇好,汇聚天下好产品！");
+        weixinContent.setTargetUrl("http://ihuihao.cn/index.html");
+        weixinContent.setShareImage(new UMImage(this, R.mipmap.logo));
+
+        CircleShareContent circleMedia = new CircleShareContent();
+        circleMedia.setShareContent("汇好");
+
+        circleMedia.setTitle("汇好,汇聚天下好产品！");
+        circleMedia.setTargetUrl("http://ihuihao.cn/index.html");
+        circleMedia.setShareImage(new UMImage(this, R.mipmap.logo));
+        mController.setShareMedia(circleMedia);
+        QQShareContent qqShareContent = new QQShareContent();
+
+        qqShareContent.setShareContent("汇好");
+        qqShareContent.setTitle("汇好,汇聚天下好产品！");
+        qqShareContent.setTargetUrl("http://ihuihao.cn/index.html");
+        qqShareContent.setShareImage(new UMImage(this, R.mipmap.logo));
+        mController.setShareMedia(qqShareContent);
+        QZoneShareContent qzone = new QZoneShareContent();
+
+        qzone.setShareContent("汇好");
+        qzone.setTargetUrl("http://ihuihao.cn/index.html");
+        qzone.setTitle("汇好,汇聚天下好产品！");
+        qzone.setShareImage(new UMImage(this, R.mipmap.logo));
+        mController.setShareMedia(qzone);
+        mController.setShareMedia(weixinContent);
+        mController.openShare(this, false);
     }
+
 
 
     @Override

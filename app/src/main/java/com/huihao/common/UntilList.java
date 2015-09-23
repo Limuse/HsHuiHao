@@ -25,17 +25,17 @@ public class UntilList {
         return null;
     }
 
-    public static int getWindosH(Context context) {
+    public static float getWindosH(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        int width = wm.getDefaultDisplay().getWidth();
-        int height = wm.getDefaultDisplay().getHeight();
+        float width = wm.getDefaultDisplay().getWidth();
+        float height = wm.getDefaultDisplay().getHeight();
         return height;
     }
 
-    public static int getWindosW(Context context) {
+    public static float getWindosW(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        int width = wm.getDefaultDisplay().getWidth();
-        int height = wm.getDefaultDisplay().getHeight();
+        float width = wm.getDefaultDisplay().getWidth();
+        float height = wm.getDefaultDisplay().getHeight();
         return width;
     }
 

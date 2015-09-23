@@ -144,7 +144,9 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
 
     private int content;
 
-    public static int WcH = 640 / 600;
+    public static float WcH = 640f / 600f;
+
+    private RelativeLayout rel_tag;
 
     protected void onLCreate(Bundle bundle) {
         parentView = getLayoutInflater().inflate(R.layout.activity_product_details, null);
@@ -160,7 +162,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                 .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
 
-
         initView();
 
         Intent intent = getIntent();
@@ -172,7 +173,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         }
 
         initData();
-        initAda();
         initScroll();
     }
 
@@ -274,6 +274,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         RelativeLayout btn_close = (RelativeLayout) view.findViewById(R.id.btn_close);
         lin_choose = (LinearLayout) dialogView.findViewById(R.id.Lin_choose);
         lin_ok = (LinearLayout) dialogView.findViewById(R.id.Lin_ok);
+
+        rel_tag = (RelativeLayout) dialogView.findViewById(R.id.rel_tag);
 
         tv_price = (TextView) dialogView.findViewById(R.id.tv_price);
         tv_size = (TextView) dialogView.findViewById(R.id.tv_size);
@@ -433,13 +435,13 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
 //            }
 //        }).start();
 //        if (content > 10) {
-//            linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-//            linearParams.height = UntilList.getWindosW(this)/WcH*(content-content/10);
-//            viewPager.setLayoutParams(linearParams);
-//        } else {
         linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
-        linearParams.height = UntilList.getWindosW(this) / WcH * content;
+        linearParams.height = (int) ((UntilList.getWindosW(this) / WcH * content));
         viewPager.setLayoutParams(linearParams);
+//        } else {
+//            linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
+//            linearParams.height = (int) (UntilList.getWindosW(this) / WcH * (content-1));
+//            viewPager.setLayoutParams(linearParams);
 //        }
     }
 
@@ -529,8 +531,16 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                 name.setText(info.optString("title"));
                 nprice.setText("￥" + info.optString("nprice"));
                 oprice.setText("￥" + info.optString("oprice"));
-                realsalenum.setText(info.optString("preferential"));
-
+                realsalenum.setText(info.optString("preferential").split("\\.")[0]);
+                if (!info.opt("description").equals("")) {
+                    JSONArray description = info.optJSONArray("description");
+                    for (int i = 0; i < description.length(); i++) {
+                        Map<String, String> map = new HashMap<String, String>();
+                        map.put("name", description.opt(i).toString());
+                        gridList.add(map);
+                    }
+                    initAda();
+                }
                 if (!info.opt("infopic").equals("")) {
                     JSONArray infopic = info.optJSONArray("infopic");
                     if (infopic.length() > 0) {
@@ -543,12 +553,21 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         mAdView.stopImageTimerTask();
                     }
                 }
-
                 if (!list.opt("infospec").equals("")) {
                     JSONArray infospec = list.optJSONArray("infospec");
                     List<String> specList = new ArrayList<String>();
                     Map<String, String> map = new HashMap<String, String>();
                     if (infospec.length() > 0) {
+//
+//                        RelativeLayout.LayoutParams linearParams =  (RelativeLayout.LayoutParams)rel_tag.getLayoutParams();
+//                        linearParams.height = (infospec.length()/2)* UntilList.dip2px(Product_details.this,30);
+//                        rel_tag.setLayoutParams(linearParams);
+                        android.view.ViewGroup.LayoutParams lp = rel_tag.getLayoutParams();
+                        if (infospec.length() > 8) {
+                            lp.height = UntilList.dip2px(Product_details.this, 120);
+                        } else {
+                            lp.height = (infospec.length() / 2) * UntilList.dip2px(Product_details.this, 30);
+                        }
                         for (int i = 0; i < infospec.length(); i++) {
                             map = new HashMap<String, String>();
                             JSONObject item = infospec.optJSONObject(i);
@@ -581,14 +600,9 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         Map<String, String> map = new HashMap<String, String>();
                         String para = parameter.get(i).toString();
                         if (para.length() > 0) {
-//                            String[] sp = parameter.get(i).toString().split("：");
                             map.put("title", parameter.get(i).toString());
-//                            map.put("info", sp[1]);
+                            Fragment_Product_para.addItemH(para.length()/25);
                         }
-//                        else {
-//                            map.put("title", para);
-//                            map.put("info", "");
-//                        }
                         contentList.add(map);
                     }
                     if (contentList.size() > 0) {
@@ -610,15 +624,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     }
                     if (imageList.size() > 0) {
                         Fragment_Product_info.context.InitData(imageList);
-                    }
-                }
-
-                if (!info.opt("description").equals("")) {
-                    JSONArray description = info.optJSONArray("description");
-                    for (int i = 0; i < description.length(); i++) {
-                        Map<String, String> map = new HashMap<String, String>();
-                        map.put("name", description.opt(i).toString());
-                        gridList.add(map);
                     }
                 }
             } else {
@@ -777,6 +782,9 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Fragment_Product_para.clearItemH();
         mAdView.stopImageTimerTask();
+        imageLoader.clearMemoryCache();
+        System.gc();
     }
 }

@@ -47,15 +47,16 @@ public class MyApplication extends LApplication {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         //初始化图片加载
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).memoryCacheExtraOptions(UntilList.getWindosW(this), UntilList.getWindosH(this))
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .memoryCacheExtraOptions((int)UntilList.getWindosW(this), (int)UntilList.getWindosH(this))
 //                .memoryCacheExtraOptions(UntilList.getWindosW(this)*2, (UntilList.getWindosW(this)/(640/600))) // max width, max height
                 .threadPoolSize(2) //线程池内加载的数量
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator()) //将保存的时候的URI名称用MD5 加密
                 .memoryCache(new WeakMemoryCache()) // You can pass your own memory cache implementation/你可以通过自己的内存缓存实现
-                .memoryCacheSize(3 * 1024 * 1024) // 内存缓存的最大值
-                .diskCacheExtraOptions(480, 320, null)
+                .memoryCacheSize(10 * 1024 * 1024) // 内存缓存的最大值
+                .diskCacheExtraOptions(640, 600, null)
                 .diskCacheSize(100 * 1024 * 1024)  // 50 Mb sd卡(本地)缓存的最大值
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                         // 由原先的discCache -> diskCache

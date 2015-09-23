@@ -8,10 +8,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.huihao.common.Log;
 import com.huihao.custom.NoScrollListview;
 import com.huihao.R;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.util.LSharePreference;
+import com.leo.base.util.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,8 @@ public class Fragment_Product_para extends LFragment {
     private NoScrollListview listView;
 
     private SimpleAdapter simpleAdapter;
+
+    public static int addCount = 0;
 
     public static Fragment_Product_para context;
 
@@ -49,15 +53,23 @@ public class Fragment_Product_para extends LFragment {
         initView();
     }
 
+    public static void addItemH(int i) {
+        addCount += i;
+    }
+    public static void clearItemH() {
+        addCount =0;
+    }
+
     public void InitData(List<Map<String, String>> list) {
         this.mlist = list;
-        simpleAdapter = new SimpleAdapter(getActivity(), list, R.layout.fragment_product_para_item, new String[]{"title", "info"}, new int[]{R.id.tv_title, R.id.tv_info});
+        simpleAdapter = new SimpleAdapter(getActivity(), list, R.layout.fragment_product_para_item, new String[]{"title"}, new int[]{R.id.tv_title});
         listView.setFocusable(false);
         listView.setAdapter(simpleAdapter);
+        simpleAdapter.notifyDataSetChanged();
         setListViewHeight();
     }
 
-    public void   setListViewHeight(){
+    public void setListViewHeight() {
         setListViewHeightBasedOnChildren(listView);
     }
 
@@ -74,19 +86,34 @@ public class Fragment_Product_para extends LFragment {
 
     public void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
-        int totalHeight = 0;
-
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
+        if (listAdapter == null) {
+            return;
         }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int totalHeight = 0;
+        View listItem = listAdapter.getView(0, null, listView);
+        listItem.measure(0, 0);
+        totalHeight = listAdapter.getCount() * listItem.getMeasuredHeight()+(int)(addCount* listItem.getMeasuredHeight()*0.5);
 
-        params.height = totalHeight
-                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-        listView.deferNotifyDataSetChanged();
         LSharePreference.getInstance(getActivity()).setInt("pager2", totalHeight);
+
+
+//        ListAdapter listAdapter = listView.getAdapter();
+//        int totalHeight = 0;
+//
+//        for (int i = 0; i < listAdapter.getCount(); i++) {
+//            View listItem = listAdapter.getView(i, null, listView);
+//            listItem.measure(0, 0);
+//            T.ss( listItem.getMeasuredHeight()+"");
+//            totalHeight += listItem.getMeasuredHeight();
+//        }
+//        ViewGroup.LayoutParams params = listView.getLayoutParams();
+//
+//        params.height = totalHeight
+//                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+//        listView.setLayoutParams(params);
+
     }
 }

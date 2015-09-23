@@ -235,5 +235,10 @@ public class Story_details extends LActivity {
             return fragmentList.size();
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Fragment_story_details_page.imageLoader.clearMemoryCache();
+        System.gc();
+    }
 }

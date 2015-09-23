@@ -42,12 +42,16 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.QQShareContent;
+import com.umeng.socialize.media.QZoneShareContent;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,7 +81,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     private MyEntiy.StatusListEntity statusListEntity;
     public static Fragment_my instance = null;
     private List<MyEntiy.StatusListEntity> listEntities = new ArrayList<>();
-    private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+    private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share.");
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -295,22 +299,18 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     }
 
     public void share() {
-// 设置分享内容
-        mController.setShareContent("汇好，汇聚天下好产品");
-// 设置分享图片, 参数2为图片的url地址
-        mController.setShareMedia(new UMImage(getActivity(),
-                "http://tb.himg.baidu.com/sys/portrait/item/94edd7eed6d5c5c7bbb22924"));
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
         String appID = "wxe5749e0e8d40f5aa";
         String appSecret = "47eb904d7b88e62ad66287cbc6924daf";
-// 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(getActivity(), appID, appSecret);
-        wxHandler.addToSocialSDK();
-// 添加微信朋友圈
-        UMWXHandler wxCircleHandler = new UMWXHandler(getActivity(), appID, appSecret);
+        UMWXHandler umwxHandler = new UMWXHandler(getActivity(), appID,
+                appSecret);
+        umwxHandler.addToSocialSDK();
+
+        UMWXHandler wxCircleHandler = new UMWXHandler(getActivity(), appID,
+                appSecret);
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.addToSocialSDK();
-
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(getActivity(), "100424468",
                 "c7394704798a158208a74ab60104f0ba");
         qqSsoHandler.addToSocialSDK();
@@ -319,9 +319,35 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                 "c7394704798a158208a74ab60104f0ba");
         qZoneSsoHandler.addToSocialSDK();
 
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+        WeiXinShareContent weixinContent = new WeiXinShareContent();
 
-        mController.getConfig().removePlatform(SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
+        weixinContent.setShareContent("汇好");
+        weixinContent.setTitle("汇好,汇聚天下好产品！");
+        weixinContent.setTargetUrl("http://ihuihao.cn/index.html");
+        weixinContent.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
+
+        CircleShareContent circleMedia = new CircleShareContent();
+        circleMedia.setShareContent("汇好");
+
+        circleMedia.setTitle("汇好,汇聚天下好产品！");
+        circleMedia.setTargetUrl("http://ihuihao.cn/index.html");
+        circleMedia.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
+        mController.setShareMedia(circleMedia);
+        QQShareContent qqShareContent = new QQShareContent();
+
+        qqShareContent.setShareContent("汇好");
+        qqShareContent.setTitle("汇好,汇聚天下好产品！");
+        qqShareContent.setTargetUrl("http://ihuihao.cn/index.html");
+        qqShareContent.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
+        mController.setShareMedia(qqShareContent);
+        QZoneShareContent qzone = new QZoneShareContent();
+
+        qzone.setShareContent("汇好");
+        qzone.setTargetUrl("http://ihuihao.cn/index.html");
+        qzone.setTitle("汇好,汇聚天下好产品！");
+        qzone.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
+        mController.setShareMedia(qzone);
+        mController.setShareMedia(weixinContent);
         mController.openShare(getActivity(), false);
     }
 
@@ -382,7 +408,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                     img = m;
                 }
                 entitys.setMeassage(jt.getString("meassage"));
-                String n =jt.getString("meassage").toString();
+                String n = jt.getString("meassage").toString();
 
                 if (n.equals("0") || n.equals(null)) {
                     img_n.setVisibility(View.GONE);
@@ -397,8 +423,8 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                 } else {
                     tv_name.setText(jt.getString("username"));
                 }
-                String account=jt.getString("amount");
-                String names=jt.getString("name");
+                String account = jt.getString("amount");
+                String names = jt.getString("name");
                 LSharePreference.getInstance(getActivity())
                         .setString("account", account);
                 LSharePreference.getInstance(getActivity())
