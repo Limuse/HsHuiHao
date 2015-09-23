@@ -60,6 +60,10 @@ public class Update_Name extends LActivity {
         //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.putExtra("name", "2");
+                setResult(5, intent);
                 finish();
             }
         });
@@ -83,7 +87,7 @@ public class Update_Name extends LActivity {
         if (name.equals(null)) {
             T.ss("昵称不能为空！");
         } else {
-            Map<String, String> map = new HashMap<String, String>();
+            Map<String, String> map = new HashMap<>();
             map.put("name", name);// 昵称
             map.put("uuid", Token.get(this));
             Resources res = getResources();
@@ -117,8 +121,9 @@ public class Update_Name extends LActivity {
                 String name = et_Upname.getText().toString();
                 if (name.equals(null)) {
                     intent.putExtra("name", "1");
+                } else {
+                    intent.putExtra("name", et_Upname.getText().toString());
                 }
-                intent.putExtra("name", et_Upname.getText().toString());
                 setResult(5, intent);
                 finish();
             } else {

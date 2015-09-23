@@ -25,6 +25,7 @@ import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -74,18 +75,23 @@ public class Choose_Couppons extends LActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_messages) {
-                    String cids = adapter.rCid();
-                    int mon = adapter.rMoneys();
-                    if (cids == null) {
-                        T.ss("请选择优惠卷");
-                        setResult(1, null);
-                        finish();
+                    if (list.size()==0) {
+                        T.ss("暂时没有优惠卷哦！");
                     } else {
-                        Intent intent = new Intent();
-                        intent.putExtra("cids", cids);
-                        intent.putExtra("money", mon + "");
-                        setResult(1, intent);
-                        finish();
+                        L.e("kkkkkkkk"+adapter.rCid().toString()+"ddddddd");
+                        String cids = adapter.rCid();
+                        int mon = adapter.rMoneys();
+                        if (cids == "null") {
+                            T.ss("请选择优惠卷");
+                            setResult(1, null);
+                            finish();
+                        } else {
+                            Intent intent = new Intent();
+                            intent.putExtra("cids", cids);
+                            intent.putExtra("money", mon + "");
+                            setResult(1, intent);
+                            finish();
+                        }
                     }
                 }
                 return false;

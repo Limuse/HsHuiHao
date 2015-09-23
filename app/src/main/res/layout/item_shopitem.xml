@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_white"
+    android:background="@drawable/btn_press"
     android:orientation="vertical"
+
     android:paddingRight="-90dp">
 
     <LinearLayout
@@ -22,7 +23,6 @@
 
             <LinearLayout
                 android:id="@+id/ly_ma"
-                android:background="@drawable/btn_press"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -68,6 +68,7 @@
                             android:maxEms="12"
                             android:onClick="true"
                             android:singleLine="true"
+                            android:focusable="false"
                             android:text="把根留住火麻茶麸洗发洗发露露"
                             android:textColor="@drawable/shop_item_text_color"
                             android:textSize="@dimen/app_text_big" />
@@ -88,11 +89,6 @@
                                 android:layout_marginRight="4dp"
                                 android:textColor="@color/app_text_light"
                                 android:textSize="@dimen/app_text_normal" />
-
-
-
-
-
 
                             <TextView
                                 android:id="@+id/tv_sizes"
@@ -231,7 +227,9 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:focusable="false"
+                >
 
 
                 <Button
@@ -239,7 +237,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/selector_btn_red"
-                    android:clickable="true"
                     android:gravity="center"
                     android:text="删除"
                     android:textColor="@android:color/white"

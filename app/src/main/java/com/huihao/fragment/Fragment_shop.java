@@ -105,7 +105,6 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         btn_all_js.setOnClickListener(this);
         tv_all_money.setText("0.00");
         btn_go.setOnClickListener(this);
-
     }
 
     private void Tsum() {
@@ -165,12 +164,6 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                 adapter.updateData(newlist);
                 tv_all_money.setText(allMoney + "");
 
-            }
-        });
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                T.ss("dddd");
             }
         });
 

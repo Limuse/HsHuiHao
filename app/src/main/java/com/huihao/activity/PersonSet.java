@@ -60,6 +60,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
     private Dialog dialog;
     private String logoBase;
     private String img;
+    private String names;
     private static final String IMGURL = Environment
             .getExternalStorageDirectory() + "/Android/data/com.android.hshuihao/";
 
@@ -119,7 +120,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         rl_pwd.setOnClickListener(this);
         String ims = getIntent().getExtras().getString("img");
         img = ims;
-        String names = getIntent().getExtras().getString("names");
+        names = getIntent().getExtras().getString("names");
         tv_name.setText(names);
         img();
     }
@@ -253,10 +254,12 @@ public class PersonSet extends LActivity implements View.OnClickListener {
             case 5:
                 String name = data.getExtras().getString("name");
                 if (name.equals("1")) {
-                    String names = getIntent().getExtras().getString("names");
                     tv_name.setText(names);
-                } else {
+                }else if(name.equals("2")){
+                    tv_name.setText(names);
+                }else{
                     tv_name.setText(name);
+                    names=name;
                 }
                 break;
         }

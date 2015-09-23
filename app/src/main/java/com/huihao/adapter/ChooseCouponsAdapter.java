@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.huihao.R;
 import com.huihao.entity.CouponsEntity;
+import com.leo.base.util.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +95,8 @@ public class ChooseCouponsAdapter extends BaseAdapter {
     public String rCid() {
         String cid = "";
         int money = 0;
-        if (list.size() < 1 || listid.size() < 1) {
-            cid = null;
+        if (listid.size()== 0) {
+            cid = "null";
             return cid;
         } else {
             for (int i = 0; i < listid.size(); i++) {
@@ -108,7 +109,7 @@ public class ChooseCouponsAdapter extends BaseAdapter {
     }
     public int rMoneys(){
         int money = 0;
-        if (list.size() < 1 || listid.size() < 1) {
+        if (list.size() == 1 || listid.size() == 1) {
             money = 0;
 
         } else {

@@ -157,7 +157,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url) + "/huihao/orders/detail/1/sign/aggregation/?uuid=" + Token.get(this) + "&id=" + orderid;
 
         LReqEntity entitys = new LReqEntity(url);
-        L.e(url + "");
+        // L.e(url + "");
         ActivityHandler handler = new ActivityHandler(Orders_Details.this);
         handler.startLoadingData(entitys, 1);
     }
@@ -269,8 +269,8 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
                     iee.setSpec_id(jo.getString("spec_id"));
                     iee.setPicurl(jo.getString("picurl"));
                     iee.setBuynum(jo.getString("num"));
-                    iee.setNprice(jo.getString("price"));
-                    iee.setPreferential(jo.getString("newprice"));
+                    iee.setNprice(jo.getString("newprice"));
+                    iee.setPreferential(jo.getString("price"));
                     itemlist.add(iee);
                 }
                 adapter = new BuysNumAdapter(this, itemlist);

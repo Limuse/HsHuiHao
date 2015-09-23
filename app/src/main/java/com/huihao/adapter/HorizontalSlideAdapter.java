@@ -1,9 +1,7 @@
 package com.huihao.adapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,12 +26,12 @@ import android.widget.TextView;
 import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.activity.Product_details;
-import com.huihao.common.CircleBitmapDisplayer;
 import com.huihao.common.Token;
 import com.huihao.custom.CustomDialog;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.Need;
 import com.huihao.entity.ShopItemEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -68,6 +65,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
      */
     private LinearLayout.LayoutParams mParams;
 
+    private int ts = 0;
 
     private SlideListView2 listView;
 
@@ -155,7 +153,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             holder.tv_color = (TextView) convertView.findViewById(R.id.tv_color);
             holder.tv_size = (TextView) convertView.findViewById(R.id.tv_sizes);
             holder.tv_material = (TextView) convertView.findViewById(R.id.tv_res);
-            holder.ly_match=(LinearLayout)convertView.findViewById(R.id.ly_match);
+            holder.ly_match = (LinearLayout) convertView.findViewById(R.id.ly_match);
             //  holder.tv_money = (TextView) convertView.findViewById(R.id.tv_money);
             // holder.btn_add = (Button) convertView.findViewById(R.id.btn_jia);
             // holder.btn_Redc = (Button) convertView.findViewById(R.id.btn_jian);
@@ -163,7 +161,6 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-
 
         final ShopItemEntity datas = entity.get(position);
         // holder.position = position;
@@ -204,7 +201,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
         holder.infoTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                T.ss("跳到物品详情页面");
+                //T.ss("跳到物品详情页面");
                 Intent intent = new Intent(context, Product_details.class);
                 intent.putExtra("id", datas.getProduct_id() + "");
                 // L.e("idddddd", datas.getProduct_id() + "");
@@ -236,8 +233,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                }).
-                        create();
+                }).create();
 
 
                 alertDialog.show();
@@ -389,6 +385,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 //
 //                            @Override
 //                            public void onClick(DialogInterface dialog, int which) {
+//                                ts=1;
 //                                view = vs;
 //                                ids = datas.getId();
 //                                Danjia = datas.getDanjia();
@@ -411,6 +408,64 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 //            }
 //        });
 
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, final View views,final int positions, long id) {
+//                final CustomDialog alertDialog = new CustomDialog.Builder(context).
+//                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
+//                        new DialogInterface.OnClickListener() {
+//
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                ShopItemEntity datass = entity.get(positions);
+//                                ts=1;
+//                                view = views;
+//                                ids = datass.getId();
+//                                Danjia = datass.getDanjia();
+//                                task = new TakeAsyncTask();
+//                                task.execute();
+//                                notifyDataSetChanged();
+//                                dialog.dismiss();
+//                            }
+//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                }).create();
+//                alertDialog.show();
+//
+//                return true;
+//            }
+//        });
+//        holder.views.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(final View vs) {
+//                final CustomDialog alertDialog = new CustomDialog.Builder(context).
+//                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
+//                        new DialogInterface.OnClickListener() {
+//
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                ts = 1;
+//                                view = vs;
+//                                ids = datas.getId();
+//                                Danjia = datas.getDanjia();
+//                                task = new TakeAsyncTask();
+//                                task.execute();
+//                                notifyDataSetChanged();
+//                                dialog.dismiss();
+//                            }
+//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                }).create();
+//                alertDialog.show();
+//                return true;
+//            }
+//        });
         return convertView;
     }
 
@@ -444,6 +499,33 @@ public class HorizontalSlideAdapter extends BaseAdapter {
         }
     }
 
+//    @Override
+//    public boolean onItemLongClick(AdapterView<?> parent,final View vw,final int positions, long id) {
+//        final CustomDialog alertDialog = new CustomDialog.Builder(context).
+//                setMessage("您确定删除这项吗？").setNegativeButton("确定",
+//                new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        view = vw;
+//                        ShopItemEntity datass = entity.get(positions);
+//                        ids = datass.getId();
+//                        Danjia = datass.getDanjia();
+//                        task = new TakeAsyncTask();
+//                        task.execute();
+//                        notifyDataSetChanged();
+//                        dialog.dismiss();
+//                    }
+//                }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        }).create();
+//        alertDialog.show();
+//        return true;
+//    }
+
     static class ViewHolder {
         private TextView infoTextView;
         private TextView tv_money, tv_color, tv_size, tv_material, tv_tt;
@@ -453,10 +535,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
         private ImageView img_pic;
         private Button deleteButton;
         private LinearLayout lym;
-        private LinearLayout llm,ly_match;
-        private int position;
+        private LinearLayout llm, ly_match;
+        //private View views;
 
         public ViewHolder(View view) {
+            //this.views = view;
             this.et_num = (Button) view.findViewById(R.id.et_num);//t2
             this.tv_money = (TextView) view.findViewById(R.id.tv_money);
             this.btn_add = (Button) view.findViewById(R.id.btn_jia);
@@ -465,6 +548,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             this.cb_checkb = (CheckBox) view.findViewById(R.id.cb_item_checkbox);
             this.tv_tt = (TextView) view.findViewById(R.id.tv_tt);
             tv_tt.setTag(et_num);
+           // views.setTag(tv_tt);
             tv_money.setTag(tv_tt);
             btn_add.setTag(tv_tt);
             btn_Redc.setTag(tv_tt);
@@ -537,7 +621,9 @@ public class HorizontalSlideAdapter extends BaseAdapter {
                         listNum.remove(num + "");
                     }
                     entity.remove(Integer.parseInt(btn_num.getTag() + ""));
-                    listView.slideBack();
+                    if (ts == 0) {
+                        listView.slideBack();
+                    }
                     notifyDataSetChanged();
                 } else {
                     T.ss("数据删除失败");
