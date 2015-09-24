@@ -50,7 +50,7 @@ public class More extends LActivity implements View.OnClickListener {
     private TextView tv_web, tv_kp, tv_clear;
     private RelativeLayout rl_web, rl_kp, rl_ban, rl_advice, rl_p, rl_clear;
     private Button btn_outline;
-    private Boolean tr;
+    private Boolean tr = true;
     private String fils = Environment.getExternalStorageDirectory()
             + "/Android/data/com.android.hshuihao/cache";
     private File file1, file2;
@@ -102,7 +102,9 @@ public class More extends LActivity implements View.OnClickListener {
         rl_p.setOnClickListener(this);
         rl_clear.setOnClickListener(this);
         btn_outline.setOnClickListener(this);
-
+        if (tr == false) {
+            btn_outline.setText("登录");
+        }
         tr = LSharePreference.getInstance(this).getBoolean("login");
 
     }
@@ -118,6 +120,20 @@ public class More extends LActivity implements View.OnClickListener {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+         boolean tts=LSharePreference.getInstance(this).getBoolean("login");
+        if(tts==true){
+            btn_outline.setText("退出登录");
+        }else{
+            btn_outline.setText("登录");
+        }
+        if (tr == false) {
+            btn_outline.setText("登录");
+        }
     }
 
     @Override
@@ -137,11 +153,11 @@ public class More extends LActivity implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(
                                     getApplicationContext(),
-                                    "正在呼叫  " + "400-123-123",
+                                    "正在呼叫  " + "4006806820",
                                     Toast.LENGTH_LONG)
                                     .show();
                             Uri uri = Uri.parse("tel:"
-                                    + "400-123-123");
+                                    + "4006806820");
                             Intent intent = new Intent(
                                     Intent.ACTION_CALL, uri);
                             startActivity(intent);
@@ -181,7 +197,7 @@ public class More extends LActivity implements View.OnClickListener {
             } else {
                 final CustomDialog alertDialog = new CustomDialog.Builder(this).
                         setMessage("清除缓存吗？").
-                        setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        setNegativeButton("确定", new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -197,6 +213,7 @@ public class More extends LActivity implements View.OnClickListener {
                                         if (flag1 && flag2) {
                                             getcache();
                                             T.ss("清除成功");
+                                            tv_clear.setText("无缓存");
                                             cleanFlag = true;
                                         } else {
                                             T.ss("清除失败");
@@ -208,7 +225,7 @@ public class More extends LActivity implements View.OnClickListener {
 
                                 dialog.dismiss();
                             }
-                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -222,7 +239,7 @@ public class More extends LActivity implements View.OnClickListener {
         }
         //退出登录
         if (mid == R.id.btn_outline) {
-            T.ss("退出登录");
+            // T.ss("退出登录");
             if (tr == false) {
                 btn_outline.setText("登录");
                 if (MyApplication.isLogin(this)) {
@@ -251,9 +268,8 @@ public class More extends LActivity implements View.OnClickListener {
                 file2.mkdirs();
             }
             long folderSize2 = CacheUtill.getFolderSize(file2);
-
             String cacheSize = CacheUtill
-                    .getFormatSize((folderSize + folderSize2));
+                    .getFormatSize((folderSize+folderSize2));
 
             if (cacheSize.equals("0.0B")) {
                 tv_clear.setText("无缓存");
@@ -295,6 +311,7 @@ public class More extends LActivity implements View.OnClickListener {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 T.ss("退出成功！");
+                tr = false;
                 LSharePreference.getInstance(this).setBoolean("login", false);
                 if (MyApplication.isLogin(this)) {
                     T.ss("已登陆");

@@ -28,7 +28,7 @@
 
         <EditText
             android:id="@+id/et_pwds_oldnum"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/app_toolbar"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
             android:background="@android:color/transparent"
@@ -76,7 +76,7 @@
 
         <EditText
             android:id="@+id/et_update_pwds"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/app_toolbar"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
             android:background="@android:color/transparent"
@@ -151,7 +151,7 @@
 
         <EditText
             android:id="@+id/et_pwds_num"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/app_toolbar"
             android:layout_marginLeft="@dimen/app_myself_left_mar"
             android:background="@android:color/transparent"

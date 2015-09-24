@@ -291,12 +291,6 @@ public class SlideListView2 extends ListView {
         this.scrollBack();
     }
 
-//    public void OnItemLongClickListent(){
-//        itemView.setOnLongClickListener(new OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                return false;
-//            }
-//        });
-//    }
+
+
 }

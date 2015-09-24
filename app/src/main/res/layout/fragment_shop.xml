@@ -28,6 +28,7 @@
             android:background="@color/app_background"
             android:cacheColorHint="#00000000"
             android:divider="@null"
+            android:focusable="false"
             android:drawSelectorOnTop="false"
             android:listSelector="@android:color/transparent"
             android:scrollbars="none" />

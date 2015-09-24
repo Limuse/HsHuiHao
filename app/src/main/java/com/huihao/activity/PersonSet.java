@@ -54,7 +54,7 @@ import java.util.Map;
  * 个人设置
  */
 public class PersonSet extends LActivity implements View.OnClickListener {
-    private RelativeLayout rl_phone, rl_name, rl_pwd, rl_img;
+    private RelativeLayout rl_phone, rl_name, rl_pwd, rl_img,rl_numss;
     private TextView tv_phone, tv_name, tv_num;
     private ImageView my_imgs;
     private Dialog dialog;
@@ -105,14 +105,14 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         tv_name = (TextView) findViewById(R.id.setting_name);
-//        tv_num = (TextView) findViewById(R.id.setting_num);
-
+        tv_num = (TextView) findViewById(R.id.setting_numsss);
+        rl_numss=(RelativeLayout)findViewById(R.id.rl_numss);
         rl_img = (RelativeLayout) findViewById(R.id.rl_img);
         rl_name = (RelativeLayout) findViewById(R.id.rl_name);
         rl_pwd = (RelativeLayout) findViewById(R.id.rl_pwd);
 
         my_imgs = (ImageView) findViewById(R.id.setting_img);
-
+        rl_numss.setOnClickListener(this);
         rl_img.setOnClickListener(this);
 
         rl_name.setOnClickListener(this);
@@ -262,6 +262,18 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                     names=name;
                 }
                 break;
+            case 6:
+                String sdnum=data.getExtras().getString("sdnum");
+
+                if (sdnum.equals("1")) {
+                    tv_num.setText("");
+                }else if(sdnum.equals("2")){
+                    tv_num.setText("");
+                }else{
+                    tv_num.setText(sdnum);
+                    names=sdnum;
+                }
+                break;
         }
     }
 
@@ -342,6 +354,12 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         //上传头像
         if (id == R.id.rl_img) {
             showBuyDialog();
+        }
+        //绑定代理商编号
+        if(id==R.id.rl_numss){
+            Intent intent = new Intent(this, SdNum.class);
+            //tv_num
+            startActivityForResult(intent, 6);
         }
     }
 

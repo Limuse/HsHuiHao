@@ -175,7 +175,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/cart/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-        //L.e(url);
+        L.e(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler
         FragmentHandler handler = new FragmentHandler(this);
         handler.startLoadingData(entity, 1);
@@ -224,7 +224,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                         if (spec2.length() > 2) {
                             entity.setSize(spec2);
                         }
-                            entity.setProduct_id(object.getString("product_id"));
+                        entity.setProduct_id(object.getString("product_id"));
                         list.add(entity);
                     }
                     Tsum();
@@ -232,7 +232,8 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                 }
             } else {
                 T.ss(jsonObject.getString("info").toString());
-
+                rl_shops.setVisibility(View.GONE);
+                rl_gshops.setVisibility(View.VISIBLE);
             }
         } catch (JSONException e) {
             e.printStackTrace();

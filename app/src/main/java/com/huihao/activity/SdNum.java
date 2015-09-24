@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,15 +29,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by huisou on 2015/8/10.
- * 反馈
+ * Created by huisou on 2015/9/24.
  */
-public class FeedBack extends LActivity {
-    private EditText et_desc, et_p;
+public class SdNum extends LActivity {
+    private EditText et_add_num;
 
     @Override
     protected void onLCreate(Bundle bundle) {
-        setContentView(R.layout.activity_feedback);
+        setContentView(R.layout.activity_sdnum);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
@@ -48,45 +48,52 @@ public class FeedBack extends LActivity {
     }
 
     private void initView() {
-
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
-        toolbar.setTitle("反馈");
+        toolbar.setTitle("绑定代理商编号");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
-        toolbar.setNavigationIcon(R.mipmap.right_too);//左边图标
+        toolbar.setNavigationIcon(R.mipmap.right_too);//设置左边图标
         //左边图标点击事件
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.putExtra("sdnum", "2");
+                setResult(6, intent);
                 finish();
             }
         });
-        //右边图片点击事件
         toolbar.inflateMenu(R.menu.right_menu);
+        //右边图片点击事件
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_messages) {
-                    Resources res = getResources();
-                    Map<String, String> map = new HashMap<>();
-                    String url = res.getString(R.string.app_service_url)
-                            + "/huihao/member/leaveword/1/sign/aggregation/?";
-                    map.put("uuid",Token.get(FeedBack.this));
-                    map.put("content",et_desc.getText().toString());
-                    map.put("phone",et_p.getText().toString());
-                    LReqEntity entity = new LReqEntity(url,map);
-                    //L.e(url);
-
-                    ActivityHandler handler = new ActivityHandler(FeedBack.this);
-                    handler.startLoadingData(entity, 1);
+                    upname();
                 }
                 return false;
             }
         });
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
-        et_desc = (EditText) findViewById(R.id.et_backa);
-        et_p = (EditText) findViewById(R.id.ed_fid);
-
+        et_add_num = (EditText) findViewById(R.id.et_add_num);
     }
 
+    private void upname() {
+        String sdnum = et_add_num.getText().toString();
+        if (sdnum.equals(null)) {
+            T.ss("代理商编号不能为空！");
+        } else {
+            Map<String, String> map = new HashMap<>();
+            map.put("agent_no", sdnum);// 昵称
+            map.put("uuid", Token.get(this));
+            Resources res = getResources();
+            String url = res.getString(R.string.app_service_url)
+                    + "/huihao/member/agentbind/1/sign/aggregation/";
+            LReqEntity entity = new LReqEntity(url, map);
+           L.e(entity.toString());
+            ActivityHandler handler = new ActivityHandler(this);
+            handler.startLoadingData(entity, 1);
+        }
+    }
 
     // 返回获取的网络数据
     public void onResultHandler(LMessage msg, int requestId) {
@@ -105,7 +112,15 @@ public class FeedBack extends LActivity {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
             if (code == 1) {
-                T.ss("提交成功！");
+                T.ss("保存成功！");
+                Intent intent = new Intent();
+                String name = et_add_num.getText().toString();
+                if (name.equals(null)) {
+                    intent.putExtra("sdnum", "1");
+                } else {
+                    intent.putExtra("sdnum", et_add_num.getText().toString());
+                }
+                setResult(6, intent);
                 finish();
             } else {
                 T.ss(jsonObject.getString("info"));
@@ -114,6 +129,7 @@ public class FeedBack extends LActivity {
             e.printStackTrace();
         }
     }
+
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {

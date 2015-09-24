@@ -229,6 +229,12 @@
             android:name=".activity.ProviceInfoPlace"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+        <!--绑定代理商编号-->
+        <activity
+            android:name=".activity.SdNum"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"></activity>
+
         <!-- Required -->
         <activity
             android:name="com.android.hshuihao.wxapi.WXEntryActivity"

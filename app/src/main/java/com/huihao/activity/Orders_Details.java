@@ -362,11 +362,11 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(
                                     getApplicationContext(),
-                                    "正在呼叫  " + "400-123-123",
+                                    "正在呼叫  " + "4006806820",
                                     Toast.LENGTH_LONG)
                                     .show();
                             Uri uri = Uri.parse("tel:"
-                                    + "400-123-123");
+                                    + "4006806820");
                             Intent intent = new Intent(
                                     Intent.ACTION_CALL, uri);
                             startActivity(intent);

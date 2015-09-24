@@ -192,7 +192,9 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
+//        orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
+//                + "\"";
+        orderInfo += "&notify_url=" + "\"" +  "http://huihaowfx.huisou.com/huihao/pay/success_back/1/sign/aggregation/"
                 + "\"";
 
         // 服务接口名称， 固定值
@@ -212,7 +214,8 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         orderInfo += "&it_b_pay=\"30m\"";
 
         // extern_token为经过快登授权获取到的alipay_open_id,带上此参数用户将使用授权的账户进行支付
-        // orderInfo += "&extern_token=" + "\"" + extern_token + "\"";
+//         orderInfo += "&extern_token=" + "\"" +"http://huihaowfx.huisou.com/huihao/pay/success_back/1/sign/aggregation/"
+//        + "\"";
 
         // 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
         orderInfo += "&return_url=\"m.alipay.com\"";
@@ -498,7 +501,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         map.put("spec_num", spec_num);
 
         LReqEntity entity = new LReqEntity(url, map);
-        // L.e(entity.toString());
+         //L.e(entity.toString());
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
         handler.startLoadingData(entity, 2);
@@ -555,7 +558,20 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     iee.setBuymax(jo.getString("buymax"));
                     itemlist.add(iee);
                 }
-
+                JSONArray jars=jsb.getJSONArray("address_list");
+                if(jars.length()>0){
+                for(int i=0;i<jars.length(); i++){
+                    JSONObject jsd=jars.getJSONObject(i);
+                    addridss=jsd.getString("id");
+                    provinces = jsd.getString("province");
+                    citys =jsd.getString("city");
+                    countrys = jsd.getString("country");
+                    tv_name.setText(jsd.getString("uname").toString());
+                    tv_phone.setText(jsd.getString("uphone").toString());
+                    tv_addrs.setText(jsd.getString("address").toString());
+                    rl_ano.setVisibility(View.GONE);
+                    ly_alladdr.setVisibility(View.VISIBLE);
+                }}
                 adapter = new BuysNumAdapter(this, itemlist);
                 listView.setAdapter(adapter);
             } else {

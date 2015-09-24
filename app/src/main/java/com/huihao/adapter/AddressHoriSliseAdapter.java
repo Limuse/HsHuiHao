@@ -150,16 +150,17 @@ public class AddressHoriSliseAdapter extends LBaseAdapter implements AdapterView
                                 ppp=v.getTag().toString();
                                 task = new TakeAsyncTask();
                                 task.execute();
-//
-//                                if (flg == 1) {
+
+                                if (flg == 1) {
 //                                    entity.remove(Integer.parseInt(v.getTag() + ""));
 //                                    listView.slideBack();
-//                                    adater.notifyDataSetChanged();
-//                                } else {
-//                                    adater.notifyDataSetChanged();
-//                                }
-                                adater.notifyDataSetChanged();
+                                    adater.notifyDataSetChanged();
+                                } else {
+                                    adater.notifyDataSetChanged();
+                                }
+
                                 dialog.dismiss();
+
                             }
                         }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
                     @Override

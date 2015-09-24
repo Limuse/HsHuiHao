@@ -88,14 +88,15 @@ public class Update_Pwd extends LActivity {
 
     private void getsubmit() {
         String oldpasswd = et_olds_pwd.getText().toString();
-        String passwd = et_old_pwd.getText().toString();
-        String repasswd = et_new_pwd.getText().toString();
-        if (passwd != repasswd) {
-            T.ss("新密码不一致！");
-        }
+        String passwd = et_old_pwd.getText().toString().trim();
+        String repasswd = et_new_pwd.getText().toString().trim();
+
         if (oldpasswd.equals("") || passwd.equals("") || repasswd.equals("")) {
             T.ss("请填写完整信息");
+        }
 
+        else if(!passwd.equals(repasswd)){
+            T.ss("新密码不一致！");
         } else {
             Resources res = getResources();
             String url = res.getString(R.string.app_service_url) + "/huihao/member/amendpasswd/1/sign/aggregation/";
@@ -129,7 +130,7 @@ public class Update_Pwd extends LActivity {
             int code = jsonObject.getInt("status");
             if (code == 1) {
                 T.ss("密码修改成功");
-
+                finish();
             } else {
                 T.ss(jsonObject.getString("info"));
             }

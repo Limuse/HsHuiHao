@@ -382,7 +382,6 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 //                final CustomDialog alertDialog = new CustomDialog.Builder(context).
 //                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
 //                        new DialogInterface.OnClickListener() {
-//
 //                            @Override
 //                            public void onClick(DialogInterface dialog, int which) {
 //                                ts=1;
@@ -399,52 +398,47 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 //                    public void onClick(DialogInterface dialog, int which) {
 //                        dialog.dismiss();
 //                    }
-//                }).
-//                        create();
-//
-//
+//                }).create();
 //                alertDialog.show();
 //                return true;
 //            }
 //        });
 
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, final View views,final int positions, long id) {
-//                final CustomDialog alertDialog = new CustomDialog.Builder(context).
-//                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
-//                        new DialogInterface.OnClickListener() {
-//
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                ShopItemEntity datass = entity.get(positions);
-//                                ts=1;
-//                                view = views;
-//                                ids = datass.getId();
-//                                Danjia = datass.getDanjia();
-//                                task = new TakeAsyncTask();
-//                                task.execute();
-//                                notifyDataSetChanged();
-//                                dialog.dismiss();
-//                            }
-//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                }).create();
-//                alertDialog.show();
-//
-//                return true;
-//            }
-//        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, final View views,final int positions, long id) {
+              L.e("111111111111111");
+                final CustomDialog alertDialog = new CustomDialog.Builder(context).
+                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ShopItemEntity datass = entity.get(positions);
+                                ts=1;
+                                view = views;
+                                ids = datass.getId();
+                                Danjia = datass.getDanjia();
+                                task = new TakeAsyncTask();
+                                task.execute();
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
+                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
+                alertDialog.show();
+                return false;
+            }
+        });
 //        holder.views.setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override
 //            public boolean onLongClick(final View vs) {
 //                final CustomDialog alertDialog = new CustomDialog.Builder(context).
 //                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
 //                        new DialogInterface.OnClickListener() {
-//
 //                            @Override
 //                            public void onClick(DialogInterface dialog, int which) {
 //                                ts = 1;
@@ -504,7 +498,6 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 //        final CustomDialog alertDialog = new CustomDialog.Builder(context).
 //                setMessage("您确定删除这项吗？").setNegativeButton("确定",
 //                new DialogInterface.OnClickListener() {
-//
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
 //                        view = vw;
