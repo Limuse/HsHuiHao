@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
@@ -20,6 +21,7 @@ import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONException;
@@ -34,6 +36,8 @@ import java.util.Map;
 public class Update_Num extends LActivity {
 
     private EditText et_Upnum;
+    private String num;
+    private Boolean flg = true;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -45,9 +49,18 @@ public class Update_Num extends LActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
-        initView();
+        Boolean bols = LSharePreference.getInstance(this).getBoolean("login");
+        if (bols == true) {
+            initView();
+        } else {
+            Intent intent = new Intent(this, LoginMain.class);
+            startActivity(intent);
+        }
+
     }
+
     private void initView() {
+
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         toolbar.setTitle("优惠码");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
@@ -63,7 +76,12 @@ public class Update_Num extends LActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_messages) {
-                    sumb();
+                    if(flg==false){
+                        T.ss("优惠码已使用过");
+                    }else{
+                        sumb();
+                    }
+
                 }
                 return false;
             }
@@ -71,6 +89,14 @@ public class Update_Num extends LActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 
         et_Upnum = (EditText) findViewById(R.id.et_please_num);
+        num = LSharePreference.getInstance(this).getString("conncode");
+        if (num.equals("")) {
+            et_Upnum.setHint("请输入优惠码");
+        } else {
+            flg=false;
+            et_Upnum.setText(num);
+            et_Upnum.setFocusable(false);
+        }
     }
 
     private void sumb() {
@@ -108,6 +134,12 @@ public class Update_Num extends LActivity {
 
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs = jsonObject.getString("info");
+                if (longs.equals("请先登录")) {
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

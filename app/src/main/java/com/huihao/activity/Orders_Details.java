@@ -37,6 +37,7 @@ import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -285,6 +286,12 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
 
             } else {
                 T.ss(jsonObject.getString("info").toString());
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -322,6 +329,12 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
                 T.ss("确认收货");
             } else {
                 T.ss(jsonObject.getString("info").toString());
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -561,7 +574,7 @@ public class Orders_Details extends LActivity implements View.OnClickListener {
         orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
         // 商户网站唯一订单号
-        orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+        orderInfo += "&out_trade_no=" + "\"" + body + "\"";
 
         // 商品名称
         orderInfo += "&subject=" + "\"" + subject + "\"";

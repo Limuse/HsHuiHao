@@ -30,6 +30,7 @@ import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -61,8 +62,14 @@ public class My_Coupons extends LActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
-        initView();
-        initData();
+        Boolean bols= LSharePreference.getInstance(this).getBoolean("login");
+        if(bols==true){
+            initView();
+            initData();
+        }else{
+            Intent intent = new Intent(this, LoginMain.class);
+            startActivity(intent);
+        }
     }
 
     private void initView() {
@@ -139,6 +146,11 @@ public class My_Coupons extends LActivity {
                 }
             } else {
                 T.ss(jsonObject.getString("info").toString());
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
 //                rl_gcopus.setVisibility(View.VISIBLE);
 //                listview.setVisibility(View.GONE);
             }

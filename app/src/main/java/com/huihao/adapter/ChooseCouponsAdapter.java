@@ -94,27 +94,27 @@ public class ChooseCouponsAdapter extends BaseAdapter {
 
     public String rCid() {
         String cid = "";
-        int money = 0;
+        float money = 0;
         if (listid.size()== 0) {
             cid = "null";
             return cid;
         } else {
             for (int i = 0; i < listid.size(); i++) {
                 cid = cid + listid.get(i) + ",";
-                money = money+Integer.parseInt(limoney.get(i).toString());
+                money = money+Float.parseFloat(limoney.get(i).toString());
             }
             cid = cid.substring(0, cid.lastIndexOf(','));
             return cid;
         }
     }
-    public int rMoneys(){
-        int money = 0;
-        if (list.size() == 1 || listid.size() == 1) {
+    public float rMoneys(){
+        float money = 0;
+        if (list.size() == 0 || listid.size() == 0) {
             money = 0;
 
         } else {
             for (int i = 0; i < listid.size(); i++) {
-                money = money+Integer.parseInt(limoney.get(i).toString());
+                money = money+Float.parseFloat(limoney.get(i).toString());
             }
             return money;
         }

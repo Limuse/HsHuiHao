@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -125,6 +126,12 @@ public class Extract_Rebate extends LActivity implements View.OnClickListener {
             } else {
 
                 T.ss(jsonObject.getString("info").toString());
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

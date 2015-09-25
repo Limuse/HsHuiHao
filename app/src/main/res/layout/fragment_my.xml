@@ -73,7 +73,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
                 android:clickable="true"
-                android:maxEms="6"
+                android:maxEms="10"
                 android:singleLine="true"
                 android:text="汇好账号"
                 android:textColor="@color/app_white"

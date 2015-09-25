@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import com.huihao.adapter.NewsPager;
 import com.huihao.common.SystemBarTintManager;
 import com.huihao.custom.PagerSlidingTabStrip;
 import com.leo.base.activity.LActivity;
+import com.leo.base.util.LSharePreference;
 
 /**
  * Created by huisou on 2015/8/10.
@@ -33,7 +35,14 @@ public class News extends LActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
-        initView();
+        Boolean bols= LSharePreference.getInstance(this).getBoolean("login");
+        if(bols==true){
+            initView();
+        }else{
+            Intent intent = new Intent(this, LoginMain.class);
+            startActivity(intent);
+        }
+
     }
 
     private void initView() {

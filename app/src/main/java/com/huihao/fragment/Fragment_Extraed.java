@@ -16,6 +16,7 @@ import com.huihao.R;
 import com.huihao.activity.ExR_State;
 import com.huihao.activity.Extra_Record;
 import com.huihao.activity.HomeMain;
+import com.huihao.activity.LoginMain;
 import com.huihao.activity.Rebate;
 import com.huihao.adapter.ExtraRecodeAdapter;
 import com.huihao.common.Token;
@@ -27,6 +28,7 @@ import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -132,6 +134,12 @@ public class Fragment_Extraed extends LFragment implements AdapterView.OnItemCli
                 listView.setOnItemClickListener(this);
             }} else {
                 T.ss(jsonObject.getString("info"));
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
+                    Intent intent = new Intent(getActivity(), LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

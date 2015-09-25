@@ -159,7 +159,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    T.ss("确认收货");
+                    //T.ss("确认收货");
                     tag = 4;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
@@ -175,7 +175,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    T.ss("申请退款");
+                    //T.ss("申请退款");
                     tag = 5;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
@@ -191,7 +191,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    T.ss("删除订单");
+                   // T.ss("删除订单");
                     pid = position;
                     tag = 3;
                     ordid = entity.getId();
@@ -210,7 +210,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    T.ss("付款");
+                    //T.ss("付款");
                     tag = 7;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
@@ -220,7 +220,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    T.ss("取消订单");
+                    //T.ss("取消订单");
                     pid = position;
                     tag = 3;
                     ordid = entity.getId();
@@ -231,6 +231,7 @@ public class AllOrderAdapter extends BaseAdapter {
         } else if (entity.getState().equals("4")) {
             viewHolder.tv_states.setText("退款中");
             viewHolder.btn_del.setText("完成退款");
+            viewHolder.btn_see.setVisibility(View.GONE);
             viewHolder.btn_see.setText("取消退款");
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_add));
             viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_orange));
@@ -239,7 +240,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    T.ss("完成退款");
+                    //T.ss("完成退款");
                     tag = 1;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
@@ -249,7 +250,7 @@ public class AllOrderAdapter extends BaseAdapter {
             viewHolder.btn_see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    T.ss("取消退款");
+                   // T.ss("取消退款");
                     tag = 2;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
@@ -559,7 +560,7 @@ public class AllOrderAdapter extends BaseAdapter {
                             T.ss("已完成退款!");
                             notifyDataSetChanged();
                         } else {
-                            T.ss("操作失败");
+                            T.ss(jsonObject.getString("info"));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -682,7 +683,7 @@ public class AllOrderAdapter extends BaseAdapter {
         orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
         // 商户网站唯一订单号
-        orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+        orderInfo += "&out_trade_no=" + "\"" + body + "\"";
 
         // 商品名称
         orderInfo += "&subject=" + "\"" + subject + "\"";

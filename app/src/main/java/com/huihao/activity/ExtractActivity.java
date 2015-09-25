@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
@@ -47,8 +48,15 @@ public class ExtractActivity extends LActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
-        initView();
-        getData();
+        Boolean bols= LSharePreference.getInstance(this).getBoolean("login");
+        if(bols==true){
+            initView();
+            getData();
+        }else{
+            Intent intent = new Intent(this, LoginMain.class);
+            startActivity(intent);
+        }
+
     }
 
     private void initView() {

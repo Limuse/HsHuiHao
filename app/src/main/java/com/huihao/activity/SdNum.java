@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +21,7 @@ import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONException;
@@ -120,17 +122,30 @@ public class SdNum extends LActivity {
                 } else {
                     intent.putExtra("sdnum", et_add_num.getText().toString());
                 }
+                 LSharePreference.getInstance(this).setString("conncode",name);
                 setResult(6, intent);
                 finish();
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Intent intent = new Intent();
+        intent.putExtra("sdnum", "2");
+        setResult(6, intent);
+        return super.onKeyDown(keyCode, event);
 
+    }
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();

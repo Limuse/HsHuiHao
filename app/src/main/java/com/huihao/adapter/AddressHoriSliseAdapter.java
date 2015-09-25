@@ -67,7 +67,7 @@ public class AddressHoriSliseAdapter extends LBaseAdapter implements AdapterView
     private TakeAsyncTask task;
     private boolean falg = false;
     private String ids = null;
-    private String ppp=null;
+    private int ppp;
     public AddressHoriSliseAdapter(Address context, List<AddressItemEntity> entity, SlideListView2 listView) {
         super(context, entity, true);
         this.context = context;
@@ -147,7 +147,7 @@ public class AddressHoriSliseAdapter extends LBaseAdapter implements AdapterView
 //                                handler.startLoadingData(entitys, 1);
 //                                L.e("ddd", entitys.toString());
                                 ids = entity.get(Integer.parseInt(v.getTag() + "")).getId();
-                                ppp=v.getTag().toString();
+                                ppp=(int)v.getTag();
                                 task = new TakeAsyncTask();
                                 task.execute();
 

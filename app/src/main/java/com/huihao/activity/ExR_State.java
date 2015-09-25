@@ -2,6 +2,7 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -198,6 +200,12 @@ public class ExR_State extends LActivity implements View.OnClickListener {
 
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -213,6 +221,12 @@ public class ExR_State extends LActivity implements View.OnClickListener {
 
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -227,6 +241,12 @@ public class ExR_State extends LActivity implements View.OnClickListener {
 
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -72,7 +72,8 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
     private String title;
     private String orderid;
     private String price;
-
+    private String ppices;//没有优惠前的总价
+    private float liteprices;//返利直减
     private String provinces;
     private String citys;
     private String countrys;
@@ -180,8 +181,8 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
         // 商户网站唯一订单号
-        orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
-
+       // orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+        orderInfo += "&out_trade_no=" + "\"" + body + "\"";
         // 商品名称
         orderInfo += "&subject=" + "\"" + subject + "\"";
 
@@ -194,7 +195,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         // 服务器异步通知页面路径
 //        orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
 //                + "\"";
-        orderInfo += "&notify_url=" + "\"" +  "http://huihaowfx.huisou.com/huihao/pay/success_back/1/sign/aggregation/"
+        orderInfo += "&notify_url=" + "\"" + "http://huihaowfx.huisou.com/huihao/pay/success_back/1/sign/aggregation/"
                 + "\"";
 
         // 服务接口名称， 固定值
@@ -389,10 +390,10 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     rl_ano.setVisibility(View.VISIBLE);
                     ly_alladdr.setVisibility(View.GONE);
                 } else {
-                    adrname = data.getExtras().getString("name");
-                    adrphone = data.getExtras().getString("phone");
-                    adraddr = data.getExtras().getString("addr");
-                    addridss = data.getExtras().getString("ids");
+                    adrname = data.getExtras().getString("name").toString();
+                    adrphone = data.getExtras().getString("phone").toString();
+                    adraddr = data.getExtras().getString("addr").toString();
+                    addridss = data.getExtras().getString("ids").toString();
                     if (addridss != null) {
                         rl_ano.setVisibility(View.GONE);
                         ly_alladdr.setVisibility(View.VISIBLE);
@@ -413,13 +414,23 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
             case 1:
                 if (data == null) {
                     cids = null;
+                    tv_yh.setText("");
                 } else {
                     cids = data.getExtras().getString("cids");
-                    int money=Integer.parseInt(data.getExtras().getString("money"));
-                    int allmoney=Integer.parseInt(tv_js.getText().toString());
-                    tv_js.setText("￥" + (allmoney-money)+"");
-                    tv_azf.setText("￥" + (allmoney-money)+"");
-                    tv_yh.setText(money+"");
+                    float money = Float.parseFloat(data.getExtras().getString("money"));
+                    float allmoney = Float.parseFloat(ppices);
+                   if(money>liteprices) {
+                       T.ss("最多只能减" + liteprices + " 元");
+                       tv_js.setText("￥" + (allmoney - liteprices) + "");
+                       tv_azf.setText("￥" + (allmoney - liteprices) + "");
+                       tv_yh.setText(money + "");
+
+                   }else{
+                       tv_js.setText("￥" + (allmoney - money) + "");
+                       tv_azf.setText("￥" + (allmoney - money) + "");
+                       tv_yh.setText(money + "");
+                   }
+
                 }
                 break;
         }
@@ -439,6 +450,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     title = list.getString("title");
                     orderid = list.getString("orderid");
                     price = list.getString("price");
+
 
                     /**
                      * 服务端返回支付宝的数据，然后支付成功后跳转-----支付成功界面
@@ -501,7 +513,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         map.put("spec_num", spec_num);
 
         LReqEntity entity = new LReqEntity(url, map);
-         //L.e(entity.toString());
+        //L.e(entity.toString());
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
         handler.startLoadingData(entity, 2);
@@ -516,12 +528,15 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                 JSONObject jsb = jsonObject.getJSONObject("list");
                 String total_preferential = jsb.getString("total_preferential");
                 String total_price = jsb.getString("total_price");
+                ppices=total_price;
                 tv_js.setText("￥" + total_price);
                 tv_azf.setText("￥" + total_price);
                 if (total_preferential.equals(null) || total_preferential.equals("")) {
                     tv_fj.setText("");
+                    liteprices=0;
                 } else {
                     tv_fj.setText(total_preferential + "元");
+                    liteprices=Float.parseFloat(total_preferential.toString());
                 }
                 JSONArray ja = jsb.getJSONArray("exress_list");
 
@@ -558,20 +573,24 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     iee.setBuymax(jo.getString("buymax"));
                     itemlist.add(iee);
                 }
-                JSONArray jars=jsb.getJSONArray("address_list");
-                if(jars.length()>0){
-                for(int i=0;i<jars.length(); i++){
-                    JSONObject jsd=jars.getJSONObject(i);
-                    addridss=jsd.getString("id");
-                    provinces = jsd.getString("province");
-                    citys =jsd.getString("city");
-                    countrys = jsd.getString("country");
-                    tv_name.setText(jsd.getString("uname").toString());
-                    tv_phone.setText(jsd.getString("uphone").toString());
-                    tv_addrs.setText(jsd.getString("address").toString());
-                    rl_ano.setVisibility(View.GONE);
-                    ly_alladdr.setVisibility(View.VISIBLE);
-                }}
+                JSONArray jars = jsb.getJSONArray("address_list");
+                if (jars.length() > 0) {
+                    for (int i = 0; i < jars.length(); i++) {
+                        JSONObject jsd = jars.getJSONObject(i);
+                        addridss = jsd.getString("id").toString();
+                        provinces = jsd.getString("province");
+                        citys = jsd.getString("city");
+                        countrys = jsd.getString("country");
+                        adrname = jsd.getString("uname").toString();
+                        adrphone = jsd.getString("uphone").toString();
+                        adraddr = jsd.getString("address").toString();
+                        tv_name.setText(jsd.getString("uname").toString());
+                        tv_phone.setText(jsd.getString("uphone").toString());
+                        tv_addrs.setText(jsd.getString("address").toString());
+                        rl_ano.setVisibility(View.GONE);
+                        ly_alladdr.setVisibility(View.VISIBLE);
+                    }
+                }
                 adapter = new BuysNumAdapter(this, itemlist);
                 listView.setAdapter(adapter);
             } else {

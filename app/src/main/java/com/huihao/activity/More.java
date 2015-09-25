@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,8 +68,16 @@ public class More extends LActivity implements View.OnClickListener {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
-        initView();
-        getcache();
+
+        Boolean bols = LSharePreference.getInstance(this).getBoolean("login");
+        if (bols == true) {
+            initView();
+            getcache();
+
+        } else {
+            Intent intent = new Intent(this, LoginMain.class);
+            startActivity(intent);
+        }
     }
 
     private void initView() {
@@ -102,10 +111,13 @@ public class More extends LActivity implements View.OnClickListener {
         rl_p.setOnClickListener(this);
         rl_clear.setOnClickListener(this);
         btn_outline.setOnClickListener(this);
+        tr = LSharePreference.getInstance(this).getBoolean("login");
         if (tr == false) {
             btn_outline.setText("登录");
+        } else {
+            btn_outline.setText("退出登录");
         }
-        tr = LSharePreference.getInstance(this).getBoolean("login");
+
 
     }
 
@@ -125,13 +137,10 @@ public class More extends LActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-         boolean tts=LSharePreference.getInstance(this).getBoolean("login");
-        if(tts==true){
+        boolean tts = LSharePreference.getInstance(this).getBoolean("login");
+        if (tts == true) {
             btn_outline.setText("退出登录");
-        }else{
-            btn_outline.setText("登录");
-        }
-        if (tr == false) {
+        } else {
             btn_outline.setText("登录");
         }
     }
@@ -141,7 +150,8 @@ public class More extends LActivity implements View.OnClickListener {
         int mid = v.getId();
         //官方网站
         if (mid == R.id.rl_web) {
-            T.ss("官方网站");
+            //T.ss("官方网站");
+            // WebView.loadUrl("http://www.baidu.com/");
         }
         //客服电话
         if (mid == R.id.rl_kp) {
@@ -174,20 +184,20 @@ public class More extends LActivity implements View.OnClickListener {
         }
         //版权信息
         if (mid == R.id.rl_bx) {
-            T.ss("版权信息");
+            //  T.ss("版权信息");
             Intent intent = new Intent(this, CopyRight.class);
             startActivity(intent);
         }
         //意见反馈
         if (mid == R.id.rl_advice) {
-            T.ss("意见反馈");
+            // T.ss("意见反馈");
             Intent intent = new Intent(this, FeedBack.class);
             startActivity(intent);
 
         }
         //给我们评分
         if (mid == R.id.rl_pingf) {
-            T.ss("给我们评分");
+            //T.ss("给我们评分");
         }
         //清除缓存
         if (mid == R.id.rl_clear) {
@@ -242,10 +252,8 @@ public class More extends LActivity implements View.OnClickListener {
             // T.ss("退出登录");
             if (tr == false) {
                 btn_outline.setText("登录");
-                if (MyApplication.isLogin(this)) {
-                    T.ss("已登陆");
-                }
-            } else {
+                loades();
+            } else if (tr == true) {
                 btn_outline.setText("退出登录");
                 loades();
             }
@@ -269,7 +277,7 @@ public class More extends LActivity implements View.OnClickListener {
             }
             long folderSize2 = CacheUtill.getFolderSize(file2);
             String cacheSize = CacheUtill
-                    .getFormatSize((folderSize+folderSize2));
+                    .getFormatSize((folderSize + folderSize2));
 
             if (cacheSize.equals("0.0B")) {
                 tv_clear.setText("无缓存");
@@ -313,11 +321,15 @@ public class More extends LActivity implements View.OnClickListener {
                 T.ss("退出成功！");
                 tr = false;
                 LSharePreference.getInstance(this).setBoolean("login", false);
-                if (MyApplication.isLogin(this)) {
-                    T.ss("已登陆");
-                }
+                btn_outline.setText("登录");
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs = jsonObject.getString("info");
+                if (longs.equals("请先登录")) {
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

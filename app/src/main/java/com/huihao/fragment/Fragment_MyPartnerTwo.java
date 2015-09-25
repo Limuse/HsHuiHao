@@ -1,5 +1,6 @@
 package com.huihao.fragment;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.huihao.R;
+import com.huihao.activity.LoginMain;
 import com.huihao.adapter.MyPartnerAdapter;
 import com.huihao.common.Token;
 import com.huihao.entity.MyPartnerEntity;
@@ -102,7 +104,7 @@ public class Fragment_MyPartnerTwo extends LFragment {
             if (code == 1) {
                 JSONObject obejc = jsonObject.getJSONObject("list");
                 if (obejc.getString("second_list").length() < 1) {
-                    T.ss("您暂时没有伙伴！");
+                    //T.ss("您暂时没有下下级分销商！");
                 } else {
                     JSONArray array = obejc.getJSONArray("second_list");
                     for (int i = 0; i < array.length(); i++) {
@@ -121,6 +123,11 @@ public class Fragment_MyPartnerTwo extends LFragment {
 
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    Intent intent = new Intent(getActivity(), LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

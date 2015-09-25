@@ -17,6 +17,7 @@ import com.huihao.activity.Address;
 import com.huihao.activity.All_Orders;
 import com.huihao.activity.ExtractActivity;
 import com.huihao.activity.InvitationCode;
+import com.huihao.activity.LoginMain;
 import com.huihao.activity.More;
 import com.huihao.activity.My_Coupons;
 import com.huihao.activity.My_Partner;
@@ -259,6 +260,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         //优惠码
         if (id == R.id.yaoqing) {
             if (MyApplication.isLogin(getActivity())) {
+             String mms=   LSharePreference.getInstance(getActivity()).getString("conncode");
                 Intent intent = new Intent(getActivity(), Update_Num.class);
                 getActivity().startActivity(intent);
             }
@@ -322,26 +324,26 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
 
         weixinContent.setShareContent("汇好");
         weixinContent.setTitle("汇好,汇聚天下好产品！");
-        weixinContent.setTargetUrl("http://ihuihao.cn/index.html");
+        weixinContent.setTargetUrl("http://huihao/orders/denomination/1/sign/aggregation/" + Token.get(getActivity()));
         weixinContent.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
 
         CircleShareContent circleMedia = new CircleShareContent();
         circleMedia.setShareContent("汇好");
 
         circleMedia.setTitle("汇好,汇聚天下好产品！");
-        circleMedia.setTargetUrl("http://ihuihao.cn/index.html");
+        circleMedia.setTargetUrl("http://huihao/orders/denomination/1/sign/aggregation/" + Token.get(getActivity()));
         circleMedia.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
         mController.setShareMedia(circleMedia);
         QQShareContent qqShareContent = new QQShareContent();
 
         qqShareContent.setShareContent("汇好");
         qqShareContent.setTitle("汇好,汇聚天下好产品！");
-        qqShareContent.setTargetUrl("http://ihuihao.cn/index.html");
+        qqShareContent.setTargetUrl("http://huihao/orders/denomination/1/sign/aggregation/" + Token.get(getActivity()));
         qqShareContent.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
         mController.setShareMedia(qqShareContent);
         QZoneShareContent qzone = new QZoneShareContent();
         qzone.setShareContent("汇好");
-        qzone.setTargetUrl("http://ihuihao.cn/index.html");
+        qzone.setTargetUrl("http://huihao/orders/denomination/1/sign/aggregation/" + Token.get(getActivity()));
         qzone.setTitle("汇好,汇聚天下好产品！");
         qzone.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
         mController.setShareMedia(qzone);
@@ -366,6 +368,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/member/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
+        L.e(url + "");
         FragmentHandler handler = new FragmentHandler(Fragment_my.this);
         handler.startLoadingData(entity, 1);
 
@@ -431,11 +434,29 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                         .setString("account", account);
                 LSharePreference.getInstance(getActivity())
                         .setString("accountname", names);
+                String conncode = jt.getString("connCode").toString();
+                if (conncode.equals("")) {
+                    LSharePreference.getInstance(getActivity()).setString("conncode", "");
+                } else {
+                    LSharePreference.getInstance(getActivity()).setString("conncode", conncode);
+                }
+                if (jt.has("agent_num")) {
+                    String agent_num = jt.getString("agent_num");
+                    LSharePreference.getInstance(getActivity()).setString("agent_num", agent_num);
+                } else {
+                    LSharePreference.getInstance(getActivity()).setString("agent_num", "");
+                }
 
                 img();//头像设置
                 setDa();//所有消息的条数
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs = jsonObject.getString("info");
+                if (longs.equals("请先登录")) {
+                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
+                    Intent intent = new Intent(getActivity(), LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -36,6 +36,7 @@ import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -54,7 +55,7 @@ import java.util.Map;
  * 个人设置
  */
 public class PersonSet extends LActivity implements View.OnClickListener {
-    private RelativeLayout rl_phone, rl_name, rl_pwd, rl_img,rl_numss;
+    private RelativeLayout rl_phone, rl_name, rl_pwd, rl_img, rl_numss;
     private TextView tv_phone, tv_name, tv_num;
     private ImageView my_imgs;
     private Dialog dialog;
@@ -68,6 +69,9 @@ public class PersonSet extends LActivity implements View.OnClickListener {
     private static final String IMAGE_FILE_NAME_TEMP = "hh_image.jpg";
     private DisplayImageOptions options;
     private ImageLoader imageLoader;
+
+    private String sdnum;
+    private Boolean flg = true;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -84,9 +88,21 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                 R.style.transparentFrameWindowStyle);
         dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
-        initView();
-        initDialog(view);
 
+        Boolean bols = LSharePreference.getInstance(this).getBoolean("login");
+        if (bols == true) {
+            initView();
+            initDialog(view);
+            sdnum = LSharePreference.getInstance(this).getString("conncode");
+            if (sdnum.equals("")) {
+                flg = false;
+            } else {
+                tv_num.setText(sdnum);
+            }
+        } else {
+            Intent intent = new Intent(this, LoginMain.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -106,7 +122,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
 
         tv_name = (TextView) findViewById(R.id.setting_name);
         tv_num = (TextView) findViewById(R.id.setting_numsss);
-        rl_numss=(RelativeLayout)findViewById(R.id.rl_numss);
+        rl_numss = (RelativeLayout) findViewById(R.id.rl_numss);
         rl_img = (RelativeLayout) findViewById(R.id.rl_img);
         rl_name = (RelativeLayout) findViewById(R.id.rl_name);
         rl_pwd = (RelativeLayout) findViewById(R.id.rl_pwd);
@@ -255,23 +271,23 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                 String name = data.getExtras().getString("name");
                 if (name.equals("1")) {
                     tv_name.setText(names);
-                }else if(name.equals("2")){
+                } else if (name.equals("2")) {
                     tv_name.setText(names);
-                }else{
+                } else {
                     tv_name.setText(name);
-                    names=name;
+                    names = name;
                 }
                 break;
             case 6:
-                String sdnum=data.getExtras().getString("sdnum");
+                String sdnum = data.getExtras().getString("sdnum");
 
                 if (sdnum.equals("1")) {
                     tv_num.setText("");
-                }else if(sdnum.equals("2")){
+                } else if (sdnum.equals("2")) {
                     tv_num.setText("");
-                }else{
+                } else {
                     tv_num.setText(sdnum);
-                    names=sdnum;
+                    names = sdnum;
                 }
                 break;
         }
@@ -312,6 +328,11 @@ public class PersonSet extends LActivity implements View.OnClickListener {
 
             } else {
                 T.ss(jsonObject.getString("info"));
+                String longs = jsonObject.getString("info");
+                if (longs.equals("请先登录")) {
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -356,10 +377,12 @@ public class PersonSet extends LActivity implements View.OnClickListener {
             showBuyDialog();
         }
         //绑定代理商编号
-        if(id==R.id.rl_numss){
-            Intent intent = new Intent(this, SdNum.class);
-            //tv_num
-            startActivityForResult(intent, 6);
+        if (id == R.id.rl_numss) {
+            if (flg == false) {
+                Intent intent = new Intent(this, SdNum.class);
+                //tv_num
+                startActivityForResult(intent, 6);
+            }
         }
     }
 

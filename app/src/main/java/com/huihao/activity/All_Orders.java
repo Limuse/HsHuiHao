@@ -18,6 +18,7 @@ import com.huihao.common.SystemBarTintManager;
 import com.huihao.custom.PagerSlidingTabStrip;
 import com.leo.base.activity.LActivity;
 import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 
 /**
  * Created by huisou on 2015/7/31.
@@ -38,8 +39,13 @@ public class All_Orders extends LActivity {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(R.color.app_white);
-        initView();
-
+        Boolean bols= LSharePreference.getInstance(this).getBoolean("login");
+        if(bols==true){
+            initView();
+        }else{
+            Intent intent = new Intent(this, LoginMain.class);
+            startActivity(intent);
+        }
 
     }
 

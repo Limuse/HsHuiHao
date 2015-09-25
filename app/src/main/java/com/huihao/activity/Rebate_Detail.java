@@ -25,6 +25,7 @@ import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -150,6 +151,12 @@ public class Rebate_Detail extends LActivity {
             } }else {
 
                 T.ss(jsonObject.getString("info").toString());
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

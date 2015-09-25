@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.huihao.R;
 import com.huihao.activity.Extra_Record;
 import com.huihao.activity.Extract_Rebate;
+import com.huihao.activity.LoginMain;
 import com.huihao.activity.Rebate_Detail;
 import com.huihao.common.Token;
 import com.huihao.custom.RiseNumberTextView;
@@ -22,6 +23,7 @@ import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONException;
@@ -150,6 +152,12 @@ public class Fragment_Rebateone extends LFragment implements View.OnClickListene
             } else {
 
                 T.ss(jsonObject.getString("info").toString());
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
+                    Intent intent = new Intent(getActivity(), LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

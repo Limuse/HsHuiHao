@@ -19,6 +19,7 @@ import com.alipay.sdk.app.PayTask;
 import com.huihao.R;
 import com.huihao.activity.All_Orders;
 import com.huihao.activity.HomeMain;
+import com.huihao.activity.LoginMain;
 import com.huihao.adapter.AllOrderAdapter;
 import com.huihao.common.PayResult;
 import com.huihao.common.SignUtils;
@@ -30,6 +31,8 @@ import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -106,6 +109,13 @@ public class Fragment_pay_money extends LFragment {
         handler.startLoadingData(entity, 1);
 
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            initData();
+        }
+    }
 
 
     // 返回获取的网络数据
@@ -169,6 +179,12 @@ public class Fragment_pay_money extends LFragment {
             } else {
 
                 T.ss(jsonObject.getString("info").toString());
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
+                    Intent intent = new Intent(getActivity(), LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

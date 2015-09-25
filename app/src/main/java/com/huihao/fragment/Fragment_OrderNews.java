@@ -1,5 +1,6 @@
 package com.huihao.fragment;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.huihao.R;
+import com.huihao.activity.LoginMain;
 import com.huihao.adapter.OrdersNewsAdapter;
 import com.huihao.common.Token;
 import com.huihao.entity.OrdersNewsEntity;
@@ -18,6 +20,7 @@ import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -118,6 +121,12 @@ public class Fragment_OrderNews extends LFragment {
 
             } }else {
                 T.ss(jsonObject.getString("info"));
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
+                    Intent intent = new Intent(getActivity(), LoginMain.class);
+                    startActivity(intent);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

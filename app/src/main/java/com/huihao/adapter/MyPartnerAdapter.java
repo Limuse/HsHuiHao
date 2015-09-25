@@ -55,8 +55,8 @@ public class MyPartnerAdapter extends BaseAdapter {
         }
         MyPartnerEntity.ChildList entity = list.get(position);
 
-        viewHolder.tv_money.setText(entity.getUsername());
-        viewHolder.tv_name.setText(entity.getAmount());
+        viewHolder.tv_money.setText(entity.getAmount());
+        viewHolder.tv_name.setText(entity.getUsername());
 
         return convertView;
     }

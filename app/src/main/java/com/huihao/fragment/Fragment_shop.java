@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.activity.HomeMain;
+import com.huihao.activity.LoginMain;
 import com.huihao.activity.Submit_Orders;
 import com.huihao.adapter.HorizontalSlideAdapter;
 import com.huihao.common.Token;
@@ -31,6 +32,7 @@ import com.leo.base.activity.fragment.LFragment;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.L;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -82,6 +84,14 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         toolbar.setTitle("购物车");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
+        Boolean bols= LSharePreference.getInstance(getActivity()).getBoolean("login");
+        if(bols==true){
+            initView();
+            initData();
+        }else{
+            Intent intent = new Intent(getActivity(), LoginMain.class);
+            startActivity(intent);
+        }
         initView();
         initData();
 
@@ -175,7 +185,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/cart/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-        L.e(url);
+       // L.e(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler
         FragmentHandler handler = new FragmentHandler(this);
         handler.startLoadingData(entity, 1);
