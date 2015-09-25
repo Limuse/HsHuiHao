@@ -213,7 +213,7 @@ public class Registered extends LActivity {
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                btn_send1.setText(time + "");
+                btn_send1.setText(time + " s");
                 btn_send1.setClickable(false);
                 btn_send2.setClickable(false);
             }

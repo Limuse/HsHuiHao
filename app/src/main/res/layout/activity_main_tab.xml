@@ -74,7 +74,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-
                 <Button
                     android:id="@+id/shop"
                     android:layout_width="30dp"
@@ -84,6 +83,24 @@
                     android:clickable="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false" />
+                <Button
+                    android:id="@+id/shop_num"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignRight="@+id/shop"
+                    android:layout_alignTop="@+id/shop"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="-4dp"
+                    android:layout_marginTop="-4dp"
+                    android:background="@drawable/clicer"
+                    android:gravity="center"
+                    android:text="8"
+                    android:textColor="@color/app_white"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+
+
+
             </RelativeLayout>
 
             <RelativeLayout

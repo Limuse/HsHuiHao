@@ -296,7 +296,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         tagGroup.setVisibility(View.GONE);
         tagScroll = (ScrollView) view.findViewById(R.id.tag_scroll);
         InitAnima();
-
         btn_l.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -383,7 +382,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     if (isCanAdd) {
                         isCanAdd = false;
                         dialog.dismiss();
-                        scrollView.invalidate();
                         addForHttp();
                     }
                 }
@@ -396,7 +394,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         if (isCanAdd) {
                             isCanAdd = false;
                             dialog.dismiss();
-                            scrollView.invalidate();
                             addForHttp();
                         }
                     } else if (OKSTATE.equals("BUY")) {
@@ -503,7 +500,9 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                 getSmJsonData(msg.getStr());
             } else if (requestId == 2) {
                 getAddState(msg.getStr());
-            } else {
+            } else if (requestId == 3) {
+                getShopNumData(msg.getStr());
+            }  else {
                 T.ss("参数ID错误");
             }
         } else {
@@ -517,6 +516,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             int status = object.optInt("status");
             if (status == 1) {
                 T.ss("添加至购物车成功");
+                scrollView.invalidate();
                 imageAdd.startAnimation(animationSet);
             }
             else {
@@ -794,5 +794,45 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         mAdView.stopImageTimerTask();
         imageLoader.clearMemoryCache();
         System.gc();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (LSharePreference.getInstance(this).getBoolean("login")) {
+            getShopNum();
+        }
+    }
+    public void getShopNum() {
+        String url = getResources().getString(R.string.app_service_url) + "/huihao/cart/statistics/1/sign/aggregation/";
+        ActivityHandler handler = new ActivityHandler(Product_details.this);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("uuid", Token.get(this));
+        LReqEntity entity = new LReqEntity(url, map);
+        handler.startLoadingData(entity, 3);
+    }
+    private void getShopNumData(String str) {
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            int status=jsonObject.optInt("status");
+            if(status==1){
+                String num=jsonObject.optString("total_num");
+                this.num=Integer.parseInt(num);
+                if(Integer.parseInt(num)>0&&Integer.parseInt(num)<=99){
+                    btn_num.setVisibility(View.VISIBLE);
+                    btn_num.setText(num);
+                }else if(Integer.parseInt(num)==0){
+                    btn_num.setVisibility(View.GONE);
+                }else if(Integer.parseInt(num)>99){
+                    btn_num.setVisibility(View.VISIBLE);
+                    btn_num.setText("99");
+                }
+            }else {
+                T.ss("返回状态失败");
+            }
+        }
+        catch(Exception e){
+            T.ss("数据解析失败");
+        }
     }
 }

@@ -347,8 +347,6 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         mController.setShareMedia(qzone);
         mController.setShareMedia(weixinContent);
 
-
-
         mController.getConfig().removePlatform( SHARE_MEDIA.SINA);
         mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
 
