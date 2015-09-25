@@ -118,7 +118,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
 
     private void Tsum() {
 
-        adapter = new HorizontalSlideAdapter(getActivity(), list, listview);
+        adapter = new HorizontalSlideAdapter(getActivity(), list, listview,rl_gshops,rl_shops);
 
         adapter.setOnNumChangeListener(new HorizontalSlideAdapter.OnNumChangeListener() {
 
@@ -140,11 +140,17 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
 
                 tv_all_money.setText(a - jiage + "");
 
+
+
+
             }
+
 
         });
 
         listview.setAdapter(adapter);
+
+
 
         cb_all_cbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

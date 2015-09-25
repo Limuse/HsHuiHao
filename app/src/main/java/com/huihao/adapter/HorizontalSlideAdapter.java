@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huihao.MyApplication;
@@ -64,11 +65,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
      * 布局参数,动态让HorizontalScrollView中的TextView宽度包裹父容器
      */
     private LinearLayout.LayoutParams mParams;
-
+    private RelativeLayout ral,ral2;
     private int ts = 0;
 
     private SlideListView2 listView;
-
+    private int ss = 1;
     /**
      * 回调函数
      */
@@ -87,10 +88,12 @@ public class HorizontalSlideAdapter extends BaseAdapter {
         this.onNumChangeListener = onNumChangeListener;
     }
 
-    public HorizontalSlideAdapter(Context context, List<ShopItemEntity> entity, SlideListView2 listView) {
+    public HorizontalSlideAdapter(Context context, List<ShopItemEntity> entity, SlideListView2 listView, RelativeLayout rel,RelativeLayout rel2) {
         this.context = context;
         this.entity = entity;
         this.listView = listView;
+        this.ral=rel;
+        this.ral2=ral2;
         // 获得到屏幕宽度
         Display defaultDisplay = ((Activity) context).getWindowManager()
                 .getDefaultDisplay();
@@ -318,8 +321,8 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
 
                     if (entity1.isCheck()) {
-                        listName.remove(datas.getSpecid());
-                        listNum.remove(num+"");
+                        listName.add(datas.getSpecid());
+                        listNum.add(num + "");
                         onNumChangeListener.OnNumJianChange(jiage);
                     }
                 }
@@ -375,97 +378,12 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
             }
         });
-//        holder.ly_match.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(final View vs) {
-//
-//                final CustomDialog alertDialog = new CustomDialog.Builder(context).
-//                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                ts=1;
-//                                view = vs;
-//                                ids = datas.getId();
-//                                Danjia = datas.getDanjia();
-//                                task = new TakeAsyncTask();
-//                                task.execute();
-//                                notifyDataSetChanged();
-//                                dialog.dismiss();
-//                            }
-//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                }).create();
-//                alertDialog.show();
-//                return true;
-//            }
-//        });
-
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, final View views,final int positions, long id) {
-//              L.e("111111111111111");
-//                final CustomDialog alertDialog = new CustomDialog.Builder(context).
-//                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                ShopItemEntity datass = entity.get(positions);
-//                                ts=1;
-//                                view = views;
-//                                ids = datass.getId();
-//                                Danjia = datass.getDanjia();
-//                                task = new TakeAsyncTask();
-//                                task.execute();
-//                                notifyDataSetChanged();
-//                                dialog.dismiss();
-//                            }
-//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                }).create();
-//                alertDialog.show();
-//                return false;
-//            }
-//        });
-//        holder.views.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(final View vs) {
-//                final CustomDialog alertDialog = new CustomDialog.Builder(context).
-//                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                ts = 1;
-//                                view = vs;
-//                                ids = datas.getId();
-//                                Danjia = datas.getDanjia();
-//                                task = new TakeAsyncTask();
-//                                task.execute();
-//                                notifyDataSetChanged();
-//                                dialog.dismiss();
-//                            }
-//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                }).create();
-//                alertDialog.show();
-//                return true;
-//            }
-//        });
         return convertView;
     }
 
     public String getRname() {
         String rName = "";
-        if (listName.size() < 1) {
+        if (listName.size() == 0) {
             rName = null;
             return rName;
         } else {
@@ -541,7 +459,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             this.cb_checkb = (CheckBox) view.findViewById(R.id.cb_item_checkbox);
             this.tv_tt = (TextView) view.findViewById(R.id.tv_tt);
             tv_tt.setTag(et_num);
-           // views.setTag(tv_tt);
+            // views.setTag(tv_tt);
             tv_money.setTag(tv_tt);
             btn_add.setTag(tv_tt);
             btn_Redc.setTag(tv_tt);
@@ -618,6 +536,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
                         listView.slideBack();
                     }
                     notifyDataSetChanged();
+                    if (entity.size() < 1) {
+                        ral2.setVisibility(View.GONE);
+                        ral.setVisibility(View.VISIBLE);
+                    }
+
                 } else {
                     T.ss("数据删除失败");
                 }
@@ -628,6 +551,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
         }
     }
+
 
 
     public interface OnNumChangeListener {

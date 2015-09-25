@@ -83,8 +83,6 @@ public class Fragment_reserve extends LFragment {
 
     private void initData() {
 //t 订单状态（1未付款2待发货3待收货，不传则表示全部订单）
-        list.clear();
-
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/orders/1/sign/aggregation/?t=2&uuid=" + Token.get(getActivity());
@@ -93,14 +91,13 @@ public class Fragment_reserve extends LFragment {
         handler.startLoadingData(entity, 1);
 
     }
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if(isVisibleToUser){
-//            list.clear();
-//            initData();
-//        }
-//    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            initData();
+        }
+    }
 
 
 
@@ -117,7 +114,7 @@ public class Fragment_reserve extends LFragment {
     }
 
     private void getJsonSubmit(String data) {
-
+        list.clear();
         try {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
