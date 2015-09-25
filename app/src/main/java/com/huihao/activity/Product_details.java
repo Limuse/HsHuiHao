@@ -199,8 +199,8 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
 
     public void shopcart(View v) {
         if (MyApplication.isLogin(Product_details.this)) {
-            Intent intent = new Intent(Product_details.this, ShopActivity.class);
-            startActivity(intent);
+            LSharePreference.getInstance(this).setBoolean("isSwitchS",true);
+            finish();
         }
     }
 

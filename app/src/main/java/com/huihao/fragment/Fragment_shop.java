@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -94,8 +95,6 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         }
         initView();
         initData();
-
-
     }
 
 
@@ -320,9 +319,10 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
 //            }
 //        }
         if (v == btn_go) {
-            Intent intent = new Intent(getActivity(), HomeMain.class);
-            startActivity(intent);
-            getActivity().finish();
+//            Intent intent = new Intent(getActivity(), HomeMain.class);
+//            startActivity(intent);
+//            getActivity().finish();
+            HomeMain.context.switchM();
         }
         /**
          * 点击结算
@@ -343,10 +343,6 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                 intent.putExtra("spec_num", spec_num);
                 getActivity().startActivity(intent);
             }
-
-
         }
     }
-
-
 }

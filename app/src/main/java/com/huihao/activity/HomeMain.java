@@ -99,10 +99,10 @@ public class HomeMain extends LActivity {
     @InjectView(R.id.main_view)
     LinearLayout linearLayout;
 
-    private Fragment_main fragment_main;
-    private Fragment_shop fragment_shop;
-    private Fragment_my fragment_my;
-    private Fragment_story fragment_story;
+    public Fragment_main fragment_main;
+    public Fragment_shop fragment_shop;
+    public Fragment_my fragment_my;
+    public Fragment_story fragment_story;
 
     public static final String MAIN = "main";
     public static final String STORY = "story";
@@ -132,7 +132,19 @@ public class HomeMain extends LActivity {
         if (LSharePreference.getInstance(this).getBoolean("login")) {
             getShopNum();
         }
+        if (LSharePreference.getInstance(this).getBoolean("isSwitchS")) {
+            LSharePreference.getInstance(this).setBoolean("isSwitchS", false);
+            if (hideTag.equals(SHOP))
+                return;
+            if (fragment_shop == null) {
+                fragment_shop = new Fragment_shop();
+            }
+            setBg();
+            shop.setBackgroundResource(R.mipmap.shopp);
+            switchFragment(fragment_shop, SHOP);
+        }
     }
+
 
     public void getShopNum() {
         String url = getResources().getString(R.string.app_service_url) + "/huihao/cart/statistics/1/sign/aggregation/";
@@ -159,100 +171,99 @@ public class HomeMain extends LActivity {
     private void getShopNumData(String str) {
         try {
             JSONObject jsonObject = new JSONObject(str);
-            int status=jsonObject.optInt("status");
-            if(status==1){
-                String num=jsonObject.optString("total_num");
-                if(Integer.parseInt(num)>0&&Integer.parseInt(num)<=99){
+            int status = jsonObject.optInt("status");
+            if (status == 1) {
+                String num = jsonObject.optString("total_num");
+                if (Integer.parseInt(num) > 0 && Integer.parseInt(num) <= 99) {
                     shop_num.setVisibility(View.VISIBLE);
                     shop_num.setText(num);
-                }else if(Integer.parseInt(num)==0){
+                } else if (Integer.parseInt(num) == 0) {
                     shop_num.setVisibility(View.GONE);
-                }else if(Integer.parseInt(num)>99){
+                } else if (Integer.parseInt(num) > 99) {
                     shop_num.setVisibility(View.VISIBLE);
                     shop_num.setText("99");
                 }
-            }else {
+            } else {
                 T.ss("返回状态失败");
             }
+        } catch (Exception e) {
+            T.ss("数据解析失败");
         }
-            catch(Exception e){
-                T.ss("数据解析失败");
-            }
-        }
+    }
 
 
-        @OnClick(R.id.relmain)
-        void main () {
-            if (hideTag.equals(MAIN))
+    @OnClick(R.id.relmain)
+    void main() {
+        if (hideTag.equals(MAIN))
+            return;
+        if (fragment_main == null) {
+            fragment_main = new Fragment_main();
+        }
+        setBg();
+
+        main.setBackgroundResource(R.mipmap.mainp);
+        switchFragment(fragment_main, MAIN);
+    }
+
+    @OnClick(R.id.relstory)
+    void story() {
+        if (hideTag.equals(STORY))
+            return;
+        if (fragment_story == null) {
+            fragment_story = new Fragment_story();
+        }
+        setBg();
+        story.setBackgroundResource(R.mipmap.storyp);
+        switchFragment(fragment_story, STORY);
+
+        linearLayout.setFitsSystemWindows(true);
+        linearLayout.setClipToPadding(true);
+    }
+
+    @OnClick(R.id.relshop)
+    void shop() {
+        if (MyApplication.isLogin(HomeMain.this)) {
+            if (hideTag.equals(SHOP))
                 return;
-            if (fragment_main == null) {
-                fragment_main = new Fragment_main();
+            if (fragment_shop == null) {
+                fragment_shop = new Fragment_shop();
             }
             setBg();
+            shop.setBackgroundResource(R.mipmap.shopp);
+            switchFragment(fragment_shop, SHOP);
+        }
+    }
 
-            main.setBackgroundResource(R.mipmap.mainp);
-            switchFragment(fragment_main, MAIN);
+
+    private class AscTest extends AsyncTask<String, Intent, String> {
+        protected String doInBackground(String... params) {
+            return null;
         }
 
-        @OnClick(R.id.relstory)
-        void story () {
-            if (hideTag.equals(STORY))
-                return;
-            if (fragment_story == null) {
-                fragment_story = new Fragment_story();
-            }
-            setBg();
-            story.setBackgroundResource(R.mipmap.storyp);
-            switchFragment(fragment_story, STORY);
-
-            linearLayout.setFitsSystemWindows(true);
-            linearLayout.setClipToPadding(true);
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
         }
 
-        @OnClick(R.id.relshop)
-        void shop () {
-            if (MyApplication.isLogin(HomeMain.this)) {
-                if (hideTag.equals(SHOP))
-                    return;
-                if (fragment_shop == null) {
-                    fragment_shop = new Fragment_shop();
-                }
-                setBg();
-                shop.setBackgroundResource(R.mipmap.shopp);
-                switchFragment(fragment_shop, SHOP);
-            }
+        @Override
+        protected void onProgressUpdate(Intent... values) {
+            super.onProgressUpdate(values);
         }
+    }
 
-
-        private class AscTest extends AsyncTask<String, Intent, String> {
-            protected String doInBackground(String... params) {
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-            }
-
-            @Override
-            protected void onProgressUpdate(Intent... values) {
-                super.onProgressUpdate(values);
-            }
+    @OnClick(R.id.relmy)
+    void my() {
+        if (hideTag.equals(MY))
+            return;
+        if (fragment_my == null) {
+            fragment_my = new Fragment_my();
         }
+        setBg();
 
-        @OnClick(R.id.relmy)
-        void my () {
-            if (hideTag.equals(MY))
-                return;
-            if (fragment_my == null) {
-                fragment_my = new Fragment_my();
-            }
-            setBg();
+        my.setBackgroundResource(R.mipmap.myp);
+        switchFragment(fragment_my, MY);
 
-            my.setBackgroundResource(R.mipmap.myp);
-            switchFragment(fragment_my, MY);
-
-        }
+    }
 
     public void setBg() {
         main.setBackgroundResource(R.mipmap.mainn);
@@ -267,7 +278,7 @@ public class HomeMain extends LActivity {
         switchFragment(fragment_main, MAIN);
     }
 
-    private void switchFragment(Fragment fragment, String tag) {
+    public void switchFragment(Fragment fragment, String tag) {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
 
@@ -313,5 +324,17 @@ public class HomeMain extends LActivity {
             finish();
             System.exit(0);
         }
+    }
+
+    public void switchM() {
+        if (hideTag.equals(MAIN))
+            return;
+        if (fragment_main == null) {
+            fragment_main = new Fragment_main();
+        }
+        setBg();
+
+        main.setBackgroundResource(R.mipmap.mainp);
+        switchFragment(fragment_main, MAIN);
     }
 }
