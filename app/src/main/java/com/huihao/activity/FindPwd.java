@@ -1,6 +1,7 @@
 package com.huihao.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,11 +16,14 @@ import com.huihao.common.Bar;
 import com.huihao.R;
 import com.huihao.common.Log;
 import com.huihao.common.UntilList;
+import com.huihao.custom.ImageDialog;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
 import com.leo.base.util.T;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +33,7 @@ import java.util.Map;
  */
 public class FindPwd extends LActivity {
     private int isEye = 0;
-    private EditText et_user, et_pwd;
+    private EditText et_user, et_pwd, et_code;
     private Button btn_look, btn_send1, btn_send2, btn_ok;
     private boolean flag = true;
     private int time = 60;
@@ -43,6 +47,7 @@ public class FindPwd extends LActivity {
     }
 
     private void initView() {
+        et_code = (EditText) findViewById(R.id.et_code);
         et_user = (EditText) findViewById(R.id.et_user);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
         btn_look = (Button) findViewById(R.id.btn_look);
@@ -100,11 +105,27 @@ public class FindPwd extends LActivity {
             if (requestId == 1) {
                 getCode(msg.getStr());
             } else if (requestId == 2) {
+                reg(msg.getStr());
             } else {
                 T.ss("参数ID错误");
             }
         } else {
             T.ss("数据获取失败");
+        }
+    }
+
+    public void reg(String str) {
+        try {
+            JSONObject info = new JSONObject(str);
+            int status = info.optInt("status");
+            if (status == 1) {
+                T.ss("修改成功");
+                finish();
+            } else {
+                T.ss(info.opt("info").toString());
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -114,7 +135,29 @@ public class FindPwd extends LActivity {
 
 
     public void ok(View v) {
-        finish();
+
+        if (!UntilList.isPhone(et_user.getText().toString().trim())) {
+            T.ss("请输入正确的手机号码");
+            return;
+        }
+
+        if (!(et_code.getText().toString().length() > 0)) {
+            T.ss("请输入验证码");
+            return;
+        }
+
+        if (!(et_pwd.getText().toString().length() > 0)) {
+            T.ss("请输入密码");
+            return;
+        }
+        ActivityHandler handler = new ActivityHandler(this);
+        String url = getResources().getString(R.string.app_service_url) + "/huihao/register/amendpsd/1/sign/aggregation/";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("mobile", et_user.getText().toString().trim());
+        map.put("captcha", et_code.getText().toString().trim());
+        map.put("password", et_pwd.getText().toString().trim());
+        LReqEntity entity = new LReqEntity(url, map);
+        handler.startLoadingData(entity, 2);
     }
 
     public void getTime() {

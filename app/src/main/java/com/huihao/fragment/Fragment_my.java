@@ -46,7 +46,6 @@ import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.media.QZoneShareContent;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
-import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
@@ -299,7 +298,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     }
 
     public void share() {
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+//        mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
         String appID = "wxe5749e0e8d40f5aa";
         String appSecret = "47eb904d7b88e62ad66287cbc6924daf";
@@ -341,13 +340,18 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         qqShareContent.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
         mController.setShareMedia(qqShareContent);
         QZoneShareContent qzone = new QZoneShareContent();
-
         qzone.setShareContent("汇好");
         qzone.setTargetUrl("http://ihuihao.cn/index.html");
         qzone.setTitle("汇好,汇聚天下好产品！");
         qzone.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
         mController.setShareMedia(qzone);
         mController.setShareMedia(weixinContent);
+
+
+
+        mController.getConfig().removePlatform( SHARE_MEDIA.SINA);
+        mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
+
         mController.openShare(getActivity(), false);
     }
 

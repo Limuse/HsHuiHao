@@ -5,10 +5,10 @@
     android:background="@color/app_white"
     android:orientation="vertical">
 
-    <com.huihao.custom.NoScrollListview
+    <ListView
         android:id="@+id/lv_product"
         android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ></com.huihao.custom.NoScrollListview>
+        ></ListView>
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -11,9 +12,11 @@ import android.widget.ListView;
 import com.huihao.R;
 import com.huihao.activity.Product_details;
 import com.huihao.adapter.ProductInfoImageAda;
+import com.huihao.common.Log;
 import com.huihao.common.UntilList;
 import com.huihao.custom.NoScrollListview;
 import com.leo.base.activity.fragment.LFragment;
+import com.leo.base.util.L;
 import com.leo.base.util.LSharePreference;
 
 import java.util.ArrayList;
@@ -26,9 +29,10 @@ import java.util.Map;
 
 public class Fragment_Product_info extends LFragment {
     private View parentView;
-    private NoScrollListview listView;
+    private ListView listView;
     public static Fragment_Product_info context;
     private static ProductInfoImageAda imageAda;
+    private int _start_index, _end_index;
 
     private List<Map<String, String>> mlist = new ArrayList<Map<String, String>>();
 
@@ -53,21 +57,11 @@ public class Fragment_Product_info extends LFragment {
     public void InitData(List<Map<String, String>> list) {
         this.mlist = list;
         imageAda = new ProductInfoImageAda(getActivity(), mlist);
-        LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) listView.getLayoutParams();
-//        linearParams.height =  UntilList.getWindosW(getActivity())/ Product_details.WcH*mlist.size();
-        listView.setLayoutParams(linearParams);
-        listView.setFocusable(false);
         listView.setAdapter(imageAda);
-//        setListViewHeight();
-//        Product_details.context.setPageH();
-    }
-
-    public void setListViewHeight() {
-        setListViewHeightBasedOnChildren(listView);
     }
 
     private void initView() {
-        listView = (NoScrollListview) parentView.findViewById(R.id.lv_product);
+        listView = (ListView) parentView.findViewById(R.id.lv_product);
     }
 
     public static void AdaNotif() {

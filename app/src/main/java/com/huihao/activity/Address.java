@@ -1,8 +1,6 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
@@ -12,12 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.huihao.R;
 import com.huihao.adapter.AddressHoriSliseAdapter;
@@ -25,12 +20,10 @@ import com.huihao.common.SystemBarTintManager;
 import com.huihao.common.Token;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.AddressItemEntity;
-import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
-import com.leo.base.util.L;
 import com.leo.base.util.T;
 
 import org.json.JSONArray;
@@ -51,6 +44,7 @@ public class Address extends LActivity implements View.OnClickListener {
     private LinearLayout headview;
     private RelativeLayout rl_gaddr, rl_all;
     private Address context;
+    private int status;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -195,4 +189,11 @@ public class Address extends LActivity implements View.OnClickListener {
     }
 
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
 }

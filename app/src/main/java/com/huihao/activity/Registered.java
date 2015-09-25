@@ -29,7 +29,6 @@ import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.media.QZoneShareContent;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
-import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
@@ -229,7 +228,6 @@ public class Registered extends LActivity {
 
 
     public void share() {
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
         String appID = "wxe5749e0e8d40f5aa";
         String appSecret = "47eb904d7b88e62ad66287cbc6924daf";
@@ -278,6 +276,9 @@ public class Registered extends LActivity {
         qzone.setShareImage(new UMImage(this, R.mipmap.logo));
         mController.setShareMedia(qzone);
         mController.setShareMedia(weixinContent);
+
+        mController.getConfig().removePlatform( SHARE_MEDIA.SINA);
+        mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
         mController.openShare(this, false);
     }
 

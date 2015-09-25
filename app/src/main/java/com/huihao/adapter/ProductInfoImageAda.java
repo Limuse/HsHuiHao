@@ -15,6 +15,7 @@ import com.huihao.common.UntilList;
 import com.huihao.fragment.Fragment_Product_info;
 import com.huihao.MyApplication;
 import com.huihao.R;
+import com.leo.base.util.L;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -63,6 +64,7 @@ public class ProductInfoImageAda extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+//        L.e(position+"--");
         final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();

@@ -15,8 +15,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
-
 import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by admin on 2015/6/29.
@@ -50,18 +50,17 @@ public class MyApplication extends LApplication {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .memoryCacheExtraOptions((int)UntilList.getWindosW(this), (int)UntilList.getWindosH(this))
 //                .memoryCacheExtraOptions(UntilList.getWindosW(this)*2, (UntilList.getWindosW(this)/(640/600))) // max width, max height
-                .threadPoolSize(2) //线程池内加载的数量
+                .threadPoolSize(3) //线程池内加载的数量
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator()) //将保存的时候的URI名称用MD5 加密
                 .memoryCache(new WeakMemoryCache()) // You can pass your own memory cache implementation/你可以通过自己的内存缓存实现
-                .memoryCacheSize(10 * 1024 * 1024) // 内存缓存的最大值
+                .memoryCacheSize(50 * 1024 * 1024) // 内存缓存的最大值
                 .diskCacheExtraOptions(640, 600, null)
-                .diskCacheSize(100 * 1024 * 1024)  // 50 Mb sd卡(本地)缓存的最大值
+                        .diskCacheSize(100 * 1024 * 1024)  // 50 Mb sd卡(本地)缓存的最大值
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                         // 由原先的discCache -> diskCache
                 .imageDownloader(new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
-                .writeDebugLogs() // Remove for release app
                 .build();
         setImageLoader(config);
 

@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class Fragment_Product_para extends LFragment {
     private View parentView;
-    private NoScrollListview listView;
+    private ListView listView;
 
     private SimpleAdapter simpleAdapter;
 
@@ -63,9 +63,7 @@ public class Fragment_Product_para extends LFragment {
     public void InitData(List<Map<String, String>> list) {
         this.mlist = list;
         simpleAdapter = new SimpleAdapter(getActivity(), list, R.layout.fragment_product_para_item, new String[]{"title"}, new int[]{R.id.tv_title});
-        listView.setFocusable(false);
         listView.setAdapter(simpleAdapter);
-        simpleAdapter.notifyDataSetChanged();
         setListViewHeight();
     }
 
@@ -74,7 +72,7 @@ public class Fragment_Product_para extends LFragment {
     }
 
     private void initView() {
-        listView = (NoScrollListview) parentView.findViewById(R.id.lv_product);
+        listView = (ListView) parentView.findViewById(R.id.lv_product);
     }
 
     public static Fragment_Product_para newInstance() {

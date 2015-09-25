@@ -47,12 +47,14 @@ import com.huihao.fragment.Fragment_Product_para;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import org.json.JSONArray;
@@ -147,8 +149,9 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
     public static float WcH = 640f / 600f;
 
     private RelativeLayout rel_tag;
-
+    private final static float TARGET_HEAP_UTILIZATION = 0.75f;
     protected void onLCreate(Bundle bundle) {
+
         parentView = getLayoutInflater().inflate(R.layout.activity_product_details, null);
         setContentView(parentView);
         Bar.setWhite(this);
@@ -157,7 +160,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         if (imageLoader == null) {
             imageLoader = MyApplication.getInstance().getImageLoader();
         }
-        options = new DisplayImageOptions.Builder().cacheInMemory(false)
+        options = new DisplayImageOptions.Builder().cacheInMemory(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .build();
@@ -381,7 +384,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         isCanAdd = false;
                         dialog.dismiss();
                         scrollView.invalidate();
-                        imageAdd.startAnimation(animationSet);
                         addForHttp();
                     }
                 }
@@ -395,7 +397,6 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                             isCanAdd = false;
                             dialog.dismiss();
                             scrollView.invalidate();
-                            imageAdd.startAnimation(animationSet);
                             addForHttp();
                         }
                     } else if (OKSTATE.equals("BUY")) {
@@ -452,6 +453,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         map.put("id", spec_id);
         String url = getResources().getString(R.string.app_service_url) + "/huihao/cart/add/1/sign/aggregation/";
         LReqEntity entity = new LReqEntity(url, map);
+        L.e(entity+"");
         ActivityHandler handler = new ActivityHandler(this);
         handler.startLoadingData(entity, 2);
     }
@@ -515,9 +517,14 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
             int status = object.optInt("status");
             if (status == 1) {
                 T.ss("添加至购物车成功");
+                imageAdd.startAnimation(animationSet);
+            }
+            else {
+                T.ss("添加至购物车失败");
+                isCanAdd = true;
             }
         } catch (Exception e) {
-
+            isCanAdd = true;
         }
     }
 
@@ -558,15 +565,15 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     List<String> specList = new ArrayList<String>();
                     Map<String, String> map = new HashMap<String, String>();
                     if (infospec.length() > 0) {
-//
-//                        RelativeLayout.LayoutParams linearParams =  (RelativeLayout.LayoutParams)rel_tag.getLayoutParams();
-//                        linearParams.height = (infospec.length()/2)* UntilList.dip2px(Product_details.this,30);
-//                        rel_tag.setLayoutParams(linearParams);
-                        android.view.ViewGroup.LayoutParams lp = rel_tag.getLayoutParams();
-                        if (infospec.length() > 8) {
-                            lp.height = UntilList.dip2px(Product_details.this, 120);
+
+                        linearParams = (LinearLayout.LayoutParams) tagScroll.getLayoutParams();
+
+                        if (infospec.length() <= 3) {
+                            linearParams.height =UntilList.dip2px(Product_details.this, 40)+(infospec.length())*UntilList.dip2px(Product_details.this, 40)/2;
+                            tagScroll.setLayoutParams(linearParams);
                         } else {
-                            lp.height = (infospec.length() / 2) * UntilList.dip2px(Product_details.this, 30);
+                            linearParams.height = UntilList.dip2px(Product_details.this, 120);
+                            tagScroll.setLayoutParams(linearParams);
                         }
                         for (int i = 0; i < infospec.length(); i++) {
                             map = new HashMap<String, String>();
@@ -601,7 +608,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                         String para = parameter.get(i).toString();
                         if (para.length() > 0) {
                             map.put("title", parameter.get(i).toString());
-                            Fragment_Product_para.addItemH(para.length()/25);
+                            Fragment_Product_para.addItemH(para.length() / 25);
                         }
                         contentList.add(map);
                     }
@@ -655,6 +662,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         intent.putExtra("index", position);
         startActivity(intent);
     }
+
 
     public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
         bgColor.setAlpha(Float.valueOf(y / TabHitht + "f"));

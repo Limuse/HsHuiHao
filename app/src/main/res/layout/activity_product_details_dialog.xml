@@ -115,7 +115,7 @@
         <ScrollView
             android:id="@+id/tag_scroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -246,7 +246,7 @@
                 android:background="@drawable/btn_add"
                 android:gravity="center"
                 android:onClick="add"
-                android:text="加入购入车"
+                android:text="加入购物车"
                 android:textColor="@color/app_orange"
                 android:textSize="18dp" />
         </RelativeLayout>
