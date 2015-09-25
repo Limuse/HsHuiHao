@@ -451,12 +451,12 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                 setDa();//所有消息的条数
             } else {
                 T.ss(jsonObject.getString("info"));
-                String longs = jsonObject.getString("info");
-                if (longs.equals("请先登录")) {
-                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
-                    Intent intent = new Intent(getActivity(), LoginMain.class);
-                    startActivity(intent);
-                }
+//                String longs = jsonObject.getString("info");
+//                if (longs.equals("请先登录")) {
+//                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
+//                    Intent intent = new Intent(getActivity(), LoginMain.class);
+//                    startActivity(intent);
+//                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
