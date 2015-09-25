@@ -331,8 +331,6 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
             /**
              * 跳转到结算的下个页面
              */
-
-
             String spec_id = adapter.getRname();
             String spec_num = adapter.getRnum();
             if (spec_id == null || spec_num == null) {

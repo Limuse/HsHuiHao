@@ -143,6 +143,18 @@ public class HomeMain extends LActivity {
             shop.setBackgroundResource(R.mipmap.shopp);
             switchFragment(fragment_shop, SHOP);
         }
+        if (LSharePreference.getInstance(this).getBoolean("isSwitchM")) {
+            LSharePreference.getInstance(this).setBoolean("isSwitchM", false);
+            if (hideTag.equals(MAIN))
+                return;
+            if (fragment_main == null) {
+                fragment_main = new Fragment_main();
+            }
+            setBg();
+
+            main.setBackgroundResource(R.mipmap.mainp);
+            switchFragment(fragment_main, MAIN);
+        }
     }
 
 
