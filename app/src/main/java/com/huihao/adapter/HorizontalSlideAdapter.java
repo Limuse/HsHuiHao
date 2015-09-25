@@ -319,7 +319,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
                     if (entity1.isCheck()) {
                         listName.remove(datas.getSpecid());
-                        listNum.remove(num + "");
+                        listNum.remove(num+"");
                         onNumChangeListener.OnNumJianChange(jiage);
                     }
                 }
@@ -404,35 +404,35 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 //            }
 //        });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, final View views,final int positions, long id) {
-              L.e("111111111111111");
-                final CustomDialog alertDialog = new CustomDialog.Builder(context).
-                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ShopItemEntity datass = entity.get(positions);
-                                ts=1;
-                                view = views;
-                                ids = datass.getId();
-                                Danjia = datass.getDanjia();
-                                task = new TakeAsyncTask();
-                                task.execute();
-                                notifyDataSetChanged();
-                                dialog.dismiss();
-                            }
-                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).create();
-                alertDialog.show();
-                return false;
-            }
-        });
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, final View views,final int positions, long id) {
+//              L.e("111111111111111");
+//                final CustomDialog alertDialog = new CustomDialog.Builder(context).
+//                        setMessage("您确定删除这项吗？").setNegativeButton("确定",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                ShopItemEntity datass = entity.get(positions);
+//                                ts=1;
+//                                view = views;
+//                                ids = datass.getId();
+//                                Danjia = datass.getDanjia();
+//                                task = new TakeAsyncTask();
+//                                task.execute();
+//                                notifyDataSetChanged();
+//                                dialog.dismiss();
+//                            }
+//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                }).create();
+//                alertDialog.show();
+//                return false;
+//            }
+//        });
 //        holder.views.setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override
 //            public boolean onLongClick(final View vs) {
@@ -481,7 +481,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
     public String getRnum() {
         String rNum = "";
-        if (listNum.size() < 1) {
+        if (listNum.size() == 0) {
             rNum = null;
             return rNum;
         } else {

@@ -87,11 +87,10 @@ public class Fragment_pay_money extends LFragment {
         btn_gsas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), HomeMain.class);
-                getActivity().startActivity(intent);
+                LSharePreference.getInstance(getActivity()).setBoolean("isSwitchM", true);
                 getActivity().finish();
-                All_Orders.instance.finish();
-                Fragment_my.instance.getActivity().finish();
+//                All_Orders.instance.finish();
+//                Fragment_my.instance.getActivity().finish();
 
             }
         });
@@ -109,13 +108,15 @@ public class Fragment_pay_money extends LFragment {
         handler.startLoadingData(entity, 1);
 
     }
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
-            initData();
-        }
-    }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+//            list.clear();
+//            initData();
+//        }
+//    }
 
 
     // 返回获取的网络数据
@@ -179,12 +180,12 @@ public class Fragment_pay_money extends LFragment {
             } else {
 
                 T.ss(jsonObject.getString("info").toString());
-                String longs=jsonObject.getString("info");
-                if(longs.equals("请先登录")){
-                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
-                    Intent intent = new Intent(getActivity(), LoginMain.class);
-                    startActivity(intent);
-                }
+//                String longs=jsonObject.getString("info");
+//                if(longs.equals("请先登录")){
+//                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
+//                    Intent intent = new Intent(getActivity(), LoginMain.class);
+//                    startActivity(intent);
+//                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

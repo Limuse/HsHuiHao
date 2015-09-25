@@ -359,6 +359,8 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        LSharePreference.getInstance(getActivity()).getBoolean("login");
+
         Data();
     }
 
@@ -368,7 +370,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/member/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-        L.e(url + "");
+        //L.e(url + "");
         FragmentHandler handler = new FragmentHandler(Fragment_my.this);
         handler.startLoadingData(entity, 1);
 
@@ -435,10 +437,14 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                 LSharePreference.getInstance(getActivity())
                         .setString("accountname", names);
                 String conncode = jt.getString("connCode").toString();
-                if (conncode.equals("")) {
+                if(jt.has("connCode")){
+                    if (conncode.equals("")) {
+                        LSharePreference.getInstance(getActivity()).setString("conncode", "");
+                    } else {
+                        LSharePreference.getInstance(getActivity()).setString("conncode", conncode);
+                    }
+                }else{
                     LSharePreference.getInstance(getActivity()).setString("conncode", "");
-                } else {
-                    LSharePreference.getInstance(getActivity()).setString("conncode", conncode);
                 }
                 if (jt.has("agent_num")) {
                     String agent_num = jt.getString("agent_num");
@@ -451,12 +457,20 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                 setDa();//所有消息的条数
             } else {
                 T.ss(jsonObject.getString("info"));
-//                String longs = jsonObject.getString("info");
-//                if (longs.equals("请先登录")) {
+                String longs = jsonObject.getString("info");
+                if (longs.equals("请先登录")) {
 //                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
 //                    Intent intent = new Intent(getActivity(), LoginMain.class);
 //                    startActivity(intent);
-//                }
+                    myself_image.setImageDrawable(getResources().getDrawable(R.mipmap.title_img));
+                    tv_1.setText(null);
+                    tv_2.setText(null);
+                    tv_3.setText(null);
+                    tv_1.setVisibility(View.GONE);
+                    tv_2.setVisibility(View.GONE);
+                    tv_3.setVisibility(View.GONE);
+                    img_n.setVisibility(View.GONE);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

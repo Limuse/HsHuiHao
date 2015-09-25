@@ -94,7 +94,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
             initView();
             initDialog(view);
             sdnum = LSharePreference.getInstance(this).getString("conncode");
-            if (sdnum.equals("")) {
+            if (sdnum=="") {
                 flg = false;
             } else {
                 tv_num.setText(sdnum);

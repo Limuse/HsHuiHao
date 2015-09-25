@@ -110,12 +110,14 @@ public class Fragment_MoneyNews extends LFragment {
                 listView.setAdapter(adapter);
             }  }else {
                 T.ss(jsonObject.getString("info"));
-                String longs=jsonObject.getString("info");
-                if(longs.equals("请先登录")){
-                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
-                    Intent intent = new Intent(getActivity(), LoginMain.class);
-                    startActivity(intent);
-                }
+//                String longs=jsonObject.getString("info");
+//                if(longs.equals("请先登录")){
+//                    LSharePreference.getInstance(getActivity()).setBoolean("login", false);
+//                    Intent intent = new Intent(getActivity(), LoginMain.class);
+//                    startActivity(intent);
+//                }
+                rl_newwss.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
             }
         } catch (JSONException e) {
             e.printStackTrace();

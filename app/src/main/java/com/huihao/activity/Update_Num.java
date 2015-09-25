@@ -90,7 +90,7 @@ public class Update_Num extends LActivity {
 
         et_Upnum = (EditText) findViewById(R.id.et_please_num);
         num = LSharePreference.getInstance(this).getString("conncode");
-        if (num.equals("")) {
+        if (num=="") {
             et_Upnum.setHint("请输入优惠码");
         } else {
             flg=false;
