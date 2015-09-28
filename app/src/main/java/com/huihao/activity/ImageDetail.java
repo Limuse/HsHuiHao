@@ -66,7 +66,6 @@ public class ImageDetail extends Activity implements View.OnClickListener {
         imageLoader = ImageLoader.getInstance();
         imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisc(true)
                 .build();
-
         tv_imgPostion.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG );
         tv_imgPostion.getPaint().setAntiAlias(true);
 

@@ -1,5 +1,6 @@
 package com.huihao.activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,12 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.huihao.MyApplication;
 import com.huihao.R;
 import com.huihao.common.Bar;
 import com.huihao.common.Log;
+import com.huihao.common.Token;
 import com.huihao.common.UntilList;
 import com.huihao.custom.ImageDialog;
 import com.huihao.handle.ActivityHandler;
+import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
@@ -35,9 +39,12 @@ import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,6 +58,7 @@ public class Registered extends LActivity {
     private int time = 60;
     private String code;
     private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+    private Map<String, String> shareMap = new HashMap<String, String>();
     protected void onLCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_registered);
         initBar();
@@ -115,21 +123,42 @@ public class Registered extends LActivity {
                 getCode(msg.getStr());
             } else if (requestId == 2) {
                 reg(msg.getStr());
-            } else {
+            }
+            else if (requestId ==3) {
+                getOrdersData(msg.getStr());
+            }
+            else {
                 T.ss("参数ID错误");
             }
         } else {
             T.ss("数据获取失败");
         }
     }
-
-    public void reg(String str) {
+    private void getOrdersData(String data) {
+        Log.e(data);
         try {
-            JSONObject info = new JSONObject(str);
-            int status = info.optInt("status");
-            if (status == 1) {
-                T.ss("注册成功");
-                ImageDialog dialog = new ImageDialog.Builder(this).setImage(R.mipmap.dialog_logo).setMessage("30").setInfo("20", "10").setPositiveButton("暂不分享", new DialogInterface.OnClickListener() {
+            JSONObject jsonObject = new JSONObject(data);
+            if (jsonObject.optInt("status") == 1) {
+                JSONObject list = jsonObject.getJSONObject("list");
+
+                JSONObject share_info = list.getJSONObject("share_info");
+                shareMap.put("id", share_info.opt("id").toString());
+                shareMap.put("title", share_info.opt("title").toString());
+                shareMap.put("link", share_info.opt("link").toString());
+                shareMap.put("content", share_info.opt("content").toString());
+                shareMap.put("add_time", share_info.opt("add_time").toString());
+
+
+                JSONArray coupon_list = list.getJSONArray("coupon_list");
+                List<Map<String, String>> clist = new ArrayList<Map<String, String>>();
+                for (int i = 0; i < coupon_list.length(); i++) {
+                    JSONObject item = coupon_list.optJSONObject(i);
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("id", item.opt("id").toString());
+                    map.put("money", item.opt("money").toString());
+                    clist.add(map);
+                }
+                ImageDialog dialog = new ImageDialog.Builder(Registered.this).setImage(R.mipmap.dialog_logo).setMessage(clist.get(1).get("money")).setInfo(clist.get(0).get("money"), clist.get(1).get("money")).setPositiveButton("暂不分享", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         finish();
@@ -141,6 +170,26 @@ public class Registered extends LActivity {
                     }
                 }).create();
                 dialog.show();
+            }
+        } catch (Exception e) {
+            T.ss("分享信息解析失败");
+        }
+    }
+
+    public void reg(String str) {
+        try {
+            JSONObject info = new JSONObject(str);
+            int status = info.optInt("status");
+            if (status == 1) {
+                T.ss("注册成功");
+                if (MyApplication.isLogin(Registered.this)) {
+                    String url = getResources().getString(R.string.app_service_url) + "/huihao/orders/denomination/1/sign/aggregation/";
+                   ActivityHandler handler = new ActivityHandler(Registered.this);
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("uuid", Token.get(Registered.this));
+                    LReqEntity entity = new LReqEntity(url, map);
+                    handler.startLoadingData(entity, 3);
+                }
             } else {
                 T.ss(info.opt("info").toString());
             }
@@ -228,58 +277,59 @@ public class Registered extends LActivity {
 
 
     public void share() {
+//        mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
         String appID = "wxe5749e0e8d40f5aa";
         String appSecret = "47eb904d7b88e62ad66287cbc6924daf";
-        UMWXHandler umwxHandler = new UMWXHandler(this, appID,
+        UMWXHandler umwxHandler = new UMWXHandler(Registered.this, appID,
                 appSecret);
         umwxHandler.addToSocialSDK();
 
-        UMWXHandler wxCircleHandler = new UMWXHandler(this, appID,
+        UMWXHandler wxCircleHandler = new UMWXHandler(Registered.this, appID,
                 appSecret);
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.addToSocialSDK();
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "100424468",
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(Registered.this, "100424468",
                 "c7394704798a158208a74ab60104f0ba");
         qqSsoHandler.addToSocialSDK();
 
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(Registered.this, "100424468",
                 "c7394704798a158208a74ab60104f0ba");
         qZoneSsoHandler.addToSocialSDK();
 
         WeiXinShareContent weixinContent = new WeiXinShareContent();
 
-        weixinContent.setShareContent("汇好");
-        weixinContent.setTitle("汇好,汇聚天下好产品！");
-        weixinContent.setTargetUrl("http://ihuihao.cn/index.html");
-        weixinContent.setShareImage(new UMImage(this, R.mipmap.logo));
+        weixinContent.setShareContent(shareMap.get("content"));
+        weixinContent.setTitle(shareMap.get("title"));
+        weixinContent.setTargetUrl(shareMap.get("link"));
+        weixinContent.setShareImage(new UMImage(Registered.this, R.mipmap.logo));
 
         CircleShareContent circleMedia = new CircleShareContent();
-        circleMedia.setShareContent("汇好");
+        circleMedia.setShareContent(shareMap.get("content"));
 
-        circleMedia.setTitle("汇好,汇聚天下好产品！");
-        circleMedia.setTargetUrl("http://ihuihao.cn/index.html");
-        circleMedia.setShareImage(new UMImage(this, R.mipmap.logo));
+        circleMedia.setTitle(shareMap.get("title"));
+        circleMedia.setTargetUrl(shareMap.get("link"));
+        circleMedia.setShareImage(new UMImage(Registered.this, R.mipmap.logo));
         mController.setShareMedia(circleMedia);
         QQShareContent qqShareContent = new QQShareContent();
 
-        qqShareContent.setShareContent("汇好");
-        qqShareContent.setTitle("汇好,汇聚天下好产品！");
-        qqShareContent.setTargetUrl("http://ihuihao.cn/index.html");
-        qqShareContent.setShareImage(new UMImage(this, R.mipmap.logo));
+        qqShareContent.setShareContent(shareMap.get("content"));
+        qqShareContent.setTitle(shareMap.get("title"));
+        qqShareContent.setTargetUrl(shareMap.get("link"));
+        qqShareContent.setShareImage(new UMImage(Registered.this, R.mipmap.logo));
         mController.setShareMedia(qqShareContent);
         QZoneShareContent qzone = new QZoneShareContent();
-
-        qzone.setShareContent("汇好");
-        qzone.setTargetUrl("http://ihuihao.cn/index.html");
-        qzone.setTitle("汇好,汇聚天下好产品！");
-        qzone.setShareImage(new UMImage(this, R.mipmap.logo));
+        qzone.setShareContent(shareMap.get("content"));
+        qzone.setTargetUrl(shareMap.get("link"));
+        qzone.setTitle(shareMap.get("title"));
+        qzone.setShareImage(new UMImage(Registered.this, R.mipmap.logo));
         mController.setShareMedia(qzone);
         mController.setShareMedia(weixinContent);
 
-        mController.getConfig().removePlatform( SHARE_MEDIA.SINA);
+        mController.getConfig().removePlatform(SHARE_MEDIA.SINA);
         mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
-        mController.openShare(this, false);
+
+        mController.openShare(Registered.this, false);
     }
 
 

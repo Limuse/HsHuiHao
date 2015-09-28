@@ -476,7 +476,9 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
                     linearParams.height = PageHight;
                     viewPager.setLayoutParams(linearParams);
                 }
+                scrollView.setScrollY((int)TabHitht);
             }
+
 
             public void onPageScrollStateChanged(int state) {
 

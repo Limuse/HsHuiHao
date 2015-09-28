@@ -105,9 +105,9 @@ public class Story_details extends LActivity {
     }
 
     private void initData() {
-        Intent intent=getIntent();
-        pageId=intent.getStringExtra("id");
-        String url = getResources().getString(R.string.app_service_url) + "/huihao/product/specialdetail/1/sign/aggregation/?id="+pageId;
+        Intent intent = getIntent();
+        pageId = intent.getStringExtra("id");
+        String url = getResources().getString(R.string.app_service_url) + "/huihao/product/specialdetail/1/sign/aggregation/?id=" + pageId;
         Log.e(url);
         ActivityHandler handler = new ActivityHandler(this);
         LReqEntity entity = new LReqEntity(url);
@@ -203,8 +203,9 @@ public class Story_details extends LActivity {
 
                                                          if (dx > windosWidth / 2) {
                                                              Intent intent = new Intent(Story_details.this, Product_details.class);
-                                                             intent.putExtra("id",pageId);
+                                                             intent.putExtra("id", pageId);
                                                              startActivity(intent);
+                                                             finish();
                                                          }
                                                          break;
                                                      }
@@ -235,6 +236,7 @@ public class Story_details extends LActivity {
             return fragmentList.size();
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

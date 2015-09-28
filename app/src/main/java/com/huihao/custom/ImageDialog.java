@@ -44,7 +44,7 @@ public class ImageDialog extends Dialog {
         }
 
         public Builder setMessage(String message) {
-            this.message = "恭喜你获得了<font color='#ff4400'>"+message+"</font>元优惠券";
+            this.message = "邀请新伙伴 立得<font color='#ff4400'>"+message+"</font>元";
             return this;
         }
         public Builder setMessage(int message) {

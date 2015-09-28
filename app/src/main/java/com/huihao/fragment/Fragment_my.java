@@ -1,8 +1,10 @@
 package com.huihao.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +28,9 @@ import com.huihao.activity.PersonSet;
 import com.huihao.activity.Rebate;
 import com.huihao.activity.Update_Num;
 import com.huihao.common.CircleBitmapDisplayer;
+import com.huihao.common.Log;
 import com.huihao.common.Token;
+import com.huihao.custom.ImageDialog;
 import com.huihao.entity.MyEntiy;
 import com.huihao.entity.UsErId;
 import com.huihao.handle.ActivityHandler;
@@ -82,6 +86,9 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
     public static Fragment_my instance = null;
     private List<MyEntiy.StatusListEntity> listEntities = new ArrayList<>();
     private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share.");
+
+    private Map<String, String> shareMap = new HashMap<String, String>();
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,7 +267,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         //优惠码
         if (id == R.id.yaoqing) {
             if (MyApplication.isLogin(getActivity())) {
-             String mms=   LSharePreference.getInstance(getActivity()).getString("conncode");
+                String mms = LSharePreference.getInstance(getActivity()).getString("conncode");
                 Intent intent = new Intent(getActivity(), Update_Num.class);
                 getActivity().startActivity(intent);
             }
@@ -269,7 +276,12 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         if (id == R.id.share) {
             //  T.ss("分享");
             if (MyApplication.isLogin(getActivity())) {
-                share();
+                String url = getResources().getString(R.string.app_service_url) + "/huihao/orders/denomination/1/sign/aggregation/";
+                FragmentHandler handler = new FragmentHandler(this);
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("uuid", Token.get(getActivity()));
+                LReqEntity entity = new LReqEntity(url, map);
+                handler.startLoadingData(entity, 2);
             }
 
         }
@@ -322,34 +334,34 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
 
         WeiXinShareContent weixinContent = new WeiXinShareContent();
 
-        weixinContent.setShareContent("汇好");
-        weixinContent.setTitle("汇好,汇聚天下好产品！");
-        weixinContent.setTargetUrl("http://huihao/orders/denomination/1/sign/aggregation/" + Token.get(getActivity()));
+        weixinContent.setShareContent(shareMap.get("content"));
+        weixinContent.setTitle(shareMap.get("title"));
+        weixinContent.setTargetUrl(shareMap.get("link"));
         weixinContent.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
 
         CircleShareContent circleMedia = new CircleShareContent();
-        circleMedia.setShareContent("汇好");
+        circleMedia.setShareContent(shareMap.get("content"));
 
-        circleMedia.setTitle("汇好,汇聚天下好产品！");
-        circleMedia.setTargetUrl("http://huihao/orders/denomination/1/sign/aggregation/" + Token.get(getActivity()));
+        circleMedia.setTitle(shareMap.get("title"));
+        circleMedia.setTargetUrl(shareMap.get("link"));
         circleMedia.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
         mController.setShareMedia(circleMedia);
         QQShareContent qqShareContent = new QQShareContent();
 
-        qqShareContent.setShareContent("汇好");
-        qqShareContent.setTitle("汇好,汇聚天下好产品！");
-        qqShareContent.setTargetUrl("http://huihao/orders/denomination/1/sign/aggregation/" + Token.get(getActivity()));
+        qqShareContent.setShareContent(shareMap.get("content"));
+        qqShareContent.setTitle(shareMap.get("title"));
+        qqShareContent.setTargetUrl(shareMap.get("link"));
         qqShareContent.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
         mController.setShareMedia(qqShareContent);
         QZoneShareContent qzone = new QZoneShareContent();
-        qzone.setShareContent("汇好");
-        qzone.setTargetUrl("http://huihao/orders/denomination/1/sign/aggregation/" + Token.get(getActivity()));
-        qzone.setTitle("汇好,汇聚天下好产品！");
+        qzone.setShareContent(shareMap.get("content"));
+        qzone.setTargetUrl(shareMap.get("link"));
+        qzone.setTitle(shareMap.get("title"));
         qzone.setShareImage(new UMImage(getActivity(), R.mipmap.logo));
         mController.setShareMedia(qzone);
         mController.setShareMedia(weixinContent);
 
-        mController.getConfig().removePlatform( SHARE_MEDIA.SINA);
+        mController.getConfig().removePlatform(SHARE_MEDIA.SINA);
         mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
 
         mController.openShare(getActivity(), false);
@@ -382,9 +394,52 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         if (msg != null) {
             if (requestId == 1) {
                 getJsonData(msg.getStr());
+            } else if (requestId == 2) {
+                getOrdersData(msg.getStr());
             } else {
                 T.ss("获取数据失败");
             }
+        }
+    }
+
+    private void getOrdersData(String data) {
+        Log.e(data);
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            if (jsonObject.optInt("status") == 1) {
+                JSONObject list = jsonObject.getJSONObject("list");
+
+                JSONObject share_info = list.getJSONObject("share_info");
+                shareMap.put("id", share_info.opt("id").toString());
+                shareMap.put("title", share_info.opt("title").toString());
+                shareMap.put("link", share_info.opt("link").toString());
+                shareMap.put("content", share_info.opt("content").toString());
+                shareMap.put("add_time", share_info.opt("add_time").toString());
+
+
+                JSONArray coupon_list = list.getJSONArray("coupon_list");
+                List<Map<String, String>> clist = new ArrayList<Map<String, String>>();
+                for (int i = 0; i < coupon_list.length(); i++) {
+                    JSONObject item = coupon_list.optJSONObject(i);
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("id", item.opt("id").toString());
+                    map.put("money", item.opt("money").toString());
+                    clist.add(map);
+                }
+                ImageDialog dialog = new ImageDialog.Builder(getActivity()).setImage(R.mipmap.dialog_logo).setMessage(clist.get(1).get("money")).setInfo(clist.get(0).get("money"), clist.get(1).get("money")).setPositiveButton("暂不分享", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("现在就去", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        share();
+                        dialog.dismiss();
+                    }
+                }).create();
+                dialog.show();
+            }
+        } catch (Exception e) {
+       T.ss("分享信息解析失败");
         }
     }
 
@@ -437,13 +492,13 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
                 LSharePreference.getInstance(getActivity())
                         .setString("accountname", names);
                 String conncode = jt.getString("connCode").toString();
-                if(jt.has("connCode")){
+                if (jt.has("connCode")) {
                     if (conncode.equals("")) {
                         LSharePreference.getInstance(getActivity()).setString("conncode", "");
                     } else {
                         LSharePreference.getInstance(getActivity()).setString("conncode", conncode);
                     }
-                }else{
+                } else {
                     LSharePreference.getInstance(getActivity()).setString("conncode", "");
                 }
                 if (jt.has("agent_num")) {
