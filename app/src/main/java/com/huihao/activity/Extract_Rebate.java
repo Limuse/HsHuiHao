@@ -89,7 +89,7 @@ public class Extract_Rebate extends LActivity implements View.OnClickListener {
             url = res.getString(R.string.app_service_url)
                     + "/huihao/member/drawcommission/1/sign/aggregation/";
             map.put("uuid", Token.get(this));
-            map.put("Amount", mm);
+            map.put("amount", mm);
         } else if (t.equals("2")) {
             url = res.getString(R.string.app_service_url)
                     + "/huihao/member/drawprofits/1/sign/aggregation/";
@@ -97,6 +97,7 @@ public class Extract_Rebate extends LActivity implements View.OnClickListener {
             map.put("amount", mm);
         }
         LReqEntity entity = new LReqEntity(url, map);
+//        L.e(entity.toString());
         ActivityHandler handler = new ActivityHandler(Extract_Rebate.this);
         handler.startLoadingData(entity, 1);
     }

@@ -141,7 +141,7 @@ public class Fragment_Rebateone extends LFragment implements View.OnClickListene
                     d = 0;
                     numberTextViews.withNumber(0.00f);
                 } else {
-                    d = Integer.parseInt(rests + "");
+                 float   d = Float.parseFloat(rests );
                     numberTextViews.withNumber(d + 0f);
                 }
 

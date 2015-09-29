@@ -106,18 +106,29 @@
                 android:layout_marginBottom="@dimen/app_viewcard"
                 android:background="@drawable/btn_press"
                 android:clickable="true"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/app_myself_left_mar"
-                    android:text="版权信息"
+                    android:text="当前版本号"
                     android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+                <TextView
+                    android:id="@+id/tv_ccnew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/new_ti"
+                    android:text=""
+                    android:textColor="@color/app_text_light"
                     android:textSize="@dimen/app_text_big" />
 
                 <ImageView
+                    android:id="@+id/new_ti"
                     android:layout_width="@dimen/app_myself_right_image"
                     android:layout_height="@dimen/app_myself_right_image"
                     android:layout_alignParentRight="true"
@@ -159,18 +170,29 @@
                 android:layout_marginBottom="@dimen/app_lycard"
                 android:background="@drawable/btn_press"
                 android:clickable="true"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/app_myself_left_mar"
-                    android:text="给我们评分"
+                    android:text="检查更新"
                     android:textColor="@color/app_text_dark"
+                    android:textSize="@dimen/app_text_big" />
+                <TextView
+                    android:id="@+id/tv_cnew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/new_right"
+                    android:text=""
+                    android:textColor="@color/app_text_light"
                     android:textSize="@dimen/app_text_big" />
 
                 <ImageView
+                    android:id="@+id/new_right"
                     android:layout_width="@dimen/app_myself_right_image"
                     android:layout_height="@dimen/app_myself_right_image"
                     android:layout_alignParentRight="true"

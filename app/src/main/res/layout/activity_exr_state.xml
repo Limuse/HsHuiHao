@@ -35,7 +35,7 @@
         android:textColor="@color/app_text_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已完成"/>
+        android:text=""/>
         <TextView
             android:id="@+id/tv_mmm"
             android:layout_marginLeft="15dp"
@@ -44,7 +44,7 @@
             android:textColor="@color/app_orange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1025.84"/>
+            android:text=""/>
 
     </LinearLayout>
     <View
@@ -85,7 +85,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="42dp"
-            android:text="张三"
+            android:text=""
             android:textSize="@dimen/app_myself_tex"
             android:textColor="@color/app_text_dark" />
 
@@ -128,7 +128,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="42dp"
-            android:text="1234656455"
+            android:text=""
             android:textSize="@dimen/app_myself_tex"
             android:textColor="@color/app_text_dark" />
 

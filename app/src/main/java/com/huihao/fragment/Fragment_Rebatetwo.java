@@ -133,7 +133,7 @@ public class Fragment_Rebatetwo extends LFragment implements View.OnClickListene
                     d = 0;
                     numberTextView.withNumber(0.00f);
                 } else {
-                    d = Integer.parseInt(rests + "");
+                    float   d = Float.parseFloat(rests );
                     numberTextView.withNumber(d + 0f);
                 }
 

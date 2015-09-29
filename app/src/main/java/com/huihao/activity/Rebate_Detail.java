@@ -25,6 +25,7 @@ import com.huihao.handle.FragmentHandler;
 import com.leo.base.activity.LActivity;
 import com.leo.base.entity.LMessage;
 import com.leo.base.net.LReqEntity;
+import com.leo.base.util.L;
 import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
@@ -103,6 +104,7 @@ public class Rebate_Detail extends LActivity {
 
         }
         LReqEntity entity = new LReqEntity(url);
+        L.e(url);
         ActivityHandler handler = new ActivityHandler(Rebate_Detail.this);
         handler.startLoadingData(entity, 1);
 

@@ -1,8 +1,12 @@
 package com.huihao.activity;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
@@ -34,10 +38,18 @@ import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +60,7 @@ import java.util.Map;
  */
 public class More extends LActivity implements View.OnClickListener {
 
-    private TextView tv_web, tv_kp, tv_clear;
+    private TextView tv_web, tv_kp, tv_clear, tv_ccnew,tv_cnew;
     private RelativeLayout rl_web, rl_kp, rl_ban, rl_advice, rl_p, rl_clear;
     private Button btn_outline;
     private Boolean tr = true;
@@ -73,6 +85,7 @@ public class More extends LActivity implements View.OnClickListener {
         if (bols == true) {
             initView();
             getcache();
+            initData();
 
         } else {
             Intent intent = new Intent(this, LoginMain.class);
@@ -94,6 +107,8 @@ public class More extends LActivity implements View.OnClickListener {
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
 //        tv_web,tv_kp,tv_clear
 //        rl_web,rl_kp,rl_ban,rl_advice,rl_p,rl_clear;
+        tv_ccnew = (TextView) findViewById(R.id.tv_ccnew);
+        tv_cnew=(TextView)findViewById(R.id.tv_cnew);
         tv_web = (TextView) findViewById(R.id.tv_web);
         tv_kp = (TextView) findViewById(R.id.tv_kp);
         tv_clear = (TextView) findViewById(R.id.tv_nc);
@@ -111,6 +126,7 @@ public class More extends LActivity implements View.OnClickListener {
         rl_p.setOnClickListener(this);
         rl_clear.setOnClickListener(this);
         btn_outline.setOnClickListener(this);
+        tv_ccnew.setText("2.0.1");
         tr = LSharePreference.getInstance(this).getBoolean("login");
         if (tr == false) {
             btn_outline.setText("登录");
@@ -119,6 +135,51 @@ public class More extends LActivity implements View.OnClickListener {
         }
 
 
+    }
+    private void initData(){
+        Resources res=getResources();
+        String url = res.getString(R.string.app_service_url) + "/huihao/member/appver/1/sign/aggregation/?uuid=" + Token.get(this);
+        LReqEntity entity = new LReqEntity(url);
+        L.e(url);
+        ActivityHandler handler = new ActivityHandler(this);
+        handler.startLoadingData(entity, 2);
+    }
+//    private String getVersionName() throws Exception {
+//        //getPackageName()是你当前类的包名，0代表是获取版本信息
+//        PackageManager packageManager = getPackageManager();
+//        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(),
+//                0);
+//        return packInfo.versionName;
+//    }
+
+
+    private void getJsonnewData(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            int code = jsonObject.getInt("status");
+            if (code == 1) {
+                String array = jsonObject.getString("info");
+                String newban=tv_ccnew.getText().toString();
+                if(array.equals(newban)){
+                    tv_cnew.setText("当前为最新版本");
+                }else{
+                    tv_cnew.setText("有新版本");
+                    tv_cnew.setTextColor(getResources().getColor(R.color.app_green));
+                }
+
+            } else {
+                T.ss(jsonObject.getString("info"));
+                String longs=jsonObject.getString("info");
+                if(longs.equals("请先登录")){
+                    LSharePreference.getInstance(this).setBoolean("login", false);
+                    Intent intent = new Intent(this, LoginMain.class);
+                    startActivity(intent);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
     }
 
     @TargetApi(19)
@@ -150,6 +211,10 @@ public class More extends LActivity implements View.OnClickListener {
         int mid = v.getId();
         //官方网站
         if (mid == R.id.rl_web) {
+//            Intent intent = new Intent();
+//            intent.setAction("android.intent.action.VIEW");
+//            intent.setData(Uri.parse("www.ihuihao.cn"));
+//            startActivity(intent);
             //T.ss("官方网站");
             // WebView.loadUrl("http://www.baidu.com/");
         }
@@ -182,12 +247,12 @@ public class More extends LActivity implements View.OnClickListener {
 
             alertDialog.show();
         }
-        //版权信息
-        if (mid == R.id.rl_bx) {
-            //  T.ss("版权信息");
-            Intent intent = new Intent(this, CopyRight.class);
-            startActivity(intent);
-        }
+//        //版权信息
+//        if (mid == R.id.rl_bx) {
+//            //  T.ss("版权信息");
+//            Intent intent = new Intent(this, CopyRight.class);
+//            startActivity(intent);
+//        }
         //意见反馈
         if (mid == R.id.rl_advice) {
             // T.ss("意见反馈");
@@ -195,9 +260,10 @@ public class More extends LActivity implements View.OnClickListener {
             startActivity(intent);
 
         }
-        //给我们评分
+        //检查更新
         if (mid == R.id.rl_pingf) {
-            //T.ss("给我们评分");
+            //T.ss("检查更新");
+//            tv_cnew.setText();
         }
         //清除缓存
         if (mid == R.id.rl_clear) {
@@ -307,6 +373,8 @@ public class More extends LActivity implements View.OnClickListener {
         if (msg != null) {
             if (requestId == 1) {
                 getJsonData(msg.getStr());
+            }else if(requestId==2){
+                getJsonnewData(msg.getStr());
             } else {
                 T.ss("获取数据失败");
             }
@@ -335,4 +403,9 @@ public class More extends LActivity implements View.OnClickListener {
             e.printStackTrace();
         }
     }
+
+
+    //检查更新版本
+
+
 }

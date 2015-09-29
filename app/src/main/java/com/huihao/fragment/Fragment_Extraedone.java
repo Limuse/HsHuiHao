@@ -83,7 +83,7 @@ public class Fragment_Extraedone extends LFragment implements AdapterView.OnItem
     private void initData() {
         list = new ArrayList<ExtraReEntity>();
         Resources res = getResources();
-        String url = res.getString(R.string.app_service_url) + "/huihao/member/profitsapply/1/sign/aggregation/?t=1&uuid=" + Token.get(getActivity());
+        String url = res.getString(R.string.app_service_url) + "/huihao/member/profitsapply/1/sign/aggregation/?t=2&uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         FragmentHandler handler = new FragmentHandler(Fragment_Extraedone.this);
         handler.startLoadingData(entity, 1);

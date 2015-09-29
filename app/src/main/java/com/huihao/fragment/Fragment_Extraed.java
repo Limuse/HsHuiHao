@@ -87,7 +87,7 @@ public class Fragment_Extraed extends LFragment implements AdapterView.OnItemCli
     private void initData() {
         list = new ArrayList<ExtraReEntity>();
         Resources res = getResources();
-        String url = res.getString(R.string.app_service_url) + "/huihao/member/commissionapply/1/sign/aggregation/?t=1&uuid=" + Token.get(getActivity());
+        String url = res.getString(R.string.app_service_url) + "/huihao/member/commissionapply/1/sign/aggregation/?t=2&uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
         //L.e(url);
         FragmentHandler handler = new FragmentHandler(Fragment_Extraed.this);
