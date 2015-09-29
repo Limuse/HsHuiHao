@@ -26,12 +26,14 @@ import android.widget.TextView;
 
 import com.huihao.MyApplication;
 import com.huihao.R;
+import com.huihao.activity.HomeMain;
 import com.huihao.activity.Product_details;
 import com.huihao.common.Token;
 import com.huihao.custom.CustomDialog;
 import com.huihao.custom.SlideListView2;
 import com.huihao.entity.Need;
 import com.huihao.entity.ShopItemEntity;
+import com.huihao.fragment.Fragment_shop;
 import com.leo.base.util.L;
 import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -65,7 +67,7 @@ public class HorizontalSlideAdapter extends BaseAdapter {
      * 布局参数,动态让HorizontalScrollView中的TextView宽度包裹父容器
      */
     private LinearLayout.LayoutParams mParams;
-    private RelativeLayout ral,ral2;
+
     private int ts = 0;
 
     private SlideListView2 listView;
@@ -88,12 +90,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
         this.onNumChangeListener = onNumChangeListener;
     }
 
-    public HorizontalSlideAdapter(Context context, List<ShopItemEntity> entity, SlideListView2 listView, RelativeLayout rel,RelativeLayout rel2) {
+    public HorizontalSlideAdapter(Context context, List<ShopItemEntity> entity, SlideListView2 listView) {
         this.context = context;
         this.entity = entity;
         this.listView = listView;
-        this.ral=rel;
-        this.ral2=ral2;
+
         // 获得到屏幕宽度
         Display defaultDisplay = ((Activity) context).getWindowManager()
                 .getDefaultDisplay();
@@ -275,8 +276,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
                     entity.set(index, entity1);
 
                     if (entity1.isCheck()) {
-                        listName.add(datas.getSpecid());
+                        listNum.remove(tnum+"");
+                      //  listName.add(datas.getSpecid());
                         listNum.add(num + "");
+//                        L.e(datas.getSpecid());
+//                       L.e(listNum.toString());
                         onNumChangeListener.OnNumJiaChange(jiage);
                     }
                 }
@@ -321,8 +325,11 @@ public class HorizontalSlideAdapter extends BaseAdapter {
 
 
                     if (entity1.isCheck()) {
-                        listName.add(datas.getSpecid());
+                        listNum.remove(tnum+"");
+                       // listName.add(datas.getSpecid());
                         listNum.add(num + "");
+//                        L.e(datas.getSpecid());
+//                        L.e(listNum.toString());
                         onNumChangeListener.OnNumJianChange(jiage);
                     }
                 }
@@ -379,6 +386,14 @@ public class HorizontalSlideAdapter extends BaseAdapter {
             }
         });
         return convertView;
+    }
+
+    public boolean allNum(){
+        if(listName.size()==listView.getCount()){
+            return true;
+        }else{
+        return false;
+        }
     }
 
     public String getRname() {
@@ -535,10 +550,12 @@ public class HorizontalSlideAdapter extends BaseAdapter {
                     if (ts == 0) {
                         listView.slideBack();
                     }
+                    HomeMain.context.getShopNum();
                     notifyDataSetChanged();
-                    if (entity.size() < 1) {
-                        ral2.setVisibility(View.GONE);
-                        ral.setVisibility(View.VISIBLE);
+                    if (entity.size() ==0) {
+                        Fragment_shop.Gv();
+//                        ral2.setVisibility(View.GONE);
+//                        ral.setVisibility(View.VISIBLE);
                     }
 
                 } else {

@@ -69,7 +69,6 @@ public class AllOrderAdapter extends BaseAdapter {
     private String ordid;
     private int pid;
 
-
     public AllOrderAdapter(LFragment context, List<AllOrderEntity> list) {
         this.context = context;
         this.list = list;
@@ -120,12 +119,11 @@ public class AllOrderAdapter extends BaseAdapter {
          * tag//网络请求判断、3删除、4确认收货，5申请退款、7付款、1完成退款、2取消退款
          */
         if (entity.getState().equals("3")) {
-
             viewHolder.tv_states.setText("已完成");
             viewHolder.btn_del.setText("删除订单");
             viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_text_light));
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_out));
-            viewHolder.btn_del.setVisibility(View.VISIBLE);
+            viewHolder.btn_del.setVisibility(View.GONE);
             viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -139,16 +137,39 @@ public class AllOrderAdapter extends BaseAdapter {
             });
         } else if (entity.getState().equals("2")) {
             ordid = entity.getId();
-            viewHolder.tv_states.setText("待收货");
-            viewHolder.btn_del.setText("确认收货");
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_add));
             viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_orange));
             viewHolder.btn_see.setVisibility(View.VISIBLE);
             viewHolder.btn_del.setVisibility(View.VISIBLE);
+            if (entity.isFlgs() == true) {
+                viewHolder.tv_states.setText("已收货");
+                viewHolder.btn_del.setText("已收货");
+                viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        T.ss("已收货");
+                    }
+                });
+            } else {
+                viewHolder.tv_states.setText("待收货");
+                viewHolder.btn_del.setText("确认收货");
+                viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pid = position;
+                        tag = 4;
+                        ordid = entity.getId();
+                        task = new TakeAsyncTask();
+                        task.execute();
+
+                    }
+                });
+            }
+
             viewHolder.btn_see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    //查看物流信息
                     Intent intent = new Intent(context.getActivity(), MetailFlow_Detail.class);
                     intent.putExtra("id", entity.getId().toString());
                     // L.e(entity.getId().toString());
@@ -156,67 +177,87 @@ public class AllOrderAdapter extends BaseAdapter {
                 }
             });
 
-            viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //T.ss("确认收货");
-                    tag = 4;
-                    ordid = entity.getId();
-                    task = new TakeAsyncTask();
-                    task.execute();
-                }
-            });
+
         } else if (entity.getState().equals("1")) {
-            viewHolder.tv_states.setText("待发货");
-            viewHolder.btn_del.setText("申请退款");
             viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_text_light));
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_out));
             viewHolder.btn_del.setVisibility(View.VISIBLE);
-            viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //T.ss("申请退款");
-                    tag = 5;
-                    ordid = entity.getId();
-                    task = new TakeAsyncTask();
-                    task.execute();
-                }
-            });
+            if (entity.isFlgs() == true) {
+                viewHolder.tv_states.setText("已退款");
+                viewHolder.btn_del.setText("已申请退款");
+                viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        T.ss("已申请退款");
+                    }
+                });
+            } else {
+                viewHolder.tv_states.setText("待发货");
+                viewHolder.btn_del.setText("申请退款");
+                viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //T.ss("申请退款");
+                        pid = position;
+                        tag = 5;
+                        ordid = entity.getId();
+                        task = new TakeAsyncTask();
+                        task.execute();
+                    }
+                });
+            }
+
+
         } else if (entity.getState().equals("5")) {
+            viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_text_light));
+            viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_out));
+            viewHolder.btn_del.setVisibility(View.VISIBLE);
             viewHolder.tv_states.setText("已退款");
             viewHolder.btn_del.setText("删除订单");
-            viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_text_light));
-            viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_out));
-            viewHolder.btn_del.setVisibility(View.VISIBLE);
+
             viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // T.ss("删除订单");
+                    // T.ss("删除订单");
                     pid = position;
                     tag = 3;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
                     task.execute();
+
                 }
             });
         } else if (entity.getState().equals("0")) {
-            viewHolder.tv_states.setText("待付款");
-            viewHolder.btn_del.setText("付款");
             viewHolder.btn_see.setText("取消订单");
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_add));
             viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_orange));
             viewHolder.btn_see.setVisibility(View.VISIBLE);
             viewHolder.btn_del.setVisibility(View.VISIBLE);
-            viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //T.ss("付款");
-                    tag = 7;
-                    ordid = entity.getId();
-                    task = new TakeAsyncTask();
-                    task.execute();
-                }
-            });
+            if (entity.isFlgs() == true) {
+                viewHolder.tv_states.setText("已付款");
+                viewHolder.btn_del.setText("已付款");
+                viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        T.ss("已付款");
+                    }
+                });
+            } else {
+                viewHolder.tv_states.setText("待付款");
+                viewHolder.btn_del.setText("付款");
+                viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //T.ss("付款");
+                        pid = position;
+                        tag = 7;
+                        ordid = entity.getId();
+                        task = new TakeAsyncTask();
+                        task.execute();
+                    }
+                });
+            }
+
             viewHolder.btn_see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -229,28 +270,44 @@ public class AllOrderAdapter extends BaseAdapter {
                 }
             });
         } else if (entity.getState().equals("4")) {
-            viewHolder.tv_states.setText("退款中");
-            viewHolder.btn_del.setText("完成退款");
             viewHolder.btn_see.setVisibility(View.GONE);
             viewHolder.btn_see.setText("取消退款");
             viewHolder.btn_del.setBackground(context.getResources().getDrawable(R.drawable.btn_add));
             viewHolder.btn_del.setTextColor(context.getResources().getColor(R.color.app_orange));
-            viewHolder.btn_see.setVisibility(View.VISIBLE);
             viewHolder.btn_del.setVisibility(View.VISIBLE);
-            viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //T.ss("完成退款");
-                    tag = 1;
-                    ordid = entity.getId();
-                    task = new TakeAsyncTask();
-                    task.execute();
-                }
-            });
+            if (entity.isFlgs() == true) {
+                viewHolder.tv_states.setText("已退款");
+                viewHolder.btn_del.setText("已退款");
+                viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        T.ss("已退款");
+                    }
+                });
+
+            } else {
+                viewHolder.tv_states.setText("退款中");
+                viewHolder.btn_del.setText("完成退款");
+                viewHolder.btn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                    T.ss("请联系客服退款");
+                        // T.ss("完成退款");
+                        pid = position;
+                        tag = 1;
+                        ordid = entity.getId();
+                        task = new TakeAsyncTask();
+                        task.execute();
+                    }
+                });
+            }
+
+
             viewHolder.btn_see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // T.ss("取消退款");
+                    // T.ss("请联系客服取消退款");
+//                     T.ss("取消退款");
                     tag = 2;
                     ordid = entity.getId();
                     task = new TakeAsyncTask();
@@ -288,9 +345,9 @@ public class AllOrderAdapter extends BaseAdapter {
         private Context con;
         private List<AllOrderEntity.ChildEntity> lists = null;
 
-        public ItemAdapter(Context context, List<AllOrderEntity.ChildEntity> list) {
+        public ItemAdapter(Context context, List<AllOrderEntity.ChildEntity> lists) {
             this.con = context;
-            this.lists = list;
+            this.lists = lists;
             //itemlist this.itemlist = itemlist;
         }
 
@@ -411,7 +468,7 @@ public class AllOrderAdapter extends BaseAdapter {
                     break;
                 case 1:
                     //完成退款
-                    url = res.getString(R.string.app_service_url) + "/huihao/orders/ confirmrefund/1/sign/aggregation/";
+                    url = res.getString(R.string.app_service_url) + "/huihao/orders/confirmrefund/1/sign/aggregation/";
                     break;
                 case 2:
                     //取消退款
@@ -430,7 +487,7 @@ public class AllOrderAdapter extends BaseAdapter {
 
                 par.add(new BasicNameValuePair("uuid", Token.get(context.getActivity())));
                 par.add(new BasicNameValuePair("id", ordid));
-
+                L.e(par.toString());
                 HttpResponse httpResponse = null;
                 post.setEntity(new UrlEncodedFormEntity(par, HTTP.UTF_8));
                 HttpClient httpClient = new DefaultHttpClient();
@@ -473,6 +530,7 @@ public class AllOrderAdapter extends BaseAdapter {
                         int code = jsonObject.getInt("status");
                         if (code == 1) {
                             T.ss("确认收货!");
+                            list.get(pid).setFlgs(true);
                             notifyDataSetChanged();
                         } else {
                             T.ss("操作失败");
@@ -488,6 +546,7 @@ public class AllOrderAdapter extends BaseAdapter {
                         int code = jsonObject.getInt("status");
                         if (code == 1) {
                             T.ss("申请退款成功!");
+                            list.get(pid).setFlgs(true);
                             notifyDataSetChanged();
                         } else {
                             T.ss("操作失败");
@@ -558,6 +617,7 @@ public class AllOrderAdapter extends BaseAdapter {
                         int code = jsonObject.getInt("status");
                         if (code == 1) {
                             T.ss("已完成退款!");
+                            list.get(pid).setFlgs(true);
                             notifyDataSetChanged();
                         } else {
                             T.ss(jsonObject.getString("info"));
@@ -572,6 +632,7 @@ public class AllOrderAdapter extends BaseAdapter {
                         int code = jsonObject.getInt("status");
                         if (code == 1) {
                             T.ss("取消退款成功!");
+                            list.get(pid).setFlgs(true);
                             notifyDataSetChanged();
                         } else {
                             T.ss("操作失败");
@@ -623,6 +684,8 @@ public class AllOrderAdapter extends BaseAdapter {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(context.getActivity(), "支付成功",
                                 Toast.LENGTH_SHORT).show();
+                        list.get(pid).setFlgs(true);
+                        notifyDataSetChanged();
 //                        Intent intent = new Intent(Submit_Orders.this, Pay_Successed.class);
 //                        intent.putExtra("price", price);
 //                        intent.putExtra("orderid", orderid);

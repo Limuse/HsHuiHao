@@ -135,6 +135,7 @@ public class Fragment_reserve extends LFragment {
                         ee.setId(ob.getString("id"));
                         ee.setTotal_price(ob.getString("total_price"));
                         ee.setPay_price(ob.getString("pay_price"));
+                        ee.setFlgs(false);
                         JSONArray ja = ob.getJSONArray("_child");
                         itemlist = new ArrayList<>();
                         for (int j = 0; j < ja.length(); j++) {

@@ -54,7 +54,7 @@ import java.util.Map;
 
 public class Fragment_shop extends LFragment implements View.OnClickListener {
     private View parentView;
-    private RelativeLayout rl_shops, rl_gshops;
+    private static RelativeLayout rl_shops, rl_gshops;
     private SlideListView2 listview;
     private TextView tv_all_choose, tv_all_money;
     private CheckBox cb_all_cbx;
@@ -85,11 +85,11 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         toolbar.setTitle("购物车");
         toolbar.setBackgroundColor(getResources().getColor(R.color.app_white));
         toolbar.setTitleTextColor(getResources().getColor(R.color.app_text_dark));
-        Boolean bols= LSharePreference.getInstance(getActivity()).getBoolean("login");
-        if(bols==true){
+        Boolean bols = LSharePreference.getInstance(getActivity()).getBoolean("login");
+        if (bols == true) {
             initView();
             initData();
-        }else{
+        } else {
             Intent intent = new Intent(getActivity(), LoginMain.class);
             startActivity(intent);
         }
@@ -118,7 +118,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
 
     private void Tsum() {
 
-        adapter = new HorizontalSlideAdapter(getActivity(), list, listview,rl_gshops,rl_shops);
+        adapter = new HorizontalSlideAdapter(getActivity(), list, listview);
 
         adapter.setOnNumChangeListener(new HorizontalSlideAdapter.OnNumChangeListener() {
 
@@ -141,15 +141,12 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                 tv_all_money.setText(a - jiage + "");
 
 
-
-
             }
 
 
         });
 
         listview.setAdapter(adapter);
-
 
 
         cb_all_cbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -190,7 +187,7 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/cart/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-       // L.e(url);
+        // L.e(url);
         // Fragment用FragmentHandler/Activity用ActivityHandler
         FragmentHandler handler = new FragmentHandler(this);
         handler.startLoadingData(entity, 1);
@@ -246,7 +243,8 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
 
                 }
             } else {
-                T.ss(jsonObject.getString("info").toString());
+                // T.ss(jsonObject.getString("info").toString());
+
                 rl_shops.setVisibility(View.GONE);
                 rl_gshops.setVisibility(View.VISIBLE);
             }
@@ -268,6 +266,11 @@ public class Fragment_shop extends LFragment implements View.OnClickListener {
                 T.ss("获取数据失败");
             }
         }
+    }
+
+    public static void Gv() {
+        rl_shops.setVisibility(View.GONE);
+        rl_gshops.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -143,6 +143,8 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                             Toast.makeText(Submit_Orders.this, "支付失败",
                                     Toast.LENGTH_SHORT).show();
 
+                            finish();
+
                         }
                     }
                     break;
@@ -387,8 +389,8 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         switch (requestCode) {
             case 0:
                 if (data == null) {
-                    rl_ano.setVisibility(View.VISIBLE);
-                    ly_alladdr.setVisibility(View.GONE);
+//                    rl_ano.setVisibility(View.VISIBLE);
+//                    ly_alladdr.setVisibility(View.GONE);
                 } else {
                     adrname = data.getExtras().getString("name").toString();
                     adrphone = data.getExtras().getString("phone").toString();
@@ -403,9 +405,6 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                         tv_name.setText(adrname);
                         tv_phone.setText(adrphone);
                         tv_addrs.setText(adraddr);
-                    } else {
-                        rl_ano.setVisibility(View.VISIBLE);
-                        ly_alladdr.setVisibility(View.GONE);
                     }
 
                 }
@@ -425,7 +424,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                        tv_azf.setText("￥" + (allmoney - liteprices) + "");
                        tv_yh.setText(money + "");
 
-                   }else{
+                   }else {
                        tv_js.setText("￥" + (allmoney - money) + "");
                        tv_azf.setText("￥" + (allmoney - money) + "");
                        tv_yh.setText(money + "");
@@ -513,7 +512,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         map.put("spec_num", spec_num);
 
         LReqEntity entity = new LReqEntity(url, map);
-        //L.e(entity.toString());
+       // L.e(entity.toString());
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
         handler.startLoadingData(entity, 2);
@@ -573,26 +572,26 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     iee.setBuymax(jo.getString("buymax"));
                     itemlist.add(iee);
                 }
-                JSONArray jars = jsb.getJSONArray("address_list");
-                if (jars.length() > 0) {
-                    for (int i = 0; i < jars.length(); i++) {
-                        JSONObject jsd = jars.getJSONObject(i);
-                        addridss = jsd.getString("id").toString();
-                        provinces = jsd.getString("province");
-                        citys = jsd.getString("city");
-                        countrys = jsd.getString("country");
-                        adrname = jsd.getString("uname").toString();
-                        adrphone = jsd.getString("uphone").toString();
-                        adraddr = jsd.getString("address").toString();
-                        tv_name.setText(jsd.getString("uname").toString());
-                        tv_phone.setText(jsd.getString("uphone").toString());
-                        tv_addrs.setText(jsd.getString("address").toString());
-                        rl_ano.setVisibility(View.GONE);
-                        ly_alladdr.setVisibility(View.VISIBLE);
-                    }
-                }
                 adapter = new BuysNumAdapter(this, itemlist);
                 listView.setAdapter(adapter);
+                JSONObject jars = jsb.getJSONObject("address_list");
+                if (jars.length() > 0) {
+                        addridss = jars.getString("id").toString();
+                        provinces = jars.getString("province");
+                        citys = jars.getString("city");
+                        countrys = jars.getString("country");
+                        adrname = jars.getString("uname").toString();
+                        adrphone = jars.getString("uphone").toString();
+                        adraddr = jars.getString("address_detail").toString();
+                        tv_name.setText(jars.getString("uname").toString());
+                        tv_phone.setText(jars.getString("uphone").toString());
+                        tv_addrs.setText(jars.getString("address_detail").toString());
+                        rl_ano.setVisibility(View.GONE);
+                        ly_alladdr.setVisibility(View.VISIBLE);
+
+                }
+//                adapter = new BuysNumAdapter(this, itemlist);
+//                listView.setAdapter(adapter);
             } else {
                 T.ss(jsonObject.getString("info"));
             }

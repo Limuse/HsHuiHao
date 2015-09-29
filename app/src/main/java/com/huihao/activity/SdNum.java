@@ -85,13 +85,13 @@ public class SdNum extends LActivity {
             T.ss("代理商编号不能为空！");
         } else {
             Map<String, String> map = new HashMap<>();
-            map.put("agent_no", sdnum);// 昵称
+            map.put("agent_no", sdnum);//
             map.put("uuid", Token.get(this));
             Resources res = getResources();
             String url = res.getString(R.string.app_service_url)
                     + "/huihao/member/agentbind/1/sign/aggregation/";
             LReqEntity entity = new LReqEntity(url, map);
-           L.e(entity.toString());
+          // L.e(entity.toString());
             ActivityHandler handler = new ActivityHandler(this);
             handler.startLoadingData(entity, 1);
         }
@@ -122,7 +122,7 @@ public class SdNum extends LActivity {
                 } else {
                     intent.putExtra("sdnum", et_add_num.getText().toString());
                 }
-                 LSharePreference.getInstance(this).setString("conncode",name);
+                 LSharePreference.getInstance(this).setString("agent_num",name);
                 setResult(6, intent);
                 finish();
             } else {

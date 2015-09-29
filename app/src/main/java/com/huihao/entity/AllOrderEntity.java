@@ -20,6 +20,15 @@ public class AllOrderEntity {
     private String total_price;
     private String pay_price;
     private List<ChildEntity> _child;
+    private boolean flgs;
+
+    public boolean isFlgs() {
+        return flgs;
+    }
+
+    public void setFlgs(boolean flgs) {
+        this.flgs = flgs;
+    }
 
     public void setId(String id) {
         this.id = id;

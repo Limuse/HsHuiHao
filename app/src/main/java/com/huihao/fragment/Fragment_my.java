@@ -382,7 +382,7 @@ public class Fragment_my extends LFragment implements View.OnClickListener {
         String url = res.getString(R.string.app_service_url)
                 + "/huihao/member/1/sign/aggregation/?uuid=" + Token.get(getActivity());
         LReqEntity entity = new LReqEntity(url);
-        //L.e(url + "");
+         //L.e(url + "");
         FragmentHandler handler = new FragmentHandler(Fragment_my.this);
         handler.startLoadingData(entity, 1);
 

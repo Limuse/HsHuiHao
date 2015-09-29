@@ -93,7 +93,7 @@ public class PersonSet extends LActivity implements View.OnClickListener {
         if (bols == true) {
             initView();
             initDialog(view);
-            sdnum = LSharePreference.getInstance(this).getString("conncode");
+            sdnum = LSharePreference.getInstance(this).getString("agent_num");
             if (sdnum=="") {
                 flg = false;
             } else {

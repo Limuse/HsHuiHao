@@ -69,7 +69,7 @@ public class ChooseCouponsAdapter extends BaseAdapter {
         viewHolder.tv_cptitle.setText(ce.cptitile);
         viewHolder.tv_cptime.setText(ce.cptime);
         viewHolder.tv_cpmoey.setText(ce.cpmoney);
-        viewHolder.tv_cpuse.setText(ce.cpuse);
+       // viewHolder.tv_cpuse.setText(ce.cpuse);
         viewHolder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

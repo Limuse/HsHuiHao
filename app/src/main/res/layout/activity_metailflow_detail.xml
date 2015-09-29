@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/app_myself_left_mar"
                     android:layout_marginTop="@dimen/app_myself_left_mar"
-                    android:text="圆通快速"
+                    android:text=""
                     android:textColor="@color/app_text_dark"
                     android:textSize="@dimen/app_text_big" />
 
@@ -69,7 +69,7 @@
                         android:id="@+id/tv_ydnum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="123446489944"
+                        android:text=""
                         android:textColor="@color/app_text_dark"
                         android:textSize="@dimen/app_text_normal" />
                 </LinearLayout>
@@ -93,7 +93,7 @@
                         android:id="@+id/tv_wstate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="已出发"
+                        android:text=""
                         android:textColor="@color/app_text_dark"
                         android:textSize="@dimen/app_text_normal" />
                 </LinearLayout>

@@ -151,6 +151,7 @@ public class Fragment_Orders extends LFragment {
                         ee.setTotal_price(ob.getString("total_price"));
                         ee.setPay_price(ob.getString("pay_price"));
                         JSONArray ja = ob.getJSONArray("_child");
+                        ee.setFlgs(false);
                         itemlist = new ArrayList<>();
                         for (int j = 0; j < ja.length(); j++) {
                             JSONObject jt = ja.getJSONObject(j);
