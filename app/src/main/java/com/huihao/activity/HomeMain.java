@@ -119,7 +119,6 @@ public class HomeMain extends LActivity {
         setContentView(R.layout.activity_home);
         context = this;
         JPushInterface.init(getApplicationContext());
-
         ButterKnife.inject(this);
         Bar.setWhite(this);
         Log.e(UntilList.getAppInfo(this));
@@ -196,7 +195,6 @@ public class HomeMain extends LActivity {
                     shop_num.setText("99");
                 }
             } else {
-                T.ss("返回状态失败");
             }
         } catch (Exception e) {
             T.ss("数据解析失败");

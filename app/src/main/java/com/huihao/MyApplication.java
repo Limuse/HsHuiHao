@@ -28,7 +28,7 @@ public class MyApplication extends LApplication {
 
     public static Context applicationContext;
 
-    private static boolean isLog = true;
+    private static boolean isLog = false;
 
     public static boolean isLog() {
         return isLog;

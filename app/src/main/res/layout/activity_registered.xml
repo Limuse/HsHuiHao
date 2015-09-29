@@ -25,7 +25,7 @@
                 android:background="@mipmap/login_line"
                 android:drawableLeft="@mipmap/login_user"
                 android:drawablePadding="8dp"
-                android:hint="用户名/手机"
+                android:hint="请输入手机号"
                 android:maxLength="30"
                 android:paddingLeft="4dp"
                 android:paddingRight="8dp"
