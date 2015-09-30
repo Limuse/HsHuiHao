@@ -141,7 +141,8 @@ public class More extends LActivity implements View.OnClickListener {
         rl_p.setOnClickListener(this);
         rl_clear.setOnClickListener(this);
         btn_outline.setOnClickListener(this);
-        tv_ccnew.setText("2.0.1");
+        String co=getVerName(this);
+        tv_ccnew.setText(co);
         tr = LSharePreference.getInstance(this).getBoolean("login");
         if (tr == false) {
             btn_outline.setText("登录");
@@ -156,17 +157,11 @@ public class More extends LActivity implements View.OnClickListener {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url) + "/huihao/member/appver/1/sign/aggregation/?uuid=" + Token.get(this);
         LReqEntity entity = new LReqEntity(url);
-        L.e(url);
+       // L.e(url);
         ActivityHandler handler = new ActivityHandler(this);
         handler.startLoadingData(entity, 2);
     }
-//    private String getVersionName() throws Exception {
-//        //getPackageName()是你当前类的包名，0代表是获取版本信息
-//        PackageManager packageManager = getPackageManager();
-//        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(),
-//                0);
-//        return packInfo.versionName;
-//    }
+
 
 
     private void getJsonnewData(String data) {
@@ -445,7 +440,7 @@ public class More extends LActivity implements View.OnClickListener {
     public int getVerCode(Context context) {
         int verCode = -1;
         try {
-            verCode = context.getPackageManager().getPackageInfo("com.update.apk", 0).versionCode;
+            verCode = context.getPackageManager().getPackageInfo("com.android.hshuihao", 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             // TODO Auto-generated catch block
             L.e("版本号获取异常", e.getMessage());
@@ -459,7 +454,7 @@ public class More extends LActivity implements View.OnClickListener {
     public String getVerName(Context context) {
         String verName = "";
         try {
-            verName = context.getPackageManager().getPackageInfo("com.update.apk", 0).versionName;
+            verName = context.getPackageManager().getPackageInfo("com.android.hshuihao", 0).versionName;
         } catch (Exception e) {
             L.e("版本名称获取异常", e.getMessage());
         }
@@ -498,10 +493,10 @@ public class More extends LActivity implements View.OnClickListener {
      * 更新版本
      */
     public void doNewVersionUpdate(String verCode) {
-        String vcode = tv_ccnew.getText().toString();
+        String vcode = getVerName(this);
         StringBuffer sb = new StringBuffer();
         sb.append("当前版本：");
-        // sb.append(verName);
+//         sb.append(vcode);
         //sb.append(" Code:");
         sb.append(vcode);
         sb.append(",发现版本：");
