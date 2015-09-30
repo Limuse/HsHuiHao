@@ -2,7 +2,9 @@ package com.huihao.activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -12,7 +14,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.util.MutableByte;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,6 +44,11 @@ import com.leo.base.util.T;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +58,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -60,7 +72,7 @@ import java.util.Map;
  */
 public class More extends LActivity implements View.OnClickListener {
 
-    private TextView tv_web, tv_kp, tv_clear, tv_ccnew,tv_cnew;
+    private TextView tv_web, tv_kp, tv_clear, tv_ccnew, tv_cnew;
     private RelativeLayout rl_web, rl_kp, rl_ban, rl_advice, rl_p, rl_clear;
     private Button btn_outline;
     private Boolean tr = true;
@@ -68,6 +80,9 @@ public class More extends LActivity implements View.OnClickListener {
             + "/Android/data/com.android.hshuihao/cache";
     private File file1, file2;
     private boolean cleanFlag = false;
+    private String codes = null;
+    private int conte = 0;
+    private String url=null;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -108,7 +123,7 @@ public class More extends LActivity implements View.OnClickListener {
 //        tv_web,tv_kp,tv_clear
 //        rl_web,rl_kp,rl_ban,rl_advice,rl_p,rl_clear;
         tv_ccnew = (TextView) findViewById(R.id.tv_ccnew);
-        tv_cnew=(TextView)findViewById(R.id.tv_cnew);
+        tv_cnew = (TextView) findViewById(R.id.tv_cnew);
         tv_web = (TextView) findViewById(R.id.tv_web);
         tv_kp = (TextView) findViewById(R.id.tv_kp);
         tv_clear = (TextView) findViewById(R.id.tv_nc);
@@ -136,8 +151,9 @@ public class More extends LActivity implements View.OnClickListener {
 
 
     }
-    private void initData(){
-        Resources res=getResources();
+
+    private void initData() {
+        Resources res = getResources();
         String url = res.getString(R.string.app_service_url) + "/huihao/member/appver/1/sign/aggregation/?uuid=" + Token.get(this);
         LReqEntity entity = new LReqEntity(url);
         L.e(url);
@@ -158,19 +174,23 @@ public class More extends LActivity implements View.OnClickListener {
             JSONObject jsonObject = new JSONObject(data);
             int code = jsonObject.getInt("status");
             if (code == 1) {
-                String array = jsonObject.getString("info");
-                String newban=tv_ccnew.getText().toString();
-                if(array.equals(newban)){
+                codes = jsonObject.getString("info");
+                String newban = tv_ccnew.getText().toString();
+                if (codes.equals(newban)) {
                     tv_cnew.setText("当前为最新版本");
-                }else{
+
+                } else {
+
                     tv_cnew.setText("有新版本");
                     tv_cnew.setTextColor(getResources().getColor(R.color.app_green));
+
                 }
 
             } else {
                 T.ss(jsonObject.getString("info"));
-                String longs=jsonObject.getString("info");
-                if(longs.equals("请先登录")){
+                String longs = jsonObject.getString("info");
+                url=jsonObject.getString("url");
+                if (longs.equals("请先登录")) {
                     LSharePreference.getInstance(this).setBoolean("login", false);
                     Intent intent = new Intent(this, LoginMain.class);
                     startActivity(intent);
@@ -211,10 +231,6 @@ public class More extends LActivity implements View.OnClickListener {
         int mid = v.getId();
         //官方网站
         if (mid == R.id.rl_web) {
-//            Intent intent = new Intent();
-//            intent.setAction("android.intent.action.VIEW");
-//            intent.setData(Uri.parse("www.ihuihao.cn"));
-//            startActivity(intent);
             //T.ss("官方网站");
             // WebView.loadUrl("http://www.baidu.com/");
         }
@@ -250,8 +266,9 @@ public class More extends LActivity implements View.OnClickListener {
 //        //版权信息
 //        if (mid == R.id.rl_bx) {
 //            //  T.ss("版权信息");
-//            Intent intent = new Intent(this, CopyRight.class);
-//            startActivity(intent);
+//
+////            Intent intent = new Intent(this, CopyRight.class);
+////            startActivity(intent);
 //        }
         //意见反馈
         if (mid == R.id.rl_advice) {
@@ -262,8 +279,15 @@ public class More extends LActivity implements View.OnClickListener {
         }
         //检查更新
         if (mid == R.id.rl_pingf) {
-            //T.ss("检查更新");
-//            tv_cnew.setText();
+            if (tv_ccnew.getText().equals(codes)) {
+                // notNewVersionUpdate(codes);
+                T.ss("已是最新版本，无需更新");
+            } else {
+                conte = 1;
+                doNewVersionUpdate(codes);
+
+            }
+
         }
         //清除缓存
         if (mid == R.id.rl_clear) {
@@ -373,7 +397,7 @@ public class More extends LActivity implements View.OnClickListener {
         if (msg != null) {
             if (requestId == 1) {
                 getJsonData(msg.getStr());
-            }else if(requestId==2){
+            } else if (requestId == 2) {
                 getJsonnewData(msg.getStr());
             } else {
                 T.ss("获取数据失败");
@@ -406,6 +430,246 @@ public class More extends LActivity implements View.OnClickListener {
 
 
     //检查更新版本
+    /**
+     * Called when the activity is first created.
+     */
+//    String newVerName = "";//新版本名称
+//    int newVerCode = -1;//新版本号
+    ProgressDialog pd = null;
+    String UPDATE_SERVERAPK = "ApkUpdateAndroid.apk";
+    boolean isDownLoad = true;
+
+    /**
+     * 获得版本号
+     */
+    public int getVerCode(Context context) {
+        int verCode = -1;
+        try {
+            verCode = context.getPackageManager().getPackageInfo("com.update.apk", 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // TODO Auto-generated catch block
+            L.e("版本号获取异常", e.getMessage());
+        }
+        return verCode;
+    }
+
+    /**
+     * 获得版本名称
+     */
+    public String getVerName(Context context) {
+        String verName = "";
+        try {
+            verName = context.getPackageManager().getPackageInfo("com.update.apk", 0).versionName;
+        } catch (Exception e) {
+            L.e("版本名称获取异常", e.getMessage());
+        }
+        return verName;
+    }
 
 
+    /**
+     * 不更新版本
+     */
+    public void notNewVersionUpdate(String verCode) {
+        //  int verCode = this.getVerCode(this);
+        // String verName = this.getVerName(this);
+        StringBuffer sb = new StringBuffer();
+        sb.append("当前版本：");
+        //sb.append(verName);
+        //sb.append(" Code:");
+        sb.append(verCode);
+        sb.append("\n已是最新版本，无需更新");
+        CustomDialog dialog = new CustomDialog.Builder(this)
+                .setTitle("软件更新")
+                .setMessage(sb.toString())
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        // finish();
+                        dialog.dismiss();
+                    }
+                }).create();
+        dialog.show();
+    }
+
+    /**
+     * 更新版本
+     */
+    public void doNewVersionUpdate(String verCode) {
+        String vcode = tv_ccnew.getText().toString();
+        StringBuffer sb = new StringBuffer();
+        sb.append("当前版本：");
+        // sb.append(verName);
+        //sb.append(" Code:");
+        sb.append(vcode);
+        sb.append(",发现版本：");
+        // sb.append(newVerName);
+        // sb.append(" Code:");
+        sb.append(verCode);
+        sb.append(",是否更新");
+        CustomDialog dialog = new CustomDialog.Builder(this)
+                .setTitle("软件更新")
+                .setMessage(sb.toString())
+                .setPositiveButton("更新", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        dialog.dismiss();
+                        pd = new ProgressDialog(More.this);
+                        pd.setTitle("正在下载");
+                        pd.setMessage("请稍后。。。");
+                        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        pd.setIndeterminate(false);
+                        pd.setCancelable(true);
+                        //pd.setProgress(100);
+                        downFile(url);
+                    }
+                })
+                .setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        dialog.dismiss();
+                    }
+                }).create();
+        //显示更新框
+        dialog.show();
+    }
+
+    /**
+     * 下载apk
+     */
+    public void downFile(final String url) {
+
+        pd.show();
+        new Thread() {
+            public void run() {
+
+                HttpClient client = new DefaultHttpClient();
+                HttpGet get = new HttpGet(url);
+                HttpResponse response;
+                try {
+                    response = client.execute(get);
+                    HttpEntity entity = response.getEntity();
+
+                    long length = entity.getContentLength();
+
+                    pd.setMax((int) length / 1024);
+                    InputStream is = entity.getContent();
+                    FileOutputStream fileOutputStream = null;
+                    if (is != null) {
+                        File file = new File(Environment.getExternalStorageDirectory(), UPDATE_SERVERAPK);
+                        fileOutputStream = new FileOutputStream(file);
+                        byte[] b = new byte[1024];
+                        int charb = -1;
+                        int count = 0;
+
+                        while ((charb = is.read(b)) != -1 && isDownLoad) {
+                            fileOutputStream.write(b, 0, charb);
+                            count += charb / 1024;
+                            //当前下载量
+                            pd.setProgress(count);
+
+
+                        }
+
+
+                    }
+                    fileOutputStream.flush();
+                    if (fileOutputStream != null) {
+                        fileOutputStream.close();
+                    }
+
+                    down();
+
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            super.handleMessage(msg);
+            pd.cancel();
+            update();
+        }
+    };
+
+    /**
+     * 下载完成，通过handler将下载对话框取消
+     */
+    public void down() {
+        new Thread() {
+            public void run() {
+                Message message = handler.obtainMessage();
+                handler.sendMessage(message);
+            }
+        }.start();
+    }
+
+    /**
+     * 安装应用
+     */
+    public void update() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory(), UPDATE_SERVERAPK))
+                , "application/vnd.android.package-archive");
+        startActivity(intent);
+    }
+
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//
+//        if (keyCode == KeyEvent.KEYCODE_BACK ) //监控/拦截/屏蔽返回键
+//        {
+//            if(conte==1){
+//            showCancelDialog();
+//            return true;
+//        }else{
+//                finish();
+//            }
+//        }
+//
+//        return super.onKeyDown(keyCode, event);
+//    }
+
+    private void showCancelDialog() {
+        final CustomDialog builer = new CustomDialog.Builder(this)
+                .setTitle("确认退出")
+
+                .setMessage("是否要放弃下载？")
+                        //当点确定按钮时从服务器上下载 新的apk 然后安装
+                .setPositiveButton("退出", new DialogInterface.OnClickListener() {
+
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        isDownLoad = false;
+                        pd.cancel();
+                        dialog.dismiss();
+                    }
+                })
+                        //当点取消按钮时进行登录
+                .setNegativeButton("继续", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO Auto-generated method stub
+                        arg0.dismiss();
+                    }
+                }).create();
+        builer.show();
+    }
 }
+
+
