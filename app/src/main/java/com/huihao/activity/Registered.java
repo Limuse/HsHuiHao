@@ -182,14 +182,13 @@ public class Registered extends LActivity {
             int status = info.optInt("status");
             if (status == 1) {
                 T.ss("注册成功");
-                if (MyApplication.isLogin(Registered.this)) {
+                finish();
                     String url = getResources().getString(R.string.app_service_url) + "/huihao/orders/denomination/1/sign/aggregation/";
-                   ActivityHandler handler = new ActivityHandler(Registered.this);
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("uuid", Token.get(Registered.this));
-                    LReqEntity entity = new LReqEntity(url, map);
-                    handler.startLoadingData(entity, 3);
-                }
+//                ActivityHandler handler = new ActivityHandler(Registered.this);
+//                Map<String, String> map = new HashMap<String, String>();
+//                map.put("uuid", Token.get(Registered.this));
+//                LReqEntity entity = new LReqEntity(url, map);
+//                handler.startLoadingData(entity, 3);
             } else {
                 T.ss(info.opt("info").toString());
             }

@@ -437,7 +437,7 @@ public class Product_details extends LActivity implements MyScrollView.ScrollVie
         linearParams.height = (int) ((UntilList.getWindosW(this) / WcH * content));
         viewPager.setLayoutParams(linearParams);
 //        } else {
-//            linearParams = (LinearLayout.LayoutParams) viewPager.getLayoutParams();
+//            linearParams = (LinearLayout.Lay  outParams) viewPager.getLayoutParams();
 //            linearParams.height = (int) (UntilList.getWindosW(this) / WcH * (content-1));
 //            viewPager.setLayoutParams(linearParams);
 //        }
