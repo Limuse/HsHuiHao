@@ -82,7 +82,7 @@ public class More extends LActivity implements View.OnClickListener {
     private boolean cleanFlag = false;
     private String codes = null;
     private int conte = 0;
-    private String url=null;
+    private String urlUpdate = null;
 
     @Override
     protected void onLCreate(Bundle bundle) {
@@ -141,7 +141,7 @@ public class More extends LActivity implements View.OnClickListener {
         rl_p.setOnClickListener(this);
         rl_clear.setOnClickListener(this);
         btn_outline.setOnClickListener(this);
-        String co=getVerName(this);
+        String co = getVerName(this);
         tv_ccnew.setText(co);
         tr = LSharePreference.getInstance(this).getBoolean("login");
         if (tr == false) {
@@ -157,11 +157,10 @@ public class More extends LActivity implements View.OnClickListener {
         Resources res = getResources();
         String url = res.getString(R.string.app_service_url) + "/huihao/member/appver/1/sign/aggregation/?uuid=" + Token.get(this);
         LReqEntity entity = new LReqEntity(url);
-       // L.e(url);
+        L.e(url);
         ActivityHandler handler = new ActivityHandler(this);
         handler.startLoadingData(entity, 2);
     }
-
 
 
     private void getJsonnewData(String data) {
@@ -171,6 +170,7 @@ public class More extends LActivity implements View.OnClickListener {
             if (code == 1) {
                 codes = jsonObject.getString("info");
                 String newban = tv_ccnew.getText().toString();
+                urlUpdate = jsonObject.getString("url");
                 if (codes.equals(newban)) {
                     tv_cnew.setText("当前为最新版本");
 
@@ -184,7 +184,7 @@ public class More extends LActivity implements View.OnClickListener {
             } else {
                 T.ss(jsonObject.getString("info"));
                 String longs = jsonObject.getString("info");
-                url=jsonObject.getString("url");
+
                 if (longs.equals("请先登录")) {
                     LSharePreference.getInstance(this).setBoolean("login", false);
                     Intent intent = new Intent(this, LoginMain.class);
@@ -520,7 +520,7 @@ public class More extends LActivity implements View.OnClickListener {
                         pd.setIndeterminate(false);
                         pd.setCancelable(true);
                         //pd.setProgress(100);
-                        downFile(url);
+                        downFile(urlUpdate);
                     }
                 })
                 .setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {

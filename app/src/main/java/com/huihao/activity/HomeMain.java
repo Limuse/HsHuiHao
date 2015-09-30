@@ -129,7 +129,7 @@ public class HomeMain extends LActivity {
     private FragmentTransaction mFragmentTransaction;
 
     private String hideTag;
-    private String codes,url;
+    private String codes,urlUpdate=null;
 
 
     protected void onLCreate(Bundle savedInstanceState) {
@@ -387,6 +387,7 @@ public class HomeMain extends LActivity {
             if (code == 1) {
                 codes = jsonObject.getString("info");
                 String co=getVerName(this);
+                urlUpdate = jsonObject.getString("url");
                 if (codes.equals(co)) {
 
                 } else {
@@ -397,7 +398,7 @@ public class HomeMain extends LActivity {
             } else {
                 T.ss(jsonObject.getString("info"));
                 String longs = jsonObject.getString("info");
-                url = jsonObject.getString("url");
+
                 if (longs.equals("请先登录")) {
                     LSharePreference.getInstance(this).setBoolean("login", false);
                     Intent intent = new Intent(this, LoginMain.class);
@@ -505,7 +506,8 @@ public class HomeMain extends LActivity {
                         pd.setIndeterminate(false);
                         pd.setCancelable(true);
                         //pd.setProgress(100);
-                        downFile(url);
+                        L.e(urlUpdate+"ddddddddddd");
+                        downFile(urlUpdate);
                     }
                 })
                 .setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
@@ -531,6 +533,7 @@ public class HomeMain extends LActivity {
 
                 HttpClient client = new DefaultHttpClient();
                 HttpGet get = new HttpGet(url);
+                L.e(url+"dddddd");
                 HttpResponse response;
                 try {
                     response = client.execute(get);
