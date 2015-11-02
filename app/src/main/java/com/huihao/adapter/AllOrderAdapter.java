@@ -758,7 +758,7 @@ public class AllOrderAdapter extends BaseAdapter {
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + "http://huihaowfx.huisou.com/huihao/pay/success_back/1/sign/aggregation/"
+        orderInfo += "&notify_url=" + "\"" + context.getResources().getString(R.string.app_service_url)+"huihao/pay/success_back/1/sign/aggregation/"
                 + "\"";
 
         // 服务接口名称， 固定值
