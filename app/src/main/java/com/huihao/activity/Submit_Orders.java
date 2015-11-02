@@ -183,7 +183,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
         // 商户网站唯一订单号
-       // orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+        // orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
         orderInfo += "&out_trade_no=" + "\"" + body + "\"";
         // 商品名称
         orderInfo += "&subject=" + "\"" + subject + "\"";
@@ -195,7 +195,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + getResources().getString(R.string.app_service_url)+"huihao/pay/success_back/1/sign/aggregation/"
+        orderInfo += "&notify_url=" + "\"" + getResources().getString(R.string.app_service_url) + "huihao/pay/success_back/1/sign/aggregation/"
                 + "\"";
 
         // 服务接口名称， 固定值
@@ -375,6 +375,8 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                 LReqEntity entity = new LReqEntity(url, map);
                 ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
                 handler.startLoadingData(entity, 1);
+//                Intent intent=new Intent(this,Pay_Successed.class);
+//                startActivity(intent);
             }
 
         }
@@ -416,17 +418,17 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                     cids = data.getExtras().getString("cids");
                     float money = Float.parseFloat(data.getExtras().getString("money"));
                     float allmoney = Float.parseFloat(ppices);
-                   if(money>liteprices) {
-                       T.ss("最多只能减" + liteprices + " 元");
-                       tv_js.setText("￥" + (allmoney - liteprices) + "");
-                       tv_azf.setText("￥" + (allmoney - liteprices) + "");
-                       tv_yh.setText(money + "");
+                    if (money > liteprices) {
+                        T.ss("最多只能减" + liteprices + " 元");
+                        tv_js.setText("￥" + (allmoney - liteprices) + "");
+                        tv_azf.setText("￥" + (allmoney - liteprices) + "");
+                        tv_yh.setText(money + "");
 
-                   }else {
-                       tv_js.setText("￥" + (allmoney - money) + "");
-                       tv_azf.setText("￥" + (allmoney - money) + "");
-                       tv_yh.setText(money + "");
-                   }
+                    } else {
+                        tv_js.setText("￥" + (allmoney - money) + "");
+                        tv_azf.setText("￥" + (allmoney - money) + "");
+                        tv_yh.setText(money + "");
+                    }
 
                 }
                 break;
@@ -510,7 +512,7 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
         map.put("spec_num", spec_num);
 
         LReqEntity entity = new LReqEntity(url, map);
-       // L.e(entity.toString());
+        // L.e(entity.toString());
         // Fragment用FragmentHandler/Activity用ActivityHandler
         ActivityHandler handler = new ActivityHandler(Submit_Orders.this);
         handler.startLoadingData(entity, 2);
@@ -525,15 +527,15 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                 JSONObject jsb = jsonObject.getJSONObject("list");
                 String total_preferential = jsb.getString("total_preferential");
                 String total_price = jsb.getString("total_price");
-                ppices=total_price;
+                ppices = total_price;
                 tv_js.setText("￥" + total_price);
                 tv_azf.setText("￥" + total_price);
                 if (total_preferential.equals(null) || total_preferential.equals("")) {
                     tv_fj.setText("");
-                    liteprices=0;
+                    liteprices = 0;
                 } else {
                     tv_fj.setText(total_preferential + "元");
-                    liteprices=Float.parseFloat(total_preferential.toString());
+                    liteprices = Float.parseFloat(total_preferential.toString());
                 }
                 JSONArray ja = jsb.getJSONArray("exress_list");
 
@@ -574,18 +576,18 @@ public class Submit_Orders extends LActivity implements View.OnClickListener {
                 listView.setAdapter(adapter);
                 JSONObject jars = jsb.getJSONObject("address_list");
                 if (jars.length() > 0) {
-                        addridss = jars.getString("id").toString();
-                        provinces = jars.getString("province");
-                        citys = jars.getString("city");
-                        countrys = jars.getString("country");
-                        adrname = jars.getString("uname").toString();
-                        adrphone = jars.getString("uphone").toString();
-                        adraddr = jars.getString("address_detail").toString();
-                        tv_name.setText(jars.getString("uname").toString());
-                        tv_phone.setText(jars.getString("uphone").toString());
-                        tv_addrs.setText(jars.getString("address_detail").toString());
-                        rl_ano.setVisibility(View.GONE);
-                        ly_alladdr.setVisibility(View.VISIBLE);
+                    addridss = jars.getString("id").toString();
+                    provinces = jars.getString("province");
+                    citys = jars.getString("city");
+                    countrys = jars.getString("country");
+                    adrname = jars.getString("uname").toString();
+                    adrphone = jars.getString("uphone").toString();
+                    adraddr = jars.getString("address_detail").toString();
+                    tv_name.setText(jars.getString("uname").toString());
+                    tv_phone.setText(jars.getString("uphone").toString());
+                    tv_addrs.setText(jars.getString("address_detail").toString());
+                    rl_ano.setVisibility(View.GONE);
+                    ly_alladdr.setVisibility(View.VISIBLE);
 
                 }
 //                adapter = new BuysNumAdapter(this, itemlist);

@@ -23,6 +23,7 @@ import com.huihao.common.SystemBarTintManager;
 import com.huihao.fragment.Fragment_main;
 import com.huihao.fragment.Fragment_shop;
 import com.leo.base.activity.LActivity;
+import com.leo.base.util.LSharePreference;
 import com.leo.base.util.T;
 
 import org.w3c.dom.Text;
@@ -118,7 +119,8 @@ public class Pay_Successed extends LActivity implements View.OnClickListener {
             startActivity(intent);
             finish();
             Submit_Orders.instance.finish();
-            Fragment_shop.instance.getActivity().finish();
+            LSharePreference.getInstance(this).setBoolean("isSwitchM", true);
+            //Fragment_shop.instance.getActivity().finish();
         }
     }
 }
