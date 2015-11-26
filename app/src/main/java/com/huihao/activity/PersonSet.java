@@ -279,15 +279,15 @@ public class PersonSet extends LActivity implements View.OnClickListener {
                 }
                 break;
             case 6:
-                String sdnum = data.getExtras().getString("sdnum");
+                String sdnums = data.getExtras().getString("sdnum");
 
-                if (sdnum.equals("1")) {
+                if (sdnums.equals("1")) {
                     tv_num.setText("");
-                } else if (sdnum.equals("2")) {
+                } else if (sdnums.equals("2")) {
                     tv_num.setText("");
                 } else {
-                    tv_num.setText(sdnum);
-                    names = sdnum;
+                    tv_num.setText(sdnums);
+                    sdnum = sdnums;
                 }
                 break;
         }
